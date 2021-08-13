@@ -11,6 +11,5 @@ Route::group([
     'middleware' => ['tenant', PreventAccessFromCentralDomains::class], // See the middleware group in Http Kernel
     'as' => 'store.',
 ], function () {
-    
-    Route::get('/posts', 'PostController@index')->name('posts.index');
+    Route::get('/', 'HomeController@index')->name('store.index');
 });

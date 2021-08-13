@@ -11,8 +11,6 @@ Route::group([
     'middleware' => ['tenant', PreventAccessFromCentralDomains::class], // See the middleware group in Http Kernel
     'as' => 'tenant.',
 ], function () {
-    Route::redirect('/', '/home');
-
     Route::get('/impersonate/{token}', function ($token) {
         return UserImpersonation::makeResponse($token);
     })->name('impersonate');
