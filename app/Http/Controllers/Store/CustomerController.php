@@ -9,6 +9,7 @@ use App\Model\Customers;
 use App\Models\Customer;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,7 +36,8 @@ class CustomerController extends Controller
 
         $user = $this->create($request->all());
 
-        $this->guard('customers')->login($user);
+        $auth = auth()->guard('customers');
+        $auth->login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
