@@ -6,6 +6,7 @@ use App\Nova\Central\Admin;
 use App\Nova\Central\Domain;
 use App\Nova\Central\Tenant as TenantResource;
 use App\Nova\Central\SubscriptionCancelation;
+use App\Nova\Tenant\Customer;
 use App\Nova\Tenant\Post;
 use App\Nova\Tenant\User;
 use App\Tenant;
@@ -123,6 +124,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Nova::resources([
                 Post::class,
                 User::class,
+                Customer::class,
             ]);
         } else {
             Nova::resources([
