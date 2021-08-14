@@ -341,175 +341,6 @@
                     Men
                   </button>
                 </div>
-
-                <!--
-                  'Men' flyout menu, show/hide based on flyout menu state.
-
-                  Entering: "transition ease-out duration-200"
-                    From: "opacity-0"
-                    To: "opacity-100"
-                  Leaving: "transition ease-in duration-150"
-                    From: "opacity-100"
-                    To: "opacity-0"
-                -->
-                <div class="absolute top-full inset-x-0 text-sm text-gray-500"  style="display: none;">
-                  <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow -->
-                  <div class="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"></div>
-
-                  <div class="relative bg-white"  style="display: none;" >
-                    <div class="max-w-7xl mx-auto px-8">
-                      <div class="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
-                        <div class="col-start-2 grid grid-cols-2 gap-x-8">
-                          <div class="group relative text-base sm:text-sm">
-                            <div class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                              <img src="https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg" alt="Drawstring top with elastic loop closure and textured interior padding." class="object-center object-cover">
-                            </div>
-                            <a href="#" class="mt-6 block font-medium text-gray-900">
-                              <span class="absolute z-10 inset-0" aria-hidden="true"></span>
-                              New Arrivals
-                            </a>
-                            <p aria-hidden="true" class="mt-1">Shop now</p>
-                          </div>
-
-                          <div class="group relative text-base sm:text-sm">
-                            <div class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                              <img src="https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg" alt="Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt." class="object-center object-cover">
-                            </div>
-                            <a href="#" class="mt-6 block font-medium text-gray-900">
-                              <span class="absolute z-10 inset-0" aria-hidden="true"></span>
-                              Artwork Tees
-                            </a>
-                            <p aria-hidden="true" class="mt-1">Shop now</p>
-                          </div>
-                        </div>
-                        <div class="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm" > 
-                          <div>
-                            <p id="Clothing-heading" class="font-medium text-gray-900">
-                              Clothing
-                            </p>
-                            <ul role="list" aria-labelledby="Clothing-heading" class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Tops
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Pants
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Sweaters
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  T-Shirts
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Jackets
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Activewear
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Browse All
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-
-                          <div>
-                            <p id="Accessories-heading" class="font-medium text-gray-900">
-                              Accessories
-                            </p>
-                            <ul role="list" aria-labelledby="Accessories-heading" class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Watches
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Wallets
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Bags
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Sunglasses
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Hats
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Belts
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-
-                          <div>
-                            <p id="Brands-heading" class="font-medium text-gray-900">
-                              Brands
-                            </p>
-                            <ul role="list" aria-labelledby="Brands-heading" class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Re-Arranged
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Counterfeit
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  Full Nelson
-                                </a>
-                              </li>
-
-                              <li class="flex">
-                                <a href="#" class="hover:text-gray-800">
-                                  My Way
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <a href="#" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">Company</a>
@@ -520,20 +351,38 @@
 
           <div class="ml-auto flex items-center" >
             <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-              <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
               <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
-              <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
+              
+                            @guest('customers')
+                              <a href="{{ route('store.customer.login') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Login</a>
+                          
+                                <a href="{{ route('store.customer.register') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Register</a>
+                            
+                            @else
+                            <div x-data="{ expanded: false }" @click.away="expanded = false" class="ml-3 relative z-10">
+                                <div>
+                                    <button @click="expanded = !expanded" class="max-w-xs flex items-center text-sm rounded-fulltext-gray-700 hover:text-gray-800 focus:outline-none">
+                                       {{ Auth::guard('customers')->user()->name }}
+                                    </button>
+                                </div>
+                                <div  class=" right-0 mt-2 w-48 rounded-md shadow-lg">
+                                    <div class="py-1 rounded-md bg-white shadow-xs">
+                                        <a href="{{ route('store.logout') }}" class="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('store.logout') }}" method="POST" class="hidden">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endguest
+           
             </div>
 
-            <div class="hidden lg:ml-8 lg:flex">
-              <a href="#" class="text-gray-700 hover:text-gray-800 flex items-center">
-                <img src="https://tailwindui.com/img/flags/flag-canada.svg" alt="" class="w-5 h-auto block flex-shrink-0">
-                <span class="ml-3 block text-sm font-medium">
-                  CAD
-                </span>
-                <span class="sr-only">, change currency</span>
-              </a>
-            </div>
+           
 
             <!-- Search -->
             <div class="flex lg:ml-6">
@@ -565,7 +414,7 @@
 </div>
 
 <main>
-    
+@yield('content')
 </main>
 </div>
 

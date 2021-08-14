@@ -27,7 +27,7 @@ class RegisterController extends Controller
     /** @override */
     public function showRegistrationForm()
     {
-        return view('tenant.auth.register');
+        //return view('tenant.auth.register');
     }
 
     /**
@@ -70,10 +70,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return false;
     }
 }
