@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "58fe5ab8c7b435fd909141833e4dc5a6",
+    "content-hash": "30071a71b84af16e9dd8499459f11c79",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -216,6 +216,51 @@
                 "time"
             ],
             "time": "2020-05-26T01:27:20+00:00"
+        },
+        {
+            "name": "coderello/laravel-nova-lang",
+            "version": "1.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/coderello/laravel-nova-lang.git",
+                "reference": "e8293f9819037ed4ea2763f3055626c9c4f52c0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/coderello/laravel-nova-lang/zipball/e8293f9819037ed4ea2763f3055626c9c4f52c0a",
+                "reference": "e8293f9819037ed4ea2763f3055626c9c4f52c0a",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
+                "php": "^7.1|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Coderello\\LaravelNovaLang\\Providers\\LaravelNovaLangServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Coderello\\LaravelNovaLang\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Language support for Laravel Nova.",
+            "keywords": [
+                "lang",
+                "language",
+                "laravel",
+                "nova",
+                "support"
+            ],
+            "time": "2021-02-07T12:48:29+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -5795,12 +5840,12 @@
             "version": "0.2.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tightenco/nova-stripe.git",
+                "url": "https://github.com/tighten/nova-stripe.git",
                 "reference": "00cef6bd9c8d5bf74f42ad1a98839bb2aba00780"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/nova-stripe/zipball/00cef6bd9c8d5bf74f42ad1a98839bb2aba00780",
+                "url": "https://api.github.com/repos/tighten/nova-stripe/zipball/00cef6bd9c8d5bf74f42ad1a98839bb2aba00780",
                 "reference": "00cef6bd9c8d5bf74f42ad1a98839bb2aba00780",
                 "shasum": ""
             },
@@ -6341,6 +6386,7 @@
                 "faker",
                 "fixtures"
             ],
+            "abandoned": true,
             "time": "2019-12-12T13:22:17+00:00"
         },
         {
@@ -7159,6 +7205,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
@@ -7989,12 +8036,12 @@
             "version": "1.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "9dc4f203e36f2b486149058bade43c851dd97451"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/9dc4f203e36f2b486149058bade43c851dd97451",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/9dc4f203e36f2b486149058bade43c851dd97451",
                 "reference": "9dc4f203e36f2b486149058bade43c851dd97451",
                 "shasum": ""
             },

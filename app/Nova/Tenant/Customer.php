@@ -8,9 +8,11 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-
+use Carbon\Carbon;
+use Techouse\IntlDateTime\IntlDateTime as DateTime;
 class Customer extends Resource
 {
+    public static $group = 'Admin';
     /**
      * The model the resource corresponds to.
      *
@@ -48,7 +50,7 @@ class Customer extends Resource
             Text::make('Name'),
             Text::make('Email'),
             Text::make('Taxvat'),
-            Date::make('Dob')->format('DD/MM/YYYY')
+            Date::make('Dob')->format('DD/MM/YYYY')->pickerFormat('d/m/Y')->nullable(),
         ];
     }
 
