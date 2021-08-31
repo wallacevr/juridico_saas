@@ -1,4 +1,4 @@
-@extends('layouts.tenant')
+@extends('layouts.guest')
 
 @section('content')
     <div class="container mx-auto">
