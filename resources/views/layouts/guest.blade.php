@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    
+    <!-- Styles -->
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    @stack('head')
+</head>
+<body class="bg-gray-100 h-screen antialiased">
+    <div id="app">
+        <nav class="bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div>
+                        <a href="{{ route('tenant.posts.index') }}" class="text-sm font-medium text-white">Posts
+                        </a>
+                    </div>
+
+
+                    <div class="">
+                        <div class="ml-4 flex items-center md:ml-6">
+                            @guest
+                                <a href="{{ route('tenant.login') }}" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Login</a>
+                            @if (Route::has('tenant.register'))
+                                <a href="{{ route('tenant.register') }}" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Register</a>
+                            @endif
+                            @else
+                            <div x-data="{ expanded: false }" @click.away="expanded = false" class="ml-3 relative z-10">
+                                <div>
+                                    <button @click="expanded = !expanded" class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none">
+                                        <img class="h-8 w-8 rounded-full" src="{{ auth()->user()->gravatar_url }}" alt="{{ auth()->user()->name }}">
+                                    </button>
+                                </div>
+                                <div x-show="expanded" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg" style="display: none;">
+                                    <div class="py-1 rounded-md bg-white shadow-xs">
+                                        <a href="{{ route('tenant.settings.user') }}" class="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100">My account
+                                        </a>
+                                        @if(auth()->user()->isOwner())
+                                        <a href="{{ route('tenant.settings.application') }}" class="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100">Application settings
+                                        </a>
+                                        <a href="{{ config('nova.path') }}" class="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100">Admin panel
+                                        </a>
+                                        @endif
+                                        <a href="{{ route('tenant.logout') }}" class="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('tenant.logout') }}" method="POST" class="hidden">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endguest
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@if(isset($title))
+<header class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-semibold text-gray-900">
+            {{ $title }}
+        </h1>
+    </div>
+</header>
+@endif
+
+<main>
+@yield('content')
+</main>
+</div>
+
+@stack('body')
+</body>
+</html>
