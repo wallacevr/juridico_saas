@@ -40,7 +40,7 @@ Route::group([
             
         });
         Route::middleware(['auth', CheckSubscription::class])->group(function () {
-            Route::redirect('/','/dashboard');
+            Route::redirect('/','/admin/dashboard');
             Route::get('/dashboard', 'ApplicationSettingsController@show')->name('admin.dashboad');
             Route::get('/posts', 'PostController@index')->name('posts.index');
             Route::post('/posts', 'PostController@store')->name('posts.store');
