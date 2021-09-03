@@ -16,5 +16,6 @@ module.exports = {
     require('@tailwindcss/ui'),
     require('@tailwindcss/custom-forms'),
     require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
   ]
 }
