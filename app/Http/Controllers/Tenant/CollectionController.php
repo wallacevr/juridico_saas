@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Collection;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CollectionController extends Controller
 {
@@ -27,17 +28,42 @@ class CollectionController extends Controller
         return view('tenant.collections.create');
     }
 
+    public function edit(Collection $collection)
+    {
+        return view('tenant.collections.edit')->with(['collection' => $collection]);
+    }
+
     public function store(Request $request)
     {
-        // $validated = $this->validate($request, [
-        //     'name' => 'required',
-        //     'status' => 'required',
-        //     'page-title' => 'required',
-        //     'slug' => 'required',
-        // ]);
+        $this->validate($request, [
+            'name' => 'required',
+            'page_title' => 'required',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+            'slug' => 'required',
+        ]);
 
-        // return redirect(route('tenant.collections.show', [
-        //     'collection' => $collection,
-        // ]));
+        $data = $request->all();
+
+        if ($image = $request->file('image_url')) {
+            $destinationPath = public_path() . '/images';
+            $microtime = preg_replace('/(0)\.(\d+) (\d+)/', '$3$1$2', microtime());
+            $profileImage = Str::random(15) . $microtime . "." . $image->getClientOriginalExtension();
+
+            $image->move($destinationPath, $profileImage);
+            $data['image_url'] = "$profileImage";
+        }
+
+        $collection = Collection::create($data);
+
+        $collection->save();
+
+        return redirect()->route('tenant.collections.index')->with('success', 'Collection created successfully!');
+    }
+
+    public function destroy(Collection $collection)
+    {
+        $collection->delete();
+
+        return redirect()->route('tenant.collections.index')->with('success', 'Collection deleted successfully!');
     }
 }
