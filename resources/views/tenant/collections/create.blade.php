@@ -9,7 +9,8 @@
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <div class="grid grid-cols-3 gap-6">
                         <div class="col-span-12 sm:col-span-3">
-                            <label for="name" class="block text-sm font-medium text-gray-700">{{ __('label.Name') }}</label>
+                            <label for="name"
+                                class="block text-sm font-medium text-gray-700">{{ __('label.Name') }}</label>
                             <input type="text" name="name" id="name" autocomplete="name" value="{{ old('name') }}"
                                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 placeholder="e.g. Summer collection, Under $100, Staff picks" />
@@ -22,7 +23,7 @@
 
                         <div class="col-span-3">
                             <label for="description" class="block text-sm font-medium text-gray-700">
-                                Description
+                                {{ __('label.Description') }}
                             </label>
                             <div class="mt-1">
                                 <textarea id="description" name="description" rows="5"
@@ -46,7 +47,8 @@
                     </div>
 
                     <div class="col-span-12 sm:col-span-3">
-                        <label for="page_title" class="block text-sm font-medium text-gray-700">Page title</label>
+                        <label for="page_title"
+                            class="block text-sm font-medium text-gray-700">{{ __('label.Page title') }}</label>
                         <input type="text" name="page_title" id="page_title" autocomplete="page_title"
                             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             placeholder="Collection name" />
@@ -58,11 +60,11 @@
                     </div>
                     <div class="col-span-3">
                         <label for="seo_description" class="block text-sm font-medium text-gray-700">
-                            Description
+                            {{ __('label.Description') }}
                         </label>
                         <div class="mt-1">
                             <textarea id="seo_description" name="seo_description" rows="5"
-                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"></textarea>
+                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                         </div>
                     </div>
 
@@ -103,7 +105,7 @@
                                     checked value="1" />
                             </div>
                             <div class="ml-3 text-sm">
-                                <label for="status" class="font-medium text-gray-700">Active</label>
+                                <label for="status" class="font-medium text-gray-700">{{ __('label.Active') }}</label>
                                 <p class="text-gray-500">
                                     Set this collection active in your store.
                                 </p>
@@ -171,3 +173,7 @@
 </div>
 
 @endsection
+
+@push('js')
+<script src="{{ URL::to('/') . '/js/collections/collections-create.js' }}"></script>
+@endpush

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Collection;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CollectionController extends Controller
@@ -43,6 +44,7 @@ class CollectionController extends Controller
         ]);
 
         $data = $request->all();
+        $data['slug'] = $this->generateSlug($data['slug']);
 
         if ($image = $request->file('image_url')) {
             $destinationPath = public_path() . '/images';
@@ -57,13 +59,32 @@ class CollectionController extends Controller
 
         $collection->save();
 
-        return redirect()->route('tenant.collections.index')->with('success', 'Collection created successfully!');
+        return redirect()
+            ->route('tenant.collections.index')
+            ->with('success', 'Collection created successfully!');
     }
 
     public function destroy(Collection $collection)
     {
         $collection->delete();
 
-        return redirect()->route('tenant.collections.index')->with('success', 'Collection deleted successfully!');
+        return redirect()
+            ->route('tenant.collections.index')
+            ->with('success', 'Collection deleted successfully!');
+    }
+
+    public function generateSlug($slugString)
+    {
+        $originalSlug = Str::of($slugString)->slug('-');
+        $newSlug = $originalSlug;
+        $cont = 1;
+
+        while (DB::table('collections')->where('slug', $newSlug)->exists()) {
+            $newSlug = "{$originalSlug}-{$cont}";
+
+            $cont++;
+        }
+
+        return $newSlug;
     }
 }
