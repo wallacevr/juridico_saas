@@ -1,3 +1,7 @@
+@push('head')
+<link rel="stylesheet" href="{{ URL::to('/') . '/css/collections/image-input.css' }}">
+@endpush
+
 @extends('layouts.tenant', ['title' => __('Create collection')]) @section('content')
 
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
@@ -27,7 +31,7 @@
                             </label>
                             <div class="mt-1">
                                 <textarea id="description" name="description" rows="5"
-                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm "></textarea>
+                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ">{{ old('description') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -51,7 +55,7 @@
                             class="block text-sm font-medium text-gray-700">{{ __('label.Page title') }}</label>
                         <input type="text" name="page_title" id="page_title" autocomplete="page_title"
                             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="Collection name" />
+                            placeholder="Collection name" value="{{ old('page_title') }}" />
                         @error('page_title')
                         <p class="mt-2 text-sm text-red-500">
                             {{ $message }}
@@ -64,7 +68,7 @@
                         </label>
                         <div class="mt-1">
                             <textarea id="seo_description" name="seo_description" rows="5"
-                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">{{ old('seo_description') }}</textarea>
                         </div>
                     </div>
 
@@ -78,7 +82,8 @@
                                 {{ Request::getHost() . '/collections/' }}
                             </span>
                             <input type="text" name="slug" id="slug" autocomplete="slug"
-                                class="mt-1 block w-full border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                                class="mt-1 block w-full border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                value="{{ old('slug') }}" />
                             @error('slug')
                             <p class="mt-2 text-sm text-red-500">
                                 {{ $message }}
@@ -123,25 +128,24 @@
                         Collection image
                     </h3>
                 </div>
-                <div class=" mt-1 border-2 border-gray-300 border-dashed rounded-md px-6 pt-5 pb-6 flex justify-center">
-                    <div class="space-y-1 text-center">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
-                            viewBox="0 0 48 48" aria-hidden="true">
-                            <path
-                                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <div class="flex text-sm text-gray-600">
-                            <label for="image_url"
-                                class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                <span>Upload a file</span>
-                                <input id="image_url" name="image_url" type="file" class="sr-only" />
-                            </label>
-                            <p class="pl-1">or drag and drop</p>
+                <div class="mt-1 border-2 border-gray-300 border-dashed rounded-md px-6 pt-5 pb-6 flex justify-center">
+                    <div class="file-upload">
+                        <button class="file-upload-btn" type="button"
+                            onclick="document.getElementById('image_url').click()">Add Image</button>
+
+                        <div id="image-upload-wrap">
+                            <input id="image_url" name="image_url" type='file' accept="image/*" />
+                            <div class="drag-text">
+                                <h3>Drag and drop a file or select add Image</h3>
+                            </div>
                         </div>
-                        <p class="text-xs text-gray-500">
-                            PNG, JPG, GIF up to 10MB
-                        </p>
+                        <div id="file-upload-content">
+                            <img id="file-upload-image" src="#" alt="your image" />
+                            <div class="image-title-wrap">
+                                <button type="button" id="remove-image">Remove <span id="image-title">Uploaded
+                                        Image</span></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @error('image_url')
