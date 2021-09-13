@@ -12,10 +12,11 @@ use Illuminate\Support\Str;
 class CollectionController extends Controller
 {
     // Return all Collections
+    // Criar
     public function index()
     {
         return view('tenant.collections.index', [
-            'collections' => Collection::cursor(),
+            'collections' => Collection::paginate(5),
         ]);
     }
 

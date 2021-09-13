@@ -17,5 +17,6 @@ module.exports = {
     require('@tailwindcss/custom-forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),
+    require('tailwindcss-plugins/pagination')
   ]
 }

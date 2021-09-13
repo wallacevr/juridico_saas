@@ -92,6 +92,7 @@
 							</table>
 						</div>
 					</div>
+					{{ $collections->links() }}
 				</div>
 			</div>
 		</div>
