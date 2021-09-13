@@ -1,6 +1,9 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
+  corePlugins: {
+     appearance: false,
+  },
   purge: [
     './resources/views/**/*.blade.php',
     './resources/css/**/*.css',
@@ -16,7 +19,6 @@ module.exports = {
     require('@tailwindcss/ui'),
     require('@tailwindcss/custom-forms'),
     require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/forms'),
     require('tailwindcss-plugins/pagination')
   ]
 }

@@ -41,7 +41,6 @@ class CollectionController extends Controller
     }
 
     // Store a Collection
-    // TODO -  Gerar as imagem em uma pasta única para cada tenant?
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -77,7 +76,6 @@ class CollectionController extends Controller
     }
 
     // Update a Collection
-    // TODO -  Gerar as imagem em uma pasta única para cada tenant?
     public function update(Request $request, Collection $collection)
     {
         $this->validate($request, [
@@ -100,7 +98,7 @@ class CollectionController extends Controller
             if ($imageUrl = $this->storeImage($image)) {
                 $data['image_url'] = $imageUrl;
 
-                $oldImage = public_path() . '/images/' . $collection->image_url;
+                $oldImage = public_path() . '/images/collections/' . $collection->image_url;
 
                 File::exists($oldImage) ? File::delete($oldImage) : '';
 
@@ -124,7 +122,7 @@ class CollectionController extends Controller
             "message" => "Collection deleted successfully!",
         ];
 
-        $imageUrl = public_path() . '/images/' . $collection->image_url;
+        $imageUrl = public_path() . '/images/collections/' . $collection->image_url;
 
         if ($collection->delete()) {
             File::exists($imageUrl) ? File::delete($imageUrl) : '';
@@ -154,9 +152,13 @@ class CollectionController extends Controller
         return $newSlug;
     }
 
+    // Precisamos gerar um pasta única na public para cada tenant, usar o nome do banco?
     public function storeImage($image)
     {
-        $destinationPath = public_path() . '/images';
+        $destinationPath = public_path() . '/images/collections';
+
+        File::ensureDirectoryExists($destinationPath);
+
         $microtime = preg_replace('/(0)\.(\d+) (\d+)/', '$3$1$2', microtime());
         $imageUrl = Str::random(15) . $microtime . "." . $image->getClientOriginalExtension();
 

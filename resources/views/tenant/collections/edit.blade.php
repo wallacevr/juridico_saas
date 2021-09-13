@@ -144,7 +144,7 @@
                             </div>
                         </div>
                         <div id="file-upload-content" {{ $collection->image_url ? 'style=display:block;'  : ''}}>
-                            <img id="file-upload-image" src="{{ URL::to('/') . '/images/' .$collection->image_url }}" />
+                            <img id="file-upload-image" src="{{ URL::to('/') . '/images/collections/' .$collection->image_url }}" />
                             <div class="image-title-wrap">
                                 <button type="button" id="remove-image">Remove <span id="image-title">Uploaded
                                         Image</span></button>
