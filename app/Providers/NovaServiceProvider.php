@@ -6,9 +6,6 @@ use App\Nova\Central\Admin;
 use App\Nova\Central\Domain;
 use App\Nova\Central\Tenant as TenantResource;
 use App\Nova\Central\SubscriptionCancelation;
-use App\Nova\Tenant\Customer;
-use App\Nova\Tenant\Post;
-use App\Nova\Tenant\User;
 use App\Tenant;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
@@ -121,11 +118,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function resources()
     {
         if (tenancy()->initialized) {
-            Nova::resources([
-                Post::class,
-                User::class,
-                Customer::class,
-            ]);
+         
         } else {
             Nova::resources([
                 Admin::class,
