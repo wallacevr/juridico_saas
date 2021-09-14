@@ -75,7 +75,7 @@
 													method="post" style="margin-top: 4px;">
 													@csrf
 													@method('DELETE')
-													<button type="submit" class="delete-collection-button">
+													<button type="submit" class="delete-resource-button">
 														<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
 															fill="none" viewBox="0 0 24 24" stroke="currentColor">
 															<path stroke-linecap="round" stroke-linejoin="round"
@@ -100,7 +100,7 @@
 </div>
 
 {{-- Delete confirmation modal --}}
-<div id="collection-modal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+<div id="delete-modal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
 	aria-modal="true" style="display: none;">
 	<div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 		<div id="outside-modal" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true">
@@ -146,5 +146,5 @@
 @endsection
 
 @push('js')
-<script src="{{ URL::to('/') . '/js/collections/collections-index.js' }}"></script>
+<script src="{{ URL::to('/') . '/js/delete-modal.js' }}"></script>
 @endpush

@@ -1,5 +1,5 @@
 @push('head')
-<link rel="stylesheet" href="{{ URL::to('/') . '/css/collections/image-input.css' }}">
+<link rel="stylesheet" href="{{ URL::to('/') . '/css/image-preview-input.css' }}">
 @endpush
 
 @extends('layouts.tenant', ['title' => __("Update collection - {$collection->name}")]) @section('content')
@@ -183,5 +183,6 @@
 @endsection
 
 @push('js')
-<script src="{{ URL::to('/') . '/js/collections/collections-create.js' }}"></script>
+<script src="{{ URL::to('/') . '/js/image-preview-input.js' }}"></script>
+<script src="{{ URL::to('/') . '/js/string-slugger.js' }}"></script>
 @endpush

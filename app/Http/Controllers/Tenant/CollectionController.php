@@ -5,14 +5,11 @@ namespace App\Http\Controllers\Tenant;
 use App\Collection;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class CollectionController extends Controller
 {
     // Return all Collections
-    // Criar
     public function index()
     {
         return view('tenant.collections.index', [
@@ -57,9 +54,9 @@ class CollectionController extends Controller
 
         $data = $request->all();
         $image = $request->file('image_url');
-        $data['slug'] = $this->generateSlug($data['slug']);
+        $data['slug'] = generateSlug($data['slug'], 'collections');
 
-        if ($imageUrl = $this->storeImage($image)) {
+        if ($imageUrl = storeImage($image, '/images/collections')) {
             $data['image_url'] = $imageUrl;
 
             $collection = Collection::create($data);
@@ -87,26 +84,26 @@ class CollectionController extends Controller
 
         $response = [
             "status" => "success",
-            "message" => "Collection deleted successfully!",
+            "message" => "Collection updated successfully!",
         ];
 
         $data = $request->all();
         $image = $request->file('image_url');
-        $data['slug'] = $this->generateSlug($data['slug']);
+        $data['slug'] = generateSlug($data['slug'], 'collections');
 
         if (!empty($data['image_url']) && $data['image_url'] !== $collection->image_url) {
-            if ($imageUrl = $this->storeImage($image)) {
+            if ($imageUrl = storeImage($image, '/images/collections')) {
                 $data['image_url'] = $imageUrl;
 
                 $oldImage = public_path() . '/images/collections/' . $collection->image_url;
 
                 File::exists($oldImage) ? File::delete($oldImage) : '';
-
-                if (!$collection->update($data)) {
-                    $response['status'] = "error";
-                    $response['message'] = "Error creating collection.";
-                }
             }
+        }
+
+        if (!$collection->update($data)) {
+            $response['status'] = "error";
+            $response['message'] = "Error updating collection.";
         }
 
         return redirect()
@@ -136,34 +133,4 @@ class CollectionController extends Controller
             ->with($response['status'], $response['message']);
     }
 
-    // Generate a slug after receiving an string as paramn
-    public function generateSlug($slugString)
-    {
-        $originalSlug = Str::of($slugString)->slug('-');
-        $newSlug = $originalSlug;
-        $cont = 1;
-
-        while (DB::table('collections')->where('slug', $newSlug)->exists()) {
-            $newSlug = "{$originalSlug}-{$cont}";
-
-            $cont++;
-        }
-
-        return $newSlug;
-    }
-
-    // Precisamos gerar um pasta única na public para cada tenant, usar o nome do banco?
-    public function storeImage($image)
-    {
-        $destinationPath = public_path() . '/images/collections';
-
-        File::ensureDirectoryExists($destinationPath);
-
-        $microtime = preg_replace('/(0)\.(\d+) (\d+)/', '$3$1$2', microtime());
-        $imageUrl = Str::random(15) . $microtime . "." . $image->getClientOriginalExtension();
-
-        $image->move($destinationPath, $imageUrl);
-
-        return $imageUrl;
-    }
 }
