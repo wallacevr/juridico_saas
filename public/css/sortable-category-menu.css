@@ -1,0 +1,28 @@
+body.dragging,
+body.dragging * {
+    cursor: move !important;
+}
+
+.dragged {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2000;
+}
+
+.menu-items li.placeholder {
+    position: relative;
+    /** More li styles **/
+}
+
+.menu-items li.placeholder:before {
+    position: absolute;
+}
+
+.menu-items li {
+    display: block;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    color: #0088cc;
+    background: #eeeeee;
+}
