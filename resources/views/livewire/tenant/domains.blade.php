@@ -16,38 +16,38 @@
                           @if($domain->is_fallback)
                           <div class="ml-2 flex items-center">
                               <span class="px-2 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-800">
-                                  Fallback
+                              {{__("applicationSettings.Fallback")}}
                               </span>
                           </div>
                           @else
                             @if($domain->certificate_status === 'issued')
                                 <div class="mr-2 flex items-center">
                                     <span class="px-2 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                        Certificate issued
+                                    {{__("applicationSettings.Certificate issued")}}
                                     </span>
                                 </div>
                                 <span class="rounded-md shadow-sm">
                                     <button type="button" wire:click="revokeCertificate({{ $domain->id }})" class="items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                                        Revoke certificate
+                                    {{__("applicationSettings.Revoke certificate")}}
                                     </button>
                                 </span>
                             @elseif($domain->certificate_status === 'pending')
                                 <div class="mr-2 flex items-center">
                                     <span class="px-2 text-xs font-semibold rounded-full bg-orange-100 text-orange-800">
-                                        Pending
+                                    {{__("applicationSettings.Pending")}}
                                     </span>
                                 </div>
                             @else
                                 @if($domain->certificate_status === 'revoked')
                                     <div class="mr-2 flex items-center">
                                         <span class="px-2 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                            Certificate revoked
+                                        {{__("applicationSettings.Certificate revoked")}}
                                         </span>
                                     </div>
                                 @endif
                                 <span class="rounded-md shadow-sm">
                                     <button type="button" wire:click="requestCertificate({{ $domain->id }})" class="items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                                        Request certificate
+                                    {{__("applicationSettings.Request certificate")}}
                                     </button>
                                 </span>
                             @endif
@@ -55,20 +55,20 @@
                           @if($domain->is_primary)
                           <div class="ml-2 flex items-center">
                               <span class="px-2 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                  Primary
+                              {{__("applicationSettings.Primary")}}
                               </span>
                           </div>
                           @else
                           <div class="ml-2 flex">
                               <span class="rounded-md shadow-sm">
                                   <button type="button" wire:click="makePrimary({{ $domain->id }})" class="items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                                      Make primary
+                                  {{__("applicationSettings.Make primary")}}
                                   </button>
                               </span>
                               @if(! $domain->is_fallback)
                               <span class="ml-2 rounded-md shadow-sm">
                                   <button id="delete_{{ $domain->id }}" name="delete_{{ $domain->id }}" type="button" wire:click="delete({{ $domain->id }})" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-red-700 bg-white hover:text-red-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                                      Delete
+                                  {{__("actions.Delete")}}
                                   </button>
                               </span>
                               @endif
@@ -90,7 +90,7 @@
                                 <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                             </svg>
                             <div class="ml-1">
-                                Added on
+                                {{__("actions.Added on")}}
                                 <time datetime="{{ $domain->created_at->format('Y-m-d') }}">
                                     {{ $domain->created_at->format('M d, Y') }}
                                 </time>

@@ -52,3 +52,64 @@ if (!function_exists("storeImage")) {
         return $imageUrl;
     }
 }
+
+if (!function_exists('create_menu')) {
+    function create_menu()
+    {
+        return [
+            ['name' => 'Dashboard', 'icon' => 'DashboardIcon', 'href' => '#'],
+            [
+                'name' => __('menu.Products'),
+                'icon' => 'ProductsIcon',
+                'children' => [
+                    ['name' => __('menu.See All'), 'href' => '#'],
+                    ['name' => __('menu.Reviews'), 'href' => '#'],
+                    ['name' => __('menu.Stock Notification'), 'href' => '#'],
+                    ['name' => __('menu.Categories'), 'href' => '#'],
+                    ['name' => __('menu.Brands'), 'href' => '#'],
+                    ['name' => __('menu.Collections'), 'href' => '#'],
+                    ['name' => __('menu.Options'), 'href' => '#'],
+                ],
+            ],
+            [
+                'name' => __('menu.Orders'),
+                'icon' => 'OrdersIcon',
+                'children' => [
+                    ['name' => __('menu.See All'), 'href' => '#'],
+                    ['name' => __('menu.Groups'), 'href' => '#'],
+                    ['name' => __('menu.Newsletter'), 'href' => '#']
+                ],
+            ],
+            [
+                'name' => __('menu.Clients'),
+                'icon' => 'UsersIcon',
+                'children' => [
+                    ['name' => __('menu.See All'), 'href' => '#'],
+                    ['name' => __('menu.Groups'), 'href' => '#'],
+                    ['name' => __('menu.Newsletter'), 'href' => '#']
+                ],
+            ],
+            [
+                'name' => __('menu.Marketing'),
+                'icon' => 'MarketingIcon',
+                'children' => [
+                    ['name' => __('menu.Promo Codes'), 'href' => '#'],
+                    ['name' => __('menu.bundles'), 'href' => '#'],
+                    ['name' => __('menu.Pixel'), 'href' => '#'],
+                    ['name' => __('menu.Promotions'), 'href' => '#'],
+                    ['name' => __('menu.Upsell'), 'href' => '#'],
+                ],
+            ],
+            [
+                'name' => __('menu.Reports'),
+                'icon' => 'ReportsIcon',
+                'children' => [
+                    ['name' => __('menu.Sale by product'), 'href' => '#'],
+                    ['name' => __('menu.Sale by Coupon'), 'href' => '#'],
+                    ['name' => __('menu.Sale by Billet Product'), 'href' => '#'],
+                    ['name' => __('menu.Sale by UpSeel'), 'href' => '#'],
+                ],
+            ]
+        ];
+    }
+}
