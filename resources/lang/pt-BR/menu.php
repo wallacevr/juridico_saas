@@ -16,6 +16,7 @@ return [
     'Newsletter' => 'Newsletter',
     'Marketing' => 'Marketing',
     'Promo Codes' => 'Cupons',
+    'Banners' => 'Banners',
     'Bundles' => 'Compre Junto',
     'Pixel' => 'Pixel',
     'Promotions' => 'Promoções',
@@ -27,6 +28,15 @@ return [
     'Sale by UpSeel' => 'Vendas por UpSeel',
     'Orders' => 'Pedidos',
     'See All' => 'Ver Todos',
+    'Configurations' => 'Configurações',
+    'General' => 'Configurações',
+    'Transaction Email' => 'E-mails transacionais',
+    'Checkout' => 'Checkout',
+    'Imagens' => 'Imagens',
+    'Integrations' => 'Integrações',
+    'Redirects' => 'Redireções',
+    'Users' => 'Usuários',
+    'Apps' => 'Apps',
 
 
 ];

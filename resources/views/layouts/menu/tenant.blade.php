@@ -27,7 +27,7 @@ $navigations = create_menu();
                 </button>
                 @foreach($navigation['children'] as $child)
                     <div x-show="products_<?=$keyMenu?>" class="space-y-1" id="sub-menu-1">
-                        <a href="#" class="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
+                        <a href="{!! $child['href'] !!}" class="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
                         {!! $child['name'] !!}
                         </a>
                     </div>

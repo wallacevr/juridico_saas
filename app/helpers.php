@@ -66,8 +66,8 @@ if (!function_exists('create_menu')) {
                     ['name' => __('menu.Reviews'), 'href' => '#'],
                     ['name' => __('menu.Stock Notification'), 'href' => '#'],
                     ['name' => __('menu.Categories'), 'href' => '#'],
-                    ['name' => __('menu.Brands'), 'href' => '#'],
-                    ['name' => __('menu.Collections'), 'href' => '#'],
+                    ['name' => __('menu.Brands'), 'href' => route('tenant.brands.index')],
+                    ['name' => __('menu.Collections'), 'href' => route('tenant.collections.index')],
                     ['name' => __('menu.Options'), 'href' => '#'],
                 ],
             ],
@@ -93,8 +93,9 @@ if (!function_exists('create_menu')) {
                 'name' => __('menu.Marketing'),
                 'icon' => 'MarketingIcon',
                 'children' => [
+                    ['name' => __('menu.Banners'), 'href' => '#'],
                     ['name' => __('menu.Promo Codes'), 'href' => '#'],
-                    ['name' => __('menu.bundles'), 'href' => '#'],
+                    ['name' => __('menu.Bundles'), 'href' => '#'],
                     ['name' => __('menu.Pixel'), 'href' => '#'],
                     ['name' => __('menu.Promotions'), 'href' => '#'],
                     ['name' => __('menu.Upsell'), 'href' => '#'],
@@ -109,6 +110,23 @@ if (!function_exists('create_menu')) {
                     ['name' => __('menu.Sale by Billet Product'), 'href' => '#'],
                     ['name' => __('menu.Sale by UpSeel'), 'href' => '#'],
                 ],
+            ],
+            [
+                'name' => __('menu.Configurations'),
+                'icon' => 'ConfigIcon',
+                'children' => [
+                    ['name' => __('menu.General'), 'href' => '#'],
+                    ['name' => __('menu.Transaction Email'), 'href' => '#'],
+                    ['name' => __('menu.Checkout'), 'href' => '#'],
+                    ['name' => __('menu.Imagens'), 'href' => '#'],
+                    ['name' => __('menu.Integrations'), 'href' => '#'],
+                    ['name' => __('menu.Redirects'), 'href' => '#'],
+                    ['name' => __('menu.Users'), 'href' => '#'],
+                ],
+            ],[
+                'name' => __('menu.Apps'),
+                'icon' => 'AppIcon',
+                'href' => '#'
             ]
         ];
     }
