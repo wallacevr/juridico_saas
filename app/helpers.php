@@ -57,7 +57,7 @@ if (!function_exists('create_menu')) {
     function create_menu()
     {
         return [
-            ['name' => 'Dashboard', 'icon' => 'DashboardIcon', 'href' => '#'],
+            ['name' => 'Dashboard', 'icon' => 'DashboardIcon', 'href' => route('tenant.admin.dashboad')],
             [
                 'name' => __('menu.Products'),
                 'icon' => 'ProductsIcon',

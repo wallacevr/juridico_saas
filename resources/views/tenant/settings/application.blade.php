@@ -1,4 +1,4 @@
-@extends('layouts.tenant', ['title' => 'Application settings'])
+@extends('layouts.tenant', ['title' => __('applicationSettings.Store settings')])
 
 @push('head')
 @livewireStyles
@@ -82,10 +82,10 @@
   <div class="flex flex-row flex-wrap">
     <div class="w-full md:w-1/3">
       <div class="px-4 md:px-0">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Billing
+        <h3 class="text-lg font-medium leading-6 text-gray-900">{{__('applicationSettings.Billing')}}
         </h3>
         <p class="mt-1 text-sm leading-5 text-gray-600">
-          Manage your subscription and payment methods.
+        {{__('applicationSettings.Manage your subscription and payment methods')}}.
         </p>
       </div>
     </div>

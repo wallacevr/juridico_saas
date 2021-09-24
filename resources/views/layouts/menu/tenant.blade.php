@@ -8,7 +8,7 @@ $navigations = create_menu();
             @foreach($navigations as $keyMenu =>$navigation)
             @if(empty($navigation['children']))
             <div>
-                <a href="#" class="bg-gray-100 text-gray-900 group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md">
+                <a href="{!! $navigation['href'] !!}" class="bg-gray-100 text-gray-900 group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md">
                     {!! get_icon($navigation['icon']) !!}
                     {!! $navigation['name'] !!}
                 </a>

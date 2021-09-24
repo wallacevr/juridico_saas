@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'My account' => 'Minha conta',
     'Settings' => 'Configurações',
     'Dashboard' => 'Dashboard',
     'Products' => 'Produtos',

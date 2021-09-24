@@ -16,8 +16,8 @@ $color = $subscribed ? 'green' : 'orange';
                     </div>
                     <div class="ml-3">
                         <p class="text-sm font-medium text-orange-800">
-                        You're on trial until <time datetime="{{ tenant()->trial_ends_at->format('Y-m-d') }}">
-                            {{ tenant()->trial_ends_at->format('M d, Y') }}</time>, <strong>but you haven't subscribed to any plan yet</strong>. Please do so now to contine using the application even after your trial ends.
+                        {{__("applicationSettings.You're on trial until")}} <time datetime="{{ tenant()->trial_ends_at->format(__('Config.Y-m-d')) }}">
+                            {{ tenant()->trial_ends_at->format(__('Config.M d, Y')) }}</time>, <strong>{{__("applicationSettings.but you haven't subscribed to any plan yet")}}</strong>. {{__("applicationSettings.Please do so now to contine using the application even after your trial ends")}}.
                         </p>
                     </div>
                 </div>
@@ -33,7 +33,7 @@ $color = $subscribed ? 'green' : 'orange';
                     </div>
                     <div class="ml-3">
                         <p class="text-sm font-medium text-orange-800">
-                            You're on <strong>not subscribed</strong>. If you wish to keep using the application, please choose a subscription plan below.
+                        {!! __("applicationSettings.You're on <strong>not subscribed</strong>. If you wish to keep using the application, please choose a subscription plan below") !!}.
                         </p>
                     </div>
                 </div>
@@ -51,9 +51,10 @@ $color = $subscribed ? 'green' : 'orange';
                     </div>
                     <div class="ml-3">
                         <p class="text-sm font-medium text-orange-800">
-                            You're on a <strong>grace period</strong> until <time datetime="{{ tenant()->subscription('default')->ends_at->format('Y-m-d') }}">
-                            {{ tenant()->subscription('default')->ends_at->format('M d, Y') }}</time>.
-                            If you wish to continue using the application after that date, please <strong>resubscribe</strong>.
+                        {!!__("applicationSettings.You're on a <strong>grace period</strong> until")!!}
+                             <time datetime="{{ tenant()->subscription('default')->ends_at->format(__('Config.Y-m-d')) }}">
+                            {{ tenant()->subscription('default')->ends_at->format(__('Config.M d, Y')) }}</time>.
+                            {!! __("applicationSettings.If you wish to continue using the application after that date, please <strong>resubscribe</strong>") !!}.
                         </p>
                     </div>
                 </div>
@@ -69,10 +70,10 @@ $color = $subscribed ? 'green' : 'orange';
                     </div>
                     <div class="ml-3">
                         <p class="text-sm font-medium text-green-800">
-                            You're subscribed to the <strong>{{ tenant()->plan_name }}</strong> plan.
+                        {!! __("applicationSettings.You're subscribed to the <strong>PLAN</strong> plan",['plan'=>tenant()->plan_name]) !!}.
                             @if(tenant()->subscription('default')->onTrial())
-                                You're also on trial, until <time datetime="{{ tenant()->subscription('default')->trial_ends_at->format('Y-m-d') }}">{{ tenant()->subscription('default')->trial_ends_at->format('M d, Y') }}</time>.
-                                Once it ends, we'll charge you for your plan.
+                            {{ __("You're also on trial, until") }}. <time datetime="{{ tenant()->subscription('default')->trial_ends_at->format(__('Config.Y-m-d')) }}">{{ tenant()->subscription('default')->trial_ends_at->format(__('Config.M d, Y')) }}</time>.
+                            {{ __("Once it ends, we'll charge you for your plan") }}.
                             @endif
                         </p>
                     </div>

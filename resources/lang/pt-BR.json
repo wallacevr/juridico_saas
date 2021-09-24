@@ -1,0 +1,16 @@
+{
+    "Logout":"Sair",
+    "My account":"Minha conta",
+    "Personal information":"Informações Pessoais",
+    "This information will be displayed in or panel admin":"Essas informações serão mostradas no painel administrativo",
+    "Name":"Nome",
+    "Email":"E-mail",
+    "John Doe":"João da Silva",
+    "you@example.com":"voce@seuemail.com",
+    "Password":"Senha",
+    "Change your password":"Alterar Senha",
+    "Forgot your current password?":"Esqueceu sua senha?",
+    "New password":"Nova senha",
+    "Current password":"Senha atual",
+    "Confirm password":"Confirmar senha"
+}

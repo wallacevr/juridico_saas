@@ -7,7 +7,7 @@
                     <label for="domain" class="block text-sm font-medium leading-5 text-gray-700">{{__("applicationSettings.Domain")}}
                     </label>
                     <div class="mt-1 relative rounded-md shadow-sm">
-                        <input id="domain" autocomplete="off" wire:model="domain" value="" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="mydomain.com" />
+                        <input id="domain" autocomplete="off" wire:model="domain" value="" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="{{__("applicationSettings.mydomain.com")}}" />
                     </div>
                 </div>
                 

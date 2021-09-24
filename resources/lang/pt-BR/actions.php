@@ -6,4 +6,5 @@ return [
     'Added on' => 'Adicionado em',
     'Issued on' => 'Criado em',
     'Download' => 'Baixar',
+    'Close' => 'Fechar',
 ];

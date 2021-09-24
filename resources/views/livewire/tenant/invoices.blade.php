@@ -48,8 +48,8 @@
                             </svg>
                             <span>
                             {{__("actions.Issued on")}}
-                                <time datetime="{{ $invoice->date()->format('Y-m-d') }}">
-                                    {{ $invoice->date()->format('M d, Y') }}
+                                <time datetime="{{ $invoice->date()->format(__('Config.Y-m-d')) }}">
+                                    {{ $invoice->date()->format(__('Config.M d, Y')) }}
                                 </time>
                             </span>
                         </div>

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'One Commerce') }}</title>
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
@@ -156,11 +156,11 @@
                             <div x-show="showProfile" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in-out duration-300 transform" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="z-10 mx-3 origin-top absolute right-0 left-0 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-button" tabindex="-1">
                                 <div class="py-1" role="none">
                                     <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                    <a href="{{ route('tenant.settings.user') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-0">My account</a>
+                                    <a href="{{ route('tenant.settings.user') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-0">{{__('My account')}}</a>
                                 </div>
                                 <div class="py-1" role="none">
                                     @if(auth()->user()->isOwner())
-                                    <a href="{{ route('tenant.settings.application') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-2">Application settings</a>
+                                    <a href="{{ route('tenant.settings.application') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-2">{{__('applicationSettings.Store settings')}}</a>
                                     @endif
                                 </div>
                                 <div class="py-1" role="none">
