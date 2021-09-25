@@ -47,6 +47,7 @@ Route::group([
             Route::resource('collections', 'CollectionController');
             // Brand routes
             Route::resource('brands', 'BrandController');
+            Route::resource('configurations', 'ConfigurationController');
 
             Route::get('/settings/user', 'UserSettingsController@show')->name('settings.user');
             Route::post('/settings/user/personal', 'UserSettingsController@personal')->name('settings.user.personal');
