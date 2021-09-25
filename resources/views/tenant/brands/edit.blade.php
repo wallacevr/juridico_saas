@@ -145,7 +145,7 @@
                         </div>
                         <div id="file-upload-content" {{ $brand->image_url ? 'style=display:block;'  : ''}}>
                             <img id="file-upload-image"
-                                src="{{ URL::to('/') . '/images/brands/' .$brand->image_url }}" />
+                                src="{{  tenant_public_path() . '/images/brands/' .$brand->image_url }}" />
                             <div class="image-title-wrap">
                                 <button type="button" id="remove-image">Remove <span id="image-title">Uploaded
                                         Image</span></button>
