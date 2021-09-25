@@ -29,14 +29,21 @@ return [
     'Orders' => 'Pedidos',
     'See All' => 'Ver Todos',
     'Configurations' => 'Configurações',
-    'General' => 'Configurações',
+    'General' => 'Geral',
     'Transaction Email' => 'E-mails transacionais',
     'Checkout' => 'Checkout',
     'Imagens' => 'Imagens',
     'Integrations' => 'Integrações',
-    'Redirects' => 'Redireções',
+    'Redirects' => 'Redirecionamento',
     'Users' => 'Usuários',
     'Apps' => 'Apps',
+    'Visual' => 'Visual',
+    'Logo' => 'Logo',
+    'Layout' => 'Visual da página',
+    'Social Network' => 'Redes sociais',
+    'Embed Html Code' => 'Inserir código HTML',
+    'Pages' => 'Páginas de Conteúdo',
+    'Blocks' => 'Blocos',
 
 
 ];
