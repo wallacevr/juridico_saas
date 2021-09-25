@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-
+use App\Models\Config;
 function ploi(): PloiManager
 {
     return app(PloiManager::class);
@@ -15,6 +15,14 @@ if (!function_exists("tenant_public_path")) {
     
     function tenant_public_path(){      
         return URL::to('/').'/tenant/'.tenant('id');
+    }
+    
+}
+if (!function_exists("get_config")) {
+    
+    function get_config($path){      
+        $config = Config::where('path', $path)->firstOrFail();
+        return $config['value'];
     }
     
 }
@@ -152,7 +160,7 @@ if (!function_exists('create_menu')) {
                 'name' => __('menu.Configurations'),
                 'icon' => 'ConfigIcon',
                 'children' => [
-                    ['name' => __('menu.General'), 'href' => '#'],
+                    ['name' => __('menu.General'), 'href' => route('tenant.configurations.index')],
                     ['name' => __('menu.Transaction Email'), 'href' => '#'],
                     ['name' => __('menu.Checkout'), 'href' => '#'],
                     ['name' => __('menu.Imagens'), 'href' => '#'],
