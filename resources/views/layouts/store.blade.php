@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>{{ get_config('general/store_name') }}</title>
+    <title>{{ get_config('general/store/name') }}</title>
     
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>

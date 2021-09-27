@@ -160,7 +160,7 @@ if (!function_exists('create_menu')) {
                 'name' => __('menu.Configurations'),
                 'icon' => 'ConfigIcon',
                 'children' => [
-                    ['name' => __('menu.General'), 'href' => route('tenant.configurations.index')],
+                    ['name' => __('menu.General'), 'href' => route('tenant.settings.store')],
                     ['name' => __('menu.Transaction Email'), 'href' => '#'],
                     ['name' => __('menu.Checkout'), 'href' => '#'],
                     ['name' => __('menu.Imagens'), 'href' => '#'],

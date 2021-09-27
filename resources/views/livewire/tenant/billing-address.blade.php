@@ -6,7 +6,7 @@
                 <label for="line1" class="block text-sm font-medium leading-5 text-gray-700">{{__("applicationSettings.Line 1")}}
                 </label>
                 <div class="mt-1 relative rounded-md shadow-sm">
-                    <input id="line1" wire:model="line1" type="text" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="{{__("applicationSettings.123 Street")}}">
+                    <input id="line1" wire:model="line1" type="text" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="{{__("applicationSettings.placeholder_address")}}">
                 </div>
                 @error('line1')
                 <p class="text-sm mt-2 text-red-500">
@@ -30,7 +30,7 @@
                 <label for="city" class="block text-sm font-medium leading-5 text-gray-700">{{__("applicationSettings.City")}}
                 </label>
                 <div class="mt-1 relative rounded-md shadow-sm">
-                    <input id="city" wire:model="city" type="text" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="{{__("applicationSettings.San Francisco")}}">
+                    <input id="city" wire:model="city" type="text" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="{{__("applicationSettings.placeholder_city")}}">
                 </div>
                 @error('city')
                 <p class="text-sm mt-2 text-red-500">
@@ -42,7 +42,7 @@
                 <label for="state" class="block text-sm font-medium leading-5 text-gray-700">{{__("applicationSettings.State")}}
                 </label>
                 <div class="mt-1 relative rounded-md shadow-sm">
-                    <input id="state" wire:model="state" type="text" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="{{__("applicationSettings.California")}}">
+                    <input id="state" wire:model="state" type="text" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="{{__("applicationSettings.placeholder_state")}}">
                 </div>
                 @error('state')
                 <p class="text-sm mt-2 text-red-500">

@@ -15,85 +15,85 @@ class TenantDatabaseSeeder extends Seeder
     {
        $configs = [
             [
-                'path' => 'general/store_name',
+                'path' => 'general/store/name',
                 'value' => 'MaxCommerce'
             ], [
-                'path' => 'general/store_description',
+                'path' => 'general/store/description',
                 'value' => 'Monte sua loja online sem dificuldades, com preços acessíveis'
             ], [
-                'path' => 'general/store_email',
+                'path' => 'general/store/email',
                 'value' => 'contato@maxcommerce.com.br'
             ],
             [
-                'path' => 'general/store_logo',
+                'path' => 'general/store/logo',
                 'value' => 'maxcommerce.png'
             ],
             [
-                'path' => 'general/store_favicon',
+                'path' => 'general/store/favicon',
                 'value' => 'maxcommerce_icon.png'
             ],
             [
-                'path' => 'general/store_maintenance',
+                'path' => 'general/store/maintenance',
                 'value' => 0
             ],
             [
-                'path' => 'general/store_postalcode',
+                'path' => 'general/store/postalcode',
                 'value' => '60000-000'
             ],
             [
-                'path' => 'general/store_address',
+                'path' => 'general/store/address',
                 'value' => 'Avenida Beira Mar'
             ],
             [
-                'path' => 'general/store_number',
+                'path' => 'general/store/number',
                 'value' => '0000'
             ],
             [
-                'path' => 'general/store_complement',
+                'path' => 'general/store/complement',
                 'value' => 'B'
             ],
             [
-                'path' => 'general/store_neighborhood',
+                'path' => 'general/store/neighborhood',
                 'value' => 'Centro'
             ],
             [
-                'path' => 'general/store_city',
-                'value' => 'Avenida Beira Mar'
+                'path' => 'general/store/city',
+                'value' => 'Fortaleza'
             ],
             [
-                'path' => 'general/store_state',
-                'value' => 'Avenida Beira Mar'
+                'path' => 'general/store/state',
+                'value' => 'Ceará'
             ],
             [
-                'path' => 'general/store_vatid',
+                'path' => 'general/store/vatid',
                 'value' => '00.000.000/0000-00'
             ],
             [
-                'path' => 'general/store_phone',
+                'path' => 'general/store/phone',
                 'value' => '(xx) xxxxx - xxxx'
             ],
             [
-                'path' => 'general/store_whatsapp',
+                'path' => 'general/store/whatsapp',
                 'value' => '(xx) xxxxx - xxxx'
             ],
             [
-                'path' => 'general/store_social_facebook',
+                'path' => 'general/store/social_facebook',
                 'value' => 'https://www.facebook.com/maxcommerce'
             ],
             [
-                'path' => 'general/store_social_instagram',
+                'path' => 'general/store/social_instagram',
                 'value' => 'http://instagram.com/maxcommerce'
             ],
             [
-                'path' => 'general/store_social_youtube',
+                'path' => 'general/store/social_youtube',
                 'value' => 'https://www.youtube.com/channel/maxcommerce'
             ],
             [
-                'path' => 'general/store_social_pinterest',
+                'path' => 'general/store/social_pinterest',
                 'value' => 'https://br.pinterest.com/maxcommerce'
             ],
             [
-                'path' => 'general/store_total_by_product',
+                'path' => 'general/store/total_by_product',
                 'value' => 36
             ]
         ];
