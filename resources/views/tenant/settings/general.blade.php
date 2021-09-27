@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="{{ route('tenant.settings.store.update') }}" method="POST">
+<form action="{{ route('tenant.settings.store.update') }}" method="POST" id="storeSettings">
   @csrf
 
   <!-- Block 1 -->
@@ -41,7 +41,16 @@
           <div class="flex flex-row flex-wrap">
             <div class="w-full md:w-1/2">
               <div class="mt-4  pr-2">
-                @include('layouts.snippets.fields', ['type'=>'text','label'=>'Postal code','placeholder'=>'placeholder_postalcode','name'=>'postalcode','value'=>get_config('general/store/postalcode') ])
+                <!-- This example requires Tailwind CSS v2.0+ -->
+                <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+                <button type="button" class="bg-indigo-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" role="switch" aria-checked="false">
+                  <span class="sr-only">Use setting</span>
+                  <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+                  <span aria-hidden="true" class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"></span>
+                </button>
+                <span class="ml-3" id="annual-billing-label">
+                  <span class="text-sm font-medium text-gray-900">{{__('Putting your store under maintenance mode')}}</span>
+                </span>
               </div>
             </div>
             <div class="w-full md:w-1/2">
@@ -166,7 +175,7 @@
         <h3 class="text-lg font-medium leading-6 text-gray-900">{{__('Social Network')}}
         </h3>
         <p class="mt-1 text-sm leading-5 text-gray-600">
-          
+
         </p>
       </div>
     </div>
@@ -210,4 +219,18 @@
   @include('layouts.snippets.save')
 
 </form>
+
 @endsection
+@push('js')
+<script>
+  $(document).ready(function() {
+    $("#storeSettings").validate({
+      rules: {
+        name: {
+          required: true
+        }
+      }
+    });
+  });
+</script>
+@endpush
