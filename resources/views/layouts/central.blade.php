@@ -10,10 +10,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/tenant.js') }}" defer></script>
     
     <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/tenant.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 </head>

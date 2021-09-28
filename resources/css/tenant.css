@@ -3,3 +3,12 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.red,
+.error{
+    color: brown;
+}
+
+label>.red{
+font-size: 15px;
+}
