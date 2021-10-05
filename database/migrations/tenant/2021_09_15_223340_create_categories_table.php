@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->boolean('is_parent')->default(1);
             $table->unsignedBigInteger('parent_id')->nullable();
+            $table->string('url')->nullable();
             $table->boolean('status')->default(0);
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

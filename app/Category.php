@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
 
-    protected $fillable = ['title', 'slug', 'status', 'is_parent', 'parent_id'];
+    protected $fillable = ['title', 'slug', 'status', 'is_parent', 'parent_id', 'url'];
 
     protected $attributes = [
         'status' => false,
@@ -17,6 +17,11 @@ class Category extends Model
     public static function getMainCategoriesWithChildrens()
     {
         return Category::orderBy('id', 'ASC')->where('is_parent', 0)->with('allChildren')->paginate(5);
+    }
+
+    public static function getMainCategoryWithChildrens($categoryId)
+    {
+        return Category::where('id', $categoryId)->with('allChildren')->first();
     }
 
     public function parent()

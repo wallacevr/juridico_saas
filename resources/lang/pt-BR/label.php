@@ -1,10 +1,48 @@
 <?php
 
 return [
-
+    // Geral
     'Name' => 'Nome',
+    'Status' => 'Status',
+    'Actions' => 'Ações',
     'Description' => 'Descrição',
     'Page title' => 'Título da página',
     'Active' => 'Ativo',
+    'Inactive' => 'Inativo',
     'Title' => 'Título',
+    'Other options' => 'Outras opções',
+    'URL and handle' => 'Endereço e identificador',
+    'Uploaded image' => 'Imagem carregada',
+    'Drag and drop a file or select add Image' => 'Arraste e solte um arquivo ou selecione adicionar imagem',
+    'Search engine listing preview' => 'Pré-visualização em listas de pesquisa',
+    'Menu items' => 'Itens do menu',
+    // Coleções
+    'Collections' => 'Coleções',
+    'Collection name' => 'Nome da coleção',
+    'Collection image' => 'Imagem da coleção',
+    'Set this collection active in your store.' => 'Defina esta coleção ativa em sua loja.',
+    'e.g. Summer collection, Under $100, Staff picks' => 'e.g. Coleção de verão, abaixo de R$ 100, Escolhas da equipe',
+    'Add a title and description to see how this collection might appear in a search engine listing.' => 'Adicione um título e uma descrição para ver como essa coleção pode aparecer em uma lista de mecanismo de pesquisa. ',
+    'Delete collection?' => 'Excluir coleção?',
+    'Are you sure you want to delete this collection? This action cannot be undone.' => 'Tem certeza de que deseja excluir esta coleção? Essa ação não pode ser desfeita.',
+    // Marcas
+    'Brands' => 'Marcas',
+    'Brand name' => 'Nome da marca',
+    'Brand image' => 'Imagem da marca',
+    'Set this brand active in your store.' => 'Defina esta marca ativa em sua loja.',
+    'Your brand name' => 'Nome da sua marca',
+    'Add a title and description to see how this brand might appear in a search engine listing.' => 'Adicione um título e uma descrição para ver como essa marca pode aparecer em uma lista de mecanismo de pesquisa. ',
+    'Delete brand?' => 'Excluir marca?',
+    'Are you sure you want to delete this brand? This action cannot be undone.' => 'Tem certeza de que deseja excluir esta marca? Essa ação não pode ser desfeita.',
+    // Categorias
+    'Categories' => 'Categorias',
+    'Delete category?' => 'Deletar categoria?',
+    'Are you sure you want to delete this category? This action cannot be undone.' => 'Tem certeza de que deseja excluir esta categoria? Essa ação não pode ser desfeita.',
+    'New menu item' => 'Novo item no menu',
+    'Set this menu active in your store.' => 'Defina este menu ativo em sua loja.',
+    'e.g. Bags & Shoes' => 'e.g. Bolsas e Sapatos',
+    'Subcategory title' => 'Título da subcategoria',
+    'Subcategory url' => 'URL da categoria',
+    'www.mystore.com/shoes' => 'www.minhaloja.com/sapatos',
+    'Edit menu item' => 'Editar item do menu',
 ];

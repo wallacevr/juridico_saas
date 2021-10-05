@@ -3,22 +3,26 @@
 <link rel="stylesheet" href="{{ URL::to('/') . '/css/category-edit-side-menu.css' }}">
 @endpush
 
-@extends('layouts.tenant', ['title' => __('actions.Create category')]) @section('content')
+@extends('layouts.tenant', ['title' => __('actions.Edit category') . __(" - {$category->title}")])
+
+@section('content')
 
 @include('tenant.categories.category-edit-menu')
 
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
     <!-- LEFT FORM -->
     <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">
-        <form action="{{ route('tenant.categories.store') }}" method="POST"">
+        <form action="{{ route('tenant.categories.update', $category->id) }}" method="POST"">
             @csrf
+            @method('PUT')
             <div class=" shadow sm:rounded-md sm:overflow-hidden">
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-12 sm:col-span-3">
                         <label for="title"
                             class="block text-sm font-medium text-gray-700">{{ __('label.Title') }}</label>
-                        <input type="text" name="title" id="title" autocomplete="title" value="{{ old('title') }}"
+                        <input type="text" name="title" id="title" autocomplete="title"
+                            value="{{ old('title')  ? old('title') :  $category->title}}"
                             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             placeholder="{{ __('label.e.g. Bags & Shoes') }}" />
                         @error('title')
@@ -37,6 +41,7 @@
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                     {{ __('label.Menu items') }}
                 </h3>
+
                 <div class="flex md:flex md:justify-center pt-3">
                     <input type="text" id="subcategoryTitle" value="{{ old('title') }}"
                         class="flex-auto mx-1 mt-1 border border-gray-300 rounded-md shadow-sm py-2 px-5 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -50,9 +55,30 @@
                     </button>
                 </div>
             </div>
-            <hr>
             <input type="hidden" id="menu-items-input" name="menu-items">
-            <ol class='menu-items'></ol>
+            <input type="hidden" id="menu-items-delete" name="menu-items-delete">
+            <hr>
+            <ol class='menu-items'>
+                @foreach ($category->children as $categoryChild)
+
+                <li id="{{'category-'. $categoryChild->id }}" data-id="{{ $categoryChild->id }}"
+                    data-name="{{ $categoryChild->title }}" data-url="{{ $categoryChild->url }}">
+
+                    <span class="subcategory-title">{{ $categoryChild->title }}</span>
+
+                    <div class="float-right">
+                        @include('tenant.categories.subcategory-edit-buttons')
+                    </div>
+
+                    <ol>
+                        @if (!empty($categoryChild->children[0]))
+                        @include('tenant.categories.subcategory-child', [ 'categoryChild' => $categoryChild])
+                        @endif
+                    </ol>
+                </li>
+
+                @endforeach
+            </ol>
         </div>
     </div>
 </div>
@@ -69,7 +95,7 @@
                         <div class="h-5 flex items-center">
                             <input id="status" name="status" type="checkbox"
                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                {{ old('status') ? 'checked' : '' }} value="1" />
+                                {{ old('status') || $category->status ? 'checked' : '' }} value="1" />
                         </div>
                         <div class="ml-3 text-sm">
                             <label for="status" class="font-medium text-gray-700">{{ __('label.Active') }}</label>
@@ -107,6 +133,6 @@
 @push('js')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{{ URL::to('/') . '/js/jquery-sortable.js' }}"></script>
-<script src="{{ URL::to('/') . '/js/category-edit-side-menu.js' }}"></script>
 <script src="{{ URL::to('/') . '/js/sortable-category-menu.js' }}"></script>
+<script src="{{ URL::to('/') . '/js/category-edit-side-menu.js' }}"></script>
 @endpush

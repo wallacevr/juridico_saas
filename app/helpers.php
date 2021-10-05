@@ -16,16 +16,23 @@ if (!function_exists("generateSlug")) {
      *
      * @return string
      */
-    function generateSlug($slugString, $entity)
+    function generateSlug($slugString, $entity, $entityId = null)
     {
         $originalSlug = Str::of($slugString)->slug('-');
         $newSlug = $originalSlug;
         $cont = 1;
 
-        while (DB::table($entity)->where('slug', $newSlug)->exists()) {
-            $newSlug = "{$originalSlug}-{$cont}";
+        $query = DB::table($entity)->where('slug', $newSlug);
 
+        if ($entityId) {
+            $query->where('id', '<>', $entityId);
+        }
+
+        while ($query->exists()) {
+            $newSlug = "{$originalSlug}-{$cont}";
             $cont++;
+
+            $query = DB::table($entity)->where('slug', $newSlug);
         }
 
         return $newSlug;
@@ -50,5 +57,41 @@ if (!function_exists("storeImage")) {
         $image->move($destinationPath, $imageUrl);
 
         return $imageUrl;
+    }
+}
+
+if (!function_exists("returnAllSubcategories")) {
+    function returnAllSubcategories($mainCategory, $displayType)
+    {
+        // Simple and verbose
+
+        if ($displayType === 'Admin') {
+            $subCategories = loopThroughSubCategories($mainCategory);
+        } else {
+            $subCategories = loopThroughSubCategories($mainCategory);
+        }
+
+        return $subCategories;
+    }
+}
+
+if (!function_exists("loopThroughSubCategories")) {
+    function loopThroughSubCategories($currentSubCategory)
+    {
+        $data = '';
+
+        foreach ($currentSubCategory as $subCategory) {
+            $data .= $subCategory->title . ' | ';
+
+            foreach ($subCategory->allChildren as $subCategoryChilds) {
+                $data .= $subCategoryChilds->title . ' | ';
+
+                foreach ($subCategoryChilds->allChildren as $lastCategory) {
+                    $data .= $lastCategory->title . ' | ';
+                }
+            }
+        }
+
+        return $data;
     }
 }

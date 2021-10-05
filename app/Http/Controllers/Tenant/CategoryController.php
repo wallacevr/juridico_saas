@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -16,12 +17,6 @@ class CategoryController extends Controller
         ]);
     }
 
-    // Return a single Category
-    public function show(Category $category)
-    {
-        //TBD
-    }
-
     // Show the Categories create form
     public function create()
     {
@@ -29,9 +24,11 @@ class CategoryController extends Controller
     }
 
     // Show the Category edit form
-    public function edit(Brand $brand)
+    public function edit(Category $category)
     {
-        //TBD
+        return view('tenant.categories.edit', [
+            'category' => Category::getMainCategoryWithChildrens($category->id),
+        ]);
     }
 
     // Store a Category
@@ -61,62 +58,135 @@ class CategoryController extends Controller
         if (isset($data['menu-items'])) {
 
             $subCategories = json_decode($data['menu-items'])[0];
+            // Loop to insert the subcategories from the MAIN Category
+            foreach ($subCategories as $subCategory) {
 
-            $this->storeSubCategories($subCategories, $mainCategory->id, $categoryStatus);
+                $currentSubCategory = Category::create([
+                    'title' => $subCategory->name,
+                    'slug' => generateSlug($subCategory->name, 'categories'),
+                    'status' => $categoryStatus,
+                    'is_parent' => 1,
+                    'parent_id' => $mainCategory->id,
+                    'url' => $subCategory->url,
+                ]);
 
+                $currentSubCategory->save();
+
+                $subCategoryChilds = $subCategory->children[0];
+
+                $this->storeSubCategories($subCategoryChilds, $currentSubCategory->id, $categoryStatus);
+
+            }
         }
 
-        return redirect()
-            ->route('tenant.categories.index')
-            ->with($response['status'], $response['message']);
+        return redirect()->route('tenant.categories.index')->with($response['status'], $response['message']);
     }
 
     // Update a Category
     public function update(Request $request, Category $category)
     {
-        //TDB
+        $this->validate($request, [
+            'title' => 'required',
+        ]);
+
+        $response = [
+            "status" => "success",
+            "message" => "Category updated successfully!",
+        ];
+
+        $data = $request->all();
+
+        $data['slug'] = generateSlug($data['title'], 'categories', $category->id);
+        $data['status'] = isset($data['status']) ? '1' : '0';
+
+        // Caso haja alguma alteração nas subcategorias, é realizada a atualização
+        if (isset($data['menu-items'])) {
+            $subCategories = json_decode($data['menu-items'])[0];
+
+            foreach ($subCategories as $subCategory) {
+
+                $this->insertOrUpdateCategory($subCategory, $category->id);
+
+                if ($subCategory->children[0]) {
+                    $this->updateSubCategories($subCategory->children[0], $subCategory->id);
+                }
+            }
+        }
+
+        // Remove as categorias excluídas na tela de edição
+        if (isset($data['menu-items-delete'])) {
+            $deletedSubcategories = explode(',', $data['menu-items-delete']);
+            Category::destroy($deletedSubcategories);
+        }
+
+        if (!$category->update($data)) {
+            $response['status'] = "error";
+            $response['message'] = "Error updating Category.";
+        }
+
+        return redirect()->route('tenant.categories.index')->with($response['status'], $response['message']);
     }
 
     // Delete a Category
     public function destroy(Category $category)
     {
-        $response = [
-            "status" => "success",
-            "message" => "Category deleted successfully!",
-        ];
-
-        if (!$category->delete()) {
-            $response['status'] = "error";
-            $response['message'] = "Error deleting Category.";
+        if ($category->delete()) {
+            return redirect()->route('tenant.categories.index')->with('success', 'Category deleted successfully!');
+        } else {
+            return redirect()->route('tenant.categories.index')->with('error', 'Error deleting Category.');
         }
-
-        return redirect()
-            ->route('tenant.categories.index')
-            ->with($response['status'], $response['message']);
     }
 
     // This function inserts the subcategories recursively given a main category
     public function storeSubCategories($subCategories, $parentId, $categoryStatus)
     {
-        foreach ($subCategories as $subCategory) {
-
-            $currentSubCategory = Category::create([
-                'title' => $subCategory->name,
-                'slug' => generateSlug($subCategory->name, 'categories'),
+        // Loop to insert the subcategories childs from the subcategory
+        foreach ($subCategories as $subCategoryChild) {
+            $currentsubCategoryChild = Category::create([
+                'title' => $subCategoryChild->name,
+                'slug' => generateSlug($subCategoryChild->name, 'categories'),
                 'status' => $categoryStatus,
                 'is_parent' => 1,
                 'parent_id' => $parentId,
+                'url' => $subCategoryChild->url,
             ]);
 
-            $currentSubCategory->save();
+            $currentsubCategoryChild->save();
 
-            $subCategoryChilds = $subCategory->children[0];
+            $subCategoriesFromChilds = $subCategoryChild->children[0];
 
-            if (!empty($subCategoryChilds)) {
-
-                $this->storeSubCategories($subCategoryChilds, $currentSubCategory->id, $categoryStatus);
-
+            if ($subCategoriesFromChilds) {
+                $this->storeSubCategories($subCategoriesFromChilds, $currentsubCategoryChild->id, $categoryStatus);
             }
+        }
+    }
+
+    public function updateSubCategories($subCategories, $parentId)
+    {
+        foreach ($subCategories as $subCategory) {
+            $this->insertOrUpdateCategory($subCategory, $parentId);
+
+            if ($subCategory->children[0]) {
+                $this->updateSubCategories($subCategory->children[0], $subCategory->id);
+            }
+        }
+    }
+
+    public function insertOrUpdateCategory($subCategory, $parentId)
+    {
+        if (isset($subCategory->id)) {
+            DB::table('categories')->where('id', $subCategory->id)->update([
+                'title' => $subCategory->name,
+                'url' => $subCategory->url,
+                'parent_id' => $parentId,
+            ]);
+        } else {
+            DB::table('categories')->insert([
+                'title' => $subCategory->name,
+                'url' => $subCategory->url,
+                'parent_id' => $parentId,
+                'slug' => generateSlug($subCategory->name, 'categories'),
+            ]);
         }
     }
 

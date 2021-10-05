@@ -1,12 +1,16 @@
 $(document).ready(function () {
     // Define o HTML dos botões que gerenciam as linhas de categorias
-    const buttonElement =
-        '<div class="float-right border"><button class="bg-white hover:bg-gray-100 py-0 px-3 text-black">Edit</button><button type="button" class="bg-white hover:bg-gray-100 py-0 px-3 text-black delete-menu">Delete</button></div>'
+    // const buttonElement = '<div class="float-right border"><button class="bg-white hover:bg-gray-100 py-0 px-3 text-black">Edit</button><button type="button" class="bg-white hover:bg-gray-100 py-0 px-3 text-black delete-menu">Delete</button></div>'
+    const editAction =
+        '<div class="float-right"><a href="#" class="underline text-blue-900 py-0 px-3 remove-button">Remove</a></div>'
+    let removedItems = []
 
     // Define o menu aninhado de categorias
     $('.menu-items').sortable({
         items: 'li',
         nested: true,
+        vertical: true,
+        placeholderClass: 'test-class',
         onDrop: function ($item, container, _super) {
             updateMenuItemsInput()
             _super($item, container)
@@ -35,34 +39,41 @@ $(document).ready(function () {
         }
     })
 
-    //  Exibe a modal de inserção de nova categoria
-    $('.open-modal').click(function (e) {
-        e.preventDefault()
-        toggleModal()
-    })
-
     // Adiciona uma nova categoria no final da lista de categorias
     $('.add-menu').click(function (e) {
         e.preventDefault()
-        let menuName = $('#name').val()
+        let subcategoryName = $('#subcategoryTitle').val()
+        let subcategoryUrl = $('#subcategoryUrl').val()
+
+        if (subcategoryName === '' || subcategoryUrl === '') {
+            // Exibir no front que é pra preencher tudo
+            return false
+        } else {
+            // Esconder no front que é pra preencher tudo
+            $('#subcategoryTitle').val('')
+            $('#subcategoryUrl').val('')
+        }
 
         $('.menu-items').append(
-            `<li data-name='${menuName}'>
-                ${menuName}
-                ${buttonElement}
+            `<li data-name='${subcategoryName}' data-url='${subcategoryUrl}'>
+                ${subcategoryName}
+                ${editAction}
                 <ol></ol>
             </li>`
         )
 
         updateMenuItemsInput()
-        toggleModal()
     })
 
     // Deleta a categoria da linha ao clicar no botão de DELETE
-    $(document).on('click', '.delete-menu', function (e) {
-        $(this)
-            .closest('li')
-            .remove()
+    $(document).on('click', '.remove-button', function (e) {
+        const currentLi = $(this).closest('li')
+
+        removedItems.push($(currentLi).data('id'))
+
+        $('#menu-items-delete').val(removedItems)
+
+        currentLi.remove()
     })
 
     // Atualiza o input contendo os dados da lista de menus
