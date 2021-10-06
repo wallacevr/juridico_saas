@@ -1,5 +1,5 @@
 <div class="mt-8">
-    <h3 class="text-lg font-medium text-gray-900">Invoices</h3>
+    <h3 class="text-lg font-medium text-gray-900">{{__("applicationSettings.Invoices")}}</h3>
     <div class="bg-white shadow overflow-hidden sm:rounded-md mt-2">
         @if($invoices = tenant()->invoicesIncludingPending()->toArray())
         <ul x-data>
@@ -18,19 +18,19 @@
                             @if($invoice->asStripeInvoice()->paid)
                             <div class="ml-2 flex-shrink-0 flex items-center">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Paid
+                                {{__("applicationSettings.Paid")}}
                                 </span>
                             </div>
                             @else
                             <div class="ml-2 flex-shrink-0 flex items-center">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">
-                                    Pending
+                                {{__("applicationSettings.Pending")}}
                                 </span>
                             </div
                             @endif
                             <span class="inline-flex rounded-md shadow-sm">
                                 <button type="button" @click="window.open('{{ route('tenant.invoice.download', ['id' => $invoice->id]) }}', '_blank')" class="ml-2 inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                                    Download
+                                {{__("actions.Download")}}
                                 </button>
                             </span>
                         </div>
@@ -47,9 +47,9 @@
                                 <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                             </svg>
                             <span>
-                                Issued on
-                                <time datetime="{{ $invoice->date()->format('Y-m-d') }}">
-                                    {{ $invoice->date()->format('M d, Y') }}
+                            {{__("actions.Issued on")}}
+                                <time datetime="{{ $invoice->date()->format(__('Config.Y-m-d')) }}">
+                                    {{ $invoice->date()->format(__('Config.M d, Y')) }}
                                 </time>
                             </span>
                         </div>
@@ -61,7 +61,7 @@
         </ul>
         @else
         <p class="p-4 text-sm text-gray-600">
-            No invoices issued yet.
+        {{__("actions.No invoices issued yet")}}.
         </p>
         @endif
 </div>

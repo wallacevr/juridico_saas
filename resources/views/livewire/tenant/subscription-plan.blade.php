@@ -9,20 +9,20 @@
                     <div class="sm:flex sm:items-start">
                         <div class="mt-3 text-center sm:mt-0 sm:text-left">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                                Cancel subscription
+                                {{__('applicationSettings.Cancel subscription')}}
                             </h3>
                             <div class="mt-3">
                                 <p class="text-sm text-gray-600">
-                                We are sad to see you go. In order to improve our services, we would appreciate you taking a few moments to tell us why this product wasn't suited for you.
+                                {{__("applicationSettings.We are sad to see you go. In order to improve our services, we would appreciate you taking a few moments to tell us why this product wasn't suited for you.")}}
                                 </p>
                                 <select x-model="cancelationReason" class="mt-3 form-select py-1 w-full">
-                                    <option>Cancelation reason</option>
+                                    <option>{{__("applicationSettings.Cancelation reason")}}</option>
                                     @foreach(config('saas.cancelation_reasons') as $reason)
-                                        <option>{{ $reason }}</option>
+                                        <option>{{ __("applicationSettings.{$reason}") }}</option>
                                     @endforeach
-                                    <option>Other</option>
+                                    <option>{{__('applicationSettings.Other')}}</option>
                                 </select>
-                                <input x-show="cancelationReason == 'Other'" x-model="otherReason" type="text" class="mt-1 form-input w-full" placeholder="I'm canceling my subscription because ...">
+                                <input x-show="cancelationReason == 'Other'" x-model="otherReason" type="text" class="mt-1 form-input w-full" placeholder="{{__("applicationSettings.I'm canceling my subscription because ...")}}">
                             </div>
                         </div>
                     </div>
@@ -30,12 +30,12 @@
                 <div class="bg-white px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse flex flex-col">
                 <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                     <button @click="@this.call('cancel', cancelationReason === 'Other' ? otherReason : cancelationReason); cancelModalOpen = false" type="button" class="w-full py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 shadow-sm hover:bg-red-500 focus:outline-none focus:shadow-outline-blue focus:bg-red-500 active:bg-red-600 transition duration-150 ease-in-out">
-                    Cancel subscription
+                    {{__('applicationSettings.Cancel subscription')}}
                     </button>
                 </span>
                 <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
                     <button @click="cancelModalOpen = false" type="button" class="w-full items-center py-1 px-4 border border-gray-300 text-sm font-medium rounded-md bg-white focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                    Close
+                    {{__('actions.Close')}}
                     </button>
                 </span>
                 </div>
@@ -43,7 +43,7 @@
         </div>
     </template>
 
-    <h3 class="text-lg font-medium text-gray-900">Change subscription plan</h3>
+    <h3 class="text-lg font-medium text-gray-900">{{__('applicationSettings.Change subscription plan')}}</h3>
     <div class="mt-2 shadow overflow-hidden sm:rounded-md">
         <div class="px-4 py-5 bg-white sm:p-6">
             @foreach(config('saas.plans') as $code => $name)
@@ -81,15 +81,15 @@
     <div class="px-4 sm:px-6 py-2 bg-gray-50 flex justify-end">
         @if(tenant()->on_active_subscription)
         <button id="cancelSub" name="cancelSub" type="button" @click="cancelModalOpen = true" class="mr-2 items-center py-1 px-4 border border-gray-300 text-sm font-medium rounded-md text-red-700 bg-white hover:text-red-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-            Cancel subscription
+        {{__('applicationSettings.Cancel subscription')}}
         </button>
         @elseif(tenant()->subscribed('default') && tenant()->subscription('default')->cancelled())
         <button id="resumeSub" name="resumeSub" type="button" wire:click="resume" class="mr-2 items-center py-1 px-4 border border-gray-300 text-sm font-medium rounded-md text-green-700 bg-white hover:text-green-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-            Resume subscription ({{ tenant()->plan_name }})
+        {{__('applicationSettings.Resume subscription')}} ({{ tenant()->plan_name }})
         </button>
         @endif
         <button type="button" wire:click="update" class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
-            Change plan
+        {{__('applicationSettings.Change plan')}}
         </button>
     </div>
 </div>

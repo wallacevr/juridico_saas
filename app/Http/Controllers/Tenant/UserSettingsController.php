@@ -43,7 +43,7 @@ class UserSettingsController extends Controller
 
         $user->update($validated);
 
-        return redirect()->back()->with('success', 'Personal information updated.');
+        return redirect()->back()->with('success', __('Personal information updated.'));
     }
 
     public function password(Request $request)
@@ -60,6 +60,6 @@ class UserSettingsController extends Controller
             'password' => bcrypt($validated['new_password']),
         ]);
 
-        return redirect()->back()->with('success', 'Password updated.');
+        return redirect()->back()->with('success', __('Password updated.'));
     }
 }

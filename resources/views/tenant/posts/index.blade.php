@@ -31,8 +31,8 @@
                   </a>
                 </p>
                 <div class="flex text-sm text-gray-500">
-                  <time datetime="{{ $post->created_at->format('Y-m-d') }}">
-                    {{ $post->created_at->format('M d, Y') }}
+                  <time datetime="{{ $post->created_at->format(__('Config.Y-m-d')) }}">
+                    {{ $post->created_at->format(__('Config.M d, Y')) }}
                   </time>
                   <span class="mx-1">
                     &middot;
