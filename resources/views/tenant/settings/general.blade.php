@@ -231,23 +231,54 @@
     $("#storeSettings").validate({
       rules: {
         name: {
-          required: true
+          required: true,
+          minlength: 5
         },
         email: {
           required: true,
-          email: true
+          email: true,
+          maxlength: 255
+        },
+        postalcode: {
+          required: true,
+          minlength:5
+        },
+        address: {
+          required: true,
+          minlength: 10
+        },
+        neighborhood: {
+          required: true
+        },
+        city: {
+          required: true
+        },
+        state: {
+          required: true
+        },
+        phone: {
+          required: true,
+          minlength: 10
+        },
+        whatsapp: {
+          required: true,
+          minlength: 10
         },
         facebook: {
-          url: true
+          url: true,
+          minlength: 10
         },
         youtube: {
-          url: true
+          url: true,
+          minlength: 10
         },
         instagram: {
-          url: true
+          url: true,
+          minlength: 10
         },
         pinterest: {
-          url: true
+          url: true,
+          minlength: 10
         }
       }
     });

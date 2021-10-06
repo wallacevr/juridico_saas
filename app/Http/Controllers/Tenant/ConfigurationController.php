@@ -37,7 +37,7 @@ class ConfigurationController extends Controller
             'name' => ['required', 'string', 'min:5'],
             'postalcode' => ['required', 'string', 'min:5'],
             'address' => ['required', 'string', 'min:10'],
-            'neighborhood' => ['string'],
+            'neighborhood' => ['required','string'],
             'number' => ['string'],
             'complement' => ['string'],
             'city' => ['required', 'string'],
