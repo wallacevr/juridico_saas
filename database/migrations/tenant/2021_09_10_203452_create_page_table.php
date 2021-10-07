@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUrlsTables extends Migration
+class CreatePageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateUrlsTables extends Migration
      */
     public function up()
     {
-        Schema::create('urls', function (Blueprint $table) {
+        Schema::create('page', function (Blueprint $table) {
             $table->id();
-            $table->string('url')->unique();
-            $table->enum('entity',['PAGE','COLLECTION','CATEGORY','PRODUCT']);
-            $table->bigInteger('entity_id');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateUrlsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('urls');
+        Schema::dropIfExists('page');
     }
 }

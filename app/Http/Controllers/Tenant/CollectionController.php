@@ -89,7 +89,8 @@ class CollectionController extends Controller
 
         $data = $request->all();
         $image = $request->file('image_url');
-        $data['slug'] = generateSlug($data['slug'], 'collections');
+        $data['slug'] = generateSlug($data['slug'], 'collections', $collection->id);
+        $data['status'] = isset($data['status']) ? '1' : '0';
 
         if (!empty($data['image_url']) && $data['image_url'] !== $collection->image_url) {
             if ($imageUrl = storeImage($image, '/images/collections')) {

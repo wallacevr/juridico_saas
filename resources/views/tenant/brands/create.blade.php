@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::to('/') . '/css/image-preview-input.css' }}">
 @endpush
 
-@extends('layouts.tenant', ['title' => __('Create brand')]) @section('content')
+@extends('layouts.tenant', ['title' => __('actions.Create brand')]) @section('content')
 
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
     <!-- LEFT FORM -->
@@ -17,7 +17,7 @@
                                 class="block text-sm font-medium text-gray-700">{{ __('label.Name') }}</label>
                             <input type="text" name="name" id="name" autocomplete="name" value="{{ old('name') }}"
                                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                placeholder="Brand name" />
+                                placeholder="{{ __('label.Your brand name') }}" />
                             @error('name')
                             <p class="mt-2 text-sm text-red-500">
                                 {{ $message }}
@@ -42,11 +42,10 @@
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <div>
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            Search engine listing preview
+                            {{ __('label.Search engine listing preview') }}
                         </h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Add a title and description to see how this brand might appear in a search engine
-                            listing.
+                            {{ __('label.Add a title and description to see how this brand might appear in a search engine listing.') }}
                         </p>
                     </div>
 
@@ -55,7 +54,7 @@
                             class="block text-sm font-medium text-gray-700">{{ __('label.Page title') }}</label>
                         <input type="text" name="page_title" id="page_title" autocomplete="page_title"
                             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="Brand name" value="{{ old('page_title') }}" />
+                            placeholder="{{ __('label.Your brand name') }}" value="{{ old('page_title') }}" />
                         @error('page_title')
                         <p class="mt-2 text-sm text-red-500">
                             {{ $message }}
@@ -74,11 +73,11 @@
 
                     <div class="col-span-3 sm:col-span-2">
                         <label for="slug" class="block text-sm font-medium text-gray-700">
-                            URL and handle
+                            {{ __('label.URL and handle') }}
                         </label>
                         <div class="mt-1 rounded-md shadow-sm flex">
                             <span
-                                class="bg-gray-50 border border-r-0 border-gray-300 px-3 inline-flex items-center text-gray-500 sm:text-sm">
+                                class="mt-1 bg-gray-50 border border-r-0 border-gray-300 px-3 inline-flex items-center text-gray-500 sm:text-sm">
                                 {{ Request::getHost() . '/brands/' }}
                             </span>
                             <input type="text" name="slug" id="slug" autocomplete="slug"
@@ -100,7 +99,7 @@
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <fieldset>
                     <legend class="text-base font-medium text-gray-900">
-                        Other options
+                        {{ __('label.Other options') }}
                     </legend>
                     <div class="mt-4 space-y-4">
                         <div class="flex items-start">
@@ -112,7 +111,7 @@
                             <div class="ml-3 text-sm">
                                 <label for="status" class="font-medium text-gray-700">{{ __('label.Active') }}</label>
                                 <p class="text-gray-500">
-                                    Set this brand active in your store.
+                                    {{ __('label.Set this brand active in your store.') }}
                                 </p>
                             </div>
                         </div>
@@ -125,25 +124,26 @@
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div>
                     <h3 class="text-base font-medium text-gray-900">
-                        Brand image
+                        {{ __('label.Brand image') }}
                     </h3>
                 </div>
                 <div class="mt-1 border-2 border-gray-300 border-dashed rounded-md px-6 pt-5 pb-6 flex justify-center">
                     <div class="file-upload">
                         <button class="file-upload-btn" type="button"
-                            onclick="document.getElementById('image_url').click()">Add Image</button>
+                            onclick="document.getElementById('image_url').click()">{{ __('actions.Add image') }}</button>
 
                         <div id="image-upload-wrap">
                             <input id="image_url" name="image_url" type='file' accept="image/*" />
                             <div class="drag-text">
-                                <h3>Drag and drop a file or select add Image</h3>
+                                <h3>{{ __('label.Drag and drop a file or select add Image') }}</h3>
                             </div>
                         </div>
                         <div id="file-upload-content">
                             <img id="file-upload-image" src="#" alt="your image" />
                             <div class="image-title-wrap">
-                                <button type="button" id="remove-image">Remove <span id="image-title">Uploaded
-                                        Image</span></button>
+                                <button type="button" id="remove-image">{{ __('actions.Remove') }}
+                                    <span id="image-title">{{ __('label.Uploaded image') }}</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -161,13 +161,13 @@
                 <span class="inline-flex rounded-md shadow-sm">
                     <a href="{{ route('tenant.brands.index') }}"
                         class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                        Cancel
+                        {{ __('actions.Cancel') }}
                     </a>
                 </span>
                 <span class="ml-3 inline-flex rounded-md shadow-sm">
                     <button type="submit"
                         class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
-                        Save Brand
+                        {{ __('actions.Save brand') }}
                     </button>
                 </span>
             </div>

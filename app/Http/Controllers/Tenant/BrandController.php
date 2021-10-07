@@ -89,7 +89,8 @@ class BrandController extends Controller
 
         $data = $request->all();
         $image = $request->file('image_url');
-        $data['slug'] = generateSlug($data['slug'], 'brands');
+        $data['slug'] = generateSlug($data['slug'], 'brands', $brand->id);
+        $data['status'] = isset($data['status']) ? '1' : '0';
 
         if (!empty($data['image_url']) && $data['image_url'] !== $brand->image_url) {
             if ($imageUrl = storeImage($image, '/images/brands')) {
@@ -108,7 +109,7 @@ class BrandController extends Controller
 
         return redirect()
             ->route('tenant.brands.index')
-            ->with('success', 'Brand updated successfully');
+            ->with($response['status'], $response['message']);
     }
 
     // Delete a Brand
