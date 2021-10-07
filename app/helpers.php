@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use App\Models\Config;
+use Illuminate\Support\Facades\Auth;
+
+
+include ('Icons.php');
+
 function ploi(): PloiManager
 {
     return app(PloiManager::class);
@@ -117,7 +122,7 @@ if (!function_exists('create_menu')) {
                 'name' => __('menu.Clients'),
                 'icon' => 'UsersIcon',
                 'children' => [
-                    ['name' => __('menu.See All'), 'href' => '#'],
+                    ['name' => __('menu.See All'), 'href' => route('tenant.customers.index')],
                     ['name' => __('menu.Groups'), 'href' => '#'],
                     ['name' => __('menu.Newsletter'), 'href' => '#']
                 ],
