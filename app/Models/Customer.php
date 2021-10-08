@@ -20,6 +20,10 @@ class Customer extends  Authenticatable
         'name', 'email', 'password',
     ];
 
+    public function addresses(){
+        return $this->hasMany(Address::class);
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
