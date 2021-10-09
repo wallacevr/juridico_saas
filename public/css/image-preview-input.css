@@ -83,6 +83,11 @@
     padding: 20px;
 }
 
+#file-upload-image.banner {
+    max-height: 600px;
+    max-width: 600px;
+}
+
 #remove-image {
     margin: 0;
     width: 100%;
