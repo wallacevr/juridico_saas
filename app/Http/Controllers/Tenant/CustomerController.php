@@ -30,4 +30,7 @@ class CustomerController extends Controller
         return view('tenant.customers.edit')->with('customer',$customer);
         
     }
+    public function destroy(){
+        return redirect()->route('tenant.customers.index');
+    }
 }
