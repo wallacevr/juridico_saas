@@ -30,13 +30,9 @@ Route::group([
     Route::prefix('admin')->group(function () {
         Auth::routes();
 
-        Route::middleware('guest:web')->group(function () {
-            //login route
-            Route::redirect('/', '/admin/login');
+        Route::redirect('/', '/admin/login/')->middleware('guest');
 
-        });
         Route::middleware(['auth', CheckSubscription::class])->group(function () {
-            Route::redirect('/', '/admin/dashboard');
             Route::get('/dashboard', 'ApplicationSettingsController@show')->name('admin.dashboad');
             Route::get('/posts', 'PostController@index')->name('posts.index');
             Route::post('/posts', 'PostController@store')->name('posts.store');
@@ -47,6 +43,8 @@ Route::group([
             Route::resource('collections', 'CollectionController');
             // Brand routes
             Route::resource('brands', 'BrandController');
+            // Page routes
+            Route::resource('pages', 'PageController');
             Route::get('configurations', 'ConfigurationController@index')->name('settings.store');
             Route::post('configurations', 'ConfigurationController@update')->name('settings.store.update');
 

@@ -12,19 +12,19 @@ function ploi(): PloiManager
 }
 
 if (!function_exists("tenant_public_path")) {
-    
-    function tenant_public_path(){      
+
+    function tenant_public_path(){
         return URL::to('/').'/tenant/'.tenant('id');
     }
-    
+
 }
 if (!function_exists("get_config")) {
-    
-    function get_config($path){      
+
+    function get_config($path){
         $config = Config::where('path', $path)->firstOrFail();
         return $config['value'];
     }
-    
+
 }
 if (!function_exists("generateSlug")) {
     /**
@@ -51,11 +51,11 @@ if (!function_exists("generateSlug")) {
 
 if (!function_exists("getFileUniqueName")) {
     /**
-     * 
-     * @param mixed $destinationFolder 
-     * @param mixed $name 
+     *
+     * @param mixed $destinationFolder
+     * @param mixed $name
      * @param mixed $extension
-     * @return string 
+     * @return string
      */
     function getFileUniqueName($destinationFolder,$name,$extension){
         $filename = $destinationFolder.'/'.$name.'.'.$extension;
@@ -153,7 +153,7 @@ if (!function_exists('create_menu')) {
                     ['name' => __('menu.Banners'), 'href' => '#'],
                     ['name' => __('menu.Embed Html Code'), 'href' => '#'],
                     ['name' => __('menu.Social Network'), 'href' => '#'],
-                    ['name' => __('menu.Pages'), 'href' => '#'],
+                    ['name' => __('menu.Pages'), 'href' => route('tenant.pages.index')],
                 ],
             ],
             [
