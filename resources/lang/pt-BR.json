@@ -107,5 +107,22 @@
     "placeholder_postalcode":"60324-440",
     "placeholder_city":"Fortaleza",
     "placeholder_state":"Ceará",
-    "Putting your store under maintenance mode":"Deixar sua loja em manutenção"
+    "Putting your store under maintenance mode":"Deixar sua loja em manutenção",
+    "Blocks": "Blocos",
+    "Status": "Status",
+    "Actions": "Ações",
+    "New block": "Novo bloco",
+    "Active": "Ativo",
+    "Inactive": "Inativo",
+    "Cancel": "Cancelar",
+    "Delete block?": "Deletar bloco?",
+    "Are you sure you want to delete this block? This action cannot be undone.": "Tem certeza que deseja deletar este bloco? Essa ação não pode ser desfeita.",
+    "Content": "Conteúdo",
+    "Shortcode": "Shortcode",
+    "Shortcode preview:": "Pré-visualização do shortcode:",
+    "Save block": "Salvar bloco",
+    "Update block": "Atualizar bloco",
+    "Create block": "Criar bloco",
+    "Other options": "Outras opções",
+    "Set this block active in your store.": "Defina este bloco ativo em sua loja"
 }

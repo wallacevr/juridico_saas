@@ -47,6 +47,8 @@ Route::group([
             Route::resource('collections', 'CollectionController');
             // Brand routes
             Route::resource('brands', 'BrandController');
+            // Brand routes
+            Route::resource('blocks', 'BlockController');
             Route::get('configurations', 'ConfigurationController@index')->name('settings.store');
             Route::post('configurations', 'ConfigurationController@update')->name('settings.store.update');
 
