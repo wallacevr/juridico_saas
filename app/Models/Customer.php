@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\CustomerGroup;
 
 class Customer extends  Authenticatable
 {
@@ -38,4 +39,15 @@ class Customer extends  Authenticatable
         'email_verified_at' => 'datetime',
         'dob' => 'date',
     ];
+
+   
+   /**
+    * Get the group that owns the Customer
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+   public function group(): BelongsTo
+   {
+       return $this->belongsTo(CustomerGroup::class, 'group_id');
+   }
 }
