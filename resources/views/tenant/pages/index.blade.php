@@ -12,6 +12,7 @@
 					<div class=" py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 						<div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
 							<table class="min-w-full divide-y divide-gray-200 ">
+								@if ($pages->count() >= 1)
 								<thead class="bg-gray-50">
 									<tr>
 										<th scope="col"
@@ -55,8 +56,7 @@
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
-												<a
-													href="{{ route('tenant.pages.edit', ['page' => $page->id]) }}">
+												<a href="{{ route('tenant.pages.edit', ['page' => $page->id]) }}">
 													<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
 														viewBox="0 0 24 24" stroke="currentColor">
 														<path stroke-linecap="round" stroke-linejoin="round"
@@ -84,6 +84,9 @@
 									</tr>
 									@endforeach
 								</tbody>
+								@else
+								<h4 class="text-lg text-center text-gray-500 m-5">{{ __('No results found') }}</h4>
+								@endif
 							</table>
 						</div>
 					</div>

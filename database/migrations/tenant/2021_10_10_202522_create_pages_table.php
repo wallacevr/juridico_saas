@@ -17,11 +17,11 @@ class CreatePagesTable extends Migration
             $table->id();
 
             $table->string('name');
-            $table->text('content')->nullable();
+            $table->longText('content');
             $table->boolean('status');
 
-            $table->string('title')->nullable();
-            $table->string('link')->nullable();
+            $table->string('title');
+            $table->string('link');
             $table->text('description')->nullable();
             $table->string('keywords')->nullable();
 

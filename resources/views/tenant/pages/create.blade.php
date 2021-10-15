@@ -9,22 +9,13 @@
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
     <!-- LEFT FORM -->
     <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">
-        <form action="{{ route('tenant.pages.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="pageForm" action="{{ route('tenant.pages.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <div class="grid grid-cols-3 gap-6">
                         <div class="col-span-12 sm:col-span-3">
-                            <label for="name" class="block text-sm font-medium text-gray-700">
-                                {{ __('Name') }}
-                            </label>
-                            <input type="text" name="name" value="{{ old('name') }}"
-                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                            @error('name')
-                            <p class="mt-2 text-sm text-red-500">
-                                {{ $message }}
-                            </p>
-                            @enderror
+                            @include('layouts.snippets.fields', ['type'=>'text','label'=>'Name','placeholder'=>'Page name','name'=>'name','value'=> '' ])
                         </div>
 
                         <div class="col-span-3">
@@ -32,9 +23,13 @@
                                 {{ __('Content') }}
                             </label>
                             <div class="mt-1">
-                                <textarea name="content" rows="5"
-                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ">{{ old('content') }}</textarea>
+                                <textarea name="content" rows="5" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ">{{ old('content') }}</textarea>
                             </div>
+                            @error('content')
+                            <p class="mt-2 text-sm text-red-500">
+                                {{ $message }}
+                            </p>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -47,21 +42,12 @@
                             {{ __('Google / SEO') }}
                         </h3>
                     </div>
-
                     <div class="col-span-12 sm:col-span-3">
-                        <label for="title" class="block text-sm font-medium text-gray-700">
-                            {{ __('Page title') }}
-                        </label>
-                        <input type="text" name="title" value="{{ old('title') }}"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        @include('layouts.snippets.fields', ['type'=>'text','label'=>'Title','placeholder'=>'Page title','name'=>'title','value'=> '' ])
                     </div>
 
                     <div class="col-span-12 sm:col-span-3">
-                        <label for="link" class="block text-sm font-medium text-gray-700">
-                            {{ __('Page link') }}
-                        </label>
-                        <input type="text" name="link" value="{{ old('link') }}"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        @include('layouts.snippets.fields', ['type'=>'text','label'=>'URL','placeholder'=>'Page URL','name'=>'url','value'=> '' ])
                     </div>
 
                     <div class="col-span-3">
@@ -69,8 +55,7 @@
                             {{ __('Page description') }}
                         </label>
                         <div class="mt-1">
-                            <textarea name="description" rows="5"
-                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">{{ old('description') }}</textarea>
+                            <textarea name="description" rows="5" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">{{ old('description') }}</textarea>
                         </div>
                     </div>
 
@@ -79,8 +64,7 @@
                             {{ __('Keywords') }}
                         </label>
                         <div class="mt-1">
-                            <div id="keywords" name="keywords" rows="3"
-                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm input textarea">
+                            <div id="keywords" name="keywords" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm input textarea">
                             </div>
                         </div>
                         <p class="text-xs text-gray-500 mt-2">
@@ -101,9 +85,7 @@
                     <div class="mt-4 space-y-4">
                         <div class="flex items-start">
                             <div class="h-5 flex items-center">
-                                <input id="status" name="status" type="checkbox"
-                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                    {{ old('status') ? 'checked' : '' }} value="1" />
+                                <input id="status" name="status" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{ old('status') ? 'checked' : '' }} value="1" />
                             </div>
                             <div class="ml-3 text-sm">
                                 <label for="status" class="font-medium text-gray-700">{{ __('label.Active') }}</label>
@@ -120,14 +102,12 @@
         <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
             <div class="flex justify-end">
                 <span class="inline-flex rounded-md shadow-sm">
-                    <a href="{{ route('tenant.pages.index') }}"
-                        class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                    <a href="{{ route('tenant.pages.index') }}" class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
                         {{ __('Cancel') }}
                     </a>
                 </span>
                 <span class="ml-3 inline-flex rounded-md shadow-sm">
-                    <button type="submit"
-                        class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
+                    <button type="submit" class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
                         {{ __('Save page') }}
                     </button>
                 </span>
@@ -141,6 +121,26 @@
 
 @push('js')
 <script>
+    $(document).ready(function() {
     var taggle = new Taggle('keywords', { hiddenInputName: 'keywords[]', placeholder: null})
+
+    $("#pageForm").validate({
+      rules: {
+        name: {
+            required: true
+        },
+        title: {
+            required: true,
+        },
+        content: {
+            required: true,
+        },
+        url: {
+            required: true,
+            url: true
+        },
+      }
+    });
+  });
 </script>
 @endpush

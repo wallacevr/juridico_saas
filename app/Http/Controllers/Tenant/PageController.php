@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Url;
 use App\Page;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class PageController extends Controller
 {
@@ -41,12 +46,10 @@ class PageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'content' => 'required',
+            'title' => 'required',
+            'url' => 'required|url|unique:urls,url',
         ]);
-
-        $response = [
-            "status" => "success",
-            "message" => "Page created successfully!",
-        ];
 
         $data = $request->all();
 
@@ -55,51 +58,79 @@ class PageController extends Controller
         $page = Page::create($data);
 
         if (!$page->save()) {
-            $response['status'] = "error";
-            $response['message'] = "Error creating page.";
+            return back()->withInput()->with("error", "Error creating page.");
         }
 
-        return redirect()->route('tenant.pages.index')->with($response['status'], $response['message']);
+        URL::create([
+            'url' => $page->url,
+            'entity' => 'PAGE',
+            'entity_id' => $page->id,
+        ])->save();
+
+        return redirect()->route('tenant.pages.index')->with("success", "Page created successfully!");
     }
 
     // Update a Page
     public function update(Request $request, Page $page)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'content' => 'required',
+            'title' => 'required',
+            'url' => [
+                'required',
+                'url',
+                Rule::unique('urls')->ignore($page->id, 'entity_id'),
+            ],
         ]);
 
-        $response = [
-            "status" => "success",
-            "message" => "Page updated successfully!",
-        ];
+        if ($validator->fails()) {
+            return back()->withInput()->withErrors($validator);
+        }
 
         $data = $request->all();
         $data['status'] = isset($data['status']) ? '1' : '0';
         $data['keywords'] = isset($data['keywords']) && !empty($data['keywords']) ? implode(',', $data['keywords']) : null;
 
-        if (!$page->update($data)) {
-            $response['status'] = "error";
-            $response['message'] = "Error updating Page.";
+        try {
+            DB::beginTransaction();
+
+            $url = URL::firstWhere('url', $page->url);
+            $url->url = $data['url'];
+            $url->update();
+
+            $page->update($data);
+
+            DB::commit();
+        } catch (QueryException $e) {
+            DB::rollback();
+
+            return back()->withInput()->with("error", "Error updating page.");
         }
 
-        return redirect()->route('tenant.pages.index')->with('success', 'Page updated successfully');
+        return redirect()->route('tenant.pages.index')->with("success", "Page updated successfully!");
     }
 
     // Delete a Page
     public function destroy(Page $page)
     {
-        $response = [
-            "status" => "success",
-            "message" => "Page deleted successfully!",
-        ];
+        try {
+            DB::beginTransaction();
 
-        if (!$page->delete()) {
-            $response['status'] = "error";
-            $response['message'] = "Error deleting Page.";
+            $page->delete();
+
+            $url = URL::firstWhere('url', $page->url);
+
+            $url->delete();
+
+            DB::commit();
+        } catch (QueryException $e) {
+            DB::rollback();
+
+            return redirect()->route('tenant.pages.index')->with("error", "Error deleting page.");
         }
 
-        return redirect()->route('tenant.pages.index')->with($response['status'], $response['message']);
+        return redirect()->route('tenant.pages.index')->with("success", "Page deleted successfully!");
     }
 
 }
