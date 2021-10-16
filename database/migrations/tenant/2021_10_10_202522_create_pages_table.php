@@ -21,7 +21,7 @@ class CreatePagesTable extends Migration
             $table->boolean('status');
 
             $table->string('title');
-            $table->string('link');
+            $table->string('url');
             $table->text('description')->nullable();
             $table->string('keywords')->nullable();
 
