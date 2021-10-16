@@ -112,6 +112,8 @@
     "Status": "Status",
     "Actions": "Ações",
     "New block": "Novo bloco",
+    "Block name": "Nome do bloco",
+    "Block shortcode": "Código identificador do bloco",
     "Active": "Ativo",
     "Inactive": "Inativo",
     "Cancel": "Cancelar",

@@ -41,26 +41,19 @@ class BlockController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'content' => 'required',
         ]);
 
-        $response = [
-            "status" => "success",
-            "message" => "Block created successfully!",
-        ];
-
         $data = $request->all();
-        $data['short_code'] = generateShortcode($data['short_code'], 'blocks');
+        $data['short_code'] = isset($data['short_code']) ? generateShortcode($data['short_code'], 'blocks') : null;
 
         $block = Block::create($data);
 
         if (!$block->save()) {
-            $response['status'] = "error";
-            $response['message'] = "Error creating block.";
+            return back()->withInput()->with("error", "Error creating block.");
         }
 
-        return redirect()
-            ->route('tenant.blocks.index')
-            ->with($response['status'], $response['message']);
+        return redirect()->route('tenant.blocks.index')->with("success", "Block created successfully!");
     }
 
     // Update a Block
@@ -68,42 +61,30 @@ class BlockController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'content' => 'required',
         ]);
-
-        $response = [
-            "status" => "success",
-            "message" => "Block updated successfully!",
-        ];
 
         $data = $request->all();
         $data['status'] = isset($data['status']) ? '1' : '0';
-        $data['short_code'] = generateShortcode($data['short_code'], 'blocks', $block->id);
 
-        if (!$block->update($data)) {
-            $response['status'] = "error";
-            $response['message'] = "Error updating Block.";
+        if (isset($data['short_code']) && $data['short_code'] != $block->short_code) {
+            $data['short_code'] = generateShortcode($data['short_code'], 'blocks', $block->id);
         }
 
-        return redirect()
-            ->route('tenant.blocks.index')
-            ->with('success', 'Block updated successfully');
+        if (!$block->update($data)) {
+            return back()->withInput()->with("error", "Error updating block.");
+        }
+
+        return redirect()->route('tenant.blocks.index')->with('success', 'Block updated successfully');
     }
 
     // Delete a Block
     public function destroy(Block $block)
     {
-        $response = [
-            "status" => "success",
-            "message" => "Block deleted successfully!",
-        ];
-
         if (!$block->delete()) {
-            $response['status'] = "error";
-            $response['message'] = "Error deleting Block.";
+            return redirect()->route('tenant.blocks.index')->with("error", "Error deleting block.");
         }
 
-        return redirect()
-            ->route('tenant.blocks.index')
-            ->with($response['status'], $response['message']);
+        return redirect()->route('tenant.blocks.index')->with("success", "Block deleted successfully!");
     }
 }

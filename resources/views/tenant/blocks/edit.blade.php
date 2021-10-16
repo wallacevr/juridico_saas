@@ -5,23 +5,14 @@
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
     <!-- LEFT FORM -->
     <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">
-        <form action="{{ route('tenant.blocks.update', $block->id) }}" method="POST" enctype="multipart/form-data">
+        <form id="blockForm" action="{{ route('tenant.blocks.update', $block->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <div class="grid grid-cols-3 gap-6">
                         <div class="col-span-12 sm:col-span-3">
-                            <label for="name" class="block text-sm font-medium text-gray-700">
-                                {{ __('Name') }}
-                            </label>
-                            <input type="text" name="name" value="{{ old('name')  ? old('name') :  $block->name}}"
-                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                            @error('name')
-                            <p class="mt-2 text-sm text-red-500">
-                                {{ $message }}
-                            </p>
-                            @enderror
+                            @include('layouts.snippets.fields', ['type'=>'text','label'=>'Name','placeholder'=>'Page name','name'=>'name','value'=> $block->name ])
                         </div>
 
                         <div class="col-span-3">
@@ -29,18 +20,12 @@
                                 {{ __('Content') }}
                             </label>
                             <div class="mt-1">
-                                <textarea name="content" rows="5"
-                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ">{{ old('content') ? old('content') :  $block->content}}</textarea>
+                                <textarea name="content" rows="5" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ">{{ old('content') ? old('content') :  $block->content}}</textarea>
                             </div>
                         </div>
 
                         <div class="col-span-12 sm:col-span-3">
-                            <label for="short_code" class="block text-sm font-medium text-gray-700">
-                                {{ __('Shortcode') }}
-                            </label>
-                            <input id="short_code" type="text" name="short_code"
-                                value="{{ old('short_code')  ? old('short_code') :  $block->short_code}}"
-                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                            @include('layouts.snippets.fields', ['type'=>'text','label'=>'Shortcode','placeholder'=>'Block shortcode','name'=>'short_code','value'=> $block->short_code ])
                             <p class="text-xs text-gray-500 mt-2">
                                 {{ __('Shortcode preview:') }}
                                 <span id="shortcode-preview" class="text-black">
@@ -63,9 +48,7 @@
                     <div class="mt-4 space-y-4">
                         <div class="flex items-start">
                             <div class="h-5 flex items-center">
-                                <input id="status" name="status" type="checkbox"
-                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{
-                                    old('status') || $block->status ? 'checked' : '' }} value="1" />
+                                <input id="status" name="status" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{ old('status') || $block->status ? 'checked' : '' }} value="1" />
                             </div>
                             <div class="ml-3 text-sm">
                                 <label for="status" class="font-medium text-gray-700">{{ __('label.Active') }}</label>
@@ -82,14 +65,12 @@
         <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
             <div class="flex justify-end">
                 <span class="inline-flex rounded-md shadow-sm">
-                    <a href="{{ route('tenant.blocks.index') }}"
-                        class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                    <a href="{{ route('tenant.blocks.index') }}" class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
                         {{ __('Cancel') }}
                     </a>
                 </span>
                 <span class="ml-3 inline-flex rounded-md shadow-sm">
-                    <button type="submit"
-                        class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
+                    <button type="submit" class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
                         {{ __('Save block') }}
                     </button>
                 </span>
@@ -103,4 +84,18 @@
 
 @push('js')
 <script src="{{ URL::to('/') . '/js/string-sanitizer.js' }}"></script>
+<script>
+    $(document).ready(function() {
+        $("#blockForm").validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                content: {
+                    required: true,
+                },
+            }
+        });
+    });
+</script>
 @endpush

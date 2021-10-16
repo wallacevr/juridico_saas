@@ -17,7 +17,7 @@ class CreateBlocksTable extends Migration
             $table->id();
 
             $table->string('name');
-            $table->text('content')->nullable();
+            $table->text('content');
             $table->string('short_code')->nullable()->unique();
             $table->boolean('status');
 
