@@ -36,17 +36,11 @@ class BannerController extends Controller
     // Store a Banner
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'name' => 'required',
             'type' => 'required',
-            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg|max:10000',
         ]);
-
-        $response = [
-            "status" => "success",
-            "message" => "Banner created successfully!",
-        ];
 
         $data = $request->all();
         $image = $request->file('image_url');
@@ -57,12 +51,13 @@ class BannerController extends Controller
             $banner = Banner::create($data);
 
             if (!$banner->save()) {
-                $response['status'] = "error";
-                $response['message'] = "Error creating banner.";
+                deleteImage($imageUrl, 'banners');
+
+                return back()->withInput()->with("error", "Error creating banner.");
             }
         }
 
-        return redirect()->route('tenant.banners.index')->with($response['status'], $response['message']);
+        return redirect()->route('tenant.banners.index')->with("success", "Banner created successfully!");
     }
 
     // Update a Banner
@@ -71,13 +66,8 @@ class BannerController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'type' => 'required',
-            'image_url' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+            'image_url' => 'image|mimes:jpeg,png,jpg|max:10000',
         ]);
-
-        $response = [
-            "status" => "success",
-            "message" => "Banner updated successfully!",
-        ];
 
         $data = $request->all();
         $image = $request->file('image_url');
@@ -87,15 +77,12 @@ class BannerController extends Controller
             if ($imageUrl = storeImage($image, '/images/banners')) {
                 $data['image_url'] = $imageUrl;
 
-                $oldImage = public_path() . '/images/banners/' . $banner->image_url;
-
-                File::exists($oldImage) ? File::delete($oldImage) : '';
+                deleteImage($banner->image_url, 'banners');
             }
         }
 
         if (!$banner->update($data)) {
-            $response['status'] = "error";
-            $response['message'] = "Error updating Banner.";
+            return back()->withInput()->with("error", "Error updating banner.");
         }
 
         return redirect()->route('tenant.banners.index')->with('success', 'Banner updated successfully');
@@ -104,22 +91,12 @@ class BannerController extends Controller
     // Delete a Banner
     public function destroy(Banner $banner)
     {
-        $response = [
-            "status" => "success",
-            "message" => "Banner deleted successfully!",
-        ];
-
-        $imageUrl = public_path() . '/images/banners/' . $banner->image_url;
-
-        if ($banner->delete()) {
-            File::exists($imageUrl) ? File::delete($imageUrl) : '';
-        } else {
-            $response['status'] = "error";
-            $response['message'] = "Error deleting Banner.";
+        if (!$banner->delete()) {
+            return redirect()->route('tenant.banners.index')->with("error", "Error deleting banner.");
         }
 
-        return redirect()
-            ->route('tenant.banners.index')
-            ->with($response['status'], $response['message']);
+        deleteImage($banner->image_url, 'banners');
+
+        return redirect()->route('tenant.banners.index')->with("success", "Banner deleted successfully!");
     }
 }

@@ -3,20 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <title>{{ get_config('general/store/name') }}</title>
-    
+
     <!-- Scripts -->
     <script src="{{ mix('js/store.js') }}" defer></script>
-    
+
     <!-- Styles -->
     <link href="{{ mix('css/store.css') }}" rel="stylesheet">
-    
+
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     @stack('head')
 </head>
 <body class="bg-gray-100 h-screen antialiased">
@@ -352,12 +353,12 @@
           <div class="ml-auto flex items-center" >
             <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
               <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
-              
+
                             @guest('customers')
                               <a href="{{ route('store.customer.login') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Login</a>
-                          
+
                                 <a href="{{ route('store.customer.register') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Register</a>
-                            
+
                             @else
                             <div x-data="{ expanded: false }" @click.away="expanded = false" class="ml-3 relative z-10">
                                 <div>
@@ -379,10 +380,10 @@
                             </div>
                         </div>
                         @endguest
-           
+
             </div>
 
-           
+
 
             <!-- Search -->
             <div class="flex lg:ml-6">
@@ -419,5 +420,7 @@
 </div>
 
 @stack('body')
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+@stack('js')
 </body>
 </html>

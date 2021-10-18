@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -15,6 +14,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('store.home');
+        $pageBanners = DB::table('banners')->where([
+            ['status', '=', '1'],
+            ['type', '=', 'FULL'],
+        ])->select('image_url', 'url', 'name')->get();
+
+        return view('store.home')->with('pageBanners', $pageBanners);
     }
 }

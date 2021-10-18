@@ -48,6 +48,18 @@ if (!function_exists("generateSlug")) {
     }
 }
 
+if (!function_exists("deleteImage")) {
+    /**
+     *
+     * @param mixed $imageName
+     * @param mixed $folderName
+     * @return string
+     */
+    function deleteImage($imageName, $folderName){
+        $imageFullPath = public_path() .'/tenant/'.tenant('id'). '/images/'. $folderName .'/'. $imageName;
+        return File::delete($imageFullPath);
+    }
+}
 
 if (!function_exists("getFileUniqueName")) {
     /**

@@ -2,4 +2,6 @@
 
 @section('content')
 
+@includeWhen(isset($pageBanners),'store.banners.full-banners', $pageBanners)
+
 @endsection
