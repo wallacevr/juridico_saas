@@ -22,7 +22,8 @@ class CustomerGroupController extends Controller
     }
 
     public function store(Request $request){
-        dd('store');
+       CustomerGroup::create(['name' => $request->name]);
+       return redirect()->route('tenant.groups.index');
     }
     
     public function update(Request $request,$id){
