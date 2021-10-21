@@ -222,7 +222,7 @@ if (!function_exists('create_menu')) {
                     ['name' => __('menu.Blocks'), 'href' => route('tenant.blocks.index')],
                     ['name' => __('menu.Embed Html Code'), 'href' => '#'],
                     ['name' => __('menu.Social Network'), 'href' => '#'],
-                    ['name' => __('menu.Pages'), 'href' => '#'],
+                    ['name' => __('menu.Pages'), 'href' => route('tenant.pages.index')],
                 ],
             ],
             [
