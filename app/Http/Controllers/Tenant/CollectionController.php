@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Tenant;
 use App\Collection;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class CollectionController extends Controller
 {
@@ -43,14 +42,9 @@ class CollectionController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'page_title' => 'required',
-            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg|max:10000',
             'slug' => 'required',
         ]);
-
-        $response = [
-            "status" => "success",
-            "message" => "Collection created successfully!",
-        ];
 
         $data = $request->all();
         $image = $request->file('image_url');
@@ -62,14 +56,13 @@ class CollectionController extends Controller
             $collection = Collection::create($data);
 
             if (!$collection->save()) {
-                $response['status'] = "error";
-                $response['message'] = "Error creating collection.";
+                deleteImage($imageUrl, 'collections');
+
+                return back()->withInput()->with("error", "Error creating collection.");
             }
         }
 
-        return redirect()
-            ->route('tenant.collections.index')
-            ->with($response['status'], $response['message']);
+        return redirect()->route('tenant.collections.index')->with("success", "Collection created successfully!");
     }
 
     // Update a Collection
@@ -89,48 +82,34 @@ class CollectionController extends Controller
 
         $data = $request->all();
         $image = $request->file('image_url');
-        $data['slug'] = generateSlug($data['slug'], 'collections');
+        $data['slug'] = generateSlug($data['slug'], 'collections', $collection->id);
+        $data['status'] = isset($data['status']) ? '1' : '0';
 
         if (!empty($data['image_url']) && $data['image_url'] !== $collection->image_url) {
             if ($imageUrl = storeImage($image, '/images/collections')) {
                 $data['image_url'] = $imageUrl;
 
-                $oldImage = public_path() . '/images/collections/' . $collection->image_url;
-
-                File::exists($oldImage) ? File::delete($oldImage) : '';
+                deleteImage($collection->image_url, 'collections');
             }
         }
 
         if (!$collection->update($data)) {
-            $response['status'] = "error";
-            $response['message'] = "Error updating collection.";
+            return back()->withInput()->with("error", "Error updating collection.");
         }
 
-        return redirect()
-            ->route('tenant.collections.index')
-            ->with('success', 'Collection updated successfully');
+        return redirect()->route('tenant.collections.index')->with("success", "Collection updated successfully");
     }
 
     // Delete a Collection
     public function destroy(Collection $collection)
     {
-        $response = [
-            "status" => "success",
-            "message" => "Collection deleted successfully!",
-        ];
-
-        $imageUrl = public_path() . '/images/collections/' . $collection->image_url;
-
-        if ($collection->delete()) {
-            File::exists($imageUrl) ? File::delete($imageUrl) : '';
-        } else {
-            $response['status'] = "error";
-            $response['message'] = "Error deleting collection.";
+        if (!$collection->delete()) {
+            return redirect()->route('tenant.collections.index')->with("error", "Error deleting collection.");
         }
 
-        return redirect()
-            ->route('tenant.collections.index')
-            ->with($response['status'], $response['message']);
+        deleteImage($collection->image_url, 'collections');
+
+        return redirect()->route('tenant.collections.index')->with("success", "Collection deleted successfully");
     }
 
 }

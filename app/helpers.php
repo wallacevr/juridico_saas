@@ -41,7 +41,7 @@ if (!function_exists("generateSlug")) {
 
         $query = DB::table($entity)->where('slug', $newSlug);
 
-        if ($entityId) {
+ 		if ($entityId) {
             $query->where('id', '<>', $entityId);
         }
 
@@ -97,6 +97,7 @@ if (!function_exists("generateShortcode")) {
         return $newShortcode;
     }
 }
+
 
 
 
