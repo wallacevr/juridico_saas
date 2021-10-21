@@ -62,7 +62,7 @@
                             <span class="bg-gray-50 border border-r-0 border-gray-300 px-3 inline-flex items-center text-gray-500 sm:text-sm">
                                 {{ Request::getHost() . '/brands/' }}
                             </span>
-                            <input type="text" name="slug" id="slug" autocomplete="slug" class="mt-1 block w-full border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('slug') ? old('slug') :  $brand->slug  }}" />
+                            <input type="text" name="slug" id="slug" autocomplete="slug" class="block w-full border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('slug') ? old('slug') :  $brand->slug  }}" />
                         </div>
                         @error('slug')
                         <p class="mt-2 text-sm text-red-500">
@@ -153,7 +153,6 @@
 
 @push('js')
 <script src="{{ URL::to('/') . '/js/image-preview-input.js' }}"></script>
-<script src="{{ URL::to('/') . '/js/string-slugger.js' }}"></script>
 <script>
     $(document).ready(function() {
         $("#brandForm").validate({
