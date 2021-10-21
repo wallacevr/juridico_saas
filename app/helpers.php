@@ -26,22 +26,30 @@ if (!function_exists("get_config")) {
     }
 
 }
+
 if (!function_exists("generateSlug")) {
     /**
      * Receive a string and convert into a valid slug URL based in her entity
      *
      * @return string
      */
-    function generateSlug($slugString, $entity)
+    function generateSlug($slugString, $entity, $entityId = null)
     {
         $originalSlug = Str::of($slugString)->slug('-');
         $newSlug = $originalSlug;
         $cont = 1;
 
-        while (DB::table($entity)->where('slug', $newSlug)->exists()) {
-            $newSlug = "{$originalSlug}-{$cont}";
+        $query = DB::table($entity)->where('slug', $newSlug);
 
+        if ($entityId) {
+            $query->where('id', '<>', $entityId);
+        }
+
+        while ($query->exists()) {
+            $newSlug = "{$originalSlug}-{$cont}";
             $cont++;
+
+            $query = DB::table($entity)->where('slug', $newSlug);
         }
 
         return $newSlug;
@@ -93,6 +101,7 @@ if (!function_exists("generateShortcode")) {
 
 
 
+
 if (!function_exists("getFileUniqueName")) {
     /**
      *
@@ -127,6 +136,19 @@ if (!function_exists("storeImage")) {
         $image->move($destinationPath, $imageUrl);
 
         return $imageUrl;
+    }
+}
+
+if (!function_exists("deleteImage")) {
+    /**
+     *
+     * @param mixed $imageName
+     * @param mixed $folderName
+     * @return string
+     */
+    function deleteImage($imageName, $folderName){
+        $imageFullPath = public_path() .'/tenant/'.tenant('id'). '/images/'. $folderName .'/'. $imageName;
+        return File::delete($imageFullPath);
     }
 }
 
