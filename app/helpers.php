@@ -61,6 +61,38 @@ if (!function_exists("deleteImage")) {
     }
 }
 
+if (!function_exists("generateShortcode")) {
+    /**
+     * Receive a string and convert into a valid shortcode based in her entity
+     *
+     * @return string
+     */
+    function generateShortcode($shortcodeString, $entity, $entityId = null)
+    {
+        $originalShortcode = Str::of($shortcodeString)->slug('_');
+        $newShortcode = $originalShortcode;
+        $cont = 1;
+
+        $query = DB::table($entity)->where('short_code', $newShortcode);
+
+        if ($entityId) {
+            $query->where('id', '<>', $entityId);
+        }
+
+        while ($query->exists()) {
+            $newShortcode = "{$originalShortcode}-{$cont}";
+            $cont++;
+
+            $query = DB::table($entity)->where('short_code', $newShortcode);
+        }
+
+        return $newShortcode;
+    }
+}
+
+
+
+
 if (!function_exists("getFileUniqueName")) {
     /**
      *
@@ -163,6 +195,8 @@ if (!function_exists('create_menu')) {
                     ['name' => __('menu.logo'), 'href' => '#'],
                     ['name' => __('menu.Layout'), 'href' => '#'],
                     ['name' => __('menu.Banners'), 'href' => route('tenant.banners.index')],
+                    ['name' => __('menu.Banners'), 'href' => '#'],
+                    ['name' => __('menu.Blocks'), 'href' => route('tenant.blocks.index')],
                     ['name' => __('menu.Embed Html Code'), 'href' => '#'],
                     ['name' => __('menu.Social Network'), 'href' => '#'],
                     ['name' => __('menu.Pages'), 'href' => '#'],
