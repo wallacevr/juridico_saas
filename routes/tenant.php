@@ -47,9 +47,12 @@ Route::group([
             Route::resource('banners', 'BannerController');
             // Brand routes
             Route::resource('blocks', 'BlockController');
-
             // Page routes
             Route::resource('pages', 'PageController');
+            // Variation routes
+            Route::resource('variations', 'VariationController');
+            // Option routes
+            Route::resource('options', 'OptionController');
 
             Route::get('configurations', 'ConfigurationController@index')->name('settings.store');
             Route::post('configurations', 'ConfigurationController@update')->name('settings.store.update');

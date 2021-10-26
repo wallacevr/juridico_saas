@@ -9,7 +9,7 @@ return [
     'Categories'=>'Categorias',
     'Collections'=>'Coleções',
     'Brands'=>'Marcas',
-    'Options'=>'Variações',
+    'Variations'=>'Variações',
     'Stock Notification' => 'Avise-me',
     'Clients' => 'Clientes',
     'Groups' => 'Grupos',
