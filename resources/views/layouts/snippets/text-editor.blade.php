@@ -17,7 +17,8 @@
 <script>
     CKEDITOR.replace('{{$name}}', {
         filebrowserUploadUrl: "{{route('tenant.ckeditor.image-upload', ['_token' => csrf_token() ])}}",
-        filebrowserUploadMethod: 'form'
+        filebrowserUploadMethod: 'form',
+        filebrowserBrowseUrl: "{{ route('tenant.ckeditor.browse-images') }}",
     })
 </script>
 @endpush

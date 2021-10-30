@@ -22,4 +22,20 @@ class CKEditorController extends Controller
             echo $response;
         }
     }
+
+    public function browseImages()
+    {
+        $paths = glob(public_path() . '/tenant/' . tenant('id') . '/images/WYSIWYG/*');
+        $fileNames = [];
+
+        foreach ($paths as $path) {
+            array_push($fileNames, basename($path));
+        }
+
+        $data = [
+            'fileNames' => $fileNames,
+        ];
+
+        return view('layouts.snippets.WYSIWYG-image-browser')->with($data);
+    }
 }
