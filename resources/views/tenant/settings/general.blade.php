@@ -93,6 +93,7 @@
             <div class="w-full md:w-1/2">
               <div class="mt-4  pr-2">
                 @include('layouts.snippets.fields', ['type'=>'text','label'=>'Postal code','placeholder'=>'placeholder_postalcode','name'=>'postalcode','value'=>get_config('general/store/postalcode') ])
+                <small id="zip-warning" class="form-text text-muted font-weight-bold text-red-900 hidden">{{ __('Please enter a valid postal code') }}</small>
               </div>
             </div>
             <div class="w-full md:w-1/2">
@@ -226,8 +227,12 @@
 
 @endsection
 @push('js')
+<script src="{{ URL::to('/') . '/js/cep-api.js' }}"></script>
 <script>
   $(document).ready(function() {
+    $('#postalcode').mask('00000-000');
+    $('#phone').mask('(00) 0000-0000');
+    $('#whatsapp').mask('(00) 0000-0000');
     $("#storeSettings").validate({
       rules: {
         name: {
