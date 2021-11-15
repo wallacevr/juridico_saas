@@ -15,7 +15,11 @@ class CustomerController extends Controller
     
     public function show($id){
         $customer   =   Customer::findOrFail($id);
-        return view('tenant.customers.show')->with('customer',$customer);
+        $addresses  =   $customer->addresses;
+        
+        return view('tenant.customers.show')
+        ->with('customer',$customer)
+        ->with('addresses',$addresses);
     }
     public function edit($id){
         $customer   =   Customer::findOrFail($id);
