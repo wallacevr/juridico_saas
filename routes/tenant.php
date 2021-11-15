@@ -49,6 +49,10 @@ Route::group([
             Route::resource('blocks', 'BlockController');
             // Page routes
             Route::resource('pages', 'PageController');
+            // Variation routes
+            Route::resource('variations', 'VariationController');
+            // Option routes
+            Route::resource('options', 'OptionController');
 
             Route::post('ckeditor/upload', 'CKEditorController@upload')->name('ckeditor.image-upload');
             Route::get('ckeditor/browse-images', 'CKEditorController@browseImages')->name('ckeditor.browse-images');

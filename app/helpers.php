@@ -177,7 +177,7 @@ if (!function_exists('create_menu')) {
                     ['name' => __('menu.Categories'), 'href' => '#'],
                     ['name' => __('menu.Brands'), 'href' => route('tenant.brands.index')],
                     ['name' => __('menu.Collections'), 'href' => route('tenant.collections.index')],
-                    ['name' => __('menu.Options'), 'href' => '#'],
+                    ['name' => __('menu.Variations'), 'href' => route('tenant.variations.index')],
                 ],
             ],
             [
