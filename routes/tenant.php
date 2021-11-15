@@ -41,6 +41,13 @@ Route::group([
 
             // Collection routes
             Route::resource('collections', 'CollectionController');
+            //Customer routes
+            Route::get('/customers','CustomerController@index')->name('customers.index');
+            Route::get('/customers/{id}','CustomerController@show')->name('customers.show');
+            Route::get('/customers/edit/{id}','CustomerController@edit')->name('customers.edit');
+            Route::post('/customers/update/{id}','CustomerController@_update');
+            Route::delete('/customers/delete/','CustomerController@destroy')->name('customers.destroy');
+            
             // Brand routes
             Route::resource('brands', 'BrandController');
             // Banner routes

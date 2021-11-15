@@ -44,10 +44,13 @@ class CustomerController extends Controller
 
     protected function create(array $data)
     {
+       
         return Customer::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'dob' =>  $data['dob'],
+            'taxvat'  => $data['cpf']
         ]);
     }
 
