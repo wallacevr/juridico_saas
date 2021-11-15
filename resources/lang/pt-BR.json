@@ -116,6 +116,7 @@
     "Status": "Status",
     "Actions": "Ações",
     "Banners": "Banners",
+    "Are you sure you want to delete this banner? This action cannot be undone.": "Tem certeza que deseja deletar este banner? Essa ação não pode ser desfeita.",
     "Banner name": "Nome do banner",
     "Banner link": "Link do banner",
     "Banner title": "Título do banner",
@@ -171,6 +172,7 @@
     "Delete brand?": "Excluir marca?",
     "Are you sure you want to delete this brand? This action cannot be undone.": "Tem certeza de que deseja excluir esta marca? Essa ação não pode ser desfeita.",
     "Save brand": "Salvar marca",
+    "Delete banner?": "Deletar banner?",
     "Collections": "Coleções",
     "collections": "colecoes",
     "New collection": "Nova coleção",
@@ -186,6 +188,7 @@
     "Delete collection?": "Excluir coleção?",
     "Are you sure you want to delete this collection? This action cannot be undone.": "Tem certeza de que deseja excluir esta coleção? Essa ação não pode ser desfeita.",
     "Save collection": "Salvar coleção",
+    "Pages": "Páginas",
     "New page": "Nova página",
     "Delete page?": "Deletar página?",
     "Are you sure you want to delete this page? This action cannot be undone.": "Tem certeza que deseja deletar esta página? Essa ação não pode ser desfeita.",
@@ -223,5 +226,6 @@
     "Image": "Imagem",
     "Option image": "Imagem da opção",
     "Delete option?": "Deletar opção?",
-    "Are you sure you want to delete this option? This action cannot be undone.": "Tem certeza que deseja deletar esta opção? Essa ação não pode ser desfeita."
+    "Are you sure you want to delete this option? This action cannot be undone.": "Tem certeza que deseja deletar esta opção? Essa ação não pode ser desfeita.",
+    "Please enter a valid postal code": "Por favor, digite um valor válido para o CEP"
 }
