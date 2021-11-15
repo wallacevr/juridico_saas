@@ -47,9 +47,11 @@ Route::group([
             Route::resource('banners', 'BannerController');
             // Brand routes
             Route::resource('blocks', 'BlockController');
-
             // Page routes
             Route::resource('pages', 'PageController');
+
+            Route::post('ckeditor/upload', 'CKEditorController@upload')->name('ckeditor.image-upload');
+            Route::get('ckeditor/browse-images', 'CKEditorController@browseImages')->name('ckeditor.browse-images');
 
             Route::get('configurations', 'ConfigurationController@index')->name('settings.store');
             Route::post('configurations', 'ConfigurationController@update')->name('settings.store.update');
