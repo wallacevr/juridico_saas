@@ -36,8 +36,21 @@
                         @include('layouts.snippets.fields', ['type'=>'text','label'=>'Title','placeholder'=>'Page title','name'=>'title','value'=> '' ])
                     </div>
 
-                    <div class="col-span-12 sm:col-span-3">
-                        @include('layouts.snippets.fields', ['type'=>'text','label'=>'URL','placeholder'=>'Page URL','name'=>'url','value'=> '' ])
+                    <div class="col-span-3 sm:col-span-2">
+                        <label for="slug" class="block text-sm font-medium text-gray-700">
+                            {{ __('URL') }}
+                        </label>
+                        <div class="mt-1 rounded-md shadow-sm flex">
+                            <span class="bg-gray-50 border border-r-0 border-gray-300 px-3 inline-flex items-center text-gray-500 sm:text-sm">
+                                {{ Request::getHost() . '/' . __('pages') . '/'}}
+                            </span>
+                            <input type="text" name="url" id="slug" class="block w-full border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('slug') }}" />
+                        </div>
+                        @error('url')
+                        <p class="mt-2 text-sm text-red-500">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
 
                     <div class="col-span-3">
@@ -110,6 +123,7 @@
 @endsection
 
 @push('js')
+<script src="{{ URL::to('/') . '/js/string-slugger.js' }}"></script>
 <script>
     $(document).ready(function() {
     var taggle = new Taggle('keywords', { hiddenInputName: 'keywords[]', placeholder: null})
@@ -127,7 +141,6 @@
         },
         url: {
             required: true,
-            url: true
         },
       }
     });
