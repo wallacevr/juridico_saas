@@ -42,12 +42,7 @@ Route::group([
             // Collection routes
             Route::resource('collections', 'CollectionController');
             //Customer routes
-            Route::get('/customers','CustomerController@index')->name('customers.index');
-            Route::get('/customers/{id}','CustomerController@show')->name('customers.show');
-            Route::get('/customers/edit/{id}','CustomerController@edit')->name('customers.edit');
-            Route::post('/customers/update/{id}','CustomerController@_update');
-            Route::delete('/customers/delete/','CustomerController@destroy')->name('customers.destroy');
-            
+            Route::resource('customers', 'CustomerController');
             // Brand routes
             Route::resource('brands', 'BrandController');
             // Banner routes
@@ -71,7 +66,7 @@ Route::group([
             Route::post('/settings/user/personal', 'UserSettingsController@personal')->name('settings.user.personal');
             Route::post('/settings/user/password', 'UserSettingsController@password')->name('settings.user.password');
 
-            Route::resource('customers/groups','CustomerGroupController');
+            Route::resource('customers/groups', 'CustomerGroupController');
 
             Route::middleware(OwnerOnly::class)->group(function () {
                 Route::get('/settings/application', 'ApplicationSettingsController@show')->name('settings.application');

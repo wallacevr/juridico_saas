@@ -3,38 +3,34 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-use App\Model\Customers;
+use App\Models\Address;
 use App\Models\Customer;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function submit(Request $request)
     {
         $this->validator($request->all())->validate();
 
+        DB::beginTransaction();
+
         $user = $this->create($request->all());
+
+        if (empty($user)) {
+            DB::rollBack();
+        }
+
+        DB::commit();
 
         $auth = auth()->guard('customers');
         $auth->login($user);
@@ -44,72 +40,79 @@ class CustomerController extends Controller
 
     protected function create(array $data)
     {
-       
-        return Customer::create([
+        $customer = Customer::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => preg_replace("/[^0-9]/", "", $data['phone']),
+            'telephone' => !empty($data['telephone']) ? preg_replace("/[^0-9]/", "", $data['telephone']) : null,
+            'dob' => !empty($data['dob']) ? $data['dob'] : null,
+            'taxvat' => preg_replace("/[^0-9]/", "", $data['taxvat']),
+            'ip' => \Request::ip(),
+            'newsletter' => $data['newsletter'],
+            'accepts_terms_of_use' => $data['terms'],
             'password' => Hash::make($data['password']),
-            'dob' =>  $data['dob'],
-            'taxvat'  => $data['cpf']
         ]);
+
+        $address = Address::create([
+            'name' => $customer->name,
+            'postalcode' => preg_replace("/[^0-9]/", "", $data['postalcode']),
+            'address' => $data['address'],
+            'neighborhood' => $data['neighborhood'],
+            'complement' => !empty($data['complement']) ? $data['complement'] : null,
+            'number' => !empty($data['number']) ? $data['number'] : null,
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'country' => $data['country'],
+            'customer_id' => $customer->id,
+        ]);
+
+        return $customer;
     }
 
-  /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            // User data
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required'],
+            'taxvat' => ['required', 'unique:customers'],
+            'newsletter' => ['required'],
+            'terms' => ['accepted'],
+            // Address
+            'postalcode' => ['required'],
+            'address' => ['required'],
+            'neighborhood' => ['required'],
+            'city' => ['required'],
+            'country' => ['required'],
+            'state' => ['required'],
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show()
     {
         return view('store.auth.register');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function customerDashboard()
     {
-        //
+        return view('store.customers.dashboard');
     }
+
+    public function customerAddresses()
+    {
+        return view('store.customers.addresses', [
+            'addresses' => Customer::find(Auth::user()->id)->addresses,
+        ]);
+    }
+
 }

@@ -2,6 +2,12 @@
 const postalcodeInput = document.getElementById('postalcode')
 const zipWarning = document.getElementById('zip-warning')
 
+const addressInput = document.getElementById('address')
+const neighborhoodInput = document.getElementById('neighborhood')
+const complementInput = document.getElementById('complement')
+const stateInput = document.getElementById('state')
+const cityInput = document.getElementById('city')
+
 // Adicionando o evento de clique ao botão para realizar a consulta na API VIACEP
 postalcodeInput.addEventListener('input', () => {
     // Armazenando o valor do CEP no formulário
@@ -9,7 +15,7 @@ postalcodeInput.addEventListener('input', () => {
 
     // Antes da formatação o CEP deve conter 9 dígitos e não ser nulo, caso seja, será exibido um aviso de erro na página
     if (zipCode == '' || zipCode.length != 9) {
-        zipWarning.style.display = 'block'
+        if (zipWarning) zipWarning.style.display = 'block'
         return false
     }
 
@@ -23,23 +29,21 @@ postalcodeInput.addEventListener('input', () => {
             if (response.status == 200 && !response.data.erro) {
                 let zipRequestData = response.data
 
-                document.getElementById('address').value =
-                    zipRequestData.logradouro
+                if (addressInput) addressInput.value = zipRequestData.logradouro
 
-                document.getElementById('neighborhood').value =
-                    zipRequestData.bairro
+                if (neighborhoodInput)
+                    neighborhoodInput.value = zipRequestData.bairro
 
-                document.getElementById('complement').value =
-                    zipRequestData.complemento
+                if (complementInput)
+                    complementInput.value = zipRequestData.complemento
 
-                document.getElementById('state').value = zipRequestData.uf
+                if (stateInput) stateInput.value = zipRequestData.uf
 
-                document.getElementById('city').value =
-                    zipRequestData.localidade
+                if (cityInput) cityInput.value = zipRequestData.localidade
 
-                zipWarning.style.display = 'none'
+                if (zipWarning) zipWarning.style.display = 'none'
             } else {
-                zipWarning.style.display = 'block'
+                if (zipWarning) zipWarning.style.display = 'block'
             }
         })
 })

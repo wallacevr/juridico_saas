@@ -17,7 +17,7 @@ class CreateOptionsTable extends Migration
             $table->id();
 
             $table->string('name');
-            $table->unsignedBigInteger('variant_id');
+            $table->unsignedBigInteger('variation_id');
             $table->string('value');
             $table->enum('type', ['NONE', 'IMAGE', 'COLOR'])->default('NONE');
             $table->integer('order');

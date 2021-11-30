@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\CustomerGroup;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-use App\CustomerGroup;
-
-class Customer extends  Authenticatable
+class Customer extends Authenticatable
 {
     use Notifiable;
 
@@ -18,10 +17,11 @@ class Customer extends  Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','dob','taxvat'
+        'name', 'email', 'phone', 'telephone', 'password', 'dob', 'taxvat', 'ip', 'status', 'newsletter', 'accepts_terms_of_use',
     ];
 
-    public function addresses(){
+    public function addresses()
+    {
         return $this->hasMany(Address::class);
     }
 
@@ -44,14 +44,17 @@ class Customer extends  Authenticatable
         'dob' => 'date',
     ];
 
-   
-   /**
-    * Get the group that owns the Customer
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
-   public function group(): BelongsTo
-   {
-       return $this->belongsTo(CustomerGroup::class, 'group_id');
-   }
+    protected $attributes = [
+        'status' => true,
+    ];
+
+    /**
+     * Get the group that owns the Customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(CustomerGroup::class, 'group_id');
+    }
 }

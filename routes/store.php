@@ -22,6 +22,11 @@ Route::group([
 
         Route::middleware('auth:customers')->group(function () {
 
+            Route::prefix('dashboard')->group(function () {
+                Route::get('/', 'CustomerController@customerDashboard')->name('customer.dashboard');
+                Route::get('/addresses', 'CustomerController@customerAddresses')->name('customer.addresses');
+            });
+
             Route::post('/logout', function () {
                 Auth::guard('customers')->logout();
                 return redirect()->action([
