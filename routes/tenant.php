@@ -18,11 +18,7 @@ Route::group([
         return UserImpersonation::makeResponse($token);
     })->name('impersonate');
 
-    Route::prefix($admin)->group(function () {
-        Route::any('{user?}/{s?}', function () {
-            abort(404);
-        });
-    });
+   
 
     Route::post('/ploi/webhook/certificateIssued', 'PloiWebhookController@certificateIssued')->name('ploi.certificate.issued');
     Route::post('/ploi/webhook/certificateRevoked', 'PloiWebhookController@certificateRevoked')->name('ploi.certificate.revoked');
