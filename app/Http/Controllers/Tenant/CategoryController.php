@@ -12,6 +12,9 @@ class CategoryController extends Controller
     // Return all Categories
     public function index()
     {
+
+        return redirect()->route('tenant.categories.edit',['category' => 1]);
+        //disable view
         return view('tenant.categories.index', [
             'categories' => Category::getMainCategoriesWithChildrens(),
         ]);
@@ -20,12 +23,16 @@ class CategoryController extends Controller
     // Show the Categories create form
     public function create()
     {
+
+        return redirect()->route('tenant.categories.edit',['category' => 1]);
+        //disable view
         return view('tenant.categories.create');
     }
 
     // Show the Category edit form
     public function edit(Category $category)
     {
+        
         return view('tenant.categories.edit', [
             'category' => Category::getMainCategoryWithChildrens($category->id),
         ]);
@@ -65,7 +72,7 @@ class CategoryController extends Controller
                     'title' => $subCategory->name,
                     'slug' => generateSlug($subCategory->name, 'categories'),
                     'status' => $categoryStatus,
-                    'is_parent' => 1,
+                    'is_parent' => 0,
                     'parent_id' => $mainCategory->id,
                     'url' => $subCategory->url,
                 ]);
@@ -79,7 +86,7 @@ class CategoryController extends Controller
             }
         }
 
-        return redirect()->route('tenant.categories.index')->with($response['status'], $response['message']);
+        return redirect()->route('tenant.categories.edit',['category' => 1])->with($response['status'], $response['message']);
     }
 
     // Update a Category

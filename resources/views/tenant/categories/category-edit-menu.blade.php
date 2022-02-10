@@ -34,14 +34,14 @@
             <span class="mx-2 inline-flex shadow-sm">
                 <button type="button"
                     class="close-button py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                    {{ __('actions.Cancel') }}
+                    {{ __('Cancel') }}
                 </button>
             </span>
             <div class="flex-grow"></div>
-            <span class="mx- inline-flex shadow-sm">
-                <button type="button"
-                    class="save-button py-1 px-10 h-30 bg-green-600 border border-green-300 rounded-md text-sm font-medium text-white hover:text-black focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition duration-150 ease-in-out">
-                    {{ __('actions.Save') }}
+            <span class="ml-3 inline-flex rounded-md shadow-sm">
+                <button type="submit"
+                    class="category-submit py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
+                    {{ __('Change') }}
                 </button>
             </span>
         </div>

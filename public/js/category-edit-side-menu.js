@@ -30,12 +30,12 @@ $(document).ready(function () {
         let subcategoryUrl = $('#subcategoryUrlEdit').val()
         let subcategoryId = '#' + $('#subcategoryIdEdit').val()
 
-        $(subcategoryId).attr('data-name', subcategoryName)
-        $(subcategoryId).attr('data-url', subcategoryUrl)
+        $(subcategoryId).data('name', subcategoryName).sortable('refresh')
+        $(subcategoryId).data('url', subcategoryUrl).sortable('refresh')
+        $(subcategoryId).data('label', subcategoryName).sortable('refresh')
         $(subcategoryId)
             .children('span')
             .text(subcategoryName)
-
         let data = $('ol.menu-items')
             .sortable('serialize')
             .get()

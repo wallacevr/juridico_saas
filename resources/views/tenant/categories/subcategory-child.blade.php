@@ -1,7 +1,7 @@
 @if(!empty($categoryChild->children[0]))
 @foreach($categoryChild->children as $subCategoryChild)
 <li id="{{'category-'. $subCategoryChild->id }}" data-id="{{ $subCategoryChild->id }}"
-    data-name="{{ $subCategoryChild->title }}" data-url="{{ $categoryChild->url }}">
+    data-name="{{ $subCategoryChild->title }}" data-url="{{ $subCategoryChild->url }}">
 
     <span class="subcategory-title">{{ $subCategoryChild->title }}</span>
 

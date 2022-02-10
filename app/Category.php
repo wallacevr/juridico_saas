@@ -16,12 +16,12 @@ class Category extends Model
 
     public static function getMainCategoriesWithChildrens()
     {
-        return Category::orderBy('id', 'ASC')->where('is_parent', 0)->with('allChildren')->paginate(5);
+        return Category::orderBy('id', 'ASC')->where('is_parent', 1)->with('allChildren')->paginate(5);
     }
 
     public static function getMainCategoryWithChildrens($categoryId)
     {
-        return Category::where('id', $categoryId)->with('allChildren')->first();
+        return self::find($categoryId);
     }
 
     public function parent()
@@ -31,7 +31,7 @@ class Category extends Model
 
     public function children()
     {
-        return $this->hasMany('App\Category', 'parent_id');
+        return $this->refresh()->hasMany('App\Category', 'parent_id');
     }
 
     public function allChildren()

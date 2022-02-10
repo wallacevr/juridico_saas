@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ URL::to('/') . '/css/category-edit-side-menu.css' }}">
 @endpush
 
-@extends('layouts.tenant', ['title' => __('actions.Edit category') . __(" - {$category->title}")])
+@extends('layouts.tenant', ['title' => __('Edit category') . __(" - {$category->title}")])
 
 @section('content')
 
@@ -51,7 +51,7 @@
                         placeholder="{{ __('label.Subcategory url') }}" />
                     <button type="button"
                         class="flex-auto mx-2 mt-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 add-menu border border-transparent rounded-md">
-                        {{ __('actions.Add menu item') }}
+                        {{ __('Add menu item') }}
                     </button>
                 </div>
             </div>
@@ -113,13 +113,13 @@
             <span class="inline-flex rounded-md shadow-sm">
                 <a href="{{ route('tenant.categories.index') }}"
                     class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                    {{ __('actions.Cancel') }}
+                    {{ __('Cancel') }}
                 </a>
             </span>
             <span class="ml-3 inline-flex rounded-md shadow-sm">
                 <button type="submit"
                     class="category-submit py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
-                    {{ __('actions.Save category') }}
+                    {{ __('Save') }}
                 </button>
             </span>
         </div>
