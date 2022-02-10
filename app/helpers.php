@@ -145,6 +145,42 @@ if (!function_exists("storeImage")) {
     }
 }
 
+if (!function_exists("returnAllSubcategories")) {
+    function returnAllSubcategories($mainCategory, $displayType)
+    {
+        // Simple and verbose
+
+        if ($displayType === 'Admin') {
+            $subCategories = loopThroughSubCategories($mainCategory);
+        } else {
+            $subCategories = loopThroughSubCategories($mainCategory);
+        }
+
+        return $subCategories;
+    }
+}
+
+if (!function_exists("loopThroughSubCategories")) {
+    function loopThroughSubCategories($currentSubCategory)
+    {
+        $data = '';
+
+        foreach ($currentSubCategory as $subCategory) {
+            $data .= $subCategory->title . ' | ';
+
+            foreach ($subCategory->allChildren as $subCategoryChilds) {
+                $data .= $subCategoryChilds->title . ' | ';
+
+                foreach ($subCategoryChilds->allChildren as $lastCategory) {
+                    $data .= $lastCategory->title . ' | ';
+                }
+            }
+        }
+
+        return $data;
+    }
+}
+
 if (!function_exists("deleteImage")) {
     /**
      *

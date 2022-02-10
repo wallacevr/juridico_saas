@@ -56,6 +56,10 @@ Route::group([
             // Option routes
             Route::resource('options', 'OptionController');
 
+			// Category routes
+            Route::resource('categories', 'CategoryController');
+			
+
             Route::post('ckeditor/upload', 'CKEditorController@upload')->name('ckeditor.image-upload');
             Route::get('ckeditor/browse-images', 'CKEditorController@browseImages')->name('ckeditor.browse-images');
 

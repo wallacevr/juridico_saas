@@ -1,0 +1,39 @@
+body.dragging,
+body.dragging * {
+    cursor: move !important;
+}
+
+.dragged {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2000;
+}
+
+.menu-items li.placeholder {
+    position: relative;
+}
+
+.menu-items li.placeholder:before {
+    position: absolute;
+    content: none;
+}
+
+.menu-items li {
+    color: #252f3f;
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid #000000;
+    background: #d2d6dc;
+    border-radius: 5px;
+}
+
+.menu-items li::before {
+    content: url("data:image/svg+xml; utf8, <svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'></path></svg>");
+    display: block;
+    fill: white;
+    float: left;
+    width: 22px;
+    height: 10px;
+    margin-right: 10px;
+}
