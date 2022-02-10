@@ -44,6 +44,8 @@ class PageController extends Controller
     // Store a Page
     public function store(Request $request)
     {
+        $request->merge(['url' => url("/pages/{$request->url}")]);
+
         $this->validate($request, [
             'name' => 'required',
             'content' => 'required',
