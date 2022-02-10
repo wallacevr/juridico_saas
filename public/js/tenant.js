@@ -35278,9 +35278,9 @@ window.Taggle = __webpack_require__(/*! taggle */ "./node_modules/taggle/src/tag
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/maxcommerce/saas/resources/js/tenant.js */"./resources/js/tenant.js");
-__webpack_require__(/*! /var/www/html/maxcommerce/saas/resources/css/tenant.css */"./resources/css/tenant.css");
-module.exports = __webpack_require__(/*! /var/www/html/maxcommerce/saas/resources/css/store.css */"./resources/css/store.css");
+__webpack_require__(/*! /private/var/www/maxcommerce_saas/resources/js/tenant.js */"./resources/js/tenant.js");
+__webpack_require__(/*! /private/var/www/maxcommerce_saas/resources/css/tenant.css */"./resources/css/tenant.css");
+module.exports = __webpack_require__(/*! /private/var/www/maxcommerce_saas/resources/css/store.css */"./resources/css/store.css");
 
 
 /***/ })

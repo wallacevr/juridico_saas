@@ -34067,7 +34067,7 @@ __webpack_require__(/*! jquery-mask-plugin */ "./node_modules/jquery-mask-plugin
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/maxcommerce/saas/resources/js/store.js */"./resources/js/store.js");
+module.exports = __webpack_require__(/*! /private/var/www/maxcommerce_saas/resources/js/store.js */"./resources/js/store.js");
 
 
 /***/ })

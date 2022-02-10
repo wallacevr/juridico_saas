@@ -1,11 +1,11 @@
 <div id="mySidenav"
-    class="sidenav flex flex-col h-screen py-8 bg-white border-r dark:bg-gray-800 dark:border-gray-600 border">
-    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">
+    class="sidenav flex flex-col h-screen py-8 border-r bg-gray-100 border-gray-600 border">
+    <h2 class="text-2xl font-semibold text-gray-800 text-white">
         {{ __('label.Edit menu item') }}
     </h2>
     <a href="#" id="close-icon" class="close-button">&times;</a>
 
-    <hr class="my-2 dark:border-black-600" />
+    <hr class="my-2 border-black-600" />
 
     <input type="hidden" id="subcategoryIdEdit">
 

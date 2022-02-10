@@ -19,12 +19,8 @@
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-12 sm:col-span-3">
-                        <label for="title"
-                            class="block text-sm font-medium text-gray-700">{{ __('label.Title') }}</label>
-                        <input type="text" name="title" id="title" autocomplete="title"
-                            value="{{ old('title')  ? old('title') :  $category->title}}"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="{{ __('label.e.g. Bags & Shoes') }}" />
+                        <label for="title" class="block text-sm font-medium text-gray-700">{{ __('label.Title') }}</label>
+                        <input type="text" name="title" id="title" autocomplete="title" value="{{ old('title')  ? old('title') :  $category->title}}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="{{ __('label.e.g. Bags & Shoes') }}" />
                         @error('title')
                         <p class="mt-2 text-sm text-red-500">
                             {{ $message }}
@@ -43,14 +39,9 @@
                 </h3>
 
                 <div class="flex md:flex md:justify-center pt-3">
-                    <input type="text" id="subcategoryTitle" value="{{ old('title') }}"
-                        class="flex-auto mx-1 mt-1 border border-gray-300 rounded-md shadow-sm py-2 px-5 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="{{ __('label.Subcategory title') }}" />
-                    <input type="text" id="subcategoryUrl" value="{{ old('title') }}"
-                        class="flex-auto mx-1 mt-1 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="{{ __('label.Subcategory url') }}" />
-                    <button type="button"
-                        class="flex-auto mx-2 mt-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 add-menu border border-transparent rounded-md">
+                    <input type="text" id="subcategoryTitle" value="{{ old('title') }}" class="flex-auto mx-1 mt-1 border border-gray-300 rounded-md shadow-sm py-2 px-5 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="{{ __('label.Subcategory title') }}" />
+                    <input type="text" id="subcategoryUrl" value="{{ old('title') }}" class="flex-auto mx-1 mt-1 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="{{ __('label.Subcategory url') }}" />
+                    <button type="button" class="flex-auto mx-2 mt-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 add-menu border border-transparent rounded-md">
                         {{ __('Add menu item') }}
                     </button>
                 </div>
@@ -61,14 +52,15 @@
             <ol class='menu-items'>
                 @foreach ($category->children as $categoryChild)
 
-                <li id="{{'category-'. $categoryChild->id }}" data-id="{{ $categoryChild->id }}"
-                    data-name="{{ $categoryChild->title }}" data-url="{{ $categoryChild->url }}">
+                <li id="{{'category-'. $categoryChild->id }}" data-id="{{ $categoryChild->id }}" data-name="{{ $categoryChild->title }}" data-url="{{ $categoryChild->url }}">
+                    <div>
+                        <span class="subcategory-title">{{ $categoryChild->title }}</span>
 
-                    <span class="subcategory-title">{{ $categoryChild->title }}</span>
-
-                    <div class="float-right">
-                        @include('tenant.categories.subcategory-edit-buttons')
+                        <div class="float-right">
+                            @include('tenant.categories.subcategory-edit-buttons')
+                        </div>
                     </div>
+
 
                     <ol>
                         @if (!empty($categoryChild->children[0]))
@@ -93,9 +85,7 @@
                 <div class="mt-4 space-y-4">
                     <div class="flex items-start">
                         <div class="h-5 flex items-center">
-                            <input id="status" name="status" type="checkbox"
-                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                {{ old('status') || $category->status ? 'checked' : '' }} value="1" />
+                            <input id="status" name="status" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{ old('status') || $category->status ? 'checked' : '' }} value="1" />
                         </div>
                         <div class="ml-3 text-sm">
                             <label for="status" class="font-medium text-gray-700">{{ __('label.Active') }}</label>
@@ -111,14 +101,12 @@
     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
         <div class="flex justify-end">
             <span class="inline-flex rounded-md shadow-sm">
-                <a href="{{ route('tenant.categories.index') }}"
-                    class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                <a href="{{ route('tenant.categories.index') }}" class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
                     {{ __('Cancel') }}
                 </a>
             </span>
             <span class="ml-3 inline-flex rounded-md shadow-sm">
-                <button type="submit"
-                    class="category-submit py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
+                <button type="submit" class="category-submit py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
                     {{ __('Save') }}
                 </button>
             </span>
