@@ -89,7 +89,7 @@
 
       <header class="relative bg-white">
         <p class="bg-indigo-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
+          O projeto mais GATO da atualidade
         </p>
 
         <nav aria-label="Top" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -108,7 +108,7 @@
               <div class="ml-4 flex lg:ml-0">
                 <a href="#">
                   <span class="sr-only">Workflow</span>
-                  <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="">
+                  <img class="h-8 w-auto" src="/images/logo_max_commerce.png" alt="">
                 </a>
               </div>
 
@@ -122,9 +122,9 @@
                   <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
 
                   @guest('customers')
-                  <a href="{{ route('store.customer.login') }}" class="text-sm font-medium text-gray-700 hover:text-red-800">Login</a>
+                  <a href="{{ route('store.customer.login') }}" class="text-sm font-medium text-gray-700 hover:text-red-800">Entrar</a>
 
-                  <a href="{{ route('store.customer.register') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-50">Register</a>
+                  <a href="{{ route('store.customer.register') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-50">Cadastra-se</a>
 
                   @else
                   <div class="flex items-center">
