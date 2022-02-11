@@ -2,7 +2,7 @@
     <div class="swiper-wrapper">
         @foreach ($pageBanners as $banner)
         <div class="swiper-slide">
-            <img class="object-fill w-full h-96" src="{{ tenant_public_path() . '/images/banners/'. $banner->image_url }}" alt="{{ $banner->name }}" />
+            <img class="w-full" src="{{ tenant_public_path() . '/images/banners/'. $banner->image_url }}" alt="{{ $banner->name }}" />
         </div>
         @endforeach
     </div>

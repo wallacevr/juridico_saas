@@ -110,12 +110,12 @@ class CategoryController extends Controller
         if (isset($data['menu-items'])) {
             $subCategories = json_decode($data['menu-items'])[0];
 
-            foreach ($subCategories as $subCategory) {
+            foreach ($subCategories as $sort=>$subCategory) {
 
-                $this->insertOrUpdateCategory($subCategory, $category->id);
+                $this->insertOrUpdateCategory($subCategory, $category->id,$sort);
 
                 if ($subCategory->children[0]) {
-                    $this->updateSubCategories($subCategory->children[0], $subCategory->id);
+                    $this->updateSubCategories($subCategory->children[0], $subCategory->id??null,$sort);
                 }
             }
         }
@@ -148,12 +148,13 @@ class CategoryController extends Controller
     public function storeSubCategories($subCategories, $parentId, $categoryStatus)
     {
         // Loop to insert the subcategories childs from the subcategory
-        foreach ($subCategories as $subCategoryChild) {
+        foreach ($subCategories as $sort => $subCategoryChild) {
             $currentsubCategoryChild = Category::create([
                 'title' => $subCategoryChild->name,
                 'slug' => generateSlug($subCategoryChild->name, 'categories'),
                 'status' => $categoryStatus,
                 'is_parent' => 1,
+                'sort' => $sort,
                 'parent_id' => $parentId,
                 'url' => $subCategoryChild->url,
             ]);
@@ -170,27 +171,31 @@ class CategoryController extends Controller
 
     public function updateSubCategories($subCategories, $parentId)
     {
+        $sort=0;
         foreach ($subCategories as $subCategory) {
-            $this->insertOrUpdateCategory($subCategory, $parentId);
+            $this->insertOrUpdateCategory($subCategory, $parentId,$sort);
 
             if ($subCategory->children[0]) {
-                $this->updateSubCategories($subCategory->children[0], $subCategory->id);
+                $this->updateSubCategories($subCategory->children[0], $subCategory->id,$sort);
             }
+            $sort++;
         }
     }
 
-    public function insertOrUpdateCategory($subCategory, $parentId)
+    public function insertOrUpdateCategory($subCategory, $parentId,$sort)
     {
         if (isset($subCategory->id)) {
             DB::table('categories')->where('id', $subCategory->id)->update([
                 'title' => $subCategory->name,
                 'url' => $subCategory->url,
+                'sort' => $sort,
                 'parent_id' => $parentId,
             ]);
         } else {
             DB::table('categories')->insert([
                 'title' => $subCategory->name,
                 'url' => $subCategory->url,
+                'sort' =>$sort,
                 'parent_id' => $parentId,
                 'slug' => generateSlug($subCategory->name, 'categories'),
             ]);
