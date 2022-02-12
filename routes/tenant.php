@@ -49,7 +49,7 @@ Route::group([
             Route::resource('options', 'OptionController');
 
 			// Category routes
-            Route::resource('categories', 'CategoryController');
+            Route::resource('menus', 'MenuController');
 			
 
             Route::post('ckeditor/upload', 'CKEditorController@upload')->name('ckeditor.image-upload');

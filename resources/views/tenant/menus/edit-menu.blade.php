@@ -7,20 +7,20 @@
 
     <hr class="my-2 border-black-600" />
 
-    <input type="hidden" id="subcategoryIdEdit">
+    <input type="hidden" id="submenuIdEdit">
 
     <div class="relative mt-6">
         <div>
-            <label for="subcategoryNameEdit"
+            <label for="submenuNameEdit"
                 class="mx-1 text-sm font-medium text-gray-700">{{ __('label.Name') }}</label>
-            <input type="text" id="subcategoryNameEdit"
+            <input type="text" id="submenuNameEdit"
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="{{ __('label.e.g. Bags & Shoes') }}" />
         </div>
         <div class="pt-4">
-            <label for="subcategoryUrlEdit"
-                class="mx-1 text-sm font-medium text-gray-700">{{ __('label.Subcategory url') }}</label>
-            <input type="text" id="subcategoryUrlEdit"
+            <label for="submenuUrlEdit"
+                class="mx-1 text-sm font-medium text-gray-700">{{ __('label.Submenu url') }}</label>
+            <input type="text" id="submenuUrlEdit"
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="{{ __('label.www.mystore.com/shoes') }}" />
         </div>
@@ -40,7 +40,7 @@
             <div class="flex-grow"></div>
             <span class="ml-3 inline-flex rounded-md shadow-sm">
                 <button type="submit"
-                    class="category-submit py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
+                    class="menu-submit py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
                     {{ __('Change') }}
                 </button>
             </span>

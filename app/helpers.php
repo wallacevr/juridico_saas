@@ -216,7 +216,7 @@ if (!function_exists('create_menu')) {
                     // ['name' => __('menu.See All'), 'href' => '#'],
                     // ['name' => __('menu.Reviews'), 'href' => '#'],
                     // ['name' => __('menu.Stock Notification'), 'href' => '#'],
-                    ['name' => __('menu.Categories'), 'href' => route('tenant.categories.index')],
+                    ['name' => __('menu.Menu'), 'href' => route('tenant.menus.edit',1)],
                     ['name' => __('menu.Brands'), 'href' => route('tenant.brands.index')],
                     ['name' => __('menu.Collections'), 'href' => route('tenant.collections.index')],
                     ['name' => __('menu.Variations'), 'href' => route('tenant.variations.index')],

@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Menu extends Model
 {
 
-    protected $fillable = ['title', 'slug', 'status', 'is_parent', 'parent_id', 'url'];
+    protected $fillable = ['title', 'slug', 'status', 'is_parent', 'sort','parent_id', 'url'];
 
     protected $attributes = [
         'status' => false,
@@ -16,22 +16,22 @@ class Category extends Model
 
     public static function getMainCategoriesWithChildrens()
     {
-        return Category::orderBy('sort', 'ASC')->where('is_parent', 1)->with('allChildren')->paginate(5);
+        return Menu::orderBy('sort', 'ASC')->where('is_parent', 1)->with('allChildren')->paginate(5);
     }
 
-    public static function getMainCategoryWithChildrens($categoryId)
+    public static function getMainMenuWithChildrens($menuId)
     {
-        return self::find($categoryId);
+        return self::find($menuId);
     }
 
     public function parent()
     {
-        return $this->belongsTo('App\Category');
+        return $this->belongsTo('App\Menu');
     }
 
     public function children()
     {
-        return $this->refresh()->hasMany('App\Category', 'parent_id')->orderBy('sort', 'ASC');
+        return $this->refresh()->hasMany('App\Menu', 'parent_id')->orderBy('sort', 'ASC');
     }
 
     public function allChildren()

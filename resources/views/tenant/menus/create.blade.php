@@ -1,16 +1,16 @@
 @push('head')
-<link rel="stylesheet" href="{{ URL::to('/') . '/css/sortable-category-menu.css' }}">
-<link rel="stylesheet" href="{{ URL::to('/') . '/css/category-edit-side-menu.css' }}">
+<link rel="stylesheet" href="{{ URL::to('/') . '/css/sortable-menu.css' }}">
+<link rel="stylesheet" href="{{ URL::to('/') . '/css/edit-side-menu.css' }}">
 @endpush
 
-@extends('layouts.tenant', ['title' => __('actions.Create category')]) @section('content')
+@extends('layouts.tenant', ['title' => __('actions.Create menu')]) @section('content')
 
-@include('tenant.categories.category-edit-menu')
+@include('tenant.menus.edit-menu')
 
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
     <!-- LEFT FORM -->
     <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">
-        <form action="{{ route('tenant.categories.store') }}" method="POST"">
+        <form action="{{ route('tenant.menus.store') }}" method="POST"">
             @csrf
             <div class=" shadow sm:rounded-md sm:overflow-hidden">
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
@@ -38,12 +38,12 @@
                     {{ __('label.Menu items') }}
                 </h3>
                 <div class="flex md:flex md:justify-center pt-3">
-                    <input type="text" id="subcategoryTitle" value="{{ old('title') }}"
+                    <input type="text" id="submenuTitle" value="{{ old('title') }}"
                         class="flex-auto mx-1 mt-1 border border-gray-300 rounded-md shadow-sm py-2 px-5 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="{{ __('label.Subcategory title') }}" />
-                    <input type="text" id="subcategoryUrl" value="{{ old('title') }}"
+                        placeholder="{{ __('label.Submenu title') }}" />
+                    <input type="text" id="submenuUrl" value="{{ old('title') }}"
                         class="flex-auto mx-1 mt-1 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="{{ __('label.Subcategory url') }}" />
+                        placeholder="{{ __('label.Submenu url') }}" />
                     <button type="button"
                         class="flex-auto mx-2 mt-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 add-menu border border-transparent rounded-md">
                         {{ __('actions.Add menu item') }}
@@ -85,15 +85,15 @@
     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
         <div class="flex justify-end">
             <span class="inline-flex rounded-md shadow-sm">
-                <a href="{{ route('tenant.categories.index') }}"
+                <a href="{{ route('tenant.menus.index') }}"
                     class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
                     {{ __('actions.Cancel') }}
                 </a>
             </span>
             <span class="ml-3 inline-flex rounded-md shadow-sm">
                 <button type="submit"
-                    class="category-submit py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
-                    {{ __('actions.Save category') }}
+                    class="menu-submit py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
+                    {{ __('actions.Save menu') }}
                 </button>
             </span>
         </div>
@@ -107,6 +107,6 @@
 @push('js')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{{ URL::to('/') . '/js/jquery-sortable.js' }}"></script>
-<script src="{{ URL::to('/') . '/js/category-edit-side-menu.js' }}"></script>
-<script src="{{ URL::to('/') . '/js/sortable-category-menu.js' }}"></script>
+<script src="{{ URL::to('/') . '/js/edit-side-menu.js' }}"></script>
+<script src="{{ URL::to('/') . '/js/sortable-menu.js' }}"></script>
 @endpush

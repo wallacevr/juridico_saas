@@ -1,12 +1,12 @@
-@extends('layouts.tenant', ['title' => __('label.Categories')])
+@extends('layouts.tenant', ['title' => __('label.Menus')])
 
 @section('content')
 
 <div class="">
     <div class="max-w-7xl mx-auto">
-        <a href="{{ route('tenant.categories.create') }}"
+        <a href="{{ route('tenant.menus.create') }}"
             class="px-5 py-2 text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 active:bg-indigo-700 transition ease-in-out duration-150">
-            {{ __('actions.New category') }}
+            {{ __('actions.New menu') }}
         </a>
         <div class="block mt-8">
             <!-- This example requires Tailwind CSS v2.0+ -->
@@ -36,13 +36,13 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    @foreach ($categories as $category)
+                                    @foreach ($menus as $menu)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 <div class="ml-4">
                                                     <div class="text-sm font-medium text-gray-900">
-                                                        {{ $category->title }}
+                                                        {{ $menu->title }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -51,13 +51,13 @@
                                             <div class="flex items-center">
                                                 <div class="ml-4">
                                                     <div class="text-sm font-medium text-gray-900">
-                                                        {{ returnAllSubcategories($category->allChildren, 'Admin') }}
+                                                        {{ returnAllSubmenus($menu->allChildren, 'Admin') }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            @if ($category->status)
+                                            @if ($menu->status)
                                             <span
                                                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                 {{ __('label.Active') }}
@@ -72,7 +72,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 <a
-                                                    href="{{ route('tenant.categories.edit', ['category' => $category->id]) }}">
+                                                    href="{{ route('tenant.menus.edit', ['menu' => $menu->id]) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -82,7 +82,7 @@
                                                 </a>
 
                                                 <form
-                                                    action="{{ route('tenant.categories.destroy', ['category' => $category->id]) }}"
+                                                    action="{{ route('tenant.menus.destroy', ['menu' => $menu->id]) }}"
                                                     method="post" style="margin-top: 4px;">
                                                     @csrf
                                                     @method('DELETE')
@@ -103,7 +103,7 @@
                             </table>
                         </div>
                     </div>
-                    {{ $categories->links() }}
+                    {{ $menus->links() }}
                 </div>
             </div>
         </div>
@@ -130,11 +130,11 @@
                 </div>
                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                        {{ __('label.Delete category?') }}
+                        {{ __('label.Delete menu?') }}
                     </h3>
                     <div class="mt-2">
                         <p class="text-sm text-gray-500">
-                            {{ __('label.Are you sure you want to delete this category? This action cannot be undone.') }}
+                            {{ __('label.Are you sure you want to delete this menu? This action cannot be undone.') }}
                         </p>
                     </div>
                 </div>

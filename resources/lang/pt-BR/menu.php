@@ -6,7 +6,7 @@ return [
     'Dashboard' => 'Dashboard',
     'Products' => 'Produtos',
     'Reviews'=>'Avaliações',
-    'Categories'=>'Categorias',
+    'Menu'=>'Menu',
     'Collections'=>'Coleções',
     'Brands'=>'Marcas',
     'Variations'=>'Variações',
