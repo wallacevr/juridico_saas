@@ -115,7 +115,7 @@ class CategoryController extends Controller
                 $this->insertOrUpdateCategory($subCategory, $category->id,$sort);
 
                 if ($subCategory->children[0]) {
-                    $this->updateSubCategories($subCategory->children[0], $subCategory->id??null,$sort);
+                    $this->updateSubCategories($subCategory->children[0], $subCategory->id,$sort);
                 }
             }
         }
@@ -182,7 +182,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function insertOrUpdateCategory($subCategory, $parentId,$sort)
+    public function insertOrUpdateCategory(&$subCategory, $parentId,$sort)
     {
         if (isset($subCategory->id)) {
             DB::table('categories')->where('id', $subCategory->id)->update([
@@ -199,6 +199,8 @@ class CategoryController extends Controller
                 'parent_id' => $parentId,
                 'slug' => generateSlug($subCategory->name, 'categories'),
             ]);
+
+            $subCategory->id = DB::getPdo()->lastInsertId();
         }
     }
 
