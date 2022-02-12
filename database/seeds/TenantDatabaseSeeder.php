@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Config;
-use App\Category;
+use App\Menu;
 use Illuminate\Database\Seeder;
 
 class TenantDatabaseSeeder extends Seeder
@@ -98,11 +98,11 @@ class TenantDatabaseSeeder extends Seeder
             ]
         ];
         foreach($configs as $config){
-            //Config::create($config);
+            Config::create($config);
         }
-        Category::query()->truncate();
-        Category::create(['title'=>'Categoria Inicial','slug'=>'main','url'=>'#','status'=>1]);
-        Category::create(['title'=>'Contato','slug'=>'contato','url'=>'/contato','status'=>1,'parent_id'=>1]);
+        Menu::query()->truncate();
+        Menu::create(['title'=>'Menu Inicial','slug'=>'main','url'=>'#','status'=>1]);
+        Menu::create(['title'=>'Contato','slug'=>'contato','url'=>'/contato','status'=>1,'parent_id'=>1]);
 
     }
 }
