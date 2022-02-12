@@ -1,10 +1,10 @@
 <?php
 
-use App\Category;
+use App\Menu;
 
 class Tools{
-    public static function getAllCategory(){
-        return Category::getMainCategoryWithChildrens(1)->children;
+    public static function getAllMenu(){
+        return Menu::getMainMenuWithChildrens(1)->children;
     }    
 }
 ?>

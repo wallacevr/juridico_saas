@@ -1,5 +1,5 @@
 <nav class="h-full flex space-x-5 ">
-    @foreach(Tools::getAllCategory() as $menu)
+    @foreach(Tools::getAllMenu() as $menu)
     <div class="py-5" x-data="{category_<?= $menu->id ?>:false}" @mouseover="category_<?= $menu->id ?> = true" @mouseleave="category_<?= $menu->id ?> = false">
         <div class="relative  items-center cursor-pointer text-sm font-medium">
             <button type="button" class=" px-6 text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-indigo-100 focus:ring-offset-2 " aria-expanded="false">
