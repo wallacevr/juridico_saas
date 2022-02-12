@@ -49,8 +49,9 @@ Route::group([
             Route::resource('options', 'OptionController');
 
 			// Category routes
+
+			Route::post('menus/getUrl', 'MenuController@getUrl')->name('menus.get-url');
             Route::resource('menus', 'MenuController');
-			
 
             Route::post('ckeditor/upload', 'CKEditorController@upload')->name('ckeditor.image-upload');
             Route::get('ckeditor/browse-images', 'CKEditorController@browseImages')->name('ckeditor.browse-images');

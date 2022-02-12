@@ -13,7 +13,7 @@ class MenuController extends Controller
     public function index()
     {
 
-        return redirect()->route('tenant.menus.edit',['menu' => 1]);
+        return redirect()->route('tenant.menus.edit', ['menu' => 1]);
         //disable view
         return view('tenant.menus.index', [
             'menus' => Menu::getMainMenusWithChildrens(),
@@ -24,7 +24,7 @@ class MenuController extends Controller
     public function create()
     {
 
-        return redirect()->route('tenant.menus.edit',['menu' => 1]);
+        return redirect()->route('tenant.menus.edit', ['menu' => 1]);
         //disable view
         return view('tenant.menus.create');
     }
@@ -32,7 +32,7 @@ class MenuController extends Controller
     // Show the Menu edit form
     public function edit(Menu $menu)
     {
-        
+
         return view('tenant.menus.edit', [
             'menu' => Menu::getMainMenuWithChildrens($menu->id),
         ]);
@@ -82,11 +82,10 @@ class MenuController extends Controller
                 $subMenuChilds = $subMenu->children[0];
 
                 $this->storeSubMenus($subMenuChilds, $currentSubMenu->id, $menuStatus);
-
             }
         }
 
-        return redirect()->route('tenant.menus.edit',['menu' => 1])->with($response['status'], $response['message']);
+        return redirect()->route('tenant.menus.edit', ['menu' => 1])->with($response['status'], $response['message']);
     }
 
     // Update a Menu
@@ -110,12 +109,12 @@ class MenuController extends Controller
         if (isset($data['menu-items'])) {
             $subMenus = json_decode($data['menu-items'])[0];
 
-            foreach ($subMenus as $sort=>$subMenu) {
+            foreach ($subMenus as $sort => $subMenu) {
 
-                $this->insertOrUpdateMenu($subMenu, $menu->id,$sort);
+                $this->insertOrUpdateMenu($subMenu, $menu->id, $sort);
 
                 if ($subMenu->children[0]) {
-                    $this->updateSubMenus($subMenu->children[0], $subMenu->id,$sort);
+                    $this->updateSubMenus($subMenu->children[0], $subMenu->id, $sort);
                 }
             }
         }
@@ -171,18 +170,18 @@ class MenuController extends Controller
 
     public function updateSubMenus($subMenus, $parentId)
     {
-        $sort=0;
+        $sort = 0;
         foreach ($subMenus as $subMenu) {
-            $this->insertOrUpdateMenu($subMenu, $parentId,$sort);
+            $this->insertOrUpdateMenu($subMenu, $parentId, $sort);
 
             if ($subMenu->children[0]) {
-                $this->updateSubMenus($subMenu->children[0], $subMenu->id,$sort);
+                $this->updateSubMenus($subMenu->children[0], $subMenu->id, $sort);
             }
             $sort++;
         }
     }
 
-    public function insertOrUpdateMenu(&$subMenu, $parentId,$sort)
+    public function insertOrUpdateMenu(&$subMenu, $parentId, $sort)
     {
         if (isset($subMenu->id)) {
             DB::table('menus')->where('id', $subMenu->id)->update([
@@ -195,7 +194,7 @@ class MenuController extends Controller
             DB::table('menus')->insert([
                 'title' => $subMenu->name,
                 'url' => $subMenu->url,
-                'sort' =>$sort,
+                'sort' => $sort,
                 'parent_id' => $parentId,
                 'slug' => generateSlug($subMenu->name, 'menus'),
             ]);
@@ -204,4 +203,21 @@ class MenuController extends Controller
         }
     }
 
+    public function getUrl()
+    {
+        $pages[] =  (object)[
+            'text'=>'',
+            'children' => [['id'=>'#','text'=>"#"]],
+        ];
+
+        $pages[] = (object)[
+            'text'=>'Pages',
+            'children' => [['id'=>"https://www.google.com",'text'=>"filho Pages"]],
+        ];
+        $pages[] = (object)[
+            'text'=>'Produtos',
+            'children' => [['id'=>"https://www.maxcommerce.com",'text'=>"filho Produtos"]],
+        ];
+        return response()->json($pages);
+    }
 }

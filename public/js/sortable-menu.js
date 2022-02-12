@@ -43,7 +43,7 @@ $(document).ready(function () {
     $('.add-menu').click(function (e) {
         e.preventDefault()
         let submenuName = $('#submenuTitle').val()
-        let submenuUrl = $('#submenuUrl').val()
+        let submenuUrl = $('#submenuUrl').select2("val")
 
         if (submenuName === '' || submenuUrl === '') {
             // Exibir no front que é pra preencher tudo
@@ -51,7 +51,7 @@ $(document).ready(function () {
         } else {
             // Esconder no front que é pra preencher tudo
             $('#submenuTitle').val('')
-            $('#submenuUrl').val('')
+            $('#submenuUrl').select2().val(null).trigger("change");
         }
 
         $('.menu-items').append(
@@ -67,7 +67,7 @@ $(document).ready(function () {
 
     // Deleta a categoria da linha ao clicar no botão de DELETE
     $(document).on('click', '.remove-button', function (e) {
-        const currentLi = $(this).parent().parent()
+        const currentLi = $(this).closest('li')
 
         removedItems.push($(currentLi).data('id'))
 
@@ -84,4 +84,6 @@ $(document).ready(function () {
 
         $('#menu-items-input').val(JSON.stringify(data, null))
     }
+
+    
 })

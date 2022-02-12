@@ -1,41 +1,41 @@
 $(document).ready(function () {
-    // Abre o menu lateral para edição da categoria
+    // Abre o menu lateral para edição da menu
     $('.edit-button').click(function (e) {
         e.preventDefault()
 
         $('#mySidenav').addClass('px-4')
 
-        let subcategoryName = $(this)
+        let submenuName = $(this)
             .closest('li')
             .attr('data-name')
-        let subcategoryUrl = $(this)
+        let submenuUrl = $(this)
             .closest('li')
             .attr('data-url')
-        let subcategoryId = $(this)
+        let submenuId = $(this)
             .closest('li')
             .attr('id')
 
-        $('#subcategoryNameEdit').val(subcategoryName)
-        $('#subcategoryUrlEdit').val(subcategoryUrl)
-        $('#subcategoryIdEdit').val(subcategoryId)
+        $('#submenuNameEdit').val(submenuName)
+        $('#submenuUrlEdit').val(submenuUrl)
+        $('#submenuIdEdit').val(submenuId)
 
         document.getElementById('mySidenav').style.width = '350px'
     })
 
-    // Salva as alterações da categoria e o novo
+    // Salva as alterações da menu e o novo
     $('.save-button').click(function (e) {
         e.preventDefault()
 
-        let subcategoryName = $('#subcategoryNameEdit').val()
-        let subcategoryUrl = $('#subcategoryUrlEdit').val()
-        let subcategoryId = '#' + $('#subcategoryIdEdit').val()
+        let submenuName = $('#submenuNameEdit').val()
+        let submenuUrl = $('#submenuUrlEdit').val()
+        let submenuId = '#' + $('#submenuIdEdit').val()
 
-        $(subcategoryId).data('name', subcategoryName).sortable('refresh')
-        $(subcategoryId).data('url', subcategoryUrl).sortable('refresh')
-        $(subcategoryId).data('label', subcategoryName).sortable('refresh')
-        $(subcategoryId)
+        $(submenuId).data('name', submenuName).sortable('refresh')
+        $(submenuId).data('url', submenuUrl).sortable('refresh')
+        $(submenuId).data('label', submenuName).sortable('refresh')
+        $(submenuId)
             .children('span')
-            .text(subcategoryName)
+            .text(submenuName)
         let data = $('ol.menu-items')
             .sortable('serialize')
             .get()
@@ -49,9 +49,9 @@ $(document).ready(function () {
     function closeSideMenu () {
         $('#mySidenav').removeClass('px-4')
 
-        $('#subcategoryNameEdit').val('')
-        $('#subcategoryUrlEdit').val('')
-        $('#subcategoryIdEdit').val('')
+        $('#submenuNameEdit').val('')
+        $('#submenuUrlEdit').val('')
+        $('#submenuIdEdit').val('')
 
         document.getElementById('mySidenav').style.width = '0'
     }
