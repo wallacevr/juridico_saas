@@ -1,6 +1,6 @@
 <nav class="h-full flex space-x-5 ">
     @foreach(Tools::getAllMenu() as $menu)
-    <div class="py-5" x-data="{category_<?= $menu->id ?>:false}" @mouseover="category_<?= $menu->id ?> = true" @mouseleave="category_<?= $menu->id ?> = false">
+    <div class="py-5" x-data="{menu_<?= $menu->id ?>:false}" @mouseover="menu_<?= $menu->id ?> = true" @mouseleave="menu_<?= $menu->id ?> = false">
         <div class="relative  items-center cursor-pointer text-sm font-medium">
             <button type="button" class=" px-6 text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-indigo-100 focus:ring-offset-2 " aria-expanded="false">
                 <span>{{$menu->title}}</span>
@@ -16,7 +16,7 @@
                 @endif
             </button>
             @if (!empty($menu->children[0]))
-            <div x-show="category_<?= $menu->id ?>" x-cloak class="absolute z-10 -ml-4 mt-3 transform px-2 w-32   sm:px-0 lg:ml-0 " style="min-width: 150px;">
+            <div x-show="menu_<?= $menu->id ?>" x-cloak class="absolute z-10 -ml-4 mt-3 transform px-2 w-32   sm:px-0 lg:ml-0 " style="min-width: 150px;">
                 <div class="rounded-lg shadow-lg w-48">
                     <div class=" grid bg-white px-5 py-2 ">
                     @foreach($menu->children as $subCategoryChild)
