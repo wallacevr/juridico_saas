@@ -30,11 +30,7 @@ Route::group([
 
         Route::middleware(['auth', CheckSubscription::class])->group(function () {
             Route::get('/dashboard', 'ApplicationSettingsController@show')->name('admin.dashboad');
-            Route::get('/posts', 'PostController@index')->name('posts.index');
-            Route::post('/posts', 'PostController@store')->name('posts.store');
-            Route::get('/posts/create', 'PostController@create')->name('posts.create');
-            Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
-
+          
             // Collection routes
             Route::resource('collections', 'CollectionController');
             //Customer routes
