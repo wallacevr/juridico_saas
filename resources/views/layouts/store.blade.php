@@ -122,19 +122,19 @@
                   <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
 
                   @guest('customers')
-                  <a href="{{ route('store.customer.login') }}" class="text-sm font-medium text-gray-700 hover:text-red-800">Entrar</a>
+                  <a href="{{ route('store.customer.login') }}" class="text-sm font-medium text-gray-700 hover:text-iningo-800">Entrar</a>
 
                   <a href="{{ route('store.customer.register') }}" class="text-sm font-medium text-gray-700 hover:text-indigo-50">Cadastra-se</a>
 
                   @else
-                  <div class="flex items-center">
+                  <div class="flex items-center relative">
                     <div class="ml-3 relative" x-data="{ showProfileTop: false }">
                       <div>
                         <button @click="showProfileTop = !showProfileTop" type="button" class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                           <h6>{{ Auth::guard('customers')->user()->name }}</h6>
                         </button>
                       </div>
-                      <div x-show="showProfileTop" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in-out duration-300 transform" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                      <div x-show="showProfileTop" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in-out duration-300 transform" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="z-10 absolute origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                         <div class="py-1" role="none">
                           <a href="{{ route('store.customer.dashboard') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-2">{{ __('My account') }}</a>
                         </div>

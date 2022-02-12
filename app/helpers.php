@@ -202,19 +202,20 @@ if (!function_exists('create_menu')) {
             [
                 'name' => __('menu.Orders'),
                 'icon' => 'OrdersIcon',
-                'children' => [
-                    ['name' => __('menu.See All'), 'href' => '#'],
-                    ['name' => __('menu.Groups'), 'href' => '#'],
-                    ['name' => __('menu.Newsletter'), 'href' => '#']
-                ],
+                'href' => '#'
+                // 'children' => [
+                //     ['name' => __('menu.See All'), 'href' => '#'],
+                //     ['name' => __('menu.Groups'), 'href' => '#'],
+                //     ['name' => __('menu.Newsletter'), 'href' => '#']
+                // ],
             ],
             [
                 'name' => __('menu.Products'),
                 'icon' => 'ProductsIcon',
                 'children' => [
-                    ['name' => __('menu.See All'), 'href' => '#'],
-                    ['name' => __('menu.Reviews'), 'href' => '#'],
-                    ['name' => __('menu.Stock Notification'), 'href' => '#'],
+                    // ['name' => __('menu.See All'), 'href' => '#'],
+                    // ['name' => __('menu.Reviews'), 'href' => '#'],
+                    // ['name' => __('menu.Stock Notification'), 'href' => '#'],
                     ['name' => __('menu.Categories'), 'href' => route('tenant.categories.index')],
                     ['name' => __('menu.Brands'), 'href' => route('tenant.brands.index')],
                     ['name' => __('menu.Collections'), 'href' => route('tenant.collections.index')],
@@ -226,43 +227,42 @@ if (!function_exists('create_menu')) {
                 'icon' => 'UsersIcon',
                 'children' => [
                     ['name' => __('menu.See All'), 'href' => route('tenant.customers.index')],
-                    ['name' => __('menu.Groups'), 'href' => '#'],
-                    ['name' => __('menu.Newsletter'), 'href' => '#']
+                    // ['name' => __('menu.Groups'), 'href' => '#'],
+                    // ['name' => __('menu.Newsletter'), 'href' => '#']
                 ],
             ],
-            [
-                'name' => __('menu.Marketing'),
-                'icon' => 'MarketingIcon',
-                'children' => [
-                    ['name' => __('menu.Banners'), 'href' => '#'],
-                    ['name' => __('menu.Promo Codes'), 'href' => '#'],
-                    ['name' => __('menu.Bundles'), 'href' => '#'],
-                    ['name' => __('menu.Pixel'), 'href' => '#'],
-                    ['name' => __('menu.Promotions'), 'href' => '#'],
-                    ['name' => __('menu.Upsell'), 'href' => '#'],
-                ],
-            ],
-            [
-                'name' => __('menu.Reports'),
-                'icon' => 'ReportsIcon',
-                'children' => [
-                    ['name' => __('menu.Sale by product'), 'href' => '#'],
-                    ['name' => __('menu.Sale by Coupon'), 'href' => '#'],
-                    ['name' => __('menu.Sale by Billet Product'), 'href' => '#'],
-                    ['name' => __('menu.Sale by UpSeel'), 'href' => '#'],
-                ],
-            ],
+            // [
+            //     'name' => __('menu.Marketing'),
+            //     'icon' => 'MarketingIcon',
+            //     'children' => [
+            //         ['name' => __('menu.Banners'), 'href' => '#'],
+            //         ['name' => __('menu.Promo Codes'), 'href' => '#'],
+            //         ['name' => __('menu.Bundles'), 'href' => '#'],
+            //         ['name' => __('menu.Pixel'), 'href' => '#'],
+            //         ['name' => __('menu.Promotions'), 'href' => '#'],
+            //         ['name' => __('menu.Upsell'), 'href' => '#'],
+            //     ],
+            // ],
+            // [
+            //     'name' => __('menu.Reports'),
+            //     'icon' => 'ReportsIcon',
+            //     'children' => [
+            //         ['name' => __('menu.Sale by product'), 'href' => '#'],
+            //         ['name' => __('menu.Sale by Coupon'), 'href' => '#'],
+            //         ['name' => __('menu.Sale by Billet Product'), 'href' => '#'],
+            //         ['name' => __('menu.Sale by UpSeel'), 'href' => '#'],
+            //     ],
+            // ],
             [
                 'name' => __('menu.Visual'),
                 'icon' => 'VisualIcon',
                 'children' => [
-                    ['name' => __('menu.logo'), 'href' => '#'],
-                    ['name' => __('menu.Layout'), 'href' => '#'],
+                    // ['name' => __('menu.logo'), 'href' => '#'],
+                    // ['name' => __('menu.Layout'), 'href' => '#'],
                     ['name' => __('menu.Banners'), 'href' => route('tenant.banners.index')],
-                    ['name' => __('menu.Banners'), 'href' => '#'],
                     ['name' => __('menu.Blocks'), 'href' => route('tenant.blocks.index')],
-                    ['name' => __('menu.Embed Html Code'), 'href' => '#'],
-                    ['name' => __('menu.Social Network'), 'href' => '#'],
+                    // ['name' => __('menu.Embed Html Code'), 'href' => '#'],
+                    // ['name' => __('menu.Social Network'), 'href' => '#'],
                     ['name' => __('menu.Pages'), 'href' => route('tenant.pages.index')],
                 ],
             ],
@@ -271,18 +271,19 @@ if (!function_exists('create_menu')) {
                 'icon' => 'ConfigIcon',
                 'children' => [
                     ['name' => __('menu.General'), 'href' => route('tenant.settings.store')],
-                    ['name' => __('menu.Transaction Email'), 'href' => '#'],
-                    ['name' => __('menu.Checkout'), 'href' => '#'],
-                    ['name' => __('menu.Imagens'), 'href' => '#'],
-                    ['name' => __('menu.Integrations'), 'href' => '#'],
-                    ['name' => __('menu.Redirects'), 'href' => '#'],
-                    ['name' => __('menu.Users'), 'href' => '#'],
+                    // ['name' => __('menu.Transaction Email'), 'href' => '#'],
+                    // ['name' => __('menu.Checkout'), 'href' => '#'],
+                    // ['name' => __('menu.Imagens'), 'href' => '#'],
+                    // ['name' => __('menu.Integrations'), 'href' => '#'],
+                    // ['name' => __('menu.Redirects'), 'href' => '#'],
+                    // ['name' => __('menu.Users'), 'href' => '#'],
                 ],
-            ],[
-                'name' => __('menu.Apps'),
-                'icon' => 'AppIcon',
-                'href' => '#'
-            ]
+            ],
+            // [
+            //     'name' => __('menu.Apps'),
+            //     'icon' => 'AppIcon',
+            //     'href' => '#'
+            // ]
         ];
     }
 }

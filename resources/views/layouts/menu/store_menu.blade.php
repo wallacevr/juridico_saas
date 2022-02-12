@@ -20,7 +20,7 @@
                 <div class="rounded-lg shadow-lg w-48">
                     <div class=" grid bg-white px-5 py-2 ">
                     @foreach($menu->children as $subCategoryChild)
-                        <a href="#" class=" py-2  text-gray-500 hover:text-red-400 px-5  ">
+                        <a href="#" class=" py-2  text-gray-500 hover:text-indigo-100 px-5  ">
                             {{$subCategoryChild->title}}
                         </a>
                        @endforeach
