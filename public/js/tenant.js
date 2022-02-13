@@ -41469,6 +41469,23 @@ jQuery.extend(jQuery.validator.messages, {
 
 /***/ }),
 
+/***/ "./resources/js/menu.js":
+/*!******************************!*\
+  !*** ./resources/js/menu.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Menu = function Menu() {
+  _classCallCheck(this, Menu);
+};
+
+module.exports = new Menu();
+
+/***/ }),
+
 /***/ "./resources/js/tenant.js":
 /*!********************************!*\
   !*** ./resources/js/tenant.js ***!
@@ -41481,6 +41498,8 @@ __webpack_require__(/*! ./bootstrap_tenant */ "./resources/js/bootstrap_tenant.j
 __webpack_require__(/*! ./jquery-validator-pt-BR */ "./resources/js/jquery-validator-pt-BR.js");
 
 __webpack_require__(/*! jquery-mask-plugin */ "./node_modules/jquery-mask-plugin/dist/jquery.mask.js");
+
+window.Menu = __webpack_require__(/*! ./menu */ "./resources/js/menu.js");
 
 __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js/select2.js");
 

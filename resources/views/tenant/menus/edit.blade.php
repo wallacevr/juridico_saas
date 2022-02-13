@@ -119,64 +119,22 @@
 </div>
 
 @endsection
-
-@push('js')
-<script src="{{ URL::to('/') . '/js/jquery-sortable.js' }}"></script>
-<script src="{{ URL::to('/') . '/js/sortable-menu.js' }}"></script>
-<script src="{{ URL::to('/') . '/js/edit-side-menu.js' }}"></script>
 <script>
-    function isValidHttpUrl(string) {
-        let res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-        return (res !== null)
-    }
+    
 
     // CSRF Token
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    $(function() {
-        $('#submenuUrl').select2({
-            selectOnClose: true,
-            tags: true,
-            createTag: function(params) {
-                // Don't offset to create a tag if there is no @ symbol
-                if (!isValidHttpUrl(params.term)) {
-                    // Return null to disable tag creation
-                    return null;
-                }
-
-                return {
-                    id: params.term,
-                    text: params.term
-                }
-            },
-            language: "pt-BR",
-            ajax: {
-                placeholder: "{{ __('label.Submenu url') }}",
-                url: '{{ route("tenant.menus.get-url")}}',
-                dataType: 'json',
-                type: "post",
-                delay: 250,
-                data: function(params) {
-                    return {
-                        _token: CSRF_TOKEN,
-                        search: params.term // search term
-                    };
-                },
-                processResults: function(response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
-            }
-        });
-    })
+    var searchPost = '{{ route("tenant.menus.get-url")}}';
+ 
 
     // $('#select2').on('change', function(e) {
     //     var item = $('#select2').select2("val");
     //     @this.set('viralSongs', item);
     // });
-
-    console.log('select')
+    
 </script>
+@push('js')
+<script src="{{ URL::to('/') . '/js/jquery-sortable.js' }}"></script>
+<script src="{{ URL::to('/') . '/js/sortable-menu.js' }}"></script>
+<script src="{{ URL::to('/') . '/js/edit-side-menu.js' }}"></script>
+
 @endpush

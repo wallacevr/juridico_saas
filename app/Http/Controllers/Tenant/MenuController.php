@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Brand;
+use App\Collection;
 use App\Menu;
 use App\Http\Controllers\Controller;
+use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -203,21 +206,57 @@ class MenuController extends Controller
         }
     }
 
-    public function getUrl()
+    public function getUrl(Request $request)
     {
-        $pages[] =  (object)[
-            'text'=>'',
-            'children' => [['id'=>'#','text'=>"#"]],
-        ];
 
-        $pages[] = (object)[
-            'text'=>'Pages',
-            'children' => [['id'=>"https://www.google.com",'text'=>"filho Pages"]],
+        $urls[] =  (object)[
+            'text' => '',
+            'children' => [['id' => '#', 'text' => "#"]],
         ];
-        $pages[] = (object)[
-            'text'=>'Produtos',
-            'children' => [['id'=>"https://www.maxcommerce.com",'text'=>"filho Produtos"]],
-        ];
-        return response()->json($pages);
+        if($request->input('search')){
+            $pages = Page::where('title', 'like', '%' . $request->input('search') . '%')->limit(3)->get();
+            if ($pages->count()) {
+                $children = [];
+                foreach ($pages as $page) {
+                    $children[] = ['id' => $page->url, 'text' => $page->name];
+                }
+                $urls[] = (object)[
+                    'text' => 'Pages',
+                    'children' =>$children,
+                ];
+            }
+    
+    
+            $collections = Collection::where('page_title', 'like', '%' . $request->input('search') . '%')->limit(3)->get();
+            if ($collections->count()) {
+                $children = [];
+                foreach ($collections as $collection) {
+                    $children[] = ['id' => '/'.$collection->slug, 'text' => $collection->name];
+                }
+                $urls[] = (object)[
+                    'text' => 'Categorias',
+                    'children' =>$children,
+                ];
+            }
+
+            $brands = Brand::where('name', 'like', '%' . $request->input('search') . '%')->limit(3)->get();
+            if ($brands->count()) {
+                $children = [];
+                foreach ($brands as $brand) {
+                    $children[] = ['id' => '/'.$brand->slug, 'text' => $brand->name];
+                }
+                $urls[] = (object)[
+                    'text' => 'Marcas',
+                    'children' =>$children,
+                ];
+            }
+    
+            $urls[] = (object)[
+                'text' => 'Produtos',
+                'children' => [['id' => "https://www.maxcommerce.com", 'text' => "Camisa"]],
+            ];
+        }
+        
+        return response()->json($urls);
     }
 }

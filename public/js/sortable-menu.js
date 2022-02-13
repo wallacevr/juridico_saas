@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     // Define o HTML dos botões que gerenciam as linhas de categorias
     // const buttonElement = '<div class="float-right border"><button class="bg-white hover:bg-gray-100 py-0 px-3 text-black">Edit</button><button type="button" class="bg-white hover:bg-gray-100 py-0 px-3 text-black delete-menu">Delete</button></div>'
     const editAction =
@@ -51,7 +52,7 @@ $(document).ready(function () {
         } else {
             // Esconder no front que é pra preencher tudo
             $('#submenuTitle').val('')
-            $('#submenuUrl').select2().val(null).trigger("change");
+            $('#submenuUrl').val('').trigger('change');
         }
 
         $('.menu-items').append(
@@ -84,6 +85,48 @@ $(document).ready(function () {
 
         $('#menu-items-input').val(JSON.stringify(data, null))
     }
+
+    function isValidHttpUrl(string) {
+        let res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+        return (res !== null)
+    }
+    function initializeSelect2(){
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $('#submenuUrl').select2({
+            selectOnClose: true,
+            tags: true,
+            createTag: function(params) {
+                if (!isValidHttpUrl(params.term)) {
+                    return null;
+                }
+    
+                return {
+                    id: params.term,
+                    text: params.term
+                }
+            },
+            language: "pt-BR",
+            ajax: {
+                url:searchPost,
+                dataType: 'json',
+                type: "post",
+                delay: 250,
+                data: function(params) {
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term 
+                    };
+                },
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                }
+            }
+        });
+    }
+
+    initializeSelect2()
 
     
 })
