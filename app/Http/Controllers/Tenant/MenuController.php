@@ -218,10 +218,10 @@ class MenuController extends Controller
             if ($pages->count()) {
                 $children = [];
                 foreach ($pages as $page) {
-                    $children[] = ['id' => $page->url, 'text' => $page->name];
+                    $children[] = ['id' => '/pagina/'.$page->url, 'text' => $page->name];
                 }
                 $urls[] = (object)[
-                    'text' => 'Pages',
+                    'text' => _('Pages'),
                     'children' =>$children,
                 ];
             }

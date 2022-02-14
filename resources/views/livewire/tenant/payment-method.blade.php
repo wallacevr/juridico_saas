@@ -33,9 +33,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-    const stripe = Stripe('{{ config('saas.stripe_key') }}', {
-  locale: 'pt-BR'
-});
+    const stripe = Stripe('{{ config("saas.stripe_key") }}', { locale: 'pt-BR'});
     
     const elements = stripe.elements();
     const cardElement = elements.create('card');

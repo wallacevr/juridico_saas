@@ -41,5 +41,6 @@ Route::group([
     Route::get('/', 'HomeController@index')->name('store.index');
 
     Route::get('/collections/{slug}', 'CollectionController@show')->name('collection.show');
+    Route::get('/pagina/{slug}', 'PageController@show')->name('page.show');
 
 });

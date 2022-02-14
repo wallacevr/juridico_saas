@@ -44,13 +44,13 @@ class PageController extends Controller
     // Store a Page
     public function store(Request $request)
     {
-        $request->merge(['url' => url("/pages/{$request->url}")]);
+        //$request->merge(['url' => url("/pages/{$request->url}")]);
 
         $this->validate($request, [
             'name' => 'required',
             'content' => 'required',
             'title' => 'required',
-            'url' => 'required|url|unique:urls,url',
+            'url' => 'required|unique:urls',
         ]);
 
         $data = $request->all();
@@ -64,7 +64,7 @@ class PageController extends Controller
         }
 
         URL::create([
-            'url' => $page->url,
+            'url' => 'pagina/'.$page->url,
             'entity' => 'PAGE',
             'entity_id' => $page->id,
         ])->save();
@@ -81,7 +81,6 @@ class PageController extends Controller
             'title' => 'required',
             'url' => [
                 'required',
-                'url',
                 Rule::unique('urls')->ignore($page->id, 'entity_id'),
             ],
         ]);
@@ -94,21 +93,8 @@ class PageController extends Controller
         $data['status'] = isset($data['status']) ? '1' : '0';
         $data['keywords'] = isset($data['keywords']) && !empty($data['keywords']) ? implode(',', $data['keywords']) : null;
 
-        try {
-            DB::beginTransaction();
+        $page->update($data);
 
-            $url = URL::firstWhere('url', $page->url);
-            $url->url = $data['url'];
-            $url->update();
-
-            $page->update($data);
-
-            DB::commit();
-        } catch (QueryException $e) {
-            DB::rollback();
-
-            return back()->withInput()->with("error", "Error updating page.");
-        }
 
         return redirect()->route('tenant.pages.index')->with("success", "Page updated successfully!");
     }

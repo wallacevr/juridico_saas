@@ -134,8 +134,7 @@
                     required: true,
                 },
                 url: {
-                    required: true,
-                    url: true
+                    required: true
                 },
             }
         });
