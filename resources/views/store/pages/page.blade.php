@@ -7,7 +7,7 @@
   <div class=" px-4 sm:px-6 lg:px-8">
     <div class="text-lg max-w-prose  p-6">
       <h1>
-        <span class="block text-base text-center font-bold  uppercase">{{  $page->name }}</span>
+        <span class="block text-base text-center font-bold  uppercase">{{  $page->title }}</span>
       </h1>
    
     </div>
