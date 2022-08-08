@@ -48,7 +48,11 @@ Route::group([
             // Option routes
             Route::resource('options', 'OptionController');
 
-			// Category routes
+            // Products routes
+            Route::resource('products', 'ProductController');
+
+
+			// Menu routes
 
 			Route::post('menus/getUrl', 'MenuController@getUrl')->name('menus.get-url');
             Route::resource('menus', 'MenuController');

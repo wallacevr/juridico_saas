@@ -267,5 +267,13 @@
     "Edit category":"Editar Categoria",
     "Add menu item":"Adicionar item",
     "Change":"Modificar",
-    "Edit menu" :"Editar Menu"
+    "Edit menu" :"Editar Menu",
+    "New product" :"Novo Produto",
+    "Products": "Produtos",
+    "Filter": "Filtrar",
+    "Search products": "Buscar produtos",
+    "Find": "Buscar",
+    "Product created successfully!": "Produto salvo com sucesso!",
+    "Basic information": "Informações básicas",
+    "Product name": "Nome do produto"
 }
