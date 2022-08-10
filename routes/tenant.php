@@ -19,7 +19,7 @@ Route::group([
     })->name('impersonate');
 
    
-
+    Route::get('/', 'HomeController@index')->name('home');
     Route::post('/ploi/webhook/certificateIssued', 'PloiWebhookController@certificateIssued')->name('ploi.certificate.issued');
     Route::post('/ploi/webhook/certificateRevoked', 'PloiWebhookController@certificateRevoked')->name('ploi.certificate.revoked');
 
