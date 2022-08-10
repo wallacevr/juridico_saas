@@ -45,7 +45,7 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers.php",
+            "app/helpers.php",
             "app/Icons.php",
             "app/Tools.php"
         ],
