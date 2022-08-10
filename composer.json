@@ -47,7 +47,7 @@
         "files": [
             "app/Helpers.php",
             "app/Icons.php",
-            "app/Http/Tools.php"
+            "app/Tools.php"
         ],
         "classmap": [
             "database/seeds",
