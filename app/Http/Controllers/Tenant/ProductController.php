@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
-
+use File;
 class ProductController extends Controller
 {
     /**
@@ -58,14 +58,27 @@ class ProductController extends Controller
         ]);
 
         $data = $request->all();
+        
+        if(!empty($data['fileuploader-list-files'])){
+            $files = json_decode($data['fileuploader-list-files'],1);   
+            foreach($files as $file){
+                $uploadDir = getStoragerImagePath("catalog");
+                $destination = getStoreImagePath('catalog');
+                if(is_file($uploadDir.$file['file'])){
+                    File::move($uploadDir.$file['file'],$destination.$file['file']);
+                }
+
+            }
+        }
+        unset($data['fileuploader-list-files']);
         $data['slug'] = generateSlug($data['slug'], 'products');
         $product = Product::create($data);
         if (!$product->save()) {
             return back()->withInput()->with("error", "Error creating product.");
         }
-        return redirect()->route('tenant.products.index')->with("success", "Product created successfully!");
+        return redirect()->route('tenant.home')->with("success", "Product created successfully!");
 
-        die;
+   
     }
 
     /**

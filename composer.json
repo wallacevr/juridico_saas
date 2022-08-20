@@ -47,7 +47,8 @@
         "files": [
             "app/helpers.php",
             "app/Icons.php",
-            "app/Tools.php"
+            "app/Tools.php",
+            "app/Library/class.fileuploader.php"
         ],
         "classmap": [
             "database/seeds",

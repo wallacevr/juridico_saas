@@ -4,7 +4,7 @@ use App\Http\Controllers\Store\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-
+Route::get('/', 'HomeController@index')->name('tenant.home');
 Route::group([
     'middleware' => ['tenant', PreventAccessFromCentralDomains::class], // See the middleware group in Http Kernel
     'as' => 'store.',

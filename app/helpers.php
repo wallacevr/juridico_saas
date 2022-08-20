@@ -144,6 +144,36 @@ if (!function_exists("storeImage")) {
     }
 }
 
+if (!function_exists("getStoreImagePath")) {
+    /**
+     * return a image path from tenant
+     *
+     * @return string
+     */
+    function getStoreImagePath($destinationPath=null)
+    {
+        
+        $destinationPath = public_path() .'/tenant/'.tenant('id'). '/'.$destinationPath.'/';
+        File::ensureDirectoryExists($destinationPath);
+
+        return $destinationPath;
+    }
+}
+if (!function_exists("getStoragerImagePath")) {
+    /**
+     * return a image path from tenant
+     *
+     * @return string
+     */
+    function getStoragerImagePath($destinationPath=null)
+    {
+        $destinationPath = storage_path( $destinationPath);
+        File::ensureDirectoryExists($destinationPath);
+
+        return $destinationPath.DIRECTORY_SEPARATOR;
+    }
+}
+
 if (!function_exists("returnAllSubcategories")) {
     function returnAllSubcategories($mainCategory, $displayType)
     {

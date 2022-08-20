@@ -275,5 +275,15 @@
     "Find": "Buscar",
     "Product created successfully!": "Produto salvo com sucesso!",
     "Basic information": "Informações básicas",
-    "Product name": "Nome do produto"
+    "Product name": "Nome do produto",
+    "Manage Stock":"Gerenciar estoque",
+    "Price":"Preço",
+    "Special price":"Preço com desconto",
+    "Cost price":"Preço de custo",
+    "Qty":"Qtd",
+    "Min Qty":"Qtd min",
+    "Min max":"Qtd max",
+    "Add a title and description to see how this product might appear in a search engine listing.":"Adicione um título e uma descrição para ver como esse produto pode aparecer em uma listagem de mecanismo de pesquisa.",
+    "Upload product images":"Cadastrar Fotos"
+
 }

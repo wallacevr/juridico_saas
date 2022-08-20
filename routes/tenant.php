@@ -19,7 +19,7 @@ Route::group([
     })->name('impersonate');
 
    
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('tenant.home');
     Route::post('/ploi/webhook/certificateIssued', 'PloiWebhookController@certificateIssued')->name('ploi.certificate.issued');
     Route::post('/ploi/webhook/certificateRevoked', 'PloiWebhookController@certificateRevoked')->name('ploi.certificate.revoked');
 
@@ -74,6 +74,9 @@ Route::group([
                 Route::post('/settings/application/configuration', 'ApplicationSettingsController@storeConfiguration')->name('settings.application.configuration');
                 Route::get('/settings/application/invoice/{id}/download', 'DownloadInvoiceController')->name('invoice.download');
             });
+
+            Route::post('/upload', 'UploadController@submit')->name('upload.upload');
+            Route::post('/ajax_remove_file', 'UploadController@removeFile');
         });
     });
 

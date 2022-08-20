@@ -89,7 +89,7 @@
 
       <header class="relative bg-white">
         <p class="bg-indigo-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
-          O projeto mais GATO da atualidade
+          FRETE GRÁTIS PARA TODO O BRASIL
         </p>
 
         <nav aria-label="Top" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
