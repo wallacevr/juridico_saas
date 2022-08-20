@@ -25,68 +25,6 @@
 <body class="bg-gray-100 h-screen antialiased">
   <div id="app">
     <div class="bg-white">
-      <div class="fixed inset-0 flex z-40 lg:hidden" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true"></div>
-        <div class="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
-          <div class="px-4 pt-5 pb-2 flex">
-            <button type="button" class="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400">
-              <span class="sr-only">Close menu</span>
-              <!-- Heroicon name: outline/x -->
-              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-
-          <!-- Links -->
-          <div class="mt-2">
-            <div class="border-b border-gray-200">
-              <div class="-mb-px flex px-4 space-x-8" aria-orientation="horizontal" role="tablist">
-                <!-- Selected: "text-indigo-600 border-indigo-600", Not Selected: "text-gray-900 border-transparent" -->
-                <button id="tabs-1-tab-1" class="text-gray-900 border-transparent flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium" aria-controls="tabs-1-panel-1" role="tab" type="button">
-                  Women
-                </button>
-
-                <!-- Selected: "text-indigo-600 border-indigo-600", Not Selected: "text-gray-900 border-transparent" -->
-                <button id="tabs-1-tab-2" class="text-gray-900 border-transparent flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium" aria-controls="tabs-1-panel-2" role="tab" type="button">
-                  Men
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-            <div class="flow-root">
-              <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Company</a>
-            </div>
-
-            <div class="flow-root">
-              <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Stores</a>
-            </div>
-          </div>
-
-          <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-            <div class="flow-root">
-              <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Sign in</a>
-            </div>
-            <div class="flow-root">
-              <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Create account</a>
-            </div>
-          </div>
-
-          <div class="border-t border-gray-200 py-6 px-4">
-            <a href="#" class="-m-2 p-2 flex items-center">
-              <img src="https://tailwindui.com/img/flags/flag-canada.svg" alt="" class="w-5 h-auto block flex-shrink-0">
-              <span class="ml-3 block text-base font-medium text-gray-900">
-                CAD
-              </span>
-              <span class="sr-only">, change currency</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
       <header class="relative bg-white">
         <p class="bg-indigo-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
           FRETE GRÁTIS PARA TODO O BRASIL
