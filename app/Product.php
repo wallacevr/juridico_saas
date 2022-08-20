@@ -18,9 +18,13 @@ class Product extends Model
     public function getImage(){
 
         $image = '/images/logo_max_commerce.png';
-        if($this->image_url){
-            $image = tenant_public_path() . '/images/products/' .$this->image_url;
+        if($this->images()->first()){
+            $image = tenant_public_path() . '/catalog/' .$this->images()->first()->image_url;
         }
         return $image;
+    }
+
+    public function images(){
+        return $this->hasMany(ProductImage::class);
     }
 }

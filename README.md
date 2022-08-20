@@ -129,7 +129,11 @@ That said, I recommend using:
 - `App\Models\Tenant`
 
 Or if it works better for you, you can even go with `App\Central\*` and `App\Tenant\*` (and split controllers that way too).
-
+### Migrates
+```php
+php artisan make:migration --path=database/migrations/tenant create_page_table
+php artisan tenants:migrate
+```
 ### Middleware
 
 We're using the `InitializeTenancyByDomainOrSubdomain` middleware. To make life less of a repetitive pain, we created a `tenant` middleware group in `app/Http/Kernel.php`. It includes this tenancy middleware, `'web'` and `PreventAccessFromCentralDomains`.

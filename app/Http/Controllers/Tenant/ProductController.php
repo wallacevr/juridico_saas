@@ -73,10 +73,15 @@ class ProductController extends Controller
         unset($data['fileuploader-list-files']);
         $data['slug'] = generateSlug($data['slug'], 'products');
         $product = Product::create($data);
+        foreach($files as $file){
+            $product->images()->create(['image_url'=>$file['file'],'sort'=>$file['index']]);
+        }
+
         if (!$product->save()) {
             return back()->withInput()->with("error", "Error creating product.");
         }
-        return redirect()->route('tenant.home')->with("success", "Product created successfully!");
+  
+        return redirect()->route('tenant.products.index')->with("success", "Product created successfully!");
 
    
     }

@@ -61,10 +61,6 @@ class User extends Authenticatable
         return $this->getKey() === 1;
     }
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
 
     public function getGravatarUrlAttribute()
     {
