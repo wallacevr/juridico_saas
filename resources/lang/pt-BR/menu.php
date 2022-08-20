@@ -7,7 +7,7 @@ return [
     'Products' => 'Produtos',
     'Reviews'=>'Avaliações',
     'Menu'=>'Menu',
-    'Collections'=>'Coleções',
+    'Collections'=>'Categoria',
     'Brands'=>'Marcas',
     'Variations'=>'Variações',
     'Stock Notification' => 'Avise-me',
