@@ -16,6 +16,18 @@ class CollectionController extends Controller
         ]);
     }
 
+     // Return all Collections
+     public function getAll()
+     {
+        $collections = Collection::all()->reject(function ($collection) {
+            return $collection->status === 0;
+        })->map(function ($collection) {
+            return ['id'=>$collection->id,'text'=>$collection->name];
+        
+        });
+         return response()->json(['results'=>$collections]);
+     }
+
     // Return a single Collection
     public function show(Collection $collection)
     {

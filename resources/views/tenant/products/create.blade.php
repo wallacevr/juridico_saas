@@ -245,6 +245,20 @@
                         </div>
                     </fieldset>
                 </div>
+                <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                    <fieldset>
+                        <legend class="text-base font-medium text-gray-900">
+                            {{ __('Collections') }}
+                        </legend>
+                        <div class="mt-4 space-y-4">
+                            <div class="flex items-start">
+                                <div class="h-5 flex items-center">
+                                    <select id="collections" name="collections[]" multiple="multiple"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
 
 
@@ -274,6 +288,25 @@
     <script src="{{ URL::to('/') . '/js/string-slugger.js' }}"></script>
     <script>
         $(document).ready(function() {
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $('#collections').select2({
+                selectOnClose: true,
+                tags: false,
+                multiple: true,
+                language: "pt-BR",
+                ajax: {
+                    url: "{{ route('tenant.collections.all') }}",
+                    dataType: 'json',
+                    type: "get",
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params
+                        };
+                    }
+                }
+            });
 
             // enable fileuploader plugin
             var $fileuploader = $('input.gallery_media').fileuploader({
@@ -296,7 +329,6 @@
                         '<button type="button" class="fileuploader-action fileuploader-action-settings is-hidden" title="${captions.edit}"><i class="fileuploader-icon-settings"></i></button>' +
                         '<button type="button" class="fileuploader-action fileuploader-action-remove" title="${captions.remove}"><i class="fileuploader-icon-remove"></i></button>' +
                         '<div class="gallery-item-dropdown">' +
-                        '<a class="fileuploader-action-popup">${captions.setting_edit}</a>' +
                         '<a class="gallery-action-rename">${captions.setting_rename}</a>' +
                         '<a class="gallery-action-asmain">${captions.setting_asMain}</a>' +
                         '</div>' +
@@ -306,7 +338,7 @@
                         '<span class="fileuploader-action-popup"></span>' +
                         '<div class="progress-holder"><span></span>${progressBar}</div>' +
                         '</div>' +
-                        '<div class="content-holder"><h5 title="${name}">${name}</h5><span>${size2}</span></div>' +
+                        '<div class="content-holder"><h5 title="${name}">${name}</h5><span>${size2}</span><input type="text" name="imagename[]" value="${title}"></div>' +
                         '<div class="type-holder">${icon}</div>' +
                         '</div>' +
                         '</li>',
@@ -427,6 +459,7 @@
 
                             item.html.find('.content-holder h5').attr('title', item.name).text(item
                                 .name);
+                            item.html.find('.content-holder input').val(item.title);
                             item.html.find('.content-holder span').text(item.size2);
                             item.html.find('.gallery-item-dropdown [download]').attr('href', item.data
                                 .url);
@@ -484,51 +517,6 @@
                         item.html.find('.fileuploader-action-popup, .fileuploader-item-image').hide();
                     }
                 },
-                editor: {
-                    cropper: {
-                        showGrid: true,
-                        minWidth: 100,
-                        minHeight: 100
-                    },
-                    onSave: function(dataURL, item) {
-                        // if no editor
-                        if (!item.editor || !item.reader.width)
-                            return;
-
-                        // if uploaded
-                        // resend upload
-                        if (item.upload && item.upload.resend)
-                            item.upload.resend();
-
-                        // if preloaded
-                        // send request
-                        if (item.appended && item.data.listProps) {
-                            // hide current thumbnail
-                            item.imU = true;
-                            item.image.addClass('fileuploader-loading').find('img, canvas').hide();
-                            item.html.find('.fileuploader-action-popup').hide();
-
-                            $.post('php/ajax.php?type=resize', {
-                                name: item.name,
-                                id: item.data.listProps.id,
-                                _editor: JSON.stringify(item.editor)
-                            }, function() {
-                                // update the image
-                                item.reader.read(function() {
-                                    delete item.imU;
-
-                                    item.image.removeClass('fileuploader-loading').find(
-                                        'img, canvas').show();
-                                    item.html.find('.fileuploader-action-popup').show();
-                                    item.editor.rotation = item.editor.crop = null;
-                                    item.popup = {
-                                        open: item.popup.open
-                                    };
-                                }, null, true);
-                            });
-                        }
-                    }
-                },
                 sorter: {
                     onSort: function(list, listEl, parentEl, newInputEl, inputEl) {
                         var api = $.fileuploader.getInstance(inputEl),
@@ -537,9 +525,11 @@
 
                         // prepare the sorted list
                         api.getFiles().forEach(function(item) {
+                            console.log(item.data);
                             if (item.data.listProps)
                                 list.push({
                                     name: item.name,
+                                    title: item.title,
                                     id: item.data.listProps.id,
                                     index: item.index
                                 });
@@ -581,41 +571,17 @@
                             var x = prompt(api.getOptions().captions.rename, item.title);
 
                             if (x && item.data.listProps) {
-                                $.post('php/ajax.php?type=rename', {
-                                    name: item.name,
-                                    id: item.data.listProps.id,
-                                    title: x
-                                }, function(result) {
-                                    try {
-                                        var j = JSON.parse(result);
 
-                                        // update the file name and url
-                                        if (j.title) {
-                                            item.title = j.title;
-                                            item.name = item.title + (item.extension
-                                                .length ? '.' + item.extension : '');
-                                            $item.find('.content-holder h5').attr(
-                                                'title', item.name).html(item.name);
-                                            $item.find(
-                                                    '.gallery-item-dropdown [download]')
-                                                .attr('href', item.data.url);
 
-                                            if (item.popup.html)
-                                                item.popup.html.find('h5:eq(0)').text(
-                                                    item.name);
+                                //debugger;
+                                item.title = x;
+                                $item.find('.content-holder h5').attr(
+                                    'title', item.title).html(item.title);
+                                $item.find('.content-holder input').val(item.title);
+                                api.updateFileList();
 
-                                            if (j.url)
-                                                item.data.url = j.url;
-                                            if (item.appended && j.file)
-                                                item.file = j.file;
 
-                                            api.updateFileList();
-                                        }
 
-                                    } catch (e) {
-                                        alert(api.getOptions().captions.renameError);
-                                    }
-                                });
                             }
                         }
 
@@ -643,12 +609,12 @@
                 },
                 captions: $.extend(true, {}, $.fn.fileuploader.languages['en'], {
                     feedback: 'Drag & Drop',
-                    setting_asMain: 'Use as main',
+                    setting_asMain: 'Imagem principal',
                     setting_download: 'Download',
-                    setting_edit: 'Edit',
-                    setting_open: 'Open',
-                    setting_rename: 'Rename',
-                    rename: 'Enter the new file name:',
+                    setting_edit: 'Editar',
+                    setting_open: 'Abrir',
+                    setting_rename: 'Editar Alt',
+                    rename: 'Adiciome o ALT que quer alterar',
                     renameError: 'Please enter another name.',
                     imageSizeError: 'The image ${name} is too small.',
                 })

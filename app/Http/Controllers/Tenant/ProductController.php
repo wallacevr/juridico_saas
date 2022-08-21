@@ -70,11 +70,33 @@ class ProductController extends Controller
 
             }
         }
-        unset($data['fileuploader-list-files']);
         $data['slug'] = generateSlug($data['slug'], 'products');
+        if(!empty($data['fileuploader-list-files']))
+            unset($data['fileuploader-list-files']);
+        
+
+        
+        
+        if(!empty($data['collections'])){
+            $collections = $data['collections'];
+
+            unset($data['collections']);
+        }
+        
+        if(!empty($data['imagename'])){
+            $imagename = $data['imagename'];
+            unset($data['imagename']);
+        }
+        
+      
         $product = Product::create($data);
-        foreach($files as $file){
-            $product->images()->create(['image_url'=>$file['file'],'sort'=>$file['index']]);
+        foreach($files as $index=>$file){
+            $title = $imagename[ $index]??'';
+            $product->images()->create(['image_url'=>$file['file'],'sort'=>$file['index'],'title'=>$title]);
+        }
+
+        foreach($collections as $index=>$collection){
+            $product->collections()->create(['collection_id'=>$collection,'sort'=>100]);
         }
 
         if (!$product->save()) {

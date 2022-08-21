@@ -32,7 +32,9 @@ Route::group([
             Route::get('/dashboard', 'ApplicationSettingsController@show')->name('admin.dashboad');
           
             // Collection routes
+            Route::get('collections/all', 'CollectionController@getAll')->name('collections.all');
             Route::resource('collections', 'CollectionController');
+            
             //Customer routes
             Route::resource('customers', 'CustomerController');
             // Brand routes

@@ -18,7 +18,7 @@ class UploadController extends Controller
 			'fileMaxSize' => 100,
 			'extensions' => null,
 			'uploadDir' => $uploadDir,
-			'title' => 'auto'
+			'title' => 'name'
 		));
 		
 		// upload
