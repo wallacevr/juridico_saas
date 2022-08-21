@@ -1952,6 +1952,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   flex: 1 1 0%;
 }
 
+.flex-initial {
+  flex: 0 1 auto;
+}
+
 .flex-auto {
   flex: 1 1 auto;
 }
@@ -1970,6 +1974,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .flex-grow {
   flex-grow: 1;
+}
+
+.basis-6\/12 {
+  flex-basis: 50%;
 }
 
 .table-fixed {
@@ -3859,6 +3867,10 @@ label>.red {
 
   .lg\:grid-cols-12 {
     grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .lg\:flex-row {
+    flex-direction: row;
   }
 
   .lg\:items-center {

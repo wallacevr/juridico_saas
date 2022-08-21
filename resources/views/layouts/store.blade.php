@@ -22,7 +22,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ get_config('general/store/name') }}</title>
+  <title>{{ get_config('general/store/name') .' '. $title??''}}</title>
 
   <!-- Scripts -->
   <script src="{{ mix('js/store.js') }}"></script>
@@ -58,7 +58,7 @@
 
               <!-- Logo -->
               <div class="ml-4 flex lg:ml-0">
-                <a href="#">
+                <a href="{{url('/')}}">
                   <span class="sr-only">Workflow</span>
                   <img class="h-8 w-auto" src="/images/logo_max_commerce.png" alt="">
                 </a>

@@ -44,9 +44,7 @@ Route::group([
     Route::get('/collections/{slug}', 'CollectionController@show')->name('collection.show');
     Route::get('/pagina/{slug}', 'PageController@show')->name('page.show');
 
-    
-    if(false)
-        Route::get('/{any}', 'ProductController@show')->name('admin.dashboad');
+    Route::get('/{product:slug}', 'ProductController@show')->name('product.show');
     
           
 });

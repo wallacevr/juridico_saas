@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
 use App\Page;
-
+use App\Product;
 
 class ProductController extends Controller
 {
@@ -15,11 +15,9 @@ class ProductController extends Controller
      * @param  string  $url
      * @return \Illuminate\Http\Response
      */
-    public function show($url)
+    public function show(Product $product)
     {
-        die("product");
-        $page = Page::where('url', $url)->firstOrFail();
-        return view('store.pages.page', ['page' => $page]);
+        return view('store.product.view', ['product' => $product]);
     }
 
 }

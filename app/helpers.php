@@ -60,7 +60,22 @@ if (!function_exists("generateSlug")) {
         return $newSlug;
     }
 }
-
+if (!function_exists("productImage")) {
+    /**
+     *
+     * @param mixed $imageName
+     * @param mixed $folderName
+     * @return string
+     */
+    function productImage($image_url){
+        $image = tenant_public_path() . '/catalog/' .$image_url;
+        $image_path = public_path() .'/tenant/'.tenant('id'). '/catalog/' .$image_url;
+        if(!is_file($image_path)){
+            $image = '/images/no-image.jpg';
+        }
+        return $image;
+    }
+}
 if (!function_exists("deleteImage")) {
     /**
      *
