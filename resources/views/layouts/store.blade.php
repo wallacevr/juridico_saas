@@ -2,6 +2,20 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+  <style>
+  :root {
+    --primary: rgb(28 58 77 / 1);
+    --secundary: #ffffff;
+    --title-primary:rgb(55 65 81 / 1);
+    --title-secundary:rgb(55 65 81 / 1);
+    --text-price:rgb(55 65 81 / 1);
+    --text-special-price:green;
+    --bg-addtocart:rgb(28 58 77 / 1);
+    --bg-addtocart-hover:rgb(55 109 144);
+    --text-addtocart:#FFFFFF;
+    --text-addtocart-hover:#FFFFFF;
+  }
+  </style>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,7 +40,7 @@
   <div id="app">
     <div class="bg-white">
       <header class="relative bg-white">
-        <p class="bg-indigo-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
+        <p class="bg-prymary h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
           FRETE GRÁTIS PARA TODO O BRASIL
         </p>
 

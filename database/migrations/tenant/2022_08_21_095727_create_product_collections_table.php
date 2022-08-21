@@ -13,7 +13,7 @@ class CreateProductCollectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_collections', function (Blueprint $table) {
+        Schema::create('collection_product', function (Blueprint $table) {
             $table->id();
             $table->foreignId('collection_id');
             $table->foreign('collection_id')->references('id')->on('collections')->onUpdate('cascade')->onDelete('cascade');
@@ -31,6 +31,6 @@ class CreateProductCollectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_collections');
+        Schema::dropIfExists('collection_product');
     }
 }

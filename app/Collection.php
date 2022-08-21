@@ -12,4 +12,8 @@ class Collection extends Model
         'status' => false,
     ];
 
+    public function products(){
+        return $this->belongsToMany(Product::class);
+    }
+
 }

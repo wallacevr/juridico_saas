@@ -3,3 +3,26 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.bg-prymary{
+    background-color: var(--primary);
+}
+
+.add-tocart{
+    background-color: var(--bg-addtocart);
+    color: var(--text-addtocart);
+}
+
+.add-tocart::hover{
+    background-color: var(--bg-addtocart-hover);
+    color: var(--text-addtocart-hover);
+}
+.title-primary{
+    color:var(--title-primary);
+}
+.text-price{
+    color: var(--text-price);
+}
+.text-special-price{
+    color: var(--text-special-price);
+}
