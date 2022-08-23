@@ -59,13 +59,13 @@
               <!-- Logo -->
               <div class="ml-4 flex lg:ml-0">
                 <a href="{{url('/')}}">
-                  <span class="sr-only">Workflow</span>
+                  <span class="sr-only">Maxcommerce</span>
                   <img class="h-8 w-auto" src="/images/logo_max_commerce.png" alt="">
                 </a>
               </div>
 
               <!-- Flyout menus -->
-              <div class=" lg:ml-8 lg:block lg:self-stretch">
+              <div class=" xl:ml-8 xl:self-stretch hidden lg:block">
               @include('layouts.menu.store_menu')
               </div>
 
@@ -134,7 +134,7 @@
     @if(!empty($pageBanners))
       @includeWhen(isset($pageBanners),'store.banners.full-banners', $pageBanners)
     @endif
-    <main class="w-full max-w-7xl mx-auto">
+    <main class="w-full max-w-7xl mx-auto px-3 xl:px-0">
       @yield('content')
     </main>
 
