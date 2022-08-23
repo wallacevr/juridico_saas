@@ -9,7 +9,7 @@
       @foreach($collection->products as $key => $product)
       <div class="group mb-6">
         <div class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
-          <a  href="{{url($product->slug)}}"><img src="{{$product->getImage()}}" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="w-full h-full object-center object-cover group-hover:opacity-75"></a>
+          <a  href="{{url($product->slug)}}"><img src="{{$product->getImage()}}" alt="{{ $similar->name }}" class="w-full h-full object-center object-cover group-hover:opacity-75"></a>
         </div>
         <a  href="{{url($product->slug)}}" class="inline-flex mt-2 text-lg title-primary">{{ $product->name }}</a>
         <p class="mt-1 text-lg font-medium text-price {{$product->special_price?'line-through':''}}">{{$product->formattedPrice()}}</p>

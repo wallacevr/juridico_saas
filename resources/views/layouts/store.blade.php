@@ -132,7 +132,7 @@
       </header>
     </div>
 
-    <main>
+    <main class="max-w-7xl mx-auto">
       @yield('content')
     </main>
   </div>
