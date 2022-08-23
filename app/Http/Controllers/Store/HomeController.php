@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
+use App\Product;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -19,6 +20,8 @@ class HomeController extends Controller
             ['type', '=', 'FULL'],
         ])->select('image_url', 'url', 'name')->get();
 
-        return view('store.home')->with('pageBanners', $pageBanners);
+        $productsFeatured = Product::get();
+
+        return view('store.home')->with(['pageBanners'=>$pageBanners,'productsFeatured'=>$productsFeatured]);
     }
 }
