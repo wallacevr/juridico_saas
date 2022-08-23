@@ -22,7 +22,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ get_config('general/store/name') .' '. $title??''}}</title>
+  <title>{{ get_config('general/store/name') .' '. !empty($title)?$title:''}}</title>
 
   <!-- Scripts -->
   <script src="{{ mix('js/store.js') }}"></script>
