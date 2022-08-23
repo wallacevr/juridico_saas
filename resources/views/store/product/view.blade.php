@@ -123,34 +123,34 @@
 
         </div>
 
-        <div class="max-w-full py-16 sm:py-24 sm:px-6  ">
+        <div class="max-w-full py-16 sm:py-24  ">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{ __('Customers also purchased') }}</h2>
-
-            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 p-4 lg:grid-cols-4 bg-white">
-                @foreach($similarCategory as $similar)
-             
-                <div class="group relative">
-                    <div
-                        class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                            <a  href="{{url($similar->slug)}}"><img src="{{$similar->getImage()}}" alt="{{ $similar->name}}" class="w-full h-full object-center object-cover group-hover:opacity-75"></a>
-                    </div>
-                    <div class="mt-4 flex justify-between">
-                        <div>
-                            <h3 class="text-sm text-gray-700">
-                                <a href="#">
-                                    <span aria-hidden="true" class="absolute inset-0"></span>
-                                    {{ $similar->name }}
-                                </a>
-                            </h3>
-                            <p class="mt-1 text-sm text-gray-500">Black</p>
+            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2  lg:grid-cols-4 ">
+                @foreach ($similarCategory as $similar)
+                    <div class="group mb-6">
+                        <div
+                            class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+                            <a href="{{ url($similar->slug) }}"><img src="{{ $similar->getImage() }}"
+                                    alt="{{ $similar->name }}"
+                                    class="w-full h-full object-center object-cover group-hover:opacity-75"></a>
                         </div>
-                        <p class="text-sm font-medium text-gray-900">{{ $similar->formattedPrice() }}</p>
+                        <a href="{{ url($similar->slug) }}"
+                            class="inline-flex mt-2 text-lg title-primary">{{ $similar->name }}</a>
+                        <p class="mt-1 text-lg font-medium text-price {{ $similar->special_price ? 'line-through' : '' }}">
+                            {{ $similar->formattedPrice() }}</p>
+                        @if ($similar->special_price)
+                            <p class="mt-0 text-lg font-medium text-special-price  ">
+                                {{ $similar->formattedSpecialPrice() }}</p>
+                        @else
+                            <p class="mt-0 text-lg font-medium ">&nbsp;</p>
+                        @endif
+                        <a href="{{ url($similar->slug) }}"
+                            class="add-tocart inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none"
+                            alt="{{ __('Add to cart') }}">{{ __('Add to cart') }}</a>
                     </div>
-                </div>
-       
                 @endforeach
 
-                
+
             </div>
         </div>
     </div>
