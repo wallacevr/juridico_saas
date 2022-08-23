@@ -36,9 +36,9 @@
   @stack('head')
 </head>
 
-<body class="bg-gray-100 h-screen antialiased">
-  <div id="app">
-    <div class="bg-white">
+<body class="bg-gray-100 h-screen antialiased w-full">
+  <div id="app" class="w-full">
+    <div class="bg-white w-full">
       <header class="relative bg-white">
         <p class="bg-prymary h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
           FRETE GRÁTIS PARA TODO O BRASIL
@@ -131,8 +131,10 @@
         </nav>
       </header>
     </div>
-
-    <main class="max-w-7xl mx-auto">
+    @if(!empty($pageBanners))
+      @includeWhen(isset($pageBanners),'store.banners.full-banners', $pageBanners)
+    @endif
+    <main class="w-full max-w-7xl mx-auto">
       @yield('content')
     </main>
 

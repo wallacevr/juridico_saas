@@ -2,7 +2,7 @@
 
 @section('content')
 
-@includeWhen(isset($pageBanners),'store.banners.full-banners', $pageBanners)
+
 @includeWhen(isset($productsFeatured),'store.banners.products-slider', $productsFeatured)
 
 <div class="min-h-full  py-16  sm:py-24  ">

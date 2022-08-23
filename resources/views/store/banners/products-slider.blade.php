@@ -38,17 +38,31 @@
     <script>
         var swiper = new Swiper('.productsFeatured', {
             spaceBetween: 30,
+            slidesPerView: 1,
             centeredSlides: false,
-            loop:true,
-            slidesPerView: 4,
+            loop: true,
             autoplay: {
                 delay: 3500,
                 disableOnInteraction: false,
             },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 4,
+                    spaceBetween: 40,
+                },
+                1024: {
+                    slidesPerView: 5,
+                    spaceBetween: 50,
+                },
+            },
             navigation: {
-          nextEl: '.productsFeatured .swiper-button-next',
-          prevEl: '.productsFeatured .swiper-button-prev',
-        },
+                nextEl: '.productsFeatured .swiper-button-next',
+                prevEl: '.productsFeatured .swiper-button-prev',
+            },
         });
     </script>
 @endpush
