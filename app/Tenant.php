@@ -30,6 +30,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         return [
             'id',
             'email',
+            'taxvat',
             'stripe_id',
             'card_brand',
             'card_last_four',

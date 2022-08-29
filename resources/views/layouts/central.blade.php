@@ -10,27 +10,23 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/tenant.js') }}" defer></script>
+    <script src="{{ asset('js/central.js') }}" defer></script>
     
     <!-- Styles -->
-    <link href="{{ mix('css/tenant.css') }}" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="{{ mix('css/central.css') }}" rel="stylesheet">
 </head>
 <body class="bg-gray-100 h-screen antialiased font-sans">
-    <nav class="bg-gray-900 py-2">
+    <nav class="bg-gray-50 py-2">
         <div class="container mx-auto flex justify-between">
             <div>
-                <a href="/" class="block py-2 px-4 text-white font-medium">
-                    Home
+                 <a href="{{url('/')}}">
+                  <span class="sr-only">Maxcommerce</span>
+                  <img class="h-8 w-auto" src="/images/logo_max_commerce.png" alt="">
                 </a>
             </div>
             <div class="flex">
                 <a href="{{ route('central.tenants.login') }}" class="block py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
                     Login
-                </a>
-                <a href="{{ route('central.tenants.register') }}" class="block ml-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
-                    Register
                 </a>
             </div>
         </div>

@@ -234,7 +234,7 @@
     "Your contact details": "Seus detalhes de contato",
     "Full name": "Nome completo",
     "Email address": "Endereço de email",
-    "Taxvat": "CPF",
+    "Taxvat": "CPF/CNPJ",
     "Birth Date": "Data de nascimento",
     "Phone": "Celular",
     "Postalcode": "CEP",
@@ -286,6 +286,11 @@
     "Add a title and description to see how this product might appear in a search engine listing.":"Adicione um título e uma descrição para ver como esse produto pode aparecer em uma listagem de mecanismo de pesquisa.",
     "Upload product images":"Cadastrar Fotos",
     "Add to cart":"Comprar",
-    "Customers also purchased":"Os clientes também compram"
+    "Customers also purchased":"Os clientes também compram",
+    "Write the email you use the most":"Escreva o e-mail que mais usa",
+    "sign in to your account":"Faça login em sua conta",
+    "Company name":"Nome da sua marca",
+    "Domain":"Dominio",
+    "You'll be able to add a custom branded domain after you sign up.":"Você poderá adicionar um domínio de marca personalizado depois de se inscrever."
 
 }

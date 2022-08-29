@@ -21,6 +21,10 @@ mix.js('resources/js/tenant.js', 'public/js')
    .postCss('resources/css/store.css', 'public/css')
    .tailwind('./tailwind.config.js');
 
+   mix.js('resources/js/central.js', 'public/js')
+   .postCss('resources/css/central.css', 'public/css')
+   .tailwind('./tailwind.config.js');
+
 if (mix.inProduction()) {
   mix
    .version();

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Max Commerce') }}</title>
     
     <!-- Scripts -->
     <script src="{{ mix('js/tenant.js') }}" defer></script>
@@ -16,7 +16,6 @@
     <link href="{{ mix('css/tenant.css') }}" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     @stack('head')
 </head>
 <body class="bg-gray-100 h-screen antialiased">
