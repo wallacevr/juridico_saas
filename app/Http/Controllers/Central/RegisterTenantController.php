@@ -26,6 +26,11 @@ class RegisterTenantController extends Controller
          ]);
         
         $stepModel = Step::where('email',$data['email'])->first();
+        $tenant    = Tenant::where('email',$data['email'])->first();
+        if(!empty($tenant)){
+            $request->session()->forget('step');
+            return back()->withInput()->with("error",__("There is a registered tenant with this email"));
+        }
         if(empty($stepModel)){
             $stepModel = Step::create(['email'=>$data['email']]);
         }

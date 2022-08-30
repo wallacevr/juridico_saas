@@ -10,9 +10,8 @@
           <p class="inline text-1xl font-bold tracking-tight text-gray-900  sm:block sm:text-2xl">Seu e-commerce do seu jeito e com todas funcionalidades que você precisa de graça.</p>
           <form class="mt-8 sm:flex" action="{{ route('central.tenants.step-1') }}" method="post" id="step-form">
             @csrf
-            <label for="email-address" class="sr-only">{{__('Write the email you use the most')}}</label>
-            <input id="email-address" name="email" type="email" autocomplete="email" required class="w-full px-5 py-3 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs border-gray-300 rounded-md" placeholder="{{__('Write the email you use the most')}}">
-            <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+            @include('layouts.snippets.fields', ['type'=>'email', 'class'=>'w-full px-5','label'=>'Write the email you use the most', 'placeholder'=>'Write the email you use the most', 'name'=>'email', 'value'=> '' ,'classLabel'=>'sr-only'])
+            <div class="mt-3  sm:mt-0 sm:ml-3 sm:flex-shrink-0">
               <button type="submit" class="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"> {{__('Register')}}</button>
             </div>
           </form>

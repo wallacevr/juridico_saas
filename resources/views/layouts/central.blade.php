@@ -35,6 +35,7 @@
         <div class="py-10">
             <main class="container mx-auto">
                 <div class="max-w-7xl sm:px-6 lg:px-8">
+                    @include('partials.alerts')
                     @yield('content')
                 </div>
             </main>

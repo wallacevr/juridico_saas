@@ -291,6 +291,6 @@
     "sign in to your account":"Faça login em sua conta",
     "Company name":"Nome da sua marca",
     "Domain":"Dominio",
-    "You'll be able to add a custom branded domain after you sign up.":"Você poderá adicionar um domínio de marca personalizado depois de se inscrever."
-
+    "You'll be able to add a custom branded domain after you sign up.":"Você poderá adicionar um domínio de marca personalizado depois de se inscrever.",
+    "There is a registered tenant with this email":"Existe um usuario cadastrado com este e-mail"
 }
