@@ -18,6 +18,12 @@ class Product extends Model
     public function formattedSpecialPrice(){
         return 'R$ '.number_format($this->special_price,2,',','.');
     }
+    public function finalPrice(){
+        return $this->special_price>0??$this->price;
+    }
+    public function formattedFinalPrice(){
+        return 'R$ '.number_format($this->special_price,2,',','.');
+    }
     public function getImage(){
 
         $image = '/images/no-image.jpg';

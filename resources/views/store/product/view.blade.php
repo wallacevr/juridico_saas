@@ -116,7 +116,7 @@
                 <div class="product-description text-xl mb-6">
                     {!! $product->description !!}
                 </div>
-                <a href="{{ url($product->slug) }}"
+                <a href="{{ route('store.add.to.cart', $product->id) }}"
                     class="add-tocart inline-flex items-center justify-center w-40 h-13 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none"
                     alt="{{ __('Add to cart') }}">{{ __('Add to cart') }}</a>
             </div>

@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Store\CartController;
 use App\Http\Controllers\Store\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+
 Route::get('/', 'HomeController@index')->name('tenant.home');
 Route::group([
     'middleware' => ['tenant', PreventAccessFromCentralDomains::class], // See the middleware group in Http Kernel
@@ -34,17 +36,22 @@ Route::group([
                     'index',
                 ]);
             })->name('logout');
-
         });
-
     });
+
     Route::get('/', 'HomeController@index')->name('store.index');
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/collections/{slug}', 'CollectionController@show')->name('collection.show');
     Route::get('/pagina/{slug}', 'PageController@show')->name('page.show');
 
+
+
+    Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+    Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
+    Route::patch('update-cart', [CartController::class, 'update'])->name('update.cart');
+    Route::delete('remove-from-cart', [CartController::class, 'remove'])->name('remove.from.cart');
+
+
     Route::get('/{product:slug}', 'ProductController@show')->name('product.show');
-    
-          
 });
