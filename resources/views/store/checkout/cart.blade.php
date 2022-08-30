@@ -14,12 +14,13 @@
                             <div class="flex justify-between w-full pb-2 space-x-2">
                                 <div class="space-y-1">
                                     <h3 class="text-lg font-semibold leading-snug sm:pr-8">{{ $details['name'] }}</h3>
-                                    
+
                                 </div>
                                 <div class="text-right">
                                     <p class="text-lg font-semibold">{{ $details['formated_finalprice'] }}</p>
-                                    @if($details['special_price'])
-                                        <p class="text-sm line-through dark:text-gray-600">{{ $details['formated_price'] }}</p>
+                                    @if ($details['special_price'])
+                                        <p class="text-sm line-through dark:text-gray-600">{{ $details['formated_price'] }}
+                                        </p>
                                     @endif
                                 </div>
                             </div>
@@ -81,20 +82,17 @@
         $(".remove-from-cart").click(function(e) {
             e.preventDefault();
             var ele = $(this);
-
-            if (confirm("Are you sure want to remove?")) {
-                $.ajax({
-                    url: '{{ route('store.remove.from.cart') }}',
-                    method: "DELETE",
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        id: ele.parents(".product-item").attr("data-id")
-                    },
-                    success: function(response) {
-                        window.location.reload();
-                    }
-                });
-            }
+            $.ajax({
+                url: '{{ route('store.remove.from.cart') }}',
+                method: "DELETE",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: ele.parents(".product-item").attr("data-id")
+                },
+                success: function(response) {
+                    window.location.reload();
+                }
+            });
         });
     </script>
 @endpush

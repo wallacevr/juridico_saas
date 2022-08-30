@@ -21,7 +21,7 @@
         @else
         <p class="mt-0 text-lg font-medium ">&nbsp;</p>
         @endif
-        <a href="{{url($product->slug)}}" class="add-tocart inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none" alt="{{__("Add to cart")}}">{{__("Add to cart")}}</a>
+        <a href="{{ route('store.add.to.cart', $product->id) }}" class="add-tocart inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none" alt="{{__("Add to cart")}}">{{__("Add to cart")}}</a>
       </div>
       @endforeach
 
