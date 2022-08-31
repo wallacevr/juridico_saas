@@ -1,7 +1,8 @@
 @extends('layouts.store', ['title' => __('cart')])
 
 @section('content')
-    <div class="max-w-3xl">
+    <div class="max-w-3xl mt-10">
+        <h2 class="mb-6 text-3xl leading-9 font-extrabold title-primary ">Carrinho de compras</h2>
         @php $total = 0 @endphp
         @if (session('cart'))
             @foreach (session('cart') as $id => $details)
@@ -9,7 +10,7 @@
                 <div class="flex flex-col py-6 sm:flex-row sm:justify-between product-item" data-id="{{ $id }}">
                     <div class="flex w-full space-x-2 sm:space-x-4">
                         <img class="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
-                            src="{{ $details['image'] }}" alt="Polaroid camera">
+                            src="{{ $details['image'] }}" alt="{{ $details['name'] }}">
                         <div class="flex flex-col justify-between w-full p-4 ">
                             <div class="flex justify-between w-full pb-2 space-x-2">
                                 <div class="space-y-1">
