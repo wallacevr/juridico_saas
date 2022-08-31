@@ -2123,11 +2123,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 1.5rem;
 }
 
-.gap-x-1 {
-  -moz-column-gap: 0.25rem;
-       column-gap: 0.25rem;
-}
-
 .gap-y-10 {
   row-gap: 2.5rem;
 }
@@ -2940,9 +2935,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(4 108 78 / var(--tw-text-opacity));
 }
 
-.text-yellow-300 {
+.text-yellow-400 {
   --tw-text-opacity: 1;
-  color: rgb(253 224 71 / var(--tw-text-opacity));
+  color: rgb(250 204 21 / var(--tw-text-opacity));
 }
 
 .text-blue-500 {
@@ -3672,6 +3667,16 @@ label>.red {
   .dark\:text-gray-600 {
     --tw-text-opacity: 1;
     color: rgb(75 85 99 / var(--tw-text-opacity));
+  }
+
+  .dark\:text-gray-500 {
+    --tw-text-opacity: 1;
+    color: rgb(107 114 128 / var(--tw-text-opacity));
+  }
+
+  .dark\:text-gray-400 {
+    --tw-text-opacity: 1;
+    color: rgb(156 163 175 / var(--tw-text-opacity));
   }
 }
 
