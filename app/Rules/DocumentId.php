@@ -115,6 +115,6 @@ class DocumentId implements Rule
      */
     public function message()
     {
-        return 'Document number invalid';
+        return __('Document number invalid');
     }
 }

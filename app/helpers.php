@@ -26,8 +26,8 @@ if (!function_exists("tenant_public_path")) {
 if (!function_exists("get_config")) {
 
     function get_config($path){
-        $config = Config::where('path', $path)->firstOrFail();
-        return $config['value'];
+        $config = Config::where('path', $path)->first();
+        return $config['value']??null;
     }
 
 }

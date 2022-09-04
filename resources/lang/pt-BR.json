@@ -292,5 +292,10 @@
     "Company name":"Nome da sua marca",
     "Domain":"Dominio",
     "You'll be able to add a custom branded domain after you sign up.":"Você poderá adicionar um domínio de marca personalizado depois de se inscrever.",
-    "There is a registered tenant with this email":"Existe um usuario cadastrado com este e-mail"
+    "There is a registered tenant with this email":"Existe um usuario cadastrado com este e-mail",
+    "Store Informations":"Contato da loja",
+    "This information will be used on footer":"Estes dados serão mostrado no rodapé",
+    "Registred company name":"Razão social ",
+    "TAXVAT COMPANY":"CNPJ",
+    "Document number invalid":"Número de documentoinválido"
 }

@@ -7,7 +7,6 @@
 .bg-prymary{
     background-color: var(--primary);
 }
-
 .add-tocart{
     background-color: var(--bg-addtocart);
     color: var(--text-addtocart);
@@ -25,4 +24,12 @@
 }
 .text-special-price{
     color: var(--text-special-price);
+}
+.text-footer a,
+.text-footer{
+    color: var(--text-footer);
+}
+
+.text-footer a::hover{
+    font-weight: bold;
 }

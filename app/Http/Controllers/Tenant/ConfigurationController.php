@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Tenant;
+
 use App\Http\Controllers\Controller;
 use App\Models\Config;
+use App\Rules\DocumentId;
 use Illuminate\Http\Request;
 
 class ConfigurationController extends Controller
@@ -27,7 +29,7 @@ class ConfigurationController extends Controller
     public function update(Request $request)
     {
         $validated = $this->validate($request, [
-            
+
             'email' => [
                 'required',
                 'string',
@@ -37,20 +39,27 @@ class ConfigurationController extends Controller
             'name' => ['required', 'string', 'min:5'],
             'postalcode' => ['required', 'string', 'min:5'],
             'address' => ['required', 'string', 'min:10'],
-            'neighborhood' => ['required','string'],
+            'neighborhood' => ['required', 'string'],
             'number' => ['string'],
             'complement' => ['string'],
             'city' => ['required', 'string'],
             'state' => ['required', 'string'],
             'phone' => ['required', 'string', 'min:10'],
+            'registred_company_name' => ['required', 'string', 'min:10'],
+            'taxvat' => ['required', 'string', 'min:18',new DocumentId],
+            'company_email' => [
+                'required',  'string',
+                'email',
+                'max:255'
+            ],
             'whatsapp' => ['string', 'min:10'],
-            'facebook' => ['url','string', 'min:10'],
-            'instagram' => ['url','string', 'min:10'],
-            'youtube' => ['url','string', 'min:10'],
-            'pinterest' => ['url','string', 'min:10'],
+            'facebook' => ['url', 'string', 'min:10'],
+            'instagram' => ['url', 'string', 'min:10'],
+            'youtube' => ['url', 'string', 'min:10'],
+            'pinterest' => ['url', 'string', 'min:10'],
         ]);
 
-   
+
         Config::where('path', 'general/store/name')->update(['value' => $validated['name']]);
         Config::where('path', 'general/store/email')->update(['value' => $validated['email']]);
         Config::where('path', 'general/store/postalcode')->update(['value' => $validated['postalcode']]);
@@ -60,15 +69,19 @@ class ConfigurationController extends Controller
         Config::where('path', 'general/store/complement')->update(['value' => $validated['complement']]);
         Config::where('path', 'general/store/city')->update(['value' => $validated['city']]);
         Config::where('path', 'general/store/state')->update(['value' => $validated['state']]);
+
+
+        Config::where('path', 'general/store/registred_company_name')->update(['value' => $validated['registred_company_name']]);
+        Config::where('path', 'general/store/taxvat')->update(['value' => $validated['taxvat']]);
+        Config::where('path', 'general/store/company_email')->update(['value' => $validated['company_email']]);
         Config::where('path', 'general/store/phone')->update(['value' => $validated['phone']]);
         Config::where('path', 'general/store/whatsapp')->update(['value' => $validated['whatsapp']]);
         Config::where('path', 'general/store/social_facebook')->update(['value' => $validated['facebook']]);
         Config::where('path', 'general/store/social_instagram')->update(['value' => $validated['instagram']]);
         Config::where('path', 'general/store/social_youtube')->update(['value' => $validated['youtube']]);
         Config::where('path', 'general/store/social_pinterest')->update(['value' => $validated['pinterest']]);
-       
-       
+
+
         return redirect()->back()->with('success', __('Store information updated.'));
     }
-
 }

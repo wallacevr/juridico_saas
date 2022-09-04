@@ -65,8 +65,16 @@ class TenantDatabaseSeeder extends Seeder
                 'value' => 'Ceará'
             ],
             [
-                'path' => 'general/store/vatid',
+                'path' => 'general/store/taxvat',
                 'value' => '00.000.000/0000-00'
+            ],
+            [
+                'path' => 'general/store/company_email',
+                'value' => 'contato@sualoja.com'
+            ],
+            [
+                'path' => 'general/store/registred_company_name',
+                'value' => 'Max commerce LTDA'
             ],
             [
                 'path' => 'general/store/phone',
