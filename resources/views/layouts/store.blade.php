@@ -12,8 +12,9 @@
             --title-secundary-hover: {{ get_config('general/layout/title_secundary_color_hover') ?? 'rgb(55 65 81 / 1)' }};
             --background-footer: {{ get_config('general/layout/background_footer') ?? '#000000' }};
             --text-footer: {{ get_config('general/layout/text_footer') ?? '#FFFFFF' }};
-            --text-price: rgb(55 65 81 / 1);
-            --text-special-price: green;
+            --text-price: {{ get_config('general/layout/text_price') ?? 'rgb(28 58 77 / 1)' }};
+            --text-price-with-special: {{ get_config('general/layout/text_price_with_special') ?? 'rgb(28 58 77 / 1)' }};
+            --text-special-price: {{ get_config('general/layout/text_special_price') ?? 'rgb(28 58 77 / 1)' }};
             --bg-addtocart: {{ get_config('general/layout/background_add_cart') ?? 'rgb(28 58 77 / 1)' }};
             --bg-addtocart-hover: {{ get_config('general/layout/background_add_cart_hover') ?? 'rgb(55 109 144)' }};
             --text-addtocart: {{ get_config('general/layout/text_add_cart') ?? '#FFFFFF' }};

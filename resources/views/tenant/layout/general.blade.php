@@ -70,6 +70,10 @@
                                     <label>texto preço</label>
                                 </div>
                                 <div class="mt-4  pr-2">
+                                    <input type="color" name="text_price_with_special" id="color-picker" value="{{get_config('general/layout/text_price_with_special')??"#FFFFFF"}}" class="mt-1  bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+                                    <label>texto preço tachado</label>
+                                </div>
+                                <div class="mt-4  pr-2">
                                     <input type="color" name="text_special_price" id="color-picker" value="{{get_config('general/layout/text_special_price')??"#FFFFFF"}}" class="mt-1  bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
                                     <label>texto preço especial</label>
                                 </div>
@@ -90,15 +94,6 @@
                                     <label>texto adicionar ao carrinho hover</label>
                                 </div>
 
-
-
-
-                                {{-- 
-                                 
-                                    --bg-addtocart:rgb(28 58 77 / 1);
-                                    --bg-addtocart-hover:rgb(55 109 144);
-                                    --text-addtocart:#FFFFFF;
-                                    --text-addtocart-hover:#FFFFFF; --}}
                             </div>
                             
                         </div>
@@ -117,80 +112,3 @@
 
     </form>
 @endsection
-@push('js')
-    <script src="{{ URL::to('/') . '/js/cep-api.js' }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#postalcode').mask('00000-000');
-            $('#phone').mask('(00) 0000-0000');
-            $('#whatsapp').mask('(00) 0000-0000');
-            $('#taxvat').mask('00.000.000/0000-00');
-            $("#storeSettings").validate({
-                rules: {
-                    name: {
-                        required: true,
-                        minlength: 5
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                        maxlength: 255
-                    },
-                    postalcode: {
-                        required: true,
-                        minlength: 5
-                    },
-                    address: {
-                        required: true,
-                        minlength: 10
-                    },
-                    neighborhood: {
-                        required: true
-                    },
-                    city: {
-                        required: true
-                    },
-                    state: {
-                        required: true
-                    },
-                    phone: {
-                        required: true,
-                        minlength: 10
-                    },
-                    whatsapp: {
-                        required: true,
-                        minlength: 10
-                    },
-                    facebook: {
-                        url: true,
-                        minlength: 10
-                    },
-                    youtube: {
-                        url: true,
-                        minlength: 10
-                    },
-                    instagram: {
-                        url: true,
-                        minlength: 10
-                    },
-                    pinterest: {
-                        url: true,
-                        minlength: 10
-                    },
-                    registred_company_name: {
-                        required: true,
-                        minlength: 10
-                    },
-                    company_email: {
-                        required: true,
-                        email: true,
-                        maxlength: 255
-                    },
-                    taxvat: {
-                        documentId: true
-                    }
-                }
-            });
-        });
-    </script>
-@endpush

@@ -40,7 +40,8 @@ class LayoutController extends Controller
             'text_footer' => ['required', 'string', new Hex()],
             'background_footer' => ['required', 'string', new Hex()],
             'text_price' => ['required', 'string', new Hex()],
-             'text_special_price' => ['required', 'string', new Hex()],
+            'text_price_with_special' => ['required', 'string', new Hex()],
+            'text_special_price' => ['required', 'string', new Hex()],
             'background_add_cart' => ['required', 'string', new Hex()],
             'background_add_cart_hover' => ['required', 'string', new Hex()],
             'text_add_cart' => ['required', 'string', new Hex()],
@@ -57,6 +58,7 @@ class LayoutController extends Controller
         Config::createOrUpdate('general/layout/background_footer', $validated['background_footer']);
         Config::createOrUpdate('general/layout/text_footer', $validated['text_footer']);
         Config::createOrUpdate('general/layout/text_price', $validated['text_price']);
+        Config::createOrUpdate('general/layout/text_price_with_special', $validated['text_price_with_special']);
          Config::createOrUpdate('general/layout/text_special_price', $validated['text_special_price']);
         Config::createOrUpdate('general/layout/background_add_cart', $validated['background_add_cart']);
         Config::createOrUpdate('general/layout/background_add_cart_hover', $validated['background_add_cart_hover']);
