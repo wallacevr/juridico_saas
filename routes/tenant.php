@@ -62,6 +62,9 @@ Route::group([
             Route::post('ckeditor/upload', 'CKEditorController@upload')->name('ckeditor.image-upload');
             Route::get('ckeditor/browse-images', 'CKEditorController@browseImages')->name('ckeditor.browse-images');
 
+            Route::get('layouts', 'LayoutController@index')->name('layout.store');
+            Route::post('layouts', 'LayoutController@update')->name('layout.store.update');
+
             Route::get('configurations', 'ConfigurationController@index')->name('settings.store');
             Route::post('configurations', 'ConfigurationController@update')->name('settings.store.update');
 

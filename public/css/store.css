@@ -1801,11 +1801,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
-.border-gray-700 {
-  --tw-border-opacity: 1;
-  border-color: rgb(55 65 81 / var(--tw-border-opacity));
-}
-
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -2622,34 +2617,59 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
+body,
+a{
+    color: var(--title-primary);
+}
+a:hover{
+    color: var(--title-primary-hover);
+}
 .bg-prymary{
     background-color: var(--primary);
 }
-.add-tocart{
-    background-color: var(--bg-addtocart);
-    color: var(--text-addtocart);
+.bg-secundary{
+    background-color: var(--secundary);
 }
 
-.add-tocart::hover{
-    background-color: var(--bg-addtocart-hover);
-    color: var(--text-addtocart-hover);
-}
 .title-primary{
     color:var(--title-primary);
 }
+
+a.title-primary:hover{
+    color:var(--title-primary-hover);
+}
+.title-secundary{
+    color:var(--title-secundary);
+}
+/* PRODUCT */
 .text-price{
     color: var(--text-price);
 }
 .text-special-price{
     color: var(--text-special-price);
 }
-.text-footer a,
-.text-footer{
+
+/* FOOTER */
+footer{
+    background-color: var(--background-footer);
+}
+footer .text-footer a,
+footer .text-footer{
     color: var(--text-footer);
 }
 
-.text-footer a::hover{
+footer .text-footer a::hover{
     font-weight: bold;
+}
+/*Cart*/
+.add-tocart{
+    background-color: var(--bg-addtocart);
+    color: var(--text-addtocart);
+}
+
+.add-tocart:hover{
+    background-color: var(--bg-addtocart-hover);
+    color: var(--text-addtocart-hover);
 }
 
 .focus-within\:text-gray-600:focus-within {
@@ -2727,11 +2747,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 
-.hover\:text-indigo-50:hover {
-  --tw-text-opacity: 1;
-  color: rgb(89 180 237 / var(--tw-text-opacity));
-}
-
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -2745,11 +2760,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:text-indigo-500:hover {
   --tw-text-opacity: 1;
   color: rgb(37 76 100 / var(--tw-text-opacity));
-}
-
-.hover\:text-indigo-100:hover {
-  --tw-text-opacity: 1;
-  color: rgb(80 163 215 / var(--tw-text-opacity));
 }
 
 .hover\:text-red-500:hover {
@@ -2896,14 +2906,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-ring-color: rgb(37 76 100 / var(--tw-ring-opacity));
 }
 
-.focus\:ring-purple-500:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(144 97 249 / var(--tw-ring-opacity));
-}
-
 .focus\:ring-white:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-purple-500:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(144 97 249 / var(--tw-ring-opacity));
 }
 
 .focus\:ring-red-500:focus {
@@ -3428,6 +3438,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .lg\:py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 
   .lg\:px-0 {

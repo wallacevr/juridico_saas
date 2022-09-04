@@ -18,6 +18,14 @@ class Config extends Model
         'path', 'value',
     ];
 
+    public static function createOrUpdate($path,$value){
+        if(empty(Config::where('path', $path)->first())){
+            Config::create(['path'=>$path,'value'=>$value]);
+        }
+        
+        Config::where('path', $path)->update(['value' => $value]);
+        
 
+    }
 
 }

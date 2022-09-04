@@ -1,7 +1,15 @@
 @extends('layouts.tenant', ['title' => __("Update customer") . __(" - {$customer->name}")])
 
 @section('content')
-
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
     <!-- LEFT FORM -->
     <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">

@@ -304,7 +304,7 @@ if (!function_exists('create_menu')) {
                 'children' => [
                     ['name' => __('menu.Menu'), 'href' => route('tenant.menus.edit',1)],
                     // ['name' => __('menu.logo'), 'href' => '#'],
-                    // ['name' => __('menu.Layout'), 'href' => '#'],
+                    ['name' => __('menu.Layout'), 'href' => route('tenant.layout.store')],
                     ['name' => __('menu.Banners'), 'href' => route('tenant.banners.index')],
                     ['name' => __('menu.Blocks'), 'href' => route('tenant.blocks.index')],
                     // ['name' => __('menu.Embed Html Code'), 'href' => '#'],

@@ -2336,11 +2336,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
-.border-gray-700 {
-  --tw-border-opacity: 1;
-  border-color: rgb(55 65 81 / var(--tw-border-opacity));
-}
-
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -3403,11 +3398,6 @@ label>.red {
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 
-.hover\:text-indigo-50:hover {
-  --tw-text-opacity: 1;
-  color: rgb(89 180 237 / var(--tw-text-opacity));
-}
-
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -3421,11 +3411,6 @@ label>.red {
 .hover\:text-indigo-500:hover {
   --tw-text-opacity: 1;
   color: rgb(37 76 100 / var(--tw-text-opacity));
-}
-
-.hover\:text-indigo-100:hover {
-  --tw-text-opacity: 1;
-  color: rgb(80 163 215 / var(--tw-text-opacity));
 }
 
 .hover\:text-red-500:hover {
@@ -3572,14 +3557,14 @@ label>.red {
   --tw-ring-color: rgb(37 76 100 / var(--tw-ring-opacity));
 }
 
-.focus\:ring-purple-500:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(144 97 249 / var(--tw-ring-opacity));
-}
-
 .focus\:ring-white:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-purple-500:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(144 97 249 / var(--tw-ring-opacity));
 }
 
 .focus\:ring-red-500:focus {
@@ -4104,6 +4089,11 @@ label>.red {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .lg\:py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 
   .lg\:px-0 {
