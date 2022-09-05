@@ -8,9 +8,9 @@
     </h2>
     @if (Route::has('store.customer.register'))
     <p class="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
-        Or
+        {{__('Or')}}
         <a href="{{ route('store.customer.register') }}" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-            register a new account.
+            {{__('register a new account')}}.
         </a>
     </p>
     @endif
@@ -21,7 +21,7 @@
         @if(session()->has('message'))
         <div  x-data="{ show: true }" x-show="show" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
 
-            <span class="block sm:inline">{{ session()->get('message') }}</span>
+            <span class="block sm:inline">{{ __(session()->get('message')) }}</span>
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3"  @click="show = false">
                 <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                     <title>Close</title>
@@ -41,7 +41,7 @@
 
                     @error('email')
                     <p class="text-red-500 text-xs italic mt-4">
-                        {{ $message }}
+                        {{ __($message) }}
                     </p>
                     @enderror
                 </div>
@@ -64,7 +64,7 @@
 
             <div class="mt-6 flex items-center justify-between">
                 <div class="flex items-center">
-                    <input id="remember_me" name="remember" type="checkbox" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                    <input id="remember_me" name="remember" type="checkbox" class="form-checkbox h-4 w-4 border text-indigo-600 transition duration-150 ease-in-out" />
                     <label for="remember_me" class="ml-2 block text-sm leading-5 text-gray-900">
                         {{ __('Remember me') }}
                     </label>
