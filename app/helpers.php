@@ -105,8 +105,9 @@ if (!function_exists("cacheImage")) {
 
         if (!is_file($imagePath)) {
             $imagePath = public_path('/images/no-image.jpg');
+            $imageName = 'no-image.jpg';
         }
-        
+        getStoreImagePath('catalog/cache');
         $destination = $tenantPath . 'cache/' . $resize . $imageName;
         if(!is_file($destination)){
             $imgFile = Image::make($imagePath);
