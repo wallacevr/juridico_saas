@@ -2198,6 +2198,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-left-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)));
 }
 
+.divide-dashed > :not([hidden]) ~ :not([hidden]) {
+  border-style: dashed;
+}
+
 .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-divide-opacity));
