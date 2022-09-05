@@ -9,7 +9,7 @@ use App\Models\Config;
 use Illuminate\Support\Facades\Auth;
 
 
-include ('Icons.php');
+include('Icons.php');
 
 function ploi(): PloiManager
 {
@@ -18,18 +18,18 @@ function ploi(): PloiManager
 
 if (!function_exists("tenant_public_path")) {
 
-    function tenant_public_path(){
-        return URL::to('/').'/tenant/'.tenant('id');
+    function tenant_public_path()
+    {
+        return URL::to('/') . '/tenant/' . tenant('id');
     }
-
 }
 if (!function_exists("get_config")) {
 
-    function get_config($path){
+    function get_config($path)
+    {
         $config = Config::where('path', $path)->first();
-        return $config['value']??null;
+        return $config['value'] ?? null;
     }
-
 }
 
 if (!function_exists("generateSlug")) {
@@ -46,7 +46,7 @@ if (!function_exists("generateSlug")) {
 
         $query = DB::table($entity)->where('slug', $newSlug);
 
- 		if ($entityId) {
+        if ($entityId) {
             $query->where('id', '<>', $entityId);
         }
 
@@ -67,10 +67,11 @@ if (!function_exists("productImage")) {
      * @param mixed $folderName
      * @return string
      */
-    function productImage($image_url){
-        $image = tenant_public_path() . '/catalog/' .$image_url;
-        $image_path = public_path() .'/tenant/'.tenant('id'). '/catalog/' .$image_url;
-        if(!is_file($image_path)){
+    function productImage($image_url)
+    {
+        $image = tenant_public_path() . '/catalog/' . $image_url;
+        $image_path = public_path() . '/tenant/' . tenant('id') . '/catalog/' . $image_url;
+        if (!is_file($image_path)) {
             $image = '/images/no-image.jpg';
         }
         return $image;
@@ -83,10 +84,42 @@ if (!function_exists("deleteImage")) {
      * @param mixed $folderName
      * @return string
      */
-    function deleteImage($imageName, $folderName){
-        $imageFullPath = public_path() .'/tenant/'.tenant('id'). '/images/'. $folderName .'/'. $imageName;
+    function deleteImage($imageName, $folderName)
+    {
+        $imageFullPath = public_path() . '/tenant/' . tenant('id') . '/images/' . $folderName . '/' . $imageName;
         return File::delete($imageFullPath);
     }
+}
+if (!function_exists("cacheImage")) {
+    /**
+     *
+     * @param mixed $imageName
+     * @param mixed $folderName
+     * @return string
+     */
+    function cacheImage($imageName=null,$width,$height)
+    {
+        $tenantPath = 'tenant/' . tenant('id') . '/catalog/';
+        $imagePath = public_path($tenantPath . $imageName);
+        $resize = $width.'x'.$height;
+
+        if (!is_file($imagePath)) {
+            $imagePath = public_path('/images/no-image.jpg');
+        }
+        
+        $destination = $tenantPath . 'cache/' . $resize . $imageName;
+        if(!is_file($destination)){
+            $imgFile = Image::make($imagePath);
+            $imgFile
+                ->resize(254, 364)
+                ->save($destination);
+        }
+        
+
+        return $destination;
+    }
+
+  
 }
 
 if (!function_exists("generateShortcode")) {
@@ -130,11 +163,12 @@ if (!function_exists("getFileUniqueName")) {
      * @param mixed $extension
      * @return string
      */
-    function getFileUniqueName($destinationFolder,$name,$extension){
-        $filename = $destinationFolder.'/'.$name.'.'.$extension;
-        if(is_file($filename)) {
-            $name = $name."-1";
-            $name = getFileUniqueName($destinationFolder,$name,$extension);
+    function getFileUniqueName($destinationFolder, $name, $extension)
+    {
+        $filename = $destinationFolder . '/' . $name . '.' . $extension;
+        if (is_file($filename)) {
+            $name = $name . "-1";
+            $name = getFileUniqueName($destinationFolder, $name, $extension);
         }
         return $name;
     }
@@ -147,12 +181,12 @@ if (!function_exists("storeImage")) {
      */
     function storeImage($image, $destinationFolder)
     {
-        $destinationPath = public_path() .'/tenant/'.tenant('id'). $destinationFolder;
+        $destinationPath = public_path() . '/tenant/' . tenant('id') . $destinationFolder;
 
         File::ensureDirectoryExists($destinationPath);
         $file_name = preg_replace('/\..+$/', '', $image->getClientOriginalName());
-        $imageUrl = getFileUniqueName($destinationPath,$file_name,$image->getClientOriginalExtension());
-        $imageUrl .='.'.$image->getClientOriginalExtension();
+        $imageUrl = getFileUniqueName($destinationPath, $file_name, $image->getClientOriginalExtension());
+        $imageUrl .= '.' . $image->getClientOriginalExtension();
         $image->move($destinationPath, $imageUrl);
 
         return $imageUrl;
@@ -165,10 +199,10 @@ if (!function_exists("getStoreImagePath")) {
      *
      * @return string
      */
-    function getStoreImagePath($destinationPath=null)
+    function getStoreImagePath($destinationPath = null)
     {
-        
-        $destinationPath = public_path() .'/tenant/'.tenant('id'). '/'.$destinationPath.'/';
+
+        $destinationPath = public_path() . '/tenant/' . tenant('id') . '/' . $destinationPath . '/';
         File::ensureDirectoryExists($destinationPath);
 
         return $destinationPath;
@@ -180,12 +214,12 @@ if (!function_exists("getStoragerImagePath")) {
      *
      * @return string
      */
-    function getStoragerImagePath($destinationPath=null)
+    function getStoragerImagePath($destinationPath = null)
     {
-        $destinationPath = storage_path( $destinationPath);
+        $destinationPath = storage_path($destinationPath);
         File::ensureDirectoryExists($destinationPath);
 
-        return $destinationPath.DIRECTORY_SEPARATOR;
+        return $destinationPath . DIRECTORY_SEPARATOR;
     }
 }
 
@@ -232,8 +266,9 @@ if (!function_exists("deleteImage")) {
      * @param mixed $folderName
      * @return string
      */
-    function deleteImage($imageName, $folderName){
-        $imageFullPath = public_path() .'/tenant/'.tenant('id'). '/images/'. $folderName .'/'. $imageName;
+    function deleteImage($imageName, $folderName)
+    {
+        $imageFullPath = public_path() . '/tenant/' . tenant('id') . '/images/' . $folderName . '/' . $imageName;
         return File::delete($imageFullPath);
     }
 }
@@ -260,7 +295,7 @@ if (!function_exists('create_menu')) {
                     // ['name' => __('menu.See All'), 'href' => '#'],
                     // ['name' => __('menu.Reviews'), 'href' => '#'],
                     // ['name' => __('menu.Stock Notification'), 'href' => '#'],
-                    
+
                     ['name' => __('menu.Products'), 'href' => route('tenant.products.index')],
                     ['name' => __('menu.Brands'), 'href' => route('tenant.brands.index')],
                     ['name' => __('menu.Collections'), 'href' => route('tenant.collections.index')],
@@ -302,7 +337,7 @@ if (!function_exists('create_menu')) {
                 'name' => __('menu.Visual'),
                 'icon' => 'VisualIcon',
                 'children' => [
-                    ['name' => __('menu.Menu'), 'href' => route('tenant.menus.edit',1)],
+                    ['name' => __('menu.Menu'), 'href' => route('tenant.menus.edit', 1)],
                     // ['name' => __('menu.logo'), 'href' => '#'],
                     ['name' => __('menu.Layout'), 'href' => route('tenant.layout.store')],
                     ['name' => __('menu.Banners'), 'href' => route('tenant.banners.index')],

@@ -43,6 +43,18 @@ a.title-primary:hover{
 .title-secundary{
     color:var(--title-secundary);
 }
+.product-item{
+    padding: 10px;
+}
+.product-item:hover{
+    border: 1px solid var(--primary);
+}
+.product-item:hover .product-info{
+    display: none;
+}
+.product-item:hover .actions{
+    display: inherit;
+}
 /* PRODUCT */
 .text-price{
     color: var(--text-price);

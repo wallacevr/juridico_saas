@@ -26,10 +26,11 @@ class Product extends Model
     }
     public function getImage(){
 
-        $image = '/images/no-image.jpg';
+        $image = null;
         if($this->images()->first()){
-            $image = tenant_public_path() . '/catalog/' .$this->images()->first()->image_url;
+            $image = $this->images()->first()->image_url;
         }
+        $image = cacheImage($image,254,364);
         return $image;
     }
 

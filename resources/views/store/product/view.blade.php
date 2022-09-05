@@ -2,28 +2,6 @@
 
 @section('content')
     <style>
-        .swiper-slide {
-            text-align: center;
-            font-size: 18px;
-            background: #fff;
-
-            /* Center slide text vertically */
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-        }
-
-
-
         .swiper {
             margin: 0;
         }
@@ -34,7 +12,6 @@
 
         .mySwiper .swiper-slide {
             opacity: 0.4;
-            height: 150px;
         }
 
         .mySwiper .swiper-slide-thumb-active {
@@ -63,7 +40,7 @@
                     <div class="swiper-wrapper">
                         @foreach ($product->images as $image)
                             <div class="swiper-slide">
-                                <img src="{{ productImage($image->image_url) }}" />
+                                <img src="{{ cacheImage($image->image_url,254,364) }}" />
                             </div>
                         @endforeach
                     </div>
@@ -71,7 +48,7 @@
 
             </div>
             <div class="product-info">
-                <h2 class="mb-2 text-5xl leading-9 font-extrabold title-primary  divide-y  divide-gray-300">
+                <h2 class="mb-2 text-5xl leading-9  title-primary  divide-y  divide-gray-300">
                     {{ $product->name }}</h2>
                 <!-- rating-->
                 <div class="flex items-center">
