@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use App\Models\Config;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -90,15 +91,38 @@ if (!function_exists("deleteImage")) {
         return File::delete($imageFullPath);
     }
 }
-if (!function_exists("cacheImage")) {
+if (!function_exists("imageCache")) {
     /**
-     *
-     * @param mixed $imageName
-     * @param mixed $folderName
-     * @return string
+     * 
+     * @param mixed $imageName 
+     * @param mixed $size 
+     * @return string 
+     * @throws BindingResolutionException 
      */
-    function cacheImage($imageName=null,$width,$height)
+    function imageCache($imageName=null,$size)
     {
+
+        $width = 254;
+        $height = 364;
+        switch($size){
+            case 'thumb':
+                $width = get_config('general/layout/thumb_width');
+                $height = get_config('general/layout/thumb_height');
+                break;
+            case 'small':
+                $width = get_config('general/layout/small_width');
+                $height = get_config('general/layout/small_height');;
+                break;
+            case 'medium':
+                $width = get_config('general/layout/medium_width');
+                $height = get_config('general/layout/medium_height');;
+                break;
+            case 'big':
+                $width = get_config('general/layout/big_width');
+                $height = get_config('general/layout/big_height');;
+                break;
+        }
+
         $tenantPath = 'tenant/' . tenant('id') . '/catalog/';
         $imagePath = public_path($tenantPath . $imageName);
         $resize = $width.'x'.$height;
@@ -112,7 +136,7 @@ if (!function_exists("cacheImage")) {
         if(!is_file($destination)){
             $imgFile = Image::make($imagePath);
             $imgFile
-                ->resize(254, 364)
+                ->resize($width, $height)
                 ->save($destination);
         }
         
@@ -340,12 +364,14 @@ if (!function_exists('create_menu')) {
                 'children' => [
                     ['name' => __('menu.Menu'), 'href' => route('tenant.menus.edit', 1)],
                     // ['name' => __('menu.logo'), 'href' => '#'],
-                    ['name' => __('menu.Layout'), 'href' => route('tenant.layout.store')],
+                    ['name' => __('menu.Layout'), 'href' => route('tenant.layout.colors.index')],
+                    ['name' => __('menu.Imagens'), 'href' => route('tenant.layout.image.index')],
                     ['name' => __('menu.Banners'), 'href' => route('tenant.banners.index')],
                     ['name' => __('menu.Blocks'), 'href' => route('tenant.blocks.index')],
                     // ['name' => __('menu.Embed Html Code'), 'href' => '#'],
                     // ['name' => __('menu.Social Network'), 'href' => '#'],
                     ['name' => __('menu.Pages'), 'href' => route('tenant.pages.index')],
+                    
                 ],
             ],
             [
@@ -355,7 +381,7 @@ if (!function_exists('create_menu')) {
                     ['name' => __('menu.General'), 'href' => route('tenant.settings.store')],
                     // ['name' => __('menu.Transaction Email'), 'href' => '#'],
                     // ['name' => __('menu.Checkout'), 'href' => '#'],
-                    // ['name' => __('menu.Imagens'), 'href' => '#'],
+                       
                     // ['name' => __('menu.Integrations'), 'href' => '#'],
                     // ['name' => __('menu.Redirects'), 'href' => '#'],
                     // ['name' => __('menu.Users'), 'href' => '#'],

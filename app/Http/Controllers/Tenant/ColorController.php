@@ -8,7 +8,7 @@ use App\Rules\DocumentId;
 use App\Rules\Hex;
 use Illuminate\Http\Request;
 
-class LayoutController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class LayoutController extends Controller
      */
     public function index()
     {
-        return view('tenant.layout.general');
+        return view('tenant.layout.color');
     }
 
 
@@ -29,7 +29,7 @@ class LayoutController extends Controller
      */
     public function update(Request $request)
     {
-        
+
         $validated = $this->validate($request, [
             'primary_color' => ['required', 'string', new Hex()],
             'secundary_color' => ['required', 'string', new Hex()],
@@ -59,7 +59,7 @@ class LayoutController extends Controller
         Config::createOrUpdate('general/layout/text_footer', $validated['text_footer']);
         Config::createOrUpdate('general/layout/text_price', $validated['text_price']);
         Config::createOrUpdate('general/layout/text_price_with_special', $validated['text_price_with_special']);
-         Config::createOrUpdate('general/layout/text_special_price', $validated['text_special_price']);
+        Config::createOrUpdate('general/layout/text_special_price', $validated['text_special_price']);
         Config::createOrUpdate('general/layout/background_add_cart', $validated['background_add_cart']);
         Config::createOrUpdate('general/layout/background_add_cart_hover', $validated['background_add_cart_hover']);
         Config::createOrUpdate('general/layout/text_add_cart', $validated['text_add_cart']);

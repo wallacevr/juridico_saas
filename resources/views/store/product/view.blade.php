@@ -40,7 +40,7 @@
                     <div class="swiper-wrapper">
                         @foreach ($product->images as $image)
                             <div class="swiper-slide">
-                                <img src="{{ cacheImage($image->image_url,254,364) }}" />
+                                <img src="{{ imageCache($image->image_url,'small') }}" />
                             </div>
                         @endforeach
                     </div>

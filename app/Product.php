@@ -24,13 +24,13 @@ class Product extends Model
     public function formattedFinalPrice(){
         return 'R$ '.number_format($this->special_price,2,',','.');
     }
-    public function getImage(){
+    public function getImage($size='small'){
 
         $image = null;
         if($this->images()->first()){
             $image = $this->images()->first()->image_url;
         }
-        $image = cacheImage($image,254,364);
+        $image = imageCache($image,$size);
         return $image;
     }
 

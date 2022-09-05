@@ -299,5 +299,13 @@
     "TAXVAT COMPANY":"CNPJ",
     "Document number invalid":"Número de documentoinválido",
     "Store Layout Configuration":"Personalização do tema",
-    "Here you can customize your store":"Aqui você pode personalizar sua loja"
+    "Here you can customize your store":"Aqui você pode personalizar sua loja",
+    "Store Image Configuration":"Personalização tamanho das imagens",
+    "Here you can customize image size":"Aqui você pode personalizar o tamanho das imagens",
+    "Width":"Largura",
+    "Height":"Altura",
+    "Thumbnail":"Miniatura",
+    "Small":"Pequena",
+    "Medium":"Média",
+    "Big":"Grande"
 }

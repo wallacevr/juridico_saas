@@ -1,7 +1,7 @@
 @extends('layouts.tenant', ['title' => __('General configuration')])
 
 @section('content')
-    <form action="{{ route('tenant.layout.store.update') }}" method="POST" id="storeSettings">
+    <form action="{{ route('tenant.layout.colors.update') }}" method="POST" id="storeSettings">
         @csrf
 
         <!-- Block 1 -->

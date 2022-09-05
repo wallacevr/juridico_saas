@@ -52,7 +52,7 @@ class CartController extends Controller
                 "formated_price" => $product->formattedPrice(),
                 "formated_specialprice" => $product->formattedSpecialPrice(),
                 "formated_finalprice" => $product->formattedFinalPrice(),
-                "image" => $product->getImage()
+                "image" => $product->getImage('thumb')
             ];
         }
           

@@ -1397,6 +1397,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 25%;
 }
 
+.w-16 {
+  width: 4rem;
+}
+
 .w-1\/5 {
   width: 20%;
 }
@@ -1663,10 +1667,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-left-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)));
 }
 
-.divide-dashed > :not([hidden]) ~ :not([hidden]) {
-  border-style: dashed;
-}
-
 .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-divide-opacity));
@@ -1790,6 +1790,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .border-r-0 {
   border-right-width: 0px;
+}
+
+.border-l-0 {
+  border-left-width: 0px;
 }
 
 .border-dashed {
@@ -2965,12 +2969,12 @@ Ensure the default browser behavior of the `hidden` attribute.
     grid-column: span 2 / span 2;
   }
 
-  .sm\:col-span-12 {
-    grid-column: span 12 / span 12;
-  }
-
   .sm\:col-span-1 {
     grid-column: span 1 / span 1;
+  }
+
+  .sm\:col-span-12 {
+    grid-column: span 12 / span 12;
   }
 
   .sm\:mx-auto {
@@ -3256,14 +3260,19 @@ Ensure the default browser behavior of the `hidden` attribute.
     border-color: rgb(229 231 235 / var(--tw-border-opacity));
   }
 
-  .md\:py-10 {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+  .md\:py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 
   .md\:px-0 {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .md\:py-10 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
   }
 
   .md\:pl-2 {

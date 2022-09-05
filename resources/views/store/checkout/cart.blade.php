@@ -9,7 +9,7 @@
                 @php $total += $details['final_price'] * $details['quantity'] @endphp
                 <div class="flex flex-col py-6 sm:flex-row sm:justify-between product-item" data-id="{{ $id }}">
                     <div class="flex w-full space-x-2 sm:space-x-4">
-                        <img class="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
+                        <img class="flex-shrink-0  dark:border-transparent rounded outline-none dark:bg-gray-500"
                             src="{{ $details['image'] }}" alt="{{ $details['name'] }}">
                         <div class="flex flex-col justify-between w-full p-4 ">
                             <div class="flex justify-between w-full pb-2 space-x-2">
