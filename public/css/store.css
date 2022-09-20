@@ -2638,7 +2638,7 @@ a:hover{
 .productsFeatured.swiper-button-prev{
     position: absolute;
 }
-.bg-prymary{
+.bg-primary{
     background-color: var(--primary);
 }
 .bg-secundary{

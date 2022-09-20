@@ -46,7 +46,7 @@
         <div class="bg-white w-full">
             <header class="relative bg-white">
                 <p
-                    class="bg-prymary title-primary h-10 flex items-center justify-center text-sm font-medium px-4 sm:px-6 lg:px-8">
+                    class="bg-primary title-primary h-10 flex items-center justify-center text-sm font-medium px-4 sm:px-6 lg:px-8">
                     FRETE GRÁTIS PARA TODO O BRASIL
                 </p>
 
@@ -178,8 +178,8 @@
 
     </div>
 
-    <div class="w-full bg-prymary">
-    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:py-8 lg:px-8 bg-prymary">
+    <div class="w-full bg-primary">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:py-8 lg:px-8 bg-primary">
     
             <div class="pb-8 xl:grid xl:grid-cols-2 xl:gap-2">
                 <div>
