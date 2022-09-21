@@ -252,8 +252,10 @@
                         </legend>
                         <div class="mt-4 space-y-4">
                             <div class="flex items-start">
-                                <div class="h-5 flex items-center">
-                                    <select id="collections" name="collections[]" multiple="multiple"></select>
+                                <div class="h-5 flex items-center w-full">
+                                    <select id="collections" name="collections[]" multiple="multiple" class="w-full">
+                                
+                                    </select>
                                 </div>
                             </div>
                         </div>

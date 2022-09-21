@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Brand;
+use App\Collection;
 use Illuminate\Http\Request;
 use File;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 class ProductController extends Controller
 {
     /**
@@ -25,6 +29,7 @@ class ProductController extends Controller
 
         } else {
             $products = Product::query();
+            
         }
 
         return view('tenant.products.index', [
@@ -39,7 +44,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('tenant.products.create');
+        $collections = Collection::all();
+        return view('tenant.products.create',compact('collections'));
     }
 
     /**
@@ -54,7 +60,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
-            'slug' => 'required',
+            'slug' => ['required','unique:products'],
         ]);
 
         $data = $request->all();
@@ -95,10 +101,13 @@ class ProductController extends Controller
             $product->images()->create(['image_url'=>$file['file'],'sort'=>$file['index'],'title'=>$title]);
         }
 
+        $dados=[];   
         foreach($collections as $index=>$collection){
-            $product->collections()->create(['collection_id'=>$collection,'sort'=>100]);
+            $dados=Arr::add($dados,$collection,['collection_id'=>$collection,'sort'=>100]);
         }
-
+       
+        
+        $product->collections()->sync($dados);
         if (!$product->save()) {
             return back()->withInput()->with("error", "Error creating product.");
         }
@@ -127,7 +136,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $collections=Collection::all();
+        $brand=Brand::find($product->brand_id);
+        return view('tenant.products.edit',compact('product','brand','collections'));
     }
 
     /**
@@ -139,7 +150,77 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'slug' => ['required','unique:products,slug,'. $product->id],
+        ]);
+
+        $data = $request->all();
+       
+        if(!empty($data['fileuploader-list-files'])){
+            $files = json_decode($data['fileuploader-list-files'],1);   
+            foreach($files as $file){
+                $uploadDir = getStoragerImagePath("catalog");
+                $destination = getStoreImagePath('catalog');
+                if(is_file($uploadDir.$file['file'])){
+                    File::move($uploadDir.$file['file'],$destination.$file['file']);
+                }
+
+            }
+       
+       
+        if(!empty($data['fileuploader-list-files']))
+            unset($data['fileuploader-list-files']);
+        
+
+            if(!empty($data['imagename'])){
+                $imagename = $data['imagename'];
+                unset($data['imagename']);
+            }
+        }
+        
+        if(!empty($data['collections'])){
+            $collections = $data['collections'];
+
+            unset($data['collections']);
+        }
+        
+        $imagescarregadas= array_column($files,'file');
+       
+      
+        foreach($product->images as $imagem){
+            if(!in_array(tenant_public_path().'/images/catalog/'.$imagem->image_url,$imagescarregadas)){
+                deleteImage( $imagem->image_url, 'catalog');
+                $product->images()->where('id',$imagem->id)->delete();
+               
+            }
+        }
+        
+       
+        $i=0;
+        foreach($files as $index=>$file){
+            if(substr($file['file'],0,73)!= tenant_public_path()){
+                $title = $imagename[$i];
+                $product->images()->create(['image_url'=>$file['file'],'sort'=>$file['index'],'title'=>$title]);
+                $i+=1;
+             }
+        }
+   
+        $dados=[];   
+        foreach($collections as $index=>$collection){
+            $dados=Arr::add($dados,$collection,['collection_id'=>$collection,'sort'=>100]);
+        }
+       
+        
+        $product->collections()->sync($dados);
+        if (!$product->update($data)) {
+            return back()->withInput()->with("error", "Error updating product.");
+        }
+  
+        return redirect()->route('tenant.products.index')->with("success", "Product updated successfully!");
+
+   
     }
 
     /**
@@ -150,6 +231,13 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if (!$product->delete()) {
+            return redirect()->route('tenant.products.index')->with("error", "Error deleting product.");
+        }
+        foreach($product->images as $image)
+        deleteImage($image->image_url, 'catalog');
+
+        return redirect()->route('tenant.products.index')->with("success", "Product deleted successfully");
+   
     }
 }

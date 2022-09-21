@@ -25,12 +25,13 @@ class Product extends Model
         return 'R$ '.number_format($this->special_price,2,',','.');
     }
     public function getImage($size='small'){
-
+        
         $image = null;
         if($this->images()->first()){
             $image = $this->images()->first()->image_url;
         }
         $image = imageCache($image,$size);
+        
         return $image;
     }
 

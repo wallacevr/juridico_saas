@@ -65,6 +65,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($products as $product)
+                     
                             <tr class="hover:bg-gray-50 text-gray-500 text-201 font-normal">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <input type="checkbox" name="ids[]" value="{{$product->id}}">
@@ -75,8 +76,8 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
-                                            <img class="h-10 w-10 rounded-full"
-                                                 src="{{ $product->getImage() }}">
+                                           {{--<img class="h-10 w-10 rounded-full"
+                                                 src="{{ $product->getImage() }}"> --}} 
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
@@ -105,6 +106,7 @@
                                 </td>
                             </tr>
                         @endforeach
+                    
                         </tbody>
                     @else
                         <h4 class="text-lg text-center text-gray-500 m-5">{{ __('No results found') }}</h4>

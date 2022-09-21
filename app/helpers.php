@@ -227,7 +227,7 @@ if (!function_exists("getStoreImagePath")) {
     function getStoreImagePath($destinationPath = null)
     {
 
-        $destinationPath = public_path() . '/tenant/' . tenant('id') . '/' . $destinationPath . '/';
+        $destinationPath = public_path() . '/tenant/' . tenant('id') . '/images/' . $destinationPath . '/';
         File::ensureDirectoryExists($destinationPath);
 
         return $destinationPath;

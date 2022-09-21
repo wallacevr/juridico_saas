@@ -1,13 +1,12 @@
 @push('head')
-    <link rel="stylesheet" href="{{ URL::to('/') . '/css/jquery.fileuploader.min.css' }}">
-    <link rel="stylesheet" href="{{ URL::to('/') . '/font/font-fileuploader.css' }}">
-    <link rel="stylesheet" href="{{ URL::to('/') . '/css/jquery.fileuploader-theme-gallery.css' }}">
+<link rel="stylesheet" href="{{ URL::to('/') . '/css/image-preview-input.css' }}">
 @endpush
 
-@extends('layouts.tenant', ['title' => __('Create product')])
+@extends('layouts.tenant', ['title' => __("Update Product") . __(" - {$product->name}")])
 
 @section('content')
-<form action="{{ route('tenant.products.destroy', ['product' => $product->id]) }}" method="post" style="margin-top: 4px;">
+
+    <form action="{{ route('tenant.products.destroy', ['product' => $product->id]) }}" method="post" style="margin-top: 4px;">
         @csrf
         @method('DELETE')
         <button type="submit" class="delete-resource-button">
@@ -213,22 +212,11 @@
                                 {{ __('Upload product images') }}
                             </h3>
                         </div>
-                        
+
                         <div class="">
                             <div class="file-upload">
                                 <div id="file-upload-content" class="form">
-                                    @php
-                                        $imageview="";
-                                        foreach($product->images as $image){
-                                            $imageview= $imageview. '{"name":"'. $image->image_url .'","type":"image\/jpeg","size":71135,"file":"'. tenant_public_path().'/images\/catalog\/'. $image->image_url .'","local":"'. tenant_public_path().'/images\/catalog\/'. $image->image_url .'","data":{"url":"'. tenant_public_path().'/images\/catalog\/'. $image->image_url .'","thumbnail":"'. tenant_public_path().'/images\/catalog\/'. $image->image_url .'","readerForce":true}},';
-                                        }
-                                        $imageview= rtrim($imageview, ",");
-                                    @endphp
-                                    <input type="file" name="files" class="gallery_media" data-fileuploader-files='[
-                                            {{$imageview}}
-                                   
-                                        
-                                        ]'>
+                                    <input type="file" name="files" class="gallery_media">
                                 </div>
                             </div>
                         </div>
@@ -254,7 +242,7 @@
                                 <div class="h-5 flex items-center">
                                     <input id="status" name="status" type="checkbox"
                                         class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                        {{ $product->status? 'checked' : '' }} value="1" />
+                                        {{ $product->status ? 'checked' : '' }} value="1" />
                                 </div>
                                 <div class="ml-3 text-sm">
                                     <label for="status" class="font-medium text-gray-700">{{ __('Active') }}</label>
@@ -268,22 +256,19 @@
                 </div>
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <fieldset>
-                        <legend class="text-base font-medium text-gray-900">
+                        <legend class="text-base font-medium text-gray-900 mb-5">
                             {{ __('Collections') }}
                         </legend>
+                        
                         <div class="mt-4 space-y-4">
                             <div class="flex items-start">
-                                <div class="h-5 flex items-center w-full">
-                                   
-                                    <select id="collections" name="collections[]" multiple="multiple" class="w-full">
-                                     @foreach($collections as $collection)
-                                            <option value="{{$collection->id}}"
-                                                @if($product->collections->pluck('id')->contains($collection->id))
-                                                    selected
-                                                @endif
-                                                >{{$collection->name}}</option>
+                                <div class="h-3 flex items-center">
+                                    <select id="collections" name="collections[]" multiple="multiple">
+                                        @foreach($collections as $collection)
+                                            <option value="{{$collection->id}}">{{$collection->name}}</option>
                                         @endforeach
                                     </select>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -308,9 +293,10 @@
                     </span>
                 </div>
             </div>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
+
 @endsection
 
 @push('js')
