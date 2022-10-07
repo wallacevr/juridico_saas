@@ -270,7 +270,7 @@
 
 								// set list input element
 								if (n.listInput === true) {
-									n.listInput = $('<input type="hidden" name="fileuploader-list-' + s.attr('name').replace('[]', '').split('[').pop().replace(']', '') + '">').insertBefore(s);
+									n.listInput = $('<input type="hidden"  name="fileuploader-list-' + s.attr('name').replace('[]', '').split('[').pop().replace(']', '') + '>').insertBefore(s);
 								}
 								if (typeof n.listInput == "string" && $(n.listInput).length == 0) {
 									n.listInput = $('<input type="hidden" name="' + n.listInput + '">').insertBefore(s);

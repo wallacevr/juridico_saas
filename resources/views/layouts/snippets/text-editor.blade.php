@@ -2,7 +2,12 @@
 </label>
 
 <div class="mt-1">
-    <textarea id="{{$name}}" name="{{$name}}" class="ckeditor">{{ old($name,  $value)}}</textarea>
+    <textarea id="{{$name}}" name="{{$name}}" class="ckeditor"
+
+	
+	>{{ old($name,  $value)}}
+
+	</textarea>
 </div>
 
 @error($name)

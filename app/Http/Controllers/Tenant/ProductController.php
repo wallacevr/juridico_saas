@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\Brand;
 use App\Collection;
+use App\Option;
 use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Str;
@@ -45,7 +46,8 @@ class ProductController extends Controller
     public function create()
     {
         $collections = Collection::all();
-        return view('tenant.products.create',compact('collections'));
+        $options = option::all();
+        return view('tenant.products.create',compact('collections','options'));
     }
 
     /**
@@ -67,18 +69,14 @@ class ProductController extends Controller
         
         if(!empty($data['fileuploader-list-files'])){
             $files = json_decode($data['fileuploader-list-files'],1);   
-            foreach($files as $file){
-                $uploadDir = getStoragerImagePath("catalog");
-                $destination = getStoreImagePath('catalog');
-                if(is_file($uploadDir.$file['file'])){
-                    File::move($uploadDir.$file['file'],$destination.$file['file']);
-                }
 
-            }
         }
         $data['slug'] = generateSlug($data['slug'], 'products');
-        if(!empty($data['fileuploader-list-files']))
+        if(!empty($data['fileuploader-list-files'])){
+            $arquivos=$data['fileuploader-list-files'];
             unset($data['fileuploader-list-files']);
+        }
+           
         
 
         
@@ -96,6 +94,20 @@ class ProductController extends Controller
         
       
         $product = Product::create($data);
+        if(!empty($arquivos)){
+            
+            $files = json_decode($arquivos,1);  
+          
+            foreach($files as $file){
+                $uploadDir = getStoragerImagePath("catalog/");
+                $destination = getStoreImagePath('catalog/'. $product->id);
+               
+                if(is_file($uploadDir.$file['file'])){
+                    File::move($uploadDir.$file['file'],$destination.$file['file']);
+                }
+
+            }
+        }
         foreach($files as $index=>$file){
             $title = $imagename[ $index]??'';
             $product->images()->create(['image_url'=>$file['file'],'sort'=>$file['index'],'title'=>$title]);
@@ -161,15 +173,21 @@ class ProductController extends Controller
         if(!empty($data['fileuploader-list-files'])){
             $files = json_decode($data['fileuploader-list-files'],1);   
             foreach($files as $file){
-                $uploadDir = getStoragerImagePath("catalog");
-                $destination = getStoreImagePath('catalog');
-                if(is_file($uploadDir.$file['file'])){
-                    File::move($uploadDir.$file['file'],$destination.$file['file']);
+                if(substr($file['file'],0,73)!= tenant_public_path()){
+                    $uploadDir = getStoragerImagePath("catalog/");
+                    $destination = getStoreImagePath('catalog/'. $product->id);
+                     
+                        if(is_file($uploadDir.$file['file'])){
+                         
+                            File::move($uploadDir.$file['file'],$destination.$file['file']);
+                         
+                        }
                 }
+         
 
             }
        
-       
+      
         if(!empty($data['fileuploader-list-files']))
             unset($data['fileuploader-list-files']);
         
@@ -190,8 +208,8 @@ class ProductController extends Controller
        
       
         foreach($product->images as $imagem){
-            if(!in_array(tenant_public_path().'/images/catalog/'.$imagem->image_url,$imagescarregadas)){
-                deleteImage( $imagem->image_url, 'catalog');
+            if(!in_array(tenant_public_path().'/images/catalog/'.$product->id.'/'.$imagem->image_url,$imagescarregadas)){
+                deleteImage( $imagem->image_url, 'catalog/'. $product->id);
                 $product->images()->where('id',$imagem->id)->delete();
                
             }
@@ -235,7 +253,7 @@ class ProductController extends Controller
             return redirect()->route('tenant.products.index')->with("error", "Error deleting product.");
         }
         foreach($product->images as $image)
-        deleteImage($image->image_url, 'catalog');
+        deleteImage($image->image_url, 'catalog/'. $product->id);
 
         return redirect()->route('tenant.products.index')->with("success", "Product deleted successfully");
    

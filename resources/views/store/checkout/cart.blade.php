@@ -5,6 +5,7 @@
         <h2 class="mb-6 text-3xl leading-9 font-extrabold title-primary ">Carrinho de compras</h2>
         @php $total = 0 @endphp
         @if (session('cart'))
+        {{dd(session('cart'))}}
             @foreach (session('cart') as $id => $details)
                 @php $total += $details['final_price'] * $details['quantity'] @endphp
                 <div class="flex flex-col py-6 sm:flex-row sm:justify-between product-item" data-id="{{ $id }}">

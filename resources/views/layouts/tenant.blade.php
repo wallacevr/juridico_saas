@@ -18,7 +18,12 @@
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+  
     @stack('head')
+    @livewireStyles
 </head>
 
 <body class="bg-gray-100 h-screen antialiased">
@@ -355,6 +360,9 @@
 </div>
 
 @stack('body')
+@livewireScripts    
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 @stack('js')
 </body>
 

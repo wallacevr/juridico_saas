@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             foreach($product->images as $images)
             {
 
-                deleteImage( $images->image_url, 'catalog');
+                deleteImage( $images->image_url, 'catalog/'. $product->id);
               
                 
             }
@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
        
        ProductImage::deleting(function ($image) {
     
-            deleteImage( $images->image_url, 'catalog');
+            deleteImage( $images->image_url, 'catalog/'. $image->product_id);
                      
         return true;
    });

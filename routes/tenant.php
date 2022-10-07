@@ -34,6 +34,9 @@ Route::group([
             // Collection routes
             Route::get('collections/all', 'CollectionController@getAll')->name('collections.all');
             Route::resource('collections', 'CollectionController');
+
+             // Options routes
+             Route::get('options/all/{variation_id}', 'OptionController@getAll')->name('options.all');
             
             //Customer routes
             Route::resource('customers', 'CustomerController');

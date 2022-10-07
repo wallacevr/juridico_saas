@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Customer;
+use App\CustomerGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -24,9 +25,11 @@ class CustomerController extends Controller
     // Show the Customer edit form
     public function edit(Customer $customer)
     {
+        $groups = CustomerGroup::all()->sortBy('name');
         return view('tenant.customers.edit')->with([
             'customer' => $customer,
             'addresses' => $customer->addresses,
+            'groups' =>$groups
         ]);
     }
 
@@ -57,6 +60,7 @@ class CustomerController extends Controller
             'taxvat' => preg_replace("/[^0-9]/", "", $request['taxvat']),
             'phone' => preg_replace("/[^0-9]/", "", $request['phone']),
             'telephone' => !empty($request['telephone']) ? preg_replace("/[^0-9]/", "", $request['telephone']) : null,
+            'id_customer_group' =>!empty($request['customergroup']) ?  $request['customergroup'] : null,
             'password' => !empty($request['password']) ? Hash::make($request['password']) : $customer->password,
             'newsletter' => $request['newsletter'],
             'status' => !empty($request['status']) ? $request['status'] : $customer->status,

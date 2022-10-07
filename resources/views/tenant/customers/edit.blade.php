@@ -45,7 +45,17 @@
                         <div class="col-span-12 sm:col-span-3">
                             @include('layouts.snippets.fields', ['type'=>'text','label'=>'Phone','placeholder'=>'(__)_____-____','name'=>'phone','value'=> $customer->phone ])
                         </div>
+                        <div class="col-span-12 sm:col-span-3">
 
+                            <label for="customergroup" class="block text-sm font-medium leading-5 text-gray-700 ">{{ __("Customer's group") }}</label>
+                           <select name="customergroup" id="customergroup" class="form-select w-full">
+                                <option value="0">   </option>
+                                @foreach($groups as $group)
+
+                                    <option value="{{$group->id}}">{{$group->name}}</option>
+                                @endforeach
+                           </select>
+                        </div>
                         <div class="col-span-12 sm:col-span-3">
                             @include('layouts.snippets.fields', ['type'=>'password','label'=>'Password','placeholder'=>'*************','name'=>'password','value'=> '' ])
                         </div>
@@ -128,6 +138,10 @@
         $('#taxvat').mask('000.000.000-00');
         $('#phone').mask('(00) 00000-0000');
         $('#telephone').mask('(00) 0000-0000');
+        $('#customergroup').select2({
+            placeholder: "Customer's Group",
+            allowClear: true   // Shows an X to allow the user to clear the value.
+        });
         $("#customerForm").validate({
             rules: {
                 name: {
@@ -143,4 +157,5 @@
         });
     });
 </script>
+
 @endpush

@@ -70,11 +70,12 @@ if (!function_exists("productImage")) {
      */
     function productImage($image_url)
     {
-        $image = tenant_public_path() . '/catalog/' . $image_url;
-        $image_path = public_path() . '/tenant/' . tenant('id') . '/catalog/' . $image_url;
+        $image = tenant_public_path() . '/images/catalog/' . $image_url;
+        $image_path = public_path() . '/tenant/' . tenant('id') . '/images/catalog/' . $image_url;
         if (!is_file($image_path)) {
             $image = '/images/no-image.jpg';
         }
+    
         return $image;
     }
 }
@@ -101,9 +102,10 @@ if (!function_exists("imageCache")) {
      */
     function imageCache($imageName=null,$size)
     {
-
+        
         $width = 254;
         $height = 364;
+      
         switch($size){
             case 'thumb':
                 $width = get_config('general/layout/thumb_width');
@@ -111,36 +113,46 @@ if (!function_exists("imageCache")) {
                 break;
             case 'small':
                 $width = get_config('general/layout/small_width');
-                $height = get_config('general/layout/small_height');;
+                $height = get_config('general/layout/small_height');
+               
                 break;
             case 'medium':
                 $width = get_config('general/layout/medium_width');
-                $height = get_config('general/layout/medium_height');;
+                $height = get_config('general/layout/medium_height');
                 break;
             case 'big':
                 $width = get_config('general/layout/big_width');
-                $height = get_config('general/layout/big_height');;
+                $height = get_config('general/layout/big_height');
                 break;
         }
-
-        $tenantPath = 'tenant/' . tenant('id') . '/catalog/';
+        
+        $tenantPath = 'tenant/' . tenant('id') . '/images/catalog/';
         $imagePath = public_path($tenantPath . $imageName);
+    
         $resize = $width.'x'.$height;
-
+        
         if (!is_file($imagePath)) {
             $imagePath = public_path('/images/no-image.jpg');
             $imageName = 'no-image.jpg';
         }
         getStoreImagePath('catalog/cache');
-        $destination = $tenantPath . 'cache/' . $resize . $imageName;
+        $destination = $tenantPath . 'cache/' . $resize .'/'. $imageName;
+        $imagedir=explode("/",$destination ,-1);
+      
+        if(!file_exists(public_path(implode("\\",$imagedir)))){
+            mkdir(public_path(implode("\\",$imagedir)), 0777, true);
+           
+        }
         if(!is_file($destination)){
             $imgFile = Image::make($imagePath);
+           
             $imgFile
                 ->resize($width, $height)
                 ->save($destination);
+               
         }
         
-
+        
         return $destination;
     }
 

@@ -77,7 +77,17 @@ class OptionController extends Controller
 
         return back()->with('success', 'Option updated successfully');
     }
-
+     // Return all Collections
+     public function getAll($variation)
+     {
+        $options = Option::all()->reject(function ($option) {
+            return $option->variation_id != $variation;
+        })->map(function ($option) {
+            return ['id'=>$option->id,'text'=>$option->name];
+        
+        });
+         return response()->json(['results'=>$options]);
+     }
     // Delete a Option
     public function destroy(Option $option)
     {
