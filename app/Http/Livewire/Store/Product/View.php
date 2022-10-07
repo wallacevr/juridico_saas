@@ -137,7 +137,8 @@ class View extends Component
                     ->update(['quantity'=>$cartproduct[0]->quantity+1]);
                 }
                 $cartcustomer = Auth::guard('customers')->user()->opencarts()->get();
-                session()->put('cart', $cartcustomer[0]->products);
+                $cartproducts = CartProduct::where('id_cart',$cartcustomer[0]->id)->get();
+                session()->put('cart', $cartproducts);
                 $this->emit('UpdateCart');
                
             }

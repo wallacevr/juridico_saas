@@ -44,6 +44,6 @@ class ProductOption extends Model
     }
 
     public function images(){
-        return $this->hasMany(ProductOptionsImage::class, 'product_options_id', 'id');
+        return $this->hasMany(ProductOptionsImage::class, 'product_options_id', 'id')->orderBy('main','Desc');
     }
 }
