@@ -1,118 +1,115 @@
 <?php
 
-namespace App\Http\Controllers\Store;
+namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Customer;
-use App\Providers\RouteServiceProvider;
+use App\CustomerGroup;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
 {
+
+    // Return all Customers
     public function index()
     {
+        return view('tenant.customers.index', [
+            'customers' => Customer::paginate(5),
+        ]);
     }
 
-    public function submit(Request $request)
+    // Show the Customer edit form
+    public function edit(Customer $customer)
     {
-        $this->validator($request->all())->validate();
+        $groups = CustomerGroup::all()->sortBy('name');
+        return view('tenant.customers.edit')->with([
+            'customer' => $customer,
+            'addresses' => $customer->addresses,
+            'groups' =>$groups
+        ]);
+    }
 
-        DB::beginTransaction();
+    // Update a Customer
+    public function update(Request $request, Customer $customer)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required', 'string', 'email', 'max:255',
+                Rule::unique('customers')->ignore($customer->id, 'id'),
+            ],
+            'taxvat' => [
+                'required',
+                Rule::unique('customers')->ignore($customer->id, 'id'),
+            ],
+            'phone' => ['required'],
+            'newsletter' => ['required'],
+        ]);
 
-        $user = $this->create($request->all());
-
-        if (empty($user)) {
-            DB::rollBack();
+        if ($validator->fails()) {
+            return back()->withInput()->withErrors($validator);
         }
 
-        DB::commit();
+        $data = [
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'taxvat' => preg_replace("/[^0-9]/", "", $request['taxvat']),
+            'phone' => preg_replace("/[^0-9]/", "", $request['phone']),
+            'telephone' => !empty($request['telephone']) ? preg_replace("/[^0-9]/", "", $request['telephone']) : null,
+            'id_customer_group' =>!empty($request['customergroup']) ?  $request['customergroup'] : null,
+            'password' => !empty($request['password']) ? Hash::make($request['password']) : $customer->password,
+            'newsletter' => $request['newsletter'],
+            'status' => !empty($request['status']) ? $request['status'] : $customer->status,
+        ];
 
-        $auth = auth()->guard('customers');
-        $auth->login($user);
+        if (!$customer->update($data)) {
+            return back()->withInput()->with("error", "Error updating customer.");
+        }
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('tenant.customers.index')->with("success", "Customer updated successfully");
     }
 
-    protected function create(array $data)
+    public function updateCustomerAddress(Request $request, Address $address)
     {
-        $customer = Customer::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => preg_replace("/[^0-9]/", "", $data['phone']),
-            'telephone' => !empty($data['telephone']) ? preg_replace("/[^0-9]/", "", $data['telephone']) : null,
-            'dob' => !empty($data['dob']) ? $data['dob'] : null,
-            'taxvat' => preg_replace("/[^0-9]/", "", $data['taxvat']),
-            'ip' => \Request::ip(),
-            'newsletter' => $data['newsletter'],
-            'accepts_terms_of_use' => $data['terms'],
-            'password' => Hash::make($data['password']),
+
+        $this->validate($request, [
+            'name' => 'required',
+            'postalcode' => 'required',
+            'address' => 'required',
+            'neighborhood' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'state' => 'required',
         ]);
 
-        $address = Address::create([
-            'name' => $customer->name,
-            'postalcode' => preg_replace("/[^0-9]/", "", $data['postalcode']),
-            'address' => $data['address'],
-            'neighborhood' => $data['neighborhood'],
-            'complement' => !empty($data['complement']) ? $data['complement'] : null,
-            'number' => !empty($data['number']) ? $data['number'] : null,
-            'city' => $data['city'],
-            'state' => $data['state'],
-            'country' => $data['country'],
-            'customer_id' => $customer->id,
-        ]);
+        $data = [
+            'name' => $request['name'],
+            'postalcode' => preg_replace("/[^0-9]/", "", $request['postalcode']),
+            'address' => $request['address'],
+            'neighborhood' => $request['neighborhood'],
+            'complement' => !empty($request['complement']) ? $request['complement'] : $address->complement,
+            'number' => !empty($request['number']) ? $request['number'] : $address->number,
+            'city' => $request['city'],
+            'state' => $request['state'],
+            'country' => $request['country'],
+        ];
 
-        return $customer;
+        if (!$address->update($data)) {
+            return back()->withInput()->with("error", "Error updating customer.");
+        }
     }
 
-    protected function validator(array $data)
+    // Delete a Customer
+    public function destroy(Customer $customer)
     {
-        return Validator::make($data, [
-            // User data
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required'],
-            'taxvat' => ['required', 'unique:customers'],
-            'newsletter' => ['required'],
-            'terms' => ['accepted'],
-            // Address
-            'postalcode' => ['required'],
-            'address' => ['required'],
-            'neighborhood' => ['required'],
-            'city' => ['required'],
-            'country' => ['required'],
-            'state' => ['required'],
-        ]);
-    }
+        if (!$customer->delete()) {
+            return redirect()->route('tenant.customers.index')->with("error", "Error deleting customer.");
+        }
 
-    public function show()
-    {
-        return view('store.auth.register');
+        return redirect()->route('tenant.customers.index')->with("success", "Customer deleted successfully");
     }
-
-    public function edit($id)
-    {
-    }
-
-    public function update(Request $request, $id)
-    {
-    }
-
-    public function customerDashboard()
-    {
-        return view('store.customers.dashboard');
-    }
-
-    public function customerAddresses()
-    {
-        return view('store.customers.addresses', [
-            'addresses' => Customer::find(Auth::user()->id)->addresses,
-        ]);
-    }
-
 }

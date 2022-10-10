@@ -1,4 +1,5 @@
 <div>
+
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
         <!-- LEFT FORM -->
         <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">
@@ -19,20 +20,29 @@
                                     'name' => 'name',
                                     'value' => '',
                                     'require' => true,
+                                    'wiremodel' =>'name'
                                 ])
                             </div>
 
                             <div class="col-span-12" wire:ignore>
-                                @include('layouts.snippets.text-editor', [
+                                @include('layouts.snippets.text-editor-product', [
                                     'label' => 'Description',
                                     'name' => 'description',
                                     'value' => '',
+                                    'wiremodel' =>'description'
                                 ])
+                                <script>
+                                    const editor = CKEDITOR.replace('description');
+                                    editor.on('change', function(event){
+                                        console.log(event.editor.getData())
+                                        @this.set('description', event.editor.getData());
+                                    })
+                            </script>
                             </div>
                         </div>
                     </div>
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6 ">
-                        <div class="w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6">
+                        <div class="w-full sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6" >
                             @include('layouts.snippets.fields', [
                                 'type' => 'text',
                                 'label' => 'SKU',
@@ -40,6 +50,7 @@
                                 'name' => 'sku',
                                 'value' => '',
                                 'require' => true,
+                                'wiremodel' => 'sku'
                             ])
                         </div>
                     </div>
@@ -56,6 +67,7 @@
                                     'name' => 'price',
                                     'value' => '',
                                     'require' => true,
+                                    'wiremodel' => 'price'
                                 ])
                             </div>
 
@@ -67,6 +79,7 @@
                                     'name' => 'special_price',
                                     'value' => '',
                                     'require' => false,
+                                    'wiremodel' => 'special_price'
                                 ])
                             </div>
 
@@ -78,9 +91,127 @@
                                     'name' => 'cost',
                                     'value' => '',
                                     'require' => false,
+                                    'wiremodel' => 'cost_price'
                                 ])
                             </div>
                         </div>
+                        <div class="col-1">
+                  
+                                
+                            <input type="checkbox" name="chkspecialpricing"  wire:model='usespecialprice'>
+                            <label for="chkspecialpricing">Use Special pricing</label>
+                        </div>
+                        @if($usespecialprice)
+                        <div class="w-full" >
+                            <table>
+                                <tr>
+                                    <td class="py-2"> 
+                                        <button type="button" wire:click="addgrpcustomer"
+                                            class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </td>
+                                    <td>
+
+                                        <label for="customergroup{{count($groups)+1}}" class="block text-sm font-medium leading-5 text-gray-700 ">Customer Group<span class="red">*</span></label>
+                                        <select name="customergroup" id="customergroup{{count($groups)+1}}"  class="form-control js-basic-multiple"    wire:model="grpcustomer.{{count($groups)+1}}">
+                                            <option value="null">Selecione um Grupo</option>
+                                            @foreach($customergroups as $group)
+
+                                                <option value="{{$group->id}}">{{$group->name}}</option>
+                                            @endforeach
+                                        </select>
+        
+                                    </td>
+                                    <td>
+                                                      
+                                            @include('layouts.snippets.optionsfields', [
+                                                'type' => 'number',
+                                                'label' => 'Min Qty',
+                                                'placeholder' => 'Min Qty',
+                                                'name' => 'minqtyspecialprice',
+                                                'value' => '',
+                                                'require' => true,
+                                                'min' => 0,
+                                                'wiremodel' => 'minqtyspecialprice',
+                                                'i'=> count($groups)+1
+                                            ])
+                                    </td>
+                                    <td>
+                                            
+                                            @include('layouts.snippets.optionsfields', [
+                                                'type' => 'number',
+                                                'label' => 'Price',
+                                                'placeholder' => 'Price',
+                                                'name' => 'specialpricegrp',
+                                                'value' => '',
+                                                'require' => true,
+                                                'min' => 0,
+                                                'wiremodel' => 'specialpricegrp',
+                                                'i'=> count($groups)+1
+                                            ])
+                                    </td>
+                                </tr>
+                                @foreach($groups as $key=>$group)
+                                
+                                  @isset($grpcustomer[$key+1])
+                                            <tr>
+                                                <td class="py-2"> 
+                                                <button type="button" wire:click="removegroup({{$key}})"
+                                                    class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 shadow-sm hover:bg-red-500 focus:outline-none focus:shadow-outline-red focus:bg-red-500 active:bg-red-600 transition duration-150 ease-in-out">
+                                                    {{ __('Remove') }}
+                                                </button>
+                                                </td>
+                                                <td>
+                                                 
+                                                    <label for="customergroup{{($key)+1}}" class="block text-sm font-medium leading-5 text-gray-700 ">Customer Group<span class="red">*</span></label>
+                                                    <select name="customergroup" id="customergroup{{($key+1)}}"  class="form-control js-basic-multiple" wire:model="grpcustomer.{{($key)+1}}"  >
+                                                        <option value="null">Selecione um Grupo</option>
+                                                        @foreach($customergroups as $group)
+
+                                                            <option value="{{$group->id}}">{{$group->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                 
+                                                </td>
+                                                <td>
+                                                                
+                                                        @include('layouts.snippets.optionsfields', [
+                                                            'type' => 'number',
+                                                            'label' => 'Min Qty',
+                                                            'placeholder' => 'Min Qty',
+                                                            'name' => 'minqtyspecialprice',
+                                                            'value' => '',
+                                                            'require' => true,
+                                                            'min' => 0,
+                                                            'wiremodel' => 'minqtyspecialprice',
+                                                            'i'=> ($key)+1
+                                                        ])
+                                                </td>
+                                                <td>
+                                                        
+                                                        @include('layouts.snippets.optionsfields', [
+                                                            'type' => 'number',
+                                                            'label' => 'Price',
+                                                            'placeholder' => 'Price',
+                                                            'name' => 'specialpricegrp',
+                                                            'value' => '',
+                                                            'require' => true,
+                                                            'min' => 0,
+                                                            'wiremodel' => 'specialpricegrp',
+                                                            'i'=> ($key)+1
+                                                        ])
+                                                </td>
+                                            </tr>
+                                    @endisset
+
+                                @endforeach
+                            </table>
+                              
+      
+                               
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <br>
@@ -92,7 +223,7 @@
                                     {{ __('Manage Stock') }}
                                 </label>
                                 <div class="mt-1">
-                                    <select name="manage_stock">
+                                    <select name="manage_stock" wire:model="manage_stock">
                                         <option>{{ __('Select') }}</option>
                                         <option value="1" selected>{{ __('Yes') }}</option>
                                         <option value="0">{{ __('No') }}</option>
@@ -107,6 +238,7 @@
                                     'name' => 'qty',
                                     'value' => '1',
                                     'require' => false,
+                                    'wiremodel' => 'qty'
                                 ])
                             </div>
                             <div class="col-span-12 sm:col-span-3">
@@ -117,6 +249,7 @@
                                     'name' => 'min_qty',
                                     'value' => '1',
                                     'require' => false,
+                                    'wiremodel' => 'min_qty'
                                 ])
                             </div>
 
@@ -128,9 +261,14 @@
                                     'name' => 'max_qty',
                                     'value' => '0',
                                     'require' => false,
+                                    'wiremodel' => 'max_qty'
                                 ])
                             </div>
+                            
+
+
                         </div>
+                       
                     </div>
                 </div>
                 <br>
@@ -153,6 +291,7 @@
                                 'name' => 'meta_title',
                                 'value' => '',
                                 'require' => false,
+                                'wiremodel' => 'meta_title'
                             ])
                         </div>
 
@@ -161,7 +300,7 @@
                                 {{ __('Description') }}
                             </label>
                             <div class="mt-1">
-                                <textarea id="meta_description" name="meta_description" rows="5"
+                                <textarea wire:model="meta_description" id="meta_description" name="meta_description" rows="5"
                                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">{{ old('seo_description') }}</textarea>
                             </div>
                         </div>
@@ -175,7 +314,7 @@
                                     class="bg-gray-50 border border-r-0 border-gray-300 px-3 inline-flex items-center text-gray-500 sm:text-sm">
                                     https://{{ Request::getHost() . '/' }}
                                 </span>
-                                <input type="text" name="slug" id="slug" autocomplete="slug"
+                                <input type="text" name="slug" id="slug" autocomplete="slug" wire:model="slug"
                                     class="block w-full border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     value="{{ old('slug') }}" />
                             </div>
@@ -201,9 +340,9 @@
                         
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-12 sm:col-span-6">
-                            <legend class="text-base font-medium text-gray-900">
+                                    <legend class="text-base font-medium text-gray-900">
 
-                                    {{ __("Product's variations ") }}
+                                        {{ __("Product's variations ") }}
 
                                     </legend>
                                     <div class="mt-5 space-y-4 mb-5">
@@ -219,7 +358,7 @@
                                                     <script>
                                                             $(document).ready(function () {
                                                     
-                                                                $('.js-basic-multiple').select2({
+                                                                $('#select2').select2({
                                                                     placeholder: 'seletec the variations of this product ',
                                                                     allowClear: true   // Shows an X to allow the user to clear the value.
                                                                 });
@@ -240,45 +379,171 @@
                                       
                                     </div>
                                   
-                                <div class="mt-1"  wire:poll="listaoptions">
-                                    @if($selected)
-                                     @foreach($variationsselected as $variationselected)
-                                       
-                                        <div wire:ignore>
-                                             <select class="form-control js-basic-multiple w-full" name="{{ $variationselected->name }}options[]" id="{{ $variationselected->name }}options" multiple="multiple" >
-                                                       
-                                                       @foreach($variationselected->options as $option)
-                                                           <option value="{{ $option->id }}">{{ $option->name }}</option>
-                                                       @endforeach 
-                                               </select>
-                                               <script>
-                                                        $(document).ready(function () {
-                                                
-                                                            $('#{{ $variationselected->name }}options').select2({
-                                                                placeholder: "seletec the {{$variationselected->name }}'s options of this product ",
-                                                                allowClear: true   // Shows an X to allow the user to clear the value.
-                                                            });
-                                                            $('#{{ $variationselected->name }}options').on('change', function (e) {
-                                                                  
-                                                                  var data = $('#{{ $variationselected->name }}options').select2("val");
-                                                                   @this.set('optionsselected[{{$variationselected->id}}]', data);
-                                                                  
-                                                                   
-                                                              });
-                                    
-                                                        });
+                                     <div class="mt-1"  wire:poll="listaoptions">
+                                            @if($selected)
+                                     
+                                                @foreach($variationsselected as $variationselected)
+                                                        
+                                                            <div wire:ignore>
+                                                                <select class="form-control js-basic-multiple w-full" name="{{ $variationselected->name }}options[]" id="{{ $variationselected->name }}options" multiple="multiple" >
+                                                            
+                                                                        @foreach($variationselected->options as $option)
+                                                                            <option value="{{ $option->id }}">{{ $option->name }}</option>
+                                                                        @endforeach 
+                                                                    
+                                                                </select>
+                                                                <script>
+                                                                            $(document).ready(function () {
+                                                                    
+                                                                                $('#{{ $variationselected->name }}options').select2({
+                                                                                    placeholder: "seletec the {{$variationselected->name }}'s options of this product ",
+                                                                                    allowClear: true   // Shows an X to allow the user to clear the value.
+                                                                                });
+                                                                                $('#{{ $variationselected->name }}options').on('change', function (e) {
+                                                                                    
+                                                                                    var data = $('#{{ $variationselected->name }}options').select2("val");
+                                                                                
+                                                                                    @this.set('selected2.{{$variationselected->id}}', data);
+                                                                                    
+                                                                                    
+                                                                                });
+                                                        
+                                                                            });
 
-                                                </script>
-                                        </div>
-                                     @endforeach
-                                    @endif
-                                </div>
+                                                                    </script>
+                                                            </div>                                        
+
+                                                    @endforeach
+                                             @endif
+                                     </div>
                             </div>
+
                     </div>
                 @endif
             </div>
             
         </div>
+        <br>
+            <div class="shadow sm:rounded-md sm:overflow-hidden">
+                    <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                                <div>
+                                    
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                        {{ __("Input the option's price and  qty in stock") }}
+                                    </h3>
+                            
+                                </div>
+                                @if($habilitavariations)   
+                                
+                                        <div class="grid grid-cols-6 gap-6">
+                                            <div class="col-span-12 sm:col-span-6">
+
+                                                <div class="mt-5 space-y-4 mb-5">
+                                                    <div class="flex items-start ">
+                                                        <div class="w-full">
+                                                            <table>
+                                                                @php
+                                                                 $x=0;
+                                                                @endphp
+                                                                @foreach($combinacoes as $combinacao)
+                                                                    <tr>
+                                                                       
+                                                                        @foreach($combinacao as $option)
+                                                                         
+                                                                            <td>{{$this->getOption($option)}}</td>
+                                                                    
+                                                                        @endforeach
+                                                                        <td class="w-1/4 px-2.5">
+                                                                                
+                                                                                @include('layouts.snippets.optionsfields', [
+                                                                                    'type' => 'text',
+                                                                                    'label' => 'Price',
+                                                                                    'placeholder' => 'R$90,00',
+                                                                                    'name' => 'price',
+                                                                                    'value' => '',
+                                                                                    'require' => false,
+                                                                                    'wiremodel' => 'optionprice',
+                                                                                    'i'=> $x
+                                                                                ])
+                                                                        
+                                                                        </td>
+                                                                            <td class="w-1/4 px-2.5">
+                                                                                
+                                                                                    @include('layouts.snippets.optionsfields', [
+                                                                                        'type' => 'number',
+                                                                                        'label' => 'Qty',
+                                                                                        'placeholder' => 'Qty',
+                                                                                        'name' => 'qty',
+                                                                                        'value' => '',
+                                                                                        'require' => false,
+                                                                                        'min' => 0,
+                                                                                        'wiremodel' => 'optionqty',
+                                                                                        'i'=> $x
+                                                                                    ])
+                                                                                        
+                                                                            </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="{{(count($variationsselected)+2)}}" >
+                                                                       {{-- <x-input.filepond wire:model="optionimages.{{ $x }}" multiple></x-input> --}}
+                                                            
+                                                                                                                                          
+                                                                                <input wire:model="optionimages.{{ $x }}" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" multiple>
+                                                                                <div wire:loading wire:target="optionimages.{{ $x }}">Uploading...</div>
+                                                                            
+                                                                        </td>
+                                                                    </tr>
+                                                                    
+                                                                    <tr>
+                                                                        <td colspan="{{(count($variationsselected)+2)}}" >
+                                                                             @isset($optionimages[$x])
+                                                                                <div class="flex ...">
+                                                                                     @php 
+                                                                                       $position=1;
+                                                                                     @endphp
+                                                                                     <div class="w-full ">Selecione a imagem Pricipal</div>   
+                                                                                    
+                                                                                       @foreach($optionimages[$x] as $key=>$photo)
+                                                                                       <div class="w-1/5 ">   
+                                                                                            <img src="{{ $photo->temporaryUrl() }}">
+                                                                                            <a href="#" wire:click="removerimagem({{$x}},{{$key}})">
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" >
+                                                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                                                                </svg>
+                                                                                            </a>
+                                                                                            <input type="radio" name="principaloptionimage{{$x}}" wire:model="principaloptionimage.{{$x}}" value="{{$key}}">
+                                                                                           
+                                                                                        </div>
+                                                                                        
+                                                                                        @php 
+                                                                                            $position=$position+1;
+                                                                                        @endphp
+
+                                                                                       @endforeach
+                                                                                </div>     
+                                                                              @endif
+                                                                        </td>
+                                                                    </tr>  
+                                                                    @php 
+                                                                            $x=$x+1;
+                                                                    @endphp
+                                                                @endforeach
+                                                            </table>
+
+                                                        </div>
+                                                    
+                                                    </div>
+                                            
+                                                 </div>
+                                        
+                                    
+                                            </div>
+                                    
+                                         </div>
+                                 @endif
+                    </div>
+            
+                </div>
                 <br>
                 <div class="shadow sm:rounded-md sm:overflow-hidden" wire:ignore>
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
@@ -289,12 +554,12 @@
                         </div>
 
                         <div class="">
-                            <div class="file-upload">
-                                <div id="file-upload-content" class="form">
-                                    <input type="file" name="files" class="gallery_media">
-                                </div>
-                            </div>
+                                <x-input.filepond wire:model="productimages" multiple></x-input>
                         </div>
+                        <script>
+
+
+                        </script>
                         @error('image_url')
                             <p class="mt-2 text-sm text-red-500">
                                 {{ $message }}
@@ -315,7 +580,7 @@
                         <div class="mt-4 space-y-4">
                             <div class="flex items-start">
                                 <div class="h-5 flex items-center">
-                                    <input id="status" name="status" type="checkbox"
+                                    <input id="status" name="status" type="checkbox" wire:model="status"
                                         class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                                         {{ old('status') ? 'checked' : '' }} value="1" />
                                 </div>
@@ -340,6 +605,21 @@
                                     <select id="collections" name="collections[]" multiple="multiple" class="w-full">
                                 
                                     </select>
+                                    <script>
+                                            $(document).ready(function () {
+                                    
+                                      
+                                                $('#collections').on('change', function (e) {
+                                                    
+                                                    var data = $('#collections').select2("val");
+                                                        @this.set('selectedcollections', data);
+                                                    
+                                                        
+                                                });
+                        
+                                            });
+
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -358,7 +638,7 @@
                         </a>
                     </span>
                     <span class="ml-3 inline-flex rounded-md shadow-sm">
-                        <button type="submit"
+                        <button type="button" wire:click="store"
                             class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
                             {{ __('Save') }}
                         </button>
@@ -369,5 +649,7 @@
 
         </div>
     </div>
-
+@push('js')
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+@endpush
 </div>

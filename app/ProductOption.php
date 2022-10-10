@@ -46,4 +46,24 @@ class ProductOption extends Model
     public function images(){
         return $this->hasMany(ProductOptionsImage::class, 'product_options_id', 'id')->orderBy('main','Desc');
     }
+
+    public function descricao(){
+        $descricao="";
+      
+        $option = ProductOption::where('id_product',$this->id_product)->where('id',$this->id)->get();
+        
+        $proxima = $option[0]->id;
+      
+        for($x=$this->nivel;$x>=0; $x--){
+            $option = ProductOption::find($proxima);
+           
+            $descricao = $option->options->name .'/' . $descricao;
+           
+            $proxima = $option->id_product_options;
+        }
+      
+      
+
+        return $descricao;
+    }
 }
