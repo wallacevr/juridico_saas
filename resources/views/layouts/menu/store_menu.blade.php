@@ -1,5 +1,7 @@
 <nav class="h-full flex space-x-5 ">
+
     @foreach(Tools::getAllMenu() as $menu)
+    
     <div class="py-5" x-data="{menu_<?= $menu->id ?>:false}" @mouseover="menu_<?= $menu->id ?> = true" @mouseleave="menu_<?= $menu->id ?> = false">
         <div class="relative items-center cursor-pointer text-sm font-medium">
             <a href="{{$menu->url}}" class=" px-6  inline-flex items-center font-medium">
