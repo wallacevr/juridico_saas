@@ -55,6 +55,8 @@ Route::group([
 
             // Products routes
             Route::resource('products', 'ProductController');
+            // Tickets routes
+            Route::resource('tickets', 'TicketController');
 
 
 			// Menu routes

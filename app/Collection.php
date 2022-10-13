@@ -16,4 +16,7 @@ class Collection extends Model
         return $this->belongsToMany(Product::class)->orderBy('id','desc');
     }
 
+    public function tickets(){
+        return $this->belongsToMany(Ticket::class, 'product_tickets', 'id_ticket', 'id_product');
+    }
 }

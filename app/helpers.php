@@ -348,6 +348,14 @@ if (!function_exists('create_menu')) {
                     // ['name' => __('menu.Newsletter'), 'href' => '#']
                 ],
             ],
+            [
+                'name' => __('Tickets'),
+                'icon' => 'TicketIcon',
+                'children' => [
+                    ['name' => __('See All'), 'href' => route('tenant.tickets.index')],
+                 
+                ],
+            ],
             // [
             //     'name' => __('menu.Marketing'),
             //     'icon' => 'MarketingIcon',

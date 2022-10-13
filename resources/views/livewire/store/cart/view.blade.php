@@ -2,12 +2,19 @@
  
         <div class="w-full mt-10">
                 <h2 class="mb-6 text-2xl leading-9 font-extrabold title-primary text-center">Carrinho de compras</h2>
-                @php $total = 0 @endphp
+                @php 
+                    $total = 0 ;
+                    $discount =0;
+                @endphp
                 @if ($cartproducts)
             
                     @foreach ($cartproducts as $cartproduct)
                     
-                        @php $total += $cartproduct->advancedPrice() * $cartproduct['quantity'] @endphp
+                        @php 
+                            $total += $cartproduct->advancedPrice() * $cartproduct['quantity']; 
+                            $discount += $cartproduct->DiscountTicket(); 
+                        @endphp
+                       
                         <div class="flex flex-col py-6 sm:flex-row sm:justify-between product-item" data-id="{{ $cartproduct['id_product'] }}">
                             <div class="flex w-full space-x-2 sm:space-x-4">
                                 @if(count($cartproduct->option->images))
@@ -35,6 +42,7 @@
                                     
 
                                                 <h3 class="text-lg font-semibold leading-snug sm:pr-8">R$ {{round($cartproduct->quantity,0)*($cartproduct->advancedPrice())}}</h3>
+                                                <h3 class="text-lg font-semibold leading-snug sm:pr-8">R$ {{number_format($cartproduct->DiscountTicket(),2,",",".")}}</h3>
                                         </div>
                                     </div>
                                     <div class="flex text-sm divide-x">
@@ -71,7 +79,7 @@
               
             </div>
             <div class="w-full  text-right bg-gray-500 rounded mb-10 py-3 px-3" style="margin-bottom:10px">
-            <h1 class="text-right font-bold ">Resumo do Pedido </h1>
+                 <h1 class="text-right font-bold ">Resumo do Pedido </h1>
                 <h2 class="text-right font-bold ">Total {{count($cartproducts)}} 
                     @if(count($cartproducts)>0)
                         items
@@ -79,8 +87,24 @@
                         item
                     @endif
                     <span class="text-green-400 font-bold">R${{number_format($total,2,",",".")}}</span>
-                    
+                    @if($discount>0)
+                        <br>
+                      {{__('Discount:')}}  <span class="text-green-400 font-bold">R${{number_format($discount,2,",",".")}}</span> 
+                      <br>
+                      {{__('Final Value:')}}  <span class="text-green-400 font-bold">R${{number_format($total-$discount,2,",",".")}}</span> 
+                    @endif
                 </h2>
+                <hr>
+                    <div class="w-1/5">
+                        @include('layouts.snippets.fields', ['type'=>'text','label'=>'Do you have a Ticket?','placeholder'=>'Ticket','name'=>'ticket','value'=> '','require'=>'false','wiremodel'=>'ticket' ])
+                        <button class="bg-blue-500 px-2 py-1  rounded font-bold" wire:click="validaticket"> Valid Ticket</button>
+                    </div>
+                    @if($cart[0]->id_ticket!=null)
+                
+                        <h2 class="text-right font-bold ">Applied Ticket:<span class="text-green-400 font-bold">{{$cart[0]->ticket->validator}}</span> </h2>
+                    @endif
+                  <hr>
+              
                 <button class="bg-blue-500 px-2 py-1  rounded font-bold"> Finalizar</button>
             </div>
 

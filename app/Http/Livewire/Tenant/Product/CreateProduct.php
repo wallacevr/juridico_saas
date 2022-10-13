@@ -11,6 +11,7 @@ use App\ProductOption;
 use App\CustomerGroup;
 use App\ProductOptionsImage;
 use App\ProductCustomersGroup;
+use App\TicketProduct;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
@@ -241,7 +242,7 @@ class CreateProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-        dd($th);       
+          
       }
     }
     public function removerimagem($x,$position){

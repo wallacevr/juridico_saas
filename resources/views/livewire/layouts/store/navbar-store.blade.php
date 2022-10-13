@@ -109,8 +109,8 @@
                                         </svg>
                                  
                                        
-                                        @if(session('cart')!=null)
-                                            <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{ count(session('cart')) }}</span>
+                                        @if( count($cartproducts)>0)
+                                            <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{ count($cartproducts) }}</span>
                                        @else
                                             <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
                                        @endif     

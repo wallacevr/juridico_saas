@@ -273,7 +273,7 @@ class EditProduct extends Component
        unset( $this->optionimagessaveds[$x][$key]);
     } catch (\Throwable $th) {
         //throw $th;
-        dd($th);
+       
     }
     }
 
