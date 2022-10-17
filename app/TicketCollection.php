@@ -15,3 +15,4 @@ class TicketCollection extends Model
         'id_collection'
     ];
 }
+

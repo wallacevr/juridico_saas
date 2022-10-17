@@ -23,7 +23,7 @@
 
         </a>
 
-        <a href="#"
+        <a href="{{route('store.addwishlist',['id'=>$product->id])}}"
             class="inline-block ml-auto flex-shrink-0 rounded-full border border-gray-300 bg-white p-3 title-primary ">
             <span class="sr-only">View notifications</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">

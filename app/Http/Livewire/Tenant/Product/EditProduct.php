@@ -279,4 +279,3 @@ class EditProduct extends Component
 
 }
 
-

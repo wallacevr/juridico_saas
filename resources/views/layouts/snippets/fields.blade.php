@@ -9,6 +9,11 @@
              wire:model="{{$wiremodel}}"
       
     @endisset
+    @isset($wirechange)
+      
+      wire:change="{{$wirechange}}"
+
+@endisset
     @isset($min)
         min="{{$min}}"
 

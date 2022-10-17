@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use App\Models\Config;
+use App\Menu;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Auth;
 
@@ -415,7 +416,6 @@ if (!function_exists('create_menu')) {
         ];
     }
 }
-
 if (!function_exists('buildMenu')) {
     function buildMenu($id_menu, $parent = 0, $indent = 0)
     {
@@ -424,33 +424,24 @@ if (!function_exists('buildMenu')) {
         foreach($arr->allChildren as $menu)
         {
             
-        echo '<div class="py-5" x-data="{menu_<?='. $menu->id .' ?>:false}" @mouseover="menu_<?= '. $menu->id .' ?> = true" @mouseleave="menu_<?= '. $menu->id .'?> = false">
-            <div class="relative items-center cursor-pointer text-sm font-medium">
-                <a href="'. $menu->url .'" class=" px-6  inline-flex items-center font-medium">
-                    '. $menu->title .'';
-                    if (count($menu->children)>0){
-                        echo '<svg class="secundary-text ml-2 h-5 w-5 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>';
-                    }
-
-                 
-               echo '</a>';
+             if (count($menu->children)==0){
+                        echo '<li>
+                        <a href="'. $menu->url .'" class="bg-blue-700 md:bg-transparent text-white block pl-3 pr-4 py-2 md:text-blue-700 md:p-0 rounded focus:outline-none" aria-current="page">'. $menu->title .'</a>
+                   </li>';
+            }
         
-            if (count($menu->allChildren)==0 )
+            if (count($menu->children)>1 )
             {
              
-                    echo '<div x-show="menu_<?= $menu->id ?>" x-cloak class="absolute z-10 -ml-4 mt-3 transform px-2 w-32   sm:px-0 lg:ml-0 " style="min-width: 150px;">
-                    <div class="rounded-lg shadow-lg w-48">
-                        <div class=" grid bg-white px-5 py-2 ">
-                        
-                            <a href="'.$menu->url .'" class=" py-2  text-secundary px-5  ">
-                                '. $menu->title .'
-                            </a>
-                     
-                        </div>
-                    </div>
-                </div>';
+                    echo '    <li>
+                    <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0 font-medium flex items-center justify-between w-full md:w-auto">'. $menu->title .'<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdownNavbar" class="hidden bg-white text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44">
+                        <ul class="py-1" aria-labelledby="dropdownLargeButton">';
+
+                        buildMenu($menu->id);
+                    echo'</ul></div>
+                    </li>';
                 
                
             }else{

@@ -14,9 +14,7 @@ class View extends Component
     public $cart;
     public function render()
     {
-       
         $cart = Cart::where('id_customer',Auth::guard('customers')->user()->id)->where('open',1)->get();
-      
         $this->cart = $cart;
         $this->cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
        

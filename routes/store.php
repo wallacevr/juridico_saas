@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Store\CartController;
+use App\Http\Controllers\Store\WishlistController;
 use App\Http\Controllers\Store\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,6 @@ Route::group([
     Route::patch('update-cart', [CartController::class, 'update'])->name('update.cart');
     Route::delete('remove-from-cart', [CartController::class, 'remove'])->name('remove.from.cart');
 
-
+    Route::get('add-to-wishlist/{id}', [WishlistController::class, 'addwishlist'])->name('addwishlist');
     Route::get('/{product:slug}', 'ProductController@show')->name('product.show');
 });

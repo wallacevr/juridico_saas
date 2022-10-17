@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Cart;
+use App\Product;
 class Customer extends Authenticatable
 {
     use Notifiable;
@@ -17,7 +18,7 @@ class Customer extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'telephone', 'password', 'dob', 'taxvat', 'ip', 'status', 'newsletter','id_customer_group', 'accepts_terms_of_use',
+        'name', 'email', 'phone', 'telephone', 'password', 'dob', 'taxvat', 'ip', 'status', 'newsletter','id_customer_group', 'accepts_terms_of_use','created_at','updated_at'
     ];
 
     public function addresses()
@@ -60,5 +61,9 @@ class Customer extends Authenticatable
 
     public function opencarts(){
         return $this->hasMany(Cart::class,'id_customer')->where('open',1);
+    }
+
+    public function wishlist(){
+        return $this->belongsToMany(Product::class, 'wishlist', 'id_customer', 'id_product');
     }
 }
