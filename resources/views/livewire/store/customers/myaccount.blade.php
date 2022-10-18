@@ -336,21 +336,25 @@
 
                                         @endif
                                 </div>
-                            <div class="grid grid-cols-1 md:grid-cols-12">
+                            <div class="grid grid-cols-1 md:grid-cols-11">
                                        
                                          @if ($wishlistproducts)
             
                                                 @foreach ($wishlistproducts as $wishlistproduct)
-                                                <div class="col-span-3 mx-2">
+                                                <div class="col-span-2 mx-2">
                                                          <img class="flex-shrink-0  dark:border-transparent rounded outline-none dark:bg-gray-500 h-20"
                                                                     src="{{ productImage($wishlistproduct->id .'/'. $wishlistproduct->images[0]->image_url) }}" alt="{{ $wishlistproduct->name }}">
                                                 </div>
-                                                <div class="col-span-6 mx-2">
+                                                <div class="col-span-7 mx-2">
                                                     <h3 class="text-lg font-semibold leading-snug sm:pr-8">{{ $wishlistproduct->name }} </h3>
                                                 </div>
-                                                <div class="col-span-3 mx-2">
-                                                             <h3 class="text-lg font-semibold leading-snug sm:pr-8"> {{$wishlistproduct->formattedPrice()}}</h3>
+                                                <div class="col-span-2 mx-2">
+                                                       @if($wishlistproduct->formattedPrice()>$wishlistproduct->formattedFinalPrice())
+                                                             <h3 class="text-lg font-semibold leading-snug sm:pr-8 line-through"> {{$wishlistproduct->formattedPrice()}}</h3>
                                                             <h3 class="text-lg font-semibold leading-snug sm:pr-8">{{$wishlistproduct->formattedFinalPrice()}}</h3>
+                                                       @else
+                                                            <h3 class="text-lg font-semibold leading-snug sm:pr-8 line-through"> {{$wishlistproduct->formattedPrice()}}</h3>
+                                                       @endif
                                                 </div>
                                                 
 
