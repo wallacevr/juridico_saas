@@ -57,6 +57,8 @@ Route::group([
             Route::resource('products', 'ProductController');
             // Tickets routes
             Route::resource('tickets', 'TicketController');
+            // plugins routes
+              Route::get('/plugins', 'PluginController@index')->name('plugins.index');
 
 
 			// Menu routes
