@@ -26,7 +26,7 @@
 
             <div class="block mt-8">
                 <table class="min-w-full divide-y divide-gray-200 bg-white">
-                    @if ($products->count() >= 1)
+                    @if ($plugins->count() >= 1)
                         <thead class="bg-gray-50">
                         <tr>
                             <th scope="col"
@@ -56,14 +56,14 @@
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($products as $product)
+                        @foreach ($plugins as $plugin)
                      
                             <tr class="hover:bg-gray-50 text-gray-500 text-201 font-normal">
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <input type="checkbox" name="ids[]" value="{{$product->id}}">
+                                    <input type="checkbox" name="ids[]" value="{{$plugin->id}}">
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right">
-                                    {{$product->id}}
+                                    {{$plugin->id}}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
@@ -73,26 +73,26 @@
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
-                                                <a href="{{ route('tenant.products.edit', ['product' => $product->id]) }}">
-                                                    {{ $product->name }}
+                                                <a href="#">
+                                                    {{ $plugin->name }}
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center w-2 font-medium">
-                                    {{$product->qty}}
+                                    {{$plugin->description}}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap font-medium">
-                                    @if ($product->status)
+                                    @if ($installedplugins->pluck('plugin_id')->contains($plugin->id))
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                            {{ __('Active') }}
+                                                            {{ __('Installed') }}
                                                         </span>
                                     @else
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                                        {{ __('Inactive') }}
+                                                        {{ __('Install') }}
                                                     </span>
                                     @endif
                                 </td>
@@ -104,7 +104,7 @@
                         <h4 class="text-lg text-center text-gray-500 m-5">{{ __('No results found') }}</h4>
                     @endif
                 </table>
-                {{ $products->links() }}
+                {{ $plugins->links() }}
             </div>
         </div>
     </div>
