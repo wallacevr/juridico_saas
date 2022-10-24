@@ -1,7 +1,8 @@
 @extends('layouts.store', ['title' => __('cart')])
 
 @section('content')
-@livewire('store.cart.view')
+
+@livewire('store.cart.livecart')
 @endsection
 
 @push('js')

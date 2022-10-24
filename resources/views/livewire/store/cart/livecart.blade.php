@@ -37,7 +37,7 @@
                                             <input type="text" class="w-20 text-center bg-gray-500 hover:bg-gray-700" value="{{ round($cartproduct->quantity,0) }}">
                                             <button class="text-red-600 font-bold py-0" wire:click="removecart({{$cartproduct->id}})">-</button>
                                         </div>
-                                        <div class="text-right w-24">
+                                        <div class="text-right w-36">
 
                                     
 
@@ -104,8 +104,8 @@
                         <h2 class="text-right font-bold ">Applied Ticket:<span class="text-green-400 font-bold">{{$cart[0]->ticket->validator}}</span> </h2>
                     @endif
                   <hr>
-              
-                <button class="bg-blue-500 px-2 py-1  rounded font-bold"> Finalizar</button>
+              <a href="{{route($paymentplugin[0]->mainroute)}}">
+                <button class="bg-blue-500 px-2 py-1  rounded font-bold"> Finalizar</button></a>
             </div>
 
 </div>

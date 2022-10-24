@@ -21,7 +21,8 @@ class CreatePlugins extends Migration
             $table->string('image');
             $table->string('settingsroute');
             $table->string('mainroute');
-            $table->unsignedBigInteger('plugin_group_id')->foreignId('plugin_group_id')->references('id')->on('plugins_group')->default(1);
+            $table->unsignedBigInteger('plugin_id');
+            $table->unsignedBigInteger('plugin_group_id');
             $table->timestamps();
         });
     }

@@ -29,16 +29,8 @@
                     @if ($plugins->count() >= 1)
                         <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-right text-gray-500 uppercase tracking-wider"
-                                width="20">
-
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                width="80">
-                                <a href="" class="inline-flex items-center">{{ __('Id') }} @include('layouts.snippets.icons', ['icon'=>'chevron-down' ])</a>
-                            </th>
+                
+              
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <a href="" class="inline-flex items-center">{{ __('Name') }} @include('layouts.snippets.icons', ['icon'=>'chevron-down' ])</a>
@@ -46,7 +38,7 @@
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs text-center font-medium text-gray-500 uppercase tracking-wider  w-1/5"
                                 width="20">
-                                <a href="" class="inline-flex items-center">{{ __('Stock') }} @include('layouts.snippets.icons', ['icon'=>'chevron-down' ])</a>
+                                <a href="" class="inline-flex items-center">{{ __('Description') }} @include('layouts.snippets.icons', ['icon'=>'chevron-down' ])</a>
                             </th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -59,12 +51,8 @@
                         @foreach ($plugins as $plugin)
                      
                             <tr class="hover:bg-gray-50 text-gray-500 text-201 font-normal">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <input type="checkbox" name="ids[]" value="{{$plugin->id}}">
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right">
-                                    {{$plugin->id}}
-                                </td>
+                           
+                       
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
@@ -88,7 +76,9 @@
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                             {{ __('Installed') }}
-                                                        </span>
+                                        </span>
+                                        <a href="{{route($plugin->settingsroute)}}">{!! get_icon('ConfigIcon') !!}</a>
+        
                                     @else
                                     <a href="{{route('tenant.plugins.install',['id'=>$plugin->id])}}">
                                         <span
@@ -96,6 +86,7 @@
                                                         {{ __('Install') }}
                                         </span>
                                     </a>
+                                    
                                     @endif
                                 </td>
                             </tr>
