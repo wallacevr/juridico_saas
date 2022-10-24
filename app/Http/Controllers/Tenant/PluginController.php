@@ -29,9 +29,11 @@ class PluginController extends Controller
 
     public function install($id){
         $plugins = DB::connection('central')->table('plugins')->where('active',1)->where('id',$id)->get();
+  
         $plugin = new Plugin;
-        $plugin->plugin_id = $plugins->id;
-        $plugin->plugin_group_id = $plugins->plugin_group_id;
+        $plugin->plugin_id = $plugins[0]->id;
+        $plugin->plugin_group_id = $plugins[0]->plugin_group_id;
         $plugin->save();
+        return redirect()->back()->with('success','Plugin installed successfully!');
     }
 }
