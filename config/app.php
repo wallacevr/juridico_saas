@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\TenancyServiceProvider::class,
+        stg\pagseguro\PagSeguroServiceProvider::class,
     ],
 
     /*

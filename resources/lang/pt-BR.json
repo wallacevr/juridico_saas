@@ -309,5 +309,10 @@
     "Medium":"Média",
     "Big":"Grande",
     "Or":"Ou",
-    "register a new account":"criar uma nova conta"
+    "register a new account":"criar uma nova conta",
+    "Putting your pagseguro settings under sandbox mode": "Deixar suas configurações do PagSeguro em sandbox",
+    "You can obtain this credentials in your PagSeguro account.": "Voce pode obter estas credenciais em sua Conta PagSeguro.",
+    "PagSeguro Configuration": "Configurações PagSeguro"
+
+
 }
