@@ -1,7 +1,8 @@
 <div>
- 
+    @if($cart)         
         <div class="w-full mt-10">
                 <h2 class="mb-6 text-2xl leading-9 font-extrabold title-primary text-center">Carrinho de compras</h2>
+          
                 @php 
                     $total = 0 ;
                     $discount =0;
@@ -107,5 +108,16 @@
               <a href="{{ $paymentplugin[0]->mainroute }}">
                 <button class="bg-blue-500 px-2 py-1  rounded font-bold"> Finalizar</button></a>
             </div>
+    @else
+    <div class="w-full mt-10">
+                <h2 class="mb-6 text-2xl leading-9 font-extrabold title-primary text-center">Carrinho de compras</h2>
 
+        
+    </div>
+    <div class="w-full mt-10">
+                <h2 class="mb-6 text-2xl leading-9 font-extrabold title-primary text-center">{{__('0 itens in your cart!')}}</h2>
+
+        
+    </div>
+    @endif
 </div>

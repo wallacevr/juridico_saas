@@ -7945,12 +7945,12 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.com:maxcommerce/modulos/payment/pagseguro.git",
-                "reference": "8ba7f8119364960d58b0b175f854893d3abca065"
+                "reference": "63c9111d28460ff721af540def383eb65f5fad15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=8ba7f8119364960d58b0b175f854893d3abca065",
-                "reference": "8ba7f8119364960d58b0b175f854893d3abca065",
+                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=63c9111d28460ff721af540def383eb65f5fad15",
+                "reference": "63c9111d28460ff721af540def383eb65f5fad15",
                 "shasum": ""
             },
             "require": {
@@ -7987,7 +7987,7 @@
                 "source": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/tree/main",
                 "issues": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/issues"
             },
-            "time": "2022-10-27T09:45:06-03:00"
+            "time": "2022-10-27T09:56:19-03:00"
         },
         {
             "name": "mockery/mockery",

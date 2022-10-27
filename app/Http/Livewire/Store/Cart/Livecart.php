@@ -17,10 +17,16 @@ class Livecart extends Component
     public function render()
     {
         $cart = Cart::where('id_customer',Auth::guard('customers')->user()->id)->where('open',1)->get();
-        $this->cart = $cart;
-        $this->cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
-        $this->paymentplugin = Plugin::where('plugin_group_id',1)->limit(1)->get();
-    
+       
+        if(count($cart)>0){
+            $this->cart = $cart;
+            $this->cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
+            $this->paymentplugin = Plugin::where('plugin_group_id',1)->limit(1)->get();
+        
+           
+
+           
+        }
         return view('livewire.store.cart.livecart');
     }
 

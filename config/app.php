@@ -179,6 +179,7 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\TenancyServiceProvider::class,
         maxcommerce\pagseguro\PagSeguroServiceProvider::class,
+  
     ],
 
     /*
