@@ -41,20 +41,20 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['Inter', 'sans-serif'],
-        },
-      }
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+        extend: {
+            fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            },
+        }
+        }
     }
-  }
-</script>
+    </script>
     @stack('head')
     @livewireStyles
 </head>
@@ -62,44 +62,44 @@
 <body class="bg-gray-100 h-screen antialiased w-full">
 
     <div id="app" class="w-full">
-        <div class="bg-white w-full">
+            <div class="bg-white w-full">
        
-            @livewire('layouts.store.navbar-store')
-           
-        </div>
-        @if (!empty($pageBanners))
-            @includeWhen(isset($pageBanners), 'store.banners.full-banners', $pageBanners)
-        @endif
-        <main class="w-full max-w-7xl mx-auto px-3 xl:px-0">
-            @include('partials.alerts')
-            @yield('content')
-        </main>
+                @livewire('layouts.store.navbar-store')
+            
+            </div>
+            @if (!empty($pageBanners))
+                @includeWhen(isset($pageBanners), 'store.banners.full-banners', $pageBanners)
+            @endif
+            <main class="w-full max-w-7xl mx-auto px-3 xl:px-0">
+                @include('partials.alerts')
+                @yield('content')
+            </main>
      
 
     </div>
 
     <div class="w-full bg-primary">
-    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:py-8 lg:px-8 bg-primary">
-    
-            <div class="pb-8 xl:grid xl:grid-cols-2 xl:gap-2">
-                <div>
-                    <h3 class="text-2xl font-medium text-primary">Cadastre-se em nossa newsletter</h3>
-                    <p class="mt-2 text-base text-secundary">Receba novidades e ofertas exclusivas em seu e-mail</p>
-                </div>
-                <div>
-                    <form class="mt-4 sm:flex sm:max-w-md lg:mt-0">
-                        <label for="email-address" class="sr-only">Email address</label>
-                        <input type="email" name="email-address" id="email-address" autocomplete="email" required
-                            class="appearance-none min-w-0 w-full bg-white border border-transparent rounded-md py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white focus:border-white focus:placeholder-gray-400 sm:max-w-xs"
-                            placeholder="Seu email">
-                        <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-                            <button type="submit"
-                                class="w-full bg-secundary title-secundary border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium ">Cadastrar</button>
-                        </div>
-                    </form>
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:py-8 lg:px-8 bg-primary">
+        
+                <div class="pb-8 xl:grid xl:grid-cols-2 xl:gap-2">
+                    <div>
+                        <h3 class="text-2xl font-medium text-primary">Cadastre-se em nossa newsletter</h3>
+                        <p class="mt-2 text-base text-secundary">Receba novidades e ofertas exclusivas em seu e-mail</p>
+                    </div>
+                    <div>
+                        <form class="mt-4 sm:flex sm:max-w-md lg:mt-0">
+                            <label for="email-address" class="sr-only">Email address</label>
+                            <input type="email" name="email-address" id="email-address" autocomplete="email" required
+                                class="appearance-none min-w-0 w-full bg-white border border-transparent rounded-md py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white focus:border-white focus:placeholder-gray-400 sm:max-w-xs"
+                                placeholder="Seu email">
+                            <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+                                <button type="submit"
+                                    class="w-full bg-secundary title-secundary border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium ">Cadastrar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
         </div>
-    </div>
     </div>
     <footer aria-labelledby="footer-heading">
         <h2 id="footer-heading" class="sr-only">Footer</h2>
@@ -118,7 +118,7 @@
                                     <a href="#" class="text-base text-footer"> Loja </a>
                                 </li>
 
-                                <li>
+                                
                             </ul>
                         </div>
                         <div class="mt-12 md:mt-0">
@@ -222,11 +222,11 @@
                                 </div>
 
                             </div>
-                        </div>
+                       
                     </div>
                 </div>
 
-            </div>
+          
 
             
             <div class="w-full text-center">

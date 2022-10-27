@@ -178,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\TenancyServiceProvider::class,
-        stg\pagseguro\PagSeguroServiceProvider::class,
+        maxcommerce\pagseguro\PagSeguroServiceProvider::class,
     ],
 
     /*

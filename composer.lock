@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8d89225667682f2ddff710e98583866",
+    "content-hash": "8aa627397de419fb3371303857d723eb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3513,16 +3513,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.16",
+            "version": "3.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "7181378909ed8890be4db53d289faac5b77f8b05"
+                "reference": "dbc2307d5c69aeb22db136c52e91130d7f2ca761"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/7181378909ed8890be4db53d289faac5b77f8b05",
-                "reference": "7181378909ed8890be4db53d289faac5b77f8b05",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/dbc2307d5c69aeb22db136c52e91130d7f2ca761",
+                "reference": "dbc2307d5c69aeb22db136c52e91130d7f2ca761",
                 "shasum": ""
             },
             "require": {
@@ -3603,7 +3603,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.16"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.17"
             },
             "funding": [
                 {
@@ -3619,7 +3619,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-05T18:03:08+00:00"
+            "time": "2022-10-24T10:51:50+00:00"
         },
         {
             "name": "psr/container",
@@ -7490,6 +7490,66 @@
     ],
     "packages-dev": [
         {
+            "name": "artistas/laravel-pagseguro",
+            "version": "v1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/artistas/laravel-pagseguro.git",
+                "reference": "bb15b2473493d30d42c9e079317d40e6c6b6733e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/artistas/laravel-pagseguro/zipball/bb15b2473493d30d42c9e079317d40e6c6b6733e",
+                "reference": "bb15b2473493d30d42c9e079317d40e6c6b6733e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "*",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Artistas\\PagSeguro\\PagSeguroServiceProvider"
+                    ],
+                    "aliases": {
+                        "PagSeguro": "Artistas\\PagSeguro\\PagSeguroFacade",
+                        "PagSeguroRecorrente": "Artistas\\PagSeguro\\PagSeguroRecorrenteFacade",
+                        "PagSeguroBoleto": "Artistas\\PagSeguro\\PagSeguroBoletoFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Artistas\\PagSeguro\\": "src/Artistas/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fernando Henrique Bandeira",
+                    "email": "fernando.bandeira94@gmail.com"
+                }
+            ],
+            "description": "PagSeguro Checkout Transparente e Pagamento Recorrente(Assinaturas) no Laravel 5.*, 6.*, 7.* e 8.*",
+            "keywords": [
+                "Pagseguro",
+                "assinaturas",
+                "laravel",
+                "recorrente",
+                "transparente"
+            ],
+            "support": {
+                "issues": "https://github.com/artistas/laravel-pagseguro/issues",
+                "source": "https://github.com/artistas/laravel-pagseguro/tree/v1.10.0"
+            },
+            "time": "2021-03-10T17:17:09+00:00"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.4.1",
             "source": {
@@ -7878,6 +7938,56 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "maxcommerce/pagseguro",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@gitlab.com:maxcommerce/modulos/payment/pagseguro.git",
+                "reference": "8ba7f8119364960d58b0b175f854893d3abca065"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=8ba7f8119364960d58b0b175f854893d3abca065",
+                "reference": "8ba7f8119364960d58b0b175f854893d3abca065",
+                "shasum": ""
+            },
+            "require": {
+                "artistas/laravel-pagseguro": "^1.10",
+                "livewire/livewire": "^1.2|^2.0"
+            },
+            "require-dev": {
+                "artistas/laravel-pagseguro": "^1.10",
+                "livewire/livewire": "^1.2|^2.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "maxcommerce\\pagseguro\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "maxcommerce\\pagseguro\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Wallace Aguiar",
+                    "email": "wallaceaguiar.developer@gmail.com"
+                }
+            ],
+            "description": "Pacote de Módulo de Pagamentos via PagSeguro",
+            "support": {
+                "source": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/tree/main",
+                "issues": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/issues"
+            },
+            "time": "2022-10-27T09:45:06-03:00"
         },
         {
             "name": "mockery/mockery",
@@ -9333,54 +9443,6 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
-            "name": "stg/pagseguro",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "git@gitlab.com:maxcommerce/modulos/payment/pagseguro.git",
-                "reference": "d3bf6b21fa9448b5cc391b6c2165da054ce53291"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=d3bf6b21fa9448b5cc391b6c2165da054ce53291",
-                "reference": "d3bf6b21fa9448b5cc391b6c2165da054ce53291",
-                "shasum": ""
-            },
-            "require": {
-                "livewire/livewire": "^1.2|^2.0"
-            },
-            "require-dev": {
-                "livewire/livewire": "^1.2|^2.0"
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "stg\\pagseguro\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "stg\\pagseguro\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Wallace Aguiar",
-                    "email": "wallaceaguiar.developer@gmail.com"
-                }
-            ],
-            "description": "Pacote de Módulo de Pagamentos via PagSeguro",
-            "support": {
-                "source": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/tree/main",
-                "issues": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/issues"
-            },
-            "time": "2022-10-21T15:35:16-03:00"
-        },
-        {
             "name": "theseer/tokenizer",
             "version": "1.2.1",
             "source": {
@@ -9435,7 +9497,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "intervention/image": 20,
-        "stg/pagseguro": 20
+        "maxcommerce/pagseguro": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -104,7 +104,7 @@
                         <h2 class="text-right font-bold ">Applied Ticket:<span class="text-green-400 font-bold">{{$cart[0]->ticket->validator}}</span> </h2>
                     @endif
                   <hr>
-              <a href="{{route($paymentplugin[0]->mainroute)}}">
+              <a href="{{ $paymentplugin[0]->mainroute }}">
                 <button class="bg-blue-500 px-2 py-1  rounded font-bold"> Finalizar</button></a>
             </div>
 

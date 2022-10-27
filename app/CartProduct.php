@@ -91,11 +91,14 @@ class CartProduct extends Model
         return $discount;
     } catch (\Throwable $th) {
         //throw $th;
-       dd($th);
+     
     }
        
     }
-
+    public function FinalPrice(){
+        $final = (($this->quantity*$this->advancedPrice()) - $this->DiscountTicket()) /$this->quantity;
+        return $final;
+    }
     public function collectioninticket($id){
         $product = Product::find($id);
         $cart = Cart::find($this->id_cart);
