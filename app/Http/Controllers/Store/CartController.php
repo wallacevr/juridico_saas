@@ -28,6 +28,10 @@ class CartController extends Controller
     {
         return view('store.checkout.cart');
     }
+    public function checkout()
+    {
+        return view('store.checkout.checkout');
+    }
   
     /**
      * Write code on Method

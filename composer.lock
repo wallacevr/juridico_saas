@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8aa627397de419fb3371303857d723eb",
+    "content-hash": "1e15be82b31ce4ef09c1409deb52e708",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7490,66 +7490,6 @@
     ],
     "packages-dev": [
         {
-            "name": "artistas/laravel-pagseguro",
-            "version": "v1.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/artistas/laravel-pagseguro.git",
-                "reference": "bb15b2473493d30d42c9e079317d40e6c6b6733e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/artistas/laravel-pagseguro/zipball/bb15b2473493d30d42c9e079317d40e6c6b6733e",
-                "reference": "bb15b2473493d30d42c9e079317d40e6c6b6733e",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "*",
-                "php": ">=5.5.9"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Artistas\\PagSeguro\\PagSeguroServiceProvider"
-                    ],
-                    "aliases": {
-                        "PagSeguro": "Artistas\\PagSeguro\\PagSeguroFacade",
-                        "PagSeguroRecorrente": "Artistas\\PagSeguro\\PagSeguroRecorrenteFacade",
-                        "PagSeguroBoleto": "Artistas\\PagSeguro\\PagSeguroBoletoFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Artistas\\PagSeguro\\": "src/Artistas/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fernando Henrique Bandeira",
-                    "email": "fernando.bandeira94@gmail.com"
-                }
-            ],
-            "description": "PagSeguro Checkout Transparente e Pagamento Recorrente(Assinaturas) no Laravel 5.*, 6.*, 7.* e 8.*",
-            "keywords": [
-                "Pagseguro",
-                "assinaturas",
-                "laravel",
-                "recorrente",
-                "transparente"
-            ],
-            "support": {
-                "issues": "https://github.com/artistas/laravel-pagseguro/issues",
-                "source": "https://github.com/artistas/laravel-pagseguro/tree/v1.10.0"
-            },
-            "time": "2021-03-10T17:17:09+00:00"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "1.4.1",
             "source": {
@@ -7940,37 +7880,40 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
-            "name": "maxcommerce/pagseguro",
+            "name": "maxcommerce/laravel-pagseguro",
             "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "git@gitlab.com:maxcommerce/modulos/payment/pagseguro.git",
-                "reference": "63c9111d28460ff721af540def383eb65f5fad15"
+                "reference": "f1e9c3474103dcd0de9c6fc9f1355f12919a160e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=63c9111d28460ff721af540def383eb65f5fad15",
-                "reference": "63c9111d28460ff721af540def383eb65f5fad15",
+                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=f1e9c3474103dcd0de9c6fc9f1355f12919a160e",
+                "reference": "f1e9c3474103dcd0de9c6fc9f1355f12919a160e",
                 "shasum": ""
             },
             "require": {
-                "artistas/laravel-pagseguro": "^1.10",
-                "livewire/livewire": "^1.2|^2.0"
-            },
-            "require-dev": {
-                "artistas/laravel-pagseguro": "^1.10",
-                "livewire/livewire": "^1.2|^2.0"
+                "illuminate/support": "*",
+                "php": ">=5.5.9"
             },
             "default-branch": true,
             "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "maxcommerce\\pagseguro\\": "src/"
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Maxcommerce\\PagSeguro\\PagSeguroServiceProvider"
+                    ],
+                    "aliases": {
+                        "PagSeguro": "Maxcommerce\\PagSeguro\\PagSeguroFacade",
+                        "PagSeguroRecorrente": "Maxcommerce\\PagSeguro\\PagSeguroRecorrenteFacade",
+                        "PagSeguroBoleto": "Maxcommerce\\PagSeguro\\PagSeguroBoletoFacade"
+                    }
                 }
             },
-            "autoload-dev": {
+            "autoload": {
                 "psr-4": {
-                    "maxcommerce\\pagseguro\\": "src/"
+                    "Maxcommerce\\PagSeguro\\": "src/Maxcommerce/"
                 }
             },
             "license": [
@@ -7978,16 +7921,23 @@
             ],
             "authors": [
                 {
-                    "name": "Wallace Aguiar",
+                    "name": "Wallace Izidero Aguiar",
                     "email": "wallaceaguiar.developer@gmail.com"
                 }
             ],
-            "description": "Pacote de Módulo de Pagamentos via PagSeguro",
+            "description": "PagSeguro Checkout Transparente e Pagamento Recorrente(Assinaturas) no Laravel 5.*, 6.*, 7.* e 8.*",
+            "keywords": [
+                "assinaturas",
+                "laravel",
+                "pagseguro",
+                "recorrente",
+                "transparente"
+            ],
             "support": {
                 "source": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/tree/main",
                 "issues": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/issues"
             },
-            "time": "2022-10-27T09:56:19-03:00"
+            "time": "2022-10-27T17:30:24-03:00"
         },
         {
             "name": "mockery/mockery",
@@ -9497,7 +9447,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "intervention/image": 20,
-        "maxcommerce/pagseguro": 20
+        "maxcommerce/laravel-pagseguro": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

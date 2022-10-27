@@ -58,8 +58,9 @@ Route::group([
             // Tickets routes
             Route::resource('tickets', 'TicketController');
             // plugins routes
-              Route::get('/plugins', 'PluginController@index')->name('plugins.index');
+              Route::get('/plugins/{group}', 'PluginController@index')->name('plugins.index');
               Route::get('/plugins/install/{id}', 'PluginController@install')->name('plugins.install');
+              Route::post('/plugins/paymentmethods', 'PluginController@paymentplataformstore')->name('paymentplataformstore');
 
 
 			// Menu routes

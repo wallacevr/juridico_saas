@@ -178,8 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\TenancyServiceProvider::class,
-        maxcommerce\pagseguro\PagSeguroServiceProvider::class,
-  
+     
+        Maxcommerce\PagSeguro\PagSeguroServiceProvider::class,
     ],
 
     /*
@@ -232,6 +232,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'PagSeguro' => Maxcommerce\PagSeguro\PagSeguroFacade::class,
+        'PagSeguroRecorrente' => Maxcommerce\PagSeguro\PagSeguroRecorrenteFacade::class,
+        'PagSeguroBoleto' => Maxcommerce\PagSeguro\PagSeguroBoletoFacade::class,
     ],
 
 ];

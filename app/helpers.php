@@ -399,7 +399,7 @@ if (!function_exists('create_menu')) {
                 'name' => __('Plugins'),
                 'icon' => 'PluginIcon',
                 'children' => [
-                    ['name' => __('Payments'), 'href' => route('tenant.plugins.index')],
+                    ['name' => __('Payments'), 'href' => route('tenant.plugins.index',['group'=>1])],
 
                        
                    

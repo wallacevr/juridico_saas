@@ -1,12 +1,14 @@
 @extends('layouts.tenant', ['title' => __('Plugins')])
 
 @section('content')
+
     <header class="relative z-20 flex flex-none items-center justify-between border-b border-gray-200 py-4 px-6 bg-white">
+
         <div>
             <h1 class="text-lg font-semibold leading-6 text-gray-900">
                 {{__('Filter')}}
             </h1>
-            <form class="mt-5 sm:flex sm:items-center" method="get" action="{{route('tenant.plugins.index')}}">
+            <form class="mt-5 sm:flex sm:items-center" method="get" action="{{route('tenant.plugins.index',['group'=>$group])}}">
                 <div class="w-full sm:max-w-xs">
                 @include('layouts.snippets.fields', ['type'=>'text','label'=>null,'placeholder'=>'Search plugins','name'=>'q','value'=> $q,'require'=>false ])
                 </div>
@@ -16,7 +18,78 @@
 
     </header>
 
+    @if($group==1)
+            <div class="my-2">
+                <h1 class="text-lg font-semibold leading-6 text-gray-900 text-center">
+                    {{__('PAYMENT METHOD SETTINGS ')}}
+                </h1>
+                <p class="my-2">{{__('Select your preferred payment platform for each payment method')}}</p>
+            </div>
+            <div>
+                <form class="mt-5 sm:flex sm:items-center" method="post" action="{{route('tenant.paymentplataformstore')}}">
+                    @csrf
+                    <div class="w-full sm:max-w-xs my-3">
+                        <label for="creditcard">{{__('Credit Card')}}</label>
+                        <select name="creditcard" id="crediticard">
+                                 <option value="">{{__('Select an option')}}</option>
+                                @foreach($installedplugins as $installedplugin)
+                                    <option value="{{$installedplugin->id}}"
+                                        @if(get_config('payments/plataform/creditcard')==$installedplugin->id)
+                                            selected
+                                        @endif
+                                        >{{$installedplugin->name}}</option>
+                                @endforeach
+                        </select>
+                        @error('creditcard')
+                        <p class="mt-2 text-sm text-red-600">
+                            {{ message }}
+                        </p>
+                        @enderror
+                    </div>
+                    <div class="w-full sm:max-w-xs my-3">
+                        <label for="boleto">{{__('Boleto')}}</label>
+                        <select name="boleto" id="boleto">
+                        <option value="">{{__('Select an option')}}</option>
+                                @foreach($installedplugins as $installedplugin)
+                                    <option value="{{$installedplugin->id}}" 
+                                    @if(get_config('payments/plataform/boleto')==$installedplugin->id)
+                                            selected
+                                        @endif
+                                    >{{$installedplugin->name}}</option>
+                                @endforeach
+                        </select>
+                        @error('boleto')
+                        <p class="mt-2 text-sm text-red-600">
+                            {{ message }}
+                        </p>
+                        @enderror
+                    </div>
+                    <div class="w-full sm:max-w-xs my-3">
+                        <label for="pix">{{__('PIX')}}</label>
+                        
+                        <select name="pix" id="pix">
+                                <option value="">{{__('Select an option')}}</option>
+                                @foreach($installedplugins as $installedplugin)
+                                    <option value="{{$installedplugin->id}}" 
+                                        @if(get_config('payments/plataform/creditcard')==$installedplugin->id)
+                                            selected
+                                        @endif
+                                    
+                                    >{{$installedplugin->name}}</option>
+                                @endforeach
+                        </select>
+                        @error('pix')
+                        <p class="mt-2 text-sm text-red-600">
+                            {{ message }}
+                        </p>
+                        @enderror
+                    </div>
+                    <button type="submit" class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">{{__("Save")}}</button>
+                </form>
+            </div>
 
+
+        @endif
 
     <div class="">
 
@@ -77,7 +150,7 @@
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                             {{ __('Installed') }}
                                         </span>
-                                        <a href="{{route($plugin->settingsroute)}}">{!! get_icon('ConfigIcon') !!}</a>
+                                        <a href="{{ $plugin->settingsroute }}">{!! get_icon('ConfigIcon') !!}</a>
         
                                     @else
                                     <a href="{{route('tenant.plugins.install',['id'=>$plugin->id])}}">
