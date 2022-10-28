@@ -19,6 +19,8 @@ class NavbarStore extends Component
            
             if(count($cart)>0){
                 $this->cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
+            }else{
+                $this->cartproducts=[];
             }
                 
         }

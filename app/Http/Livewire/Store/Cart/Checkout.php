@@ -24,6 +24,7 @@ class Checkout extends Component
     public $creditcardholderphone;
     public $cardnumber;
     public $senderhash;
+    public $senderhashboleto;
     public $creditcardholdercpf;
     public $creditcardholderbirthdate;
     public $address_id;
@@ -37,6 +38,7 @@ class Checkout extends Component
     public $invoiceaddress;
     public $deliveryaddress;
     public $tab=1;
+    public $pagseguroerror;
     protected $listener=['render'];
     public function render()
     {
@@ -147,7 +149,7 @@ class Checkout extends Component
               ])
              ->setItems($itens)
             ->send($paymentSettings);
-
+               
             $cartclosed = Cart::find($this->cart->id);
             $cartclosed->id_address_delivery = $shippingaddress->id;
             $cartclosed->id_address_invoice = $billingaddress->id;
@@ -165,13 +167,99 @@ class Checkout extends Component
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
-            session()->flash('error', $e->getMessage());
-            dd($e);
+            session()->flash('error', $e->getMessage().'Tente Novamente');
+           
         }
+
+        
 
 
     }
 
+    public function pagseguroboleto(){
+        try {
+           
+            $billingaddress = Address::find($this->invoiceaddress);
+                  
+            $shippingaddress = Address::find($this->deliveryaddress);
+            
+            $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
+            $itens=[];
+            
+            foreach($cartproducts as $cartproduct){
+                    array_push($itens, [
+                        'itemId' => 'ID '. $cartproduct->id_product,
+                        'itemDescription' => $cartproduct->product->name,
+                        'itemAmount' =>  number_format($cartproduct->FinalPrice(), 2, '.', ','),
+                        'itemQuantity' => round($cartproduct->quantity,0),
+                    ]);
+                    
+            }
+       
+            $paymentSettings = [
+                'paymentMethod'                 => 'boleto',
+
+            ];
+           
+            $pagseguro = PagSeguro::setReference($this->cart->id)
+            ->setSenderInfo([
+               'senderName' =>  Auth::guard('customers')->user()->name, //Deve conter nome e sobrenome
+               'senderPhone' =>  Auth::guard('customers')->user()->phone, //Código de área enviado junto com o telefone
+               'senderEmail' => Auth::guard('customers')->user()->email,
+               'senderHash' => $this->senderhashboleto,
+               'senderCPF' => Auth::guard('customers')->user()->taxvat //Ou CPF se for Pessoa Física
+            ])
+            ->setShippingAddress([
+               'shippingAddressStreet' => $shippingaddress->address,
+               'shippingAddressNumber' => $shippingaddress->number,
+               'shippingAddressDistrict' => $shippingaddress->neighborhood,
+               'shippingAddressPostalCode' => $shippingaddress->postalcode,
+               'shippingAddressCity' => $shippingaddress->city,
+               'shippingAddressState' => $shippingaddress->state
+             ])
+             ->setBillingAddress([
+                'billingAddressStreet' => $billingaddress->address,
+                'billingAddressNumber' => $billingaddress->number,
+                'billingAddressDistrict' => $billingaddress->neighborhood,
+                'billingAddressPostalCode' => $billingaddress->postalcode,
+                'billingAddressCity' => $billingaddress->city,
+                'billingAddressState' => $billingaddress->state
+              ])
+              ->setCreditCardHolder([
+                'creditCardHolderName'          => $this->creditcardholdername,
+                'creditCardHolderAreaCode'      => '(011)',
+                'creditCardHolderPhone'         => '1197820-1602',
+                'creditCardHolderCPF'           => preg_replace('/[^0-9]/', '', $this->creditcardholdercpf),
+                'creditCardHolderBirthDate'     => date('d/m/Y', strtotime($this->creditcardholderbirthdate)),
+              ])
+             ->setItems($itens)
+            ->send($paymentSettings);
+            
+            $cartclosed = Cart::find($this->cart->id);
+            $cartclosed->id_address_delivery = $shippingaddress->id;
+            $cartclosed->id_address_invoice = $billingaddress->id;
+            $cartclosed->transactioncode = $pagseguro->code;
+            $cartclosed->paymentstatus = 'PENDING';
+            $cartclosed->open =0;
+            $cartclosed->paymenttype = 'boleto';
+            $cartclosed->paymentlink =$pagseguro->paymentLink;
+            $cartclosed->update();
+
+       
+                $this->cart = $cartclosed;
+            session()->flash('success', 'Order completed successfully!');
+        }
+        catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
+            $e->getCode(); //codigo do erro
+            $e->getMessage(); //mensagem do erro
+            session()->flash('error', $e->getMessage().'Tente Novamente');
+     
+        }
+
+        
+
+
+    }
 
 
 

@@ -215,6 +215,14 @@
                 <div class="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3" role="alert">
                     {{__('Order Completed')}}
                 </div>
+                @else
+                    @if($pagseguroerror)
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
+                            
+                                {{ $pagseguroerror }}
+                            
+                        </div>
+                    @endif
                 @endif
             @endif
             </div>
@@ -281,9 +289,22 @@
                     </div>
                     <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount,2,',','.') }}</h1></div>
                     @if($cart->paymentlink==null)
-                        <div class="py-5 px-4 "><button id="btnboleto" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button></div>
+                        <div class="py-5 px-4 "><button id="btnpayboleto" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button></div>
                     @else
                         <div class="py-5 px-4 "><a href="{{$cart->paymentlink}}" target="_bla"> <button  class="my-3 bg-blue-500 px-3 rounded">{{__('Download Boleto')}}</button></a></div>
+                    @endif
+                    @if(!$cart->open)   
+                        <div class="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3" role="alert">
+                            {{__('Order Completed')}}
+                        </div>
+                    @else
+                        @if($pagseguroerror)
+                            <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
+                                
+                                    {{ $pagseguroerror }}
+                                
+                            </div>
+                        @endif
                     @endif
                 </div>
             
@@ -295,8 +316,12 @@
         </div>
 
         @push('js')
-        @if(get_config('payments/plataform/creditcard')==1)
+        @if((get_config('payments/plataform/creditcard')==1)||(get_config('payments/plataform/boleto')==1))
             <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+
+        @endif
+        @if(get_config('payments/plataform/creditcard')==1)
+    
             <script>
             PagSeguroDirectPayment.setSessionId("{{$cardtoken}}");
             </script>
@@ -545,8 +570,12 @@
                             expirationYear: card.expirationyear,
                             success: function (response) {
                                 // Retorna o cartão tokenizado.
-                               // $('#creditcardtoken').val(response.card.token);
-                                @this.creditcardtoken=response.card.token;
+                              
+                                    $('#creditcardtoken').val(response.card.token);
+                                     @this.creditcardtoken=response.card.token;
+                              
+
+                          
                                
                             },
                             error: function (response) {
@@ -568,12 +597,16 @@
                                 // Callback para todas chamadas.
                             }
                         });
-                        @this.paymentmethod ='creditCard';
-                        @this.installmentamount =$('#installments'+$('#installments').val()).attr("amount");
-                        @this.interestFree =$('#installments'+$('#installments').val()).attr("interestFree");
-                         @this.senderhash=PagSeguroDirectPayment.getSenderHash();
-                    @this.call('pagsegurocreditcard');
-                    
+                        setTimeout(function(){
+                            @this.paymentmethod ='creditCard';
+                             @this.installmentamount =$('#installments'+$('#installments').val()).attr("amount");
+                             @this.interestFree =$('#installments'+$('#installments').val()).attr("interestFree");
+                             @this.senderhash=PagSeguroDirectPayment.getSenderHash();
+                             @this.call('pagsegurocreditcard');
+                            
+                        }, 2000);
+
+                        
                     });
                 
             
@@ -588,8 +621,22 @@
 
 
         @endif
+        @if(get_config('payments/plataform/boleto')==1)
+        <script>
+            
+        $('#btnpayboleto').click(function(event) {
+                
+                    
+                event.preventDefault();
+            
+                @this.senderhashboleto=PagSeguroDirectPayment.getSenderHash();
+                @this.call('pagseguroboleto');
 
 
+                
+            });
+            </script>
+        @endif
         @endpush
    @else
 

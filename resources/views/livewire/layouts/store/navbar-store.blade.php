@@ -1,6 +1,6 @@
 <div>
 
-<header class="relative bg-white">
+<header class="relative bg-white" wire:poll.750ms>
                 <p
                     class="bg-primary title-primary h-10 flex items-center justify-center text-sm font-medium px-4 sm:px-6 lg:px-8">
                     FRETE GRÁTIS PARA TODO O BRASIL
