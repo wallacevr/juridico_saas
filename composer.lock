@@ -7885,12 +7885,12 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.com:maxcommerce/modulos/payment/pagseguro.git",
-                "reference": "f1e9c3474103dcd0de9c6fc9f1355f12919a160e"
+                "reference": "00ad77622f9552c10d756244e266604a731d1709"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=f1e9c3474103dcd0de9c6fc9f1355f12919a160e",
-                "reference": "f1e9c3474103dcd0de9c6fc9f1355f12919a160e",
+                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=00ad77622f9552c10d756244e266604a731d1709",
+                "reference": "00ad77622f9552c10d756244e266604a731d1709",
                 "shasum": ""
             },
             "require": {
@@ -7937,7 +7937,7 @@
                 "source": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/tree/main",
                 "issues": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/issues"
             },
-            "time": "2022-10-27T17:30:24-03:00"
+            "time": "2022-10-28T08:31:26-03:00"
         },
         {
             "name": "mockery/mockery",
@@ -8568,16 +8568,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.30",
+            "version": "8.5.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "4fd448df9affda65a5faa58f8b93087d415216ce"
+                "reference": "33c126b09a42de5c99e5e8032b54e8221264a74e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4fd448df9affda65a5faa58f8b93087d415216ce",
-                "reference": "4fd448df9affda65a5faa58f8b93087d415216ce",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/33c126b09a42de5c99e5e8032b54e8221264a74e",
+                "reference": "33c126b09a42de5c99e5e8032b54e8221264a74e",
                 "shasum": ""
             },
             "require": {
@@ -8645,7 +8645,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.30"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.31"
             },
             "funding": [
                 {
@@ -8661,7 +8661,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-25T03:43:00+00:00"
+            "time": "2022-10-28T05:57:37+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
