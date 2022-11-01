@@ -235,6 +235,7 @@ return [
         'PagSeguro' => Maxcommerce\PagSeguro\PagSeguroFacade::class,
         'PagSeguroRecorrente' => Maxcommerce\PagSeguro\PagSeguroRecorrenteFacade::class,
         'PagSeguroBoleto' => Maxcommerce\PagSeguro\PagSeguroBoletoFacade::class,
+        'PagSeguroPix' => Maxcommerce\PagSeguro\PagSeguroPixFacade::class,
     ],
 
 ];

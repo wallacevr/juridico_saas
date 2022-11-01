@@ -112,6 +112,7 @@
             </a>
             </li>
             <li class="nav-item flex-grow text-center my-2" role="presentation">
+            @if($tab==3)
             <a href="#pills-contactVertical" class="
                 nav-link
                 block
@@ -123,8 +124,27 @@
                 px-6
                 py-3
                 focus:outline-none focus:ring-0
+                active
                 " id="pills-contact-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-contactVertical" role="tab"
-                aria-controls="pills-contactVertical" aria-selected="false" wire:click="tabactive(3)">PIX</a>
+                aria-controls="pills-contactVertical" aria-selected="true" wire:click="tabactive(3)">PIX</a>
+              @else
+                <a href="#pills-contactVertical" class="
+                    nav-link
+                    block
+                    font-medium
+                    text-xs
+                    leading-tight
+                    uppercase
+                    rounded
+                    px-6
+                    py-3
+                    focus:outline-none focus:ring-0
+           
+                    " id="pills-contact-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-contactVertical" role="tab"
+                    aria-controls="pills-contactVertical" aria-selected="false" wire:click="tabactive(3)">PIX</a>
+              
+
+              @endif
             </li>
         </ul>
         <div class="tab-content" id="pills-tabContentVertical" wire:ignore.self>
@@ -308,13 +328,75 @@
                     @endif
                 </div>
             
-            </div>
-            <div class="tab-pane fade" id="pills-contactVertical" role="tabpanel"
-            aria-labelledby="pills-contact-tabVertical">
-            Tab 3 content vertical
-            </div>
-        </div>
 
+            </div>
+
+            
+                
+            </div>
+        
+        </div>
+    </div>
+    
+        @if($tab==3)
+            <div class="tab-pane fade show active" id="pills-homeVertical" role="tabpanel"
+                aria-labelledby="pills-home-tabVertical">
+            @else
+            <div class="tab-pane fade  " id="pills-homeVertical" role="tabpanel"
+            aria-labelledby="pills-home-tabVertical">
+            @endif
+            <div class="grid grid-cols-12 gap-12 px-4 py-4">
+                    <div class=" col-span-12  rounded bg-white px-3">
+                       
+                        @if($cart->open)
+                            <h1 class="text-center text-lg font-semibold my-3">PIX </h1>
+                   
+                            <p>{{__('Click on Checkout to generate the QR code')}}</p>
+                            <p>{{__("Check the data and make the payment through your bank's app")}}</p>
+
+                            <div class="py-5 px-4 "><button  id="btnpay" class="my-3 bg-blue-500 px-3 rounded" wire:click="pix">{{__('Checkout')}}</button></div>
+                        @else
+                            <div class="card p-5">
+                                <div class="row pb-3 pt-5">
+                                    <div class="col-12 text-center">
+                                        <h2>PAGAR COM PIX</h2>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <p>Você pode scannear o QRCODE ou copiar e colar o código abaixo em seu banco.</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 w-48 text-center items-center">
+                                        @if($cart['paymentqrcode']!=null)
+                                        <img src="{{$cart['paymentqrcode']}}" alt="QRCODE" class="qrcode">
+                                        @elseif($pix['qrcorde']!=null)
+                                        <img src="{{$cart['paymentqrcode']}}"alt="QRCODE" class="qrcode">
+                                        @endif
+                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p>PIX COPIA E COLA: {{$cart['paymentpixcopiaecola']}} 
+                                        
+                                        <a href="#" id="btncopiar" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" id="svgcopiar"  width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path id="s3" d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4v-4c0-1.103-.897-2-2-2h-4V4h10v10z"></path></svg>
+                                        
+                                        
+                                        </a>
+                                        
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        @endif
+
+                    </div>
+            </div>
+
+            </div>
+    </div>
         @push('js')
         @if((get_config('payments/plataform/creditcard')==1)||(get_config('payments/plataform/boleto')==1))
             <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
