@@ -388,6 +388,19 @@
 
                                     </div>
                                 </div>
+                                @if(!$cart->open)   
+                                    <div class="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3" role="alert">
+                                        {{__('Order Completed')}}
+                                    </div>
+                                @else
+                                    @if($pagseguroerror)
+                                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
+                                            
+                                                {{ $pagseguroerror }}
+                                            
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
                         
                         @endif
@@ -398,6 +411,58 @@
             </div>
     </div>
         @push('js')
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+
+   function copyToClickBoard(){
+     
+
+      navigator.clipboard.writeText("{{$cart['pixCopiaECola']}} ")
+       document.getElementById('s3').setAttribute('d','M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z')
+  
+   
+   }
+
+
+
+  function copyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+
+  textArea.style.position = 'fixed';
+  textArea.style.top = 0;
+  textArea.style.left = 0;
+  textArea.style.width = '2em';
+  textArea.style.height = '2em';
+  textArea.style.padding = 0;
+  textArea.style.border = 'none';
+  textArea.style.outline = 'none';
+  textArea.style.boxShadow = 'none';
+  textArea.style.background = 'transparent';
+  textArea.value = text;
+
+  document.body.appendChild(textArea);
+  textArea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text command was ' + msg);
+  } catch (err) {
+    console.log('Oops, unable to copy');
+    window.prompt("Copie para área de transferência: Ctrl+C e tecle Enter", text);
+  }
+
+  document.body.removeChild(textArea);
+}
+
+// Teste
+var copyTest = document.querySelector('#btncopiar');
+copyTest.addEventListener('click', function(event) {
+  copyTextToClipboard('{{$cart["pixCopiaECola"]}} ');
+  document.getElementById('s3').setAttribute('d','M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z')
+});
+</script>
         @if((get_config('payments/plataform/creditcard')==1)||(get_config('payments/plataform/boleto')==1))
             <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
