@@ -12,6 +12,7 @@ use PagSeguroPix;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
 
+
 class Checkout extends Component
 {
     public $cardtoken;
@@ -38,6 +39,8 @@ class Checkout extends Component
     public $interestFree;
     public $invoiceaddress;
     public $deliveryaddress;
+    public $invoiceaddresspix;
+    public $deliveryaddresspix;
     public $tab=1;
     public $pagseguroerror;
     protected $listener=['render'];
@@ -264,12 +267,14 @@ class Checkout extends Component
     }
 
     public function pix(){
-       
+   
         if(get_config('payments/plataform/pix')==1){ 
         try {
            
 
-            
+            $billingaddress = Address::find($this->invoiceaddresspix);
+                  
+            $shippingaddress = Address::find($this->deliveryaddresspix);
             $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
             $itens=[];
             $total=0;
@@ -300,12 +305,13 @@ class Checkout extends Component
              ->setAmount($total)
             ->send($paymentSettings);
         
-            
+          
             $cartclosed = Cart::find($this->cart->id);
-            $cartclosed->id_address_delivery = 2;
-            $cartclosed->id_address_invoice = 2;
+            $cartclosed->id_address_delivery = $shippingaddress->id;
+            $cartclosed->id_address_invoice = $billingaddress->id;
             $cartclosed->transactioncode = $pagseguro->chave;
             $cartclosed->paymentstatus = 'PENDING';
+            $cartclosed->transactioncode = $pagseguro->txid;
             $cartclosed->open =0;
             $cartclosed->paymenttype = 'pix';
             $cartclosed->paymentqrcode =$pagseguro->urlImagemQrCode;
@@ -314,7 +320,7 @@ class Checkout extends Component
 
        
                 $this->cart = $cartclosed;
-              
+            
             session()->flash('success', 'Order completed successfully!');
         }
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
@@ -329,7 +335,16 @@ class Checkout extends Component
 
     }
 
-
+    public function consultar($txid){
+      try {
+        $transacao = PagseguroPix::consultapix($txid);
+      
+      } catch (\Throwable $th) {
+        //throw $th;
+      
+      }
+     
+    }
 
 
 
