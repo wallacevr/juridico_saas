@@ -15,7 +15,7 @@ class AddcollumnProductOptionsTable extends Migration
     {
         Schema::table('product_options', function (Blueprint $table) {
             $table->integer('nivel');
-            $table->renameColumn('id_potions','id_options');
+            //$table->renameColumn('id_potions','id_options');
             $table->integer('qty_stock')->nullable()->change();
             $table->decimal('price')->nullable()->change();
         });
