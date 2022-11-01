@@ -8,6 +8,7 @@ use App\Cartproduct;
 use App\Models\Address;
 use Auth;
 use PagSeguro; 
+use PagSeguroPix; 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
 
@@ -185,7 +186,7 @@ class Checkout extends Component
             
             $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
             $itens=[];
-            
+        
             foreach($cartproducts as $cartproduct){
                     array_push($itens, [
                         'itemId' => 'ID '. $cartproduct->id_product,
@@ -193,9 +194,10 @@ class Checkout extends Component
                         'itemAmount' =>  number_format($cartproduct->FinalPrice(), 2, '.', ','),
                         'itemQuantity' => round($cartproduct->quantity,0),
                     ]);
+                  
                     
             }
-       
+          
             $paymentSettings = [
                 'paymentMethod'                 => 'boleto',
 
@@ -256,6 +258,72 @@ class Checkout extends Component
      
         }
 
+        
+
+
+    }
+
+    public function pix(){
+       
+        if(get_config('payments/plataform/pix')==1){ 
+        try {
+           
+
+            
+            $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
+            $itens=[];
+            $total=0;
+            foreach($cartproducts as $cartproduct){
+                    array_push($itens, [
+                        'itemId' => 'ID '. $cartproduct->id_product,
+                        'itemDescription' => $cartproduct->product->name,
+                        'itemAmount' =>  number_format($cartproduct->FinalPrice(), 2, '.', ','),
+                        'itemQuantity' => round($cartproduct->quantity,0),
+                    ]);
+                    $total = $total+ ($cartproduct->quantity*$cartproduct->FinalPrice());    
+            }
+           
+            $paymentSettings = [
+                'paymentMethod'                 => 'pix',
+
+            ];
+           
+            $pagseguro = PagSeguroPix::setReference($this->cart->id)
+            ->setSenderInfoPix([
+               'senderName' =>  Auth::guard('customers')->user()->name, //Deve conter nome e sobrenome
+               'senderPhone' =>  Auth::guard('customers')->user()->phone, //Código de área enviado junto com o telefone
+               'senderEmail' => Auth::guard('customers')->user()->email,
+               'senderCPF' => Auth::guard('customers')->user()->taxvat //Ou CPF se for Pessoa Física
+            ])
+           
+             ->setItems($itens)
+             ->setAmount($total)
+            ->send($paymentSettings);
+        
+            
+            $cartclosed = Cart::find($this->cart->id);
+            $cartclosed->id_address_delivery = 2;
+            $cartclosed->id_address_invoice = 2;
+            $cartclosed->transactioncode = $pagseguro->chave;
+            $cartclosed->paymentstatus = 'PENDING';
+            $cartclosed->open =0;
+            $cartclosed->paymenttype = 'pix';
+            $cartclosed->paymentqrcode =$pagseguro->urlImagemQrCode;
+            $cartclosed->paymentpixcopiaecola =$pagseguro->pixCopiaECola;
+            $cartclosed->update();
+
+       
+                $this->cart = $cartclosed;
+              
+            session()->flash('success', 'Order completed successfully!');
+        }
+        catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
+            $e->getCode(); //codigo do erro
+            $e->getMessage(); //mensagem do erro
+            session()->flash('error', $e->getMessage().'Tente Novamente');
+     
+        }
+    }
         
 
 
