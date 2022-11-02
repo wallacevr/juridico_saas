@@ -346,6 +346,7 @@
             aria-labelledby="pills-home-tabVertical">
             @endif
             <div class="grid grid-cols-12 gap-12 px-4 py-4">
+
                     <div class=" col-span-12  rounded bg-white px-3">
                        
                         @if($cart->open)
@@ -353,10 +354,50 @@
                    
                             <p>{{__('Click on Checkout to generate the QR code')}}</p>
                             <p>{{__("Check the data and make the payment through your bank's app")}}</p>
-
+                        
+                    <div>
+                        <label for="invoiceaddresspix" class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Billing Address')}}<span  class="red">*</span>
+                        </label>
+                            <select name="invoiceaddresspix" wire:model="invoiceaddresspix" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
+                                 <option value="">{{__('Select an address')}}</option>
+                                @foreach($addresses as $address)
+                                    <option value="{{$address->id}}"
+                                        >
+                                        {{$address->name}}
+                                    </option>
+                                @endforeach
+                    
+                            </select>
+                            @error('invoiceaddress')
+                            <p class="mt-2 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                    </div>
+                    <div>
+                        <label for="deliveryaddresspix" class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Address')}}<span  class="red">*</span>
+                        </label>
+                            <select name="deliveryaddresspix" wire:model="deliveryaddresspix" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
+                                <option value="">{{__('Select an address')}}</option>
+                                @foreach($addresses as $address)
+                                    <option value="{{$address->id}}"
+                                        >
+                                        {{$address->name}}
+                                    </option>
+                                @endforeach
+                    
+                            </select>
+                            @error('deliveryaddress')
+                            <p class="mt-2 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                    </div>
+                    <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount,2,',','.') }}</h1></div>
                             <div class="py-5 px-4 "><button  id="btnpay" class="my-3 bg-blue-500 px-3 rounded" wire:click="pix">{{__('Checkout')}}</button></div>
                         @else
-                            <div class="card p-5">
+                          @if($cart->paymenttype=='pix')
+                            <div class="card p-5" wire:poll="consultar('{{$cart->transactioncode}}')">
                                 <div class="row pb-3 pt-5">
                                     <div class="col-12 text-center">
                                         <h2>PAGAR COM PIX</h2>
@@ -388,6 +429,7 @@
 
                                     </div>
                                 </div>
+                            @endif    
                                 @if(!$cart->open)   
                                     <div class="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3" role="alert">
                                         {{__('Order Completed')}}
@@ -402,7 +444,7 @@
                                     @endif
                                 @endif
                             </div>
-                        
+
                         @endif
 
                     </div>
