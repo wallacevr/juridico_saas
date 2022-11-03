@@ -15,6 +15,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "dev-master",
         "intervention/imagecache": "^2.5",
+        "jantinnerezo/livewire-alert": "^2.2",
         "laravel/cashier": "^11.2",
         "laravel/framework": "^7.0",
         "laravel/nova": "~3.0",

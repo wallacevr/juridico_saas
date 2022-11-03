@@ -12,9 +12,10 @@ use PagSeguroPix;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\URL;
-
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 class Checkout extends Component
 {
+    use LivewireAlert;
     public $cardtoken;
     public $cartproducts;
     public $expirationmonth;
@@ -340,7 +341,26 @@ class Checkout extends Component
     public function consultar($txid){
       try {
         $transacao = PagseguroPix::consultapix($txid);
+        $consulta= json_decode($transacao,TRUE);
       
+        $cart = Cart::where('transactioncode',$txid)->first();
+      
+        if($consulta['status']=='ATIVA'){
+            $cart->paymentstatus = 'PENDING';
+        }elseif($consulta['status']=='CONCLUIDA'){
+     
+            $cart->paymentstatus = 'Pay';
+      
+            $this->alert('success', 'Order pay successfully!');
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',  
+                'message' => 'Order pay successfully!!', 
+                'text' => 'Order pay successfully!.'
+            ]);
+            return redirect()->route('store.home');
+          
+        }
+        $cart->update();
       } catch (\Throwable $th) {
         //throw $th;
       
