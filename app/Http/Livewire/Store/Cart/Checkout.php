@@ -11,7 +11,7 @@ use PagSeguro;
 use PagSeguroPix; 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
-
+use Illuminate\Support\Facades\URL;
 
 class Checkout extends Component
 {
@@ -118,6 +118,7 @@ class Checkout extends Component
                 'installmentQuantity'           => $this->installments,
                 'installmentValue'              => $this->installmentamount,
                 'noInterestInstallmentQuantity' => 5,
+                'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
             ];
            
             $pagseguro = PagSeguro::setReference($this->cart->id)
@@ -164,7 +165,7 @@ class Checkout extends Component
  
             $cartclosed->update();
 
-       
+                
                 $this->cart = $cartclosed;
             session()->flash('success', 'Order completed successfully!');
         }
@@ -203,6 +204,7 @@ class Checkout extends Component
           
             $paymentSettings = [
                 'paymentMethod'                 => 'boleto',
+                'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
 
             ];
            
@@ -304,8 +306,8 @@ class Checkout extends Component
              ->setItems($itens)
              ->setAmount($total)
             ->send($paymentSettings);
+  
         
-          
             $cartclosed = Cart::find($this->cart->id);
             $cartclosed->id_address_delivery = $shippingaddress->id;
             $cartclosed->id_address_invoice = $billingaddress->id;
