@@ -11,10 +11,11 @@ use PagSeguro;
 use PagSeguroPix; 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
-
-
+use Illuminate\Support\Facades\URL;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 class Checkout extends Component
 {
+    use LivewireAlert;
     public $cardtoken;
     public $cartproducts;
     public $expirationmonth;
@@ -118,6 +119,7 @@ class Checkout extends Component
                 'installmentQuantity'           => $this->installments,
                 'installmentValue'              => $this->installmentamount,
                 'noInterestInstallmentQuantity' => 5,
+                'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
             ];
            
             $pagseguro = PagSeguro::setReference($this->cart->id)
@@ -164,7 +166,7 @@ class Checkout extends Component
  
             $cartclosed->update();
 
-       
+                
                 $this->cart = $cartclosed;
             session()->flash('success', 'Order completed successfully!');
         }
@@ -203,6 +205,7 @@ class Checkout extends Component
           
             $paymentSettings = [
                 'paymentMethod'                 => 'boleto',
+                'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
 
             ];
            
@@ -304,8 +307,8 @@ class Checkout extends Component
              ->setItems($itens)
              ->setAmount($total)
             ->send($paymentSettings);
+  
         
-          
             $cartclosed = Cart::find($this->cart->id);
             $cartclosed->id_address_delivery = $shippingaddress->id;
             $cartclosed->id_address_invoice = $billingaddress->id;
@@ -338,7 +341,26 @@ class Checkout extends Component
     public function consultar($txid){
       try {
         $transacao = PagseguroPix::consultapix($txid);
+        $consulta= json_decode($transacao,TRUE);
       
+        $cart = Cart::where('transactioncode',$txid)->first();
+      
+        if($consulta['status']=='ATIVA'){
+            $cart->paymentstatus = 'PENDING';
+        }elseif($consulta['status']=='CONCLUIDA'){
+     
+            $cart->paymentstatus = 'Pay';
+      
+            $this->alert('success', 'Order pay successfully!');
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',  
+                'message' => 'Order pay successfully!!', 
+                'text' => 'Order pay successfully!.'
+            ]);
+            return redirect()->route('store.home');
+          
+        }
+        $cart->update();
       } catch (\Throwable $th) {
         //throw $th;
       

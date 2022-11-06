@@ -406,14 +406,14 @@
                                         <p>Você pode scannear o QRCODE ou copiar e colar o código abaixo em seu banco.</p>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12 w-48 text-center items-center">
+                                <div class="row pb-3 pt-5 items-center">
+                                    <div class="container mx-auto bg-white w-1/5 p-4 relative text-center items-center">
                                         @if($cart['paymentqrcode']!=null)
-                                        <img src="{{$cart['paymentqrcode']}}" alt="QRCODE" class="qrcode">
+                                        <img src="{{$cart['paymentqrcode']}}" class="mx-0 w-48 object-center"  alt="QRCODE" class="qrcode">
                                         @elseif($pix['qrcorde']!=null)
-                                        <img src="{{$cart['paymentqrcode']}}"alt="QRCODE" class="qrcode">
+                                        <img src="{{$cart['paymentqrcode']}}" class="mx-0 w-48 object-center"  alt="QRCODE" class="qrcode">
                                         @endif
-                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
@@ -454,6 +454,7 @@
     </div>
         @push('js')
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
 

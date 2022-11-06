@@ -246,9 +246,21 @@
     @stack('body')
   
     @livewireScripts    
-    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+  
+  window.addEventListener('swal:modal', event => { 
+      swal({
+        title: event.detail.message,
+        text: event.detail.text,
+        icon: event.detail.type,
+      });
+  });
+  </script>
+  <x-livewire-alert::scripts />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+    
     @stack('js')
     
 </body>

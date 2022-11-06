@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e15be82b31ce4ef09c1409deb52e708",
+    "content-hash": "f52a03ee83a3707fc70b4f946e87c1a2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1654,6 +1654,74 @@
                 }
             ],
             "time": "2022-01-22T11:14:47+00:00"
+        },
+        {
+            "name": "jantinnerezo/livewire-alert",
+            "version": "2.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jantinnerezo/livewire-alert.git",
+                "reference": "352d13719741fce537893bd9372504385bc99d5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jantinnerezo/livewire-alert/zipball/352d13719741fce537893bd9372504385bc99d5c",
+                "reference": "352d13719741fce537893bd9372504385bc99d5c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
+                "livewire/livewire": "^2.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.15",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jantinnerezo\\LivewireAlert\\LivewireAlertServiceProvider"
+                    ],
+                    "aliases": {
+                        "LivewireAlert": "Jantinnerezo\\LivewireAlert\\LivewireAlertFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jantinnerezo\\LivewireAlert\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jantinn Erezo",
+                    "email": "erezojantinn@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package provides a simple alert utilities for your livewire components.",
+            "homepage": "https://github.com/jantinnerezo/livewire-alert",
+            "keywords": [
+                "jantinnerezo",
+                "livewire-alert"
+            ],
+            "support": {
+                "issues": "https://github.com/jantinnerezo/livewire-alert/issues",
+                "source": "https://github.com/jantinnerezo/livewire-alert/tree/2.2.6"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/jantinn",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-03-15T17:39:01+00:00"
         },
         {
             "name": "laravel/cashier",
@@ -7704,16 +7772,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.14.5",
+            "version": "2.14.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc"
+                "reference": "f7948baaa0330277c729714910336383286305da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
-                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/f7948baaa0330277c729714910336383286305da",
+                "reference": "f7948baaa0330277c729714910336383286305da",
                 "shasum": ""
             },
             "require": {
@@ -7763,7 +7831,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.14.5"
+                "source": "https://github.com/filp/whoops/tree/2.14.6"
             },
             "funding": [
                 {
@@ -7771,7 +7839,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-07T12:00:00+00:00"
+            "time": "2022-11-02T16:23:29+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -7885,12 +7953,12 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.com:maxcommerce/modulos/payment/pagseguro.git",
-                "reference": "2ce593f94bda2b6fb41a7f0701bcdc8bbbbb2d9e"
+                "reference": "42bd3b014b0cc7188659caa79c12555e1bc70def"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=2ce593f94bda2b6fb41a7f0701bcdc8bbbbb2d9e",
-                "reference": "2ce593f94bda2b6fb41a7f0701bcdc8bbbbb2d9e",
+                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=42bd3b014b0cc7188659caa79c12555e1bc70def",
+                "reference": "42bd3b014b0cc7188659caa79c12555e1bc70def",
                 "shasum": ""
             },
             "require": {
@@ -7937,7 +8005,7 @@
                 "source": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/tree/main",
                 "issues": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/issues"
             },
-            "time": "2022-11-01T16:44:38-03:00"
+            "time": "2022-11-03T14:52:35-03:00"
         },
         {
             "name": "mockery/mockery",
