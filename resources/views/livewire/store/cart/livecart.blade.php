@@ -96,18 +96,73 @@
                     @endif
                 </h2>
                 <hr>
-                    <div class="w-1/5">
+                    <div class="text-end my-3">
+                            <label for="shippingaddress">Shipping Address</label>
+                            <select name="shippingaddress" class="form-select my-2" wire:change="shippingcalculator" wire:model="shippingaddressid">
+                                @foreach($shippingaddress as $shippingaddress)
+                                    <option value="{{$shippingaddress->id}}" 
+                                         @if($shippingaddressid!=null)
+                                                @if($shippingaddress->id == $shippingaddressid)
+                                                    selected
+                                                @endif
+                                        @endif
+                                    >{{$shippingaddress->name}}</option>
+
+                                @endforeach
+                            </select>
+                            @error('shippingaddressid') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
+                            <br>
+                            @isset($quotations)
+                        <div class="grid grid-cols-12 justify-items-end py-3">     
+                        @foreach($quotations as $quotation)
+
+                           @isset($quotation['price'])
+                                @php
+                                    $company = $quotation['company']
+                                @endphp
+                        
+
+                                <div class="text-end col-span-11">
+                                    <label for="shippingmethod" class="ml-2 text-start text-sm font-medium text-gray-900 dark:text-gray-300" > {{$quotation['name']}} -  {{$quotation['currency']}}{{$quotation['price']}}({{$quotation['delivery_time']}} days after payment confirmed)</label>
+                                     <input type="radio"  name="shippingmethod" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" value="{{$quotation['id']}}" wire:model="shippingid"
+                                     @if($shippingid == $quotation['id'])
+                                     checked="checked"
+                                     @endif
+                                     >
+                                </div>
+                                <div class="grid justify-items-end w-20 px-2 mx-2">
+                                   <img src="{{$company['picture']}}"  class="w-20 mx-0">
+                                </div>
+                          
+                            @endisset
+                        @endforeach
+                        @error('shippingid')
+                                 <div class="text-end col-span-11 my-2">
+                                     <span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="grid justify-items-end w-20 px-2 mx-2">
+                                 
+                                </div>
+                        
+                    @endisset
+                    </div>
+                    
+
+                <hr>
+                    <div class="w-1/5 my-3">
                         @include('layouts.snippets.fields', ['type'=>'text','label'=>'Do you have a Ticket?','placeholder'=>'Ticket','name'=>'ticket','value'=> '','require'=>'false','wiremodel'=>'ticket' ])
-                        <button class="bg-blue-500 px-2 py-1  rounded font-bold" wire:click="validaticket"> Valid Ticket</button>
+                        <button class="bg-blue-500 px-2 py-1 my-2  rounded font-bold" wire:click="validaticket"> Valid Ticket</button>
                     </div>
                     @if($cart[0]->id_ticket!=null)
                 
                         <h2 class="text-right font-bold ">Applied Ticket:<span class="text-green-400 font-bold">{{$cart[0]->ticket->validator}}</span> </h2>
                     @endif
                   <hr>
-              <a href="{{ route('store.checkout')}}">
-                <button class="bg-blue-500 px-2 py-1  rounded font-bold"> Finalizar</button></a>
+              <a href="#" wire:click="save" class="my-3">
+                <button class="bg-blue-500 px-2 py-1 my-3 rounded font-bold"> Finalizar</button>
+             </a>
             </div>
+        </div>
     @else
     <div class="w-full mt-10">
                 <h2 class="mb-6 text-2xl leading-9 font-extrabold title-primary text-center">Carrinho de compras</h2>

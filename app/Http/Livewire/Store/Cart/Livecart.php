@@ -7,6 +7,13 @@ use App\CartProduct;
 use App\Cart;
 use App\Ticket;
 use App\Plugin;
+use App\Models\Address;
+use MelhorEnvio; 
+use MelhorEnvio\Shipment;
+use MelhorEnvio\Resources\Shipment\Package;
+use MelhorEnvio\Enums\Service;
+use MelhorEnvio\Enums\Environment;
+use MelhorEnvio\Resources\Shipment\Product;
 use Auth;
 class Livecart extends Component
 {
@@ -14,19 +21,53 @@ class Livecart extends Component
     public $ticket;
     public $cart;
     public $paymentplugin;
+    public $shippingaddress;
+    public $shippingaddressid;
+    public $calculator;
+    public  $quotations;
+    public $shippingid;
+
+    public function save(){
+        $this->validate([
+            'shippingaddressid' => 'required',
+            'shippingid' =>'required'
+        ]);
+        try {
+
+            $cart = Cart::find($this->cart[0]->id);
+            $cart->id_address_delivery = $this->shippingaddressid;
+           
+            $cart->id_shipping = $this->shippingid;
+         
+            $cart->update();
+          
+            return redirect()->route('store.checkout');
+        } catch (\Throwable $th) {
+            //throw $th;
+           
+        }
+    }
     public function render()
     {
+        $this->shippingaddress = Address::where('customer_id',Auth::guard('customers')->user()->id)->get();
         $cart = Cart::where('id_customer',Auth::guard('customers')->user()->id)->where('open',1)->get();
        
         if(count($cart)>0){
             $this->cart = $cart;
             $this->cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
             $this->paymentplugin = Plugin::where('plugin_group_id',1)->limit(1)->get();
-        
+            if($cart[0]->id_address_delivery!=null){
+                $this->shippingaddressid=$cart[0]->id_address_delivery;
+                $this->shippingcalculator();
+            }
+            if($cart[0]->id_shipping!=null){
+                $this->shippingid=$cart[0]->id_shipping;
+            }
            
 
            
         }
+    
         return view('livewire.store.cart.livecart');
     }
 
@@ -35,7 +76,7 @@ class Livecart extends Component
       
          
     
-               
+              
                     CartProduct::where('id',$cartproduct->id)
                     ->update(['quantity'=>$cartproduct->quantity+1]);
               
@@ -137,5 +178,50 @@ class Livecart extends Component
           
            
         }
+
+        
     }   
+
+    public function shippingcalculator(){
+        try {
+         $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
+         $calculator = $shipment->calculator();
+        
+     
+             $shippingaddress = Address::find($this->shippingaddress);
+        
+              $calculator->postalCode( str_replace('-','',get_config('general/store/postalcode')),str_replace('-','',$shippingaddress[0]->postalcode ));
+       
+         
+         $cartproducts = CartProduct::where('id_cart',$this->cart[0]->id)->get();
+ 
+         foreach($cartproducts as $cartproduct){
+           
+             $calculator->addProducts(
+                 new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),intval($cartproduct->quantity))
+             );
+         }
+        
+         $calculator->addServices(
+             Service::CORREIOS_PAC, 
+             Service::CORREIOS_SEDEX,
+             Service::CORREIOS_MINI,
+             Service::JADLOG_PACKAGE, 
+             Service::JADLOG_COM, 
+             Service::AZULCARGO_AMANHA,
+             Service::AZULCARGO_ECOMMERCE,
+             Service::LATAMCARGO_JUNTOS,
+             Service::VIABRASIL_RODOVIARIO
+         );
+         
+         $this->quotations = $calculator->calculate();
+     
+        } catch (\Throwable $th) {
+         //throw $th;
+            
+        }
+      
+     }
+ 
+
 }

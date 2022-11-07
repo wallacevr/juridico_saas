@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f52a03ee83a3707fc70b4f946e87c1a2",
+    "content-hash": "dd34f43d7a30a6c77f0669acd836cbec",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -8008,6 +8008,65 @@
             "time": "2022-11-03T14:52:35-03:00"
         },
         {
+            "name": "maxcommerce/melhorenvio",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wallacevr/melhorenvio.git",
+                "reference": "f6ce96d3ccebf9b0e142f2d83a1f07d856571c5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wallacevr/melhorenvio/zipball/f6ce96d3ccebf9b0e142f2d83a1f07d856571c5d",
+                "reference": "f6ce96d3ccebf9b0e142f2d83a1f07d856571c5d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.5",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MelhorEnvio\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "MelhorEnvio\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ],
+                "test-coverage": [
+                    "vendor/bin/phpunit --coverage-html coverage"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Wallace Aguiar",
+                    "email": "wallaceaguiar.developer@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "API Melhor envio solutions for version php",
+            "support": {
+                "source": "https://github.com/wallacevr/melhorenvio/tree/main",
+                "issues": "https://github.com/wallacevr/melhorenvio/issues"
+            },
+            "time": "2022-11-05T03:49:19+00:00"
+        },
+        {
             "name": "mockery/mockery",
             "version": "1.5.1",
             "source": {
@@ -9515,7 +9574,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "intervention/image": 20,
-        "maxcommerce/laravel-pagseguro": 20
+        "maxcommerce/laravel-pagseguro": 20,
+        "maxcommerce/melhorenvio": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

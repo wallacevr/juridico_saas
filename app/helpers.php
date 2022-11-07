@@ -400,7 +400,7 @@ if (!function_exists('create_menu')) {
                 'icon' => 'PluginIcon',
                 'children' => [
                     ['name' => __('Payments'), 'href' => route('tenant.plugins.index',['group'=>1])],
-
+                    ['name' => __('Shipping'), 'href' => route('tenant.plugins.index',['group'=>2])],
                        
                    
                 ],
