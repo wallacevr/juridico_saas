@@ -180,6 +180,9 @@ return [
         App\Providers\TenancyServiceProvider::class,
      
         Maxcommerce\PagSeguro\PagSeguroServiceProvider::class,
+        MelhorEnvio\MelhorEnvioServiceProvider::class,
+
+    
     ],
 
     /*

@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "coderello/laravel-nova-lang": "^1.7",
+      
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -33,7 +34,8 @@
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5",
-        "maxcommerce/laravel-pagseguro": "dev-main"
+        "maxcommerce/laravel-pagseguro": "dev-main",
+        "maxcommerce/melhorenvio": "dev-main"
     },
     "config": {
         "optimize-autoloader": true,
@@ -68,6 +70,10 @@
         {
             "type": "vcs",
             "url": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/wallacevr/melhorenvio.git"
         }
     ],
     "autoload-dev": {

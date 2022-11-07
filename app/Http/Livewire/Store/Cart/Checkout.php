@@ -8,7 +8,13 @@ use App\Cartproduct;
 use App\Models\Address;
 use Auth;
 use PagSeguro; 
+use MelhorEnvio; 
 use PagSeguroPix; 
+use MelhorEnvio\Shipment;
+use MelhorEnvio\Resources\Shipment\Package;
+use MelhorEnvio\Enums\Service;
+use MelhorEnvio\Enums\Environment;
+use MelhorEnvio\Resources\Shipment\Product;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\URL;
@@ -44,7 +50,12 @@ class Checkout extends Component
     public $deliveryaddresspix;
     public $tab=1;
     public $pagseguroerror;
-    protected $listener=['render'];
+    public $calculator;
+    public  $quotations;
+    public $shippingid;
+    public $shippingprice=0;
+
+    protected $listener=['render','refreshshippingprice'];
     public function render()
     {
         
@@ -52,6 +63,7 @@ class Checkout extends Component
     }
 
     public function mount(){
+      
         if(get_config('payments/plataform/creditcard')==1){
 
        
@@ -80,13 +92,29 @@ class Checkout extends Component
 
 
         $cart = Cart::where('id_customer',Auth::guard('customers')->user()->id)->where('open',1)->get();
-      
+  
        if(count($cart)>0){ 
         $this->addresses = Address::where('customer_id',Auth::guard('customers')->user()->id)->get();
         $cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
         $this->cart=Cart::find($cart[0]->id);
         $this->cartproducts=$cartproducts;
+        if($cart[0]->id_address_delivery!=null){
+            $this->shippingaddress =$this->cart->id_address_delivery;
+            $this->shippingcalculator();
+        }
+ 
+        if($cart[0]->id_shipping!=null){
+            $this->shippingid = $cart[0]->id_shipping;
+            foreach ($this->quotations as $quotation) {
+                # code...
+                if($quotation['id'] == $cart[0]->id_shipping){
+                    $this->shippingprice = $quotation['price'];
+                }
+            }
+            
+        }
        }
+      
       
     }
 
@@ -112,16 +140,33 @@ class Checkout extends Component
                     ]);
                     
             }
-       
-            $paymentSettings = [
-                'paymentMethod'                 => $this->paymentmethod,
-                'creditCardToken'               => $this->creditcardtoken,
-                'installmentQuantity'           => $this->installments,
-                'installmentValue'              => $this->installmentamount,
-                'noInterestInstallmentQuantity' => 5,
-                'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
-            ];
-           
+            array_push($itens, [
+                'itemId' => 'ID '. 0,
+                'itemDescription' => 'Shipping',
+                'itemAmount' =>  number_format($this->shippingprice, 2, '.', ','),
+                'itemQuantity' => 1,
+            ]);
+            if($this->installments==1){
+                $paymentSettings = [
+                    'paymentMethod'                 => $this->paymentmethod,
+                    'creditCardToken'               => $this->creditcardtoken,
+                    'installmentQuantity'           => $this->installments,
+                    'installmentValue'              => $this->installmentamount,
+            
+                    'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
+                ];
+            }else{
+                $paymentSettings = [
+                    'paymentMethod'                 => $this->paymentmethod,
+                    'creditCardToken'               => $this->creditcardtoken,
+                    'installmentQuantity'           => $this->installments,
+                    'installmentValue'              => $this->installmentamount,
+                    'noInterestInstallmentQuantity' => $this->installments,
+                    'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
+                ];
+            }
+
+         
             $pagseguro = PagSeguro::setReference($this->cart->id)
             ->setSenderInfo([
                'senderName' =>  Auth::guard('customers')->user()->name, //Deve conter nome e sobrenome
@@ -154,6 +199,7 @@ class Checkout extends Component
                 'creditCardHolderBirthDate'     => date('d/m/Y', strtotime($this->creditcardholderbirthdate)),
               ])
              ->setItems($itens)
+          
             ->send($paymentSettings);
                
             $cartclosed = Cart::find($this->cart->id);
@@ -174,7 +220,7 @@ class Checkout extends Component
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
-           
+    
         }
 
         
@@ -187,7 +233,7 @@ class Checkout extends Component
            
             $billingaddress = Address::find($this->invoiceaddress);
                   
-            $shippingaddress = Address::find($this->deliveryaddress);
+            $shippingaddress = Address::find($this->shippingaddress);
             
             $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
             $itens=[];
@@ -202,7 +248,12 @@ class Checkout extends Component
                   
                     
             }
-          
+            array_push($itens, [
+                'itemId' => 'ID '. 0,
+                'itemDescription' => 'Shipping',
+                'itemAmount' =>  number_format($this->shippingprice, 2, '.', ','),
+                'itemQuantity' => 1,
+            ]);
             $paymentSettings = [
                 'paymentMethod'                 => 'boleto',
                 'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
@@ -272,12 +323,16 @@ class Checkout extends Component
     public function pix(){
    
         if(get_config('payments/plataform/pix')==1){ 
+            $this->validate([
+                'shippingaddress' => 'required',
+                'invoiceaddresspix' =>'required'
+            ]);
         try {
            
 
             $billingaddress = Address::find($this->invoiceaddresspix);
                   
-            $shippingaddress = Address::find($this->deliveryaddresspix);
+            $shippingaddress = Address::find($this->shippingaddress);
             $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
             $itens=[];
             $total=0;
@@ -290,7 +345,13 @@ class Checkout extends Component
                     ]);
                     $total = $total+ ($cartproduct->quantity*$cartproduct->FinalPrice());    
             }
-           
+            array_push($itens, [
+                'itemId' => 'ID '. 0,
+                'itemDescription' => 'Shipping',
+                'itemAmount' =>  number_format($this->shippingprice, 2, '.', ','),
+                'itemQuantity' => 1,
+            ]);
+            $total=$total+$this->shippingprice;
             $paymentSettings = [
                 'paymentMethod'                 => 'pix',
 
@@ -368,7 +429,96 @@ class Checkout extends Component
      
     }
 
+    public function shippingcalculator(){
+       try {
+        $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
+        $calculator = $shipment->calculator();
 
+        
+                 $shippingaddress = Address::find($this->shippingaddress);
+           
+                $calculator->postalCode('01010010',$shippingaddress->postalcode );
+               
+          
+        $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
+
+        foreach($cartproducts as $cartproduct){
+
+            $calculator->addProducts(
+                new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),1)
+            );
+        }
+        $calculator->addServices(
+            Service::CORREIOS_PAC, 
+            Service::CORREIOS_SEDEX,
+            Service::CORREIOS_MINI,
+            Service::JADLOG_PACKAGE, 
+            Service::JADLOG_COM, 
+            Service::AZULCARGO_AMANHA,
+            Service::AZULCARGO_ECOMMERCE,
+            Service::LATAMCARGO_JUNTOS,
+            Service::VIABRASIL_RODOVIARIO
+        );
+        $this->quotations = $calculator->calculate();
+       
+       } catch (\Throwable $th) {
+        //throw $th;
+       
+       }
+     
+    }
+
+
+    public function shippingselect(){
+        try {
+           
+         $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
+         $calculator = $shipment->calculator();
+ 
+         
+                  $shippingaddress = Address::find($this->shippingaddress);
+            
+                 $calculator->postalCode('01010010',$shippingaddress->postalcode );
+                
+           
+         $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
+ 
+         foreach($cartproducts as $cartproduct){
+ 
+             $calculator->addProducts(
+                 new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),1)
+             );
+         }
+         $calculator->addServices(
+             Service::CORREIOS_PAC, 
+             Service::CORREIOS_SEDEX,
+             Service::CORREIOS_MINI,
+             Service::JADLOG_PACKAGE, 
+             Service::JADLOG_COM, 
+             Service::AZULCARGO_AMANHA,
+             Service::AZULCARGO_ECOMMERCE,
+             Service::LATAMCARGO_JUNTOS,
+             Service::VIABRASIL_RODOVIARIO
+         );
+         $this->quotations = $calculator->calculate();
+         if($this->shippingid!=null){
+          
+            foreach ($this->quotations as $quotation) {
+                # code...
+                if($quotation['id'] == $this->shippingid){
+                    $this->shippingprice = $quotation['price'];
+                }
+            }
+            
+       
+            $this->dispatchBrowserEvent('refreshshippingprice', []);
+        }
+        } catch (\Throwable $th) {
+         //throw $th;
+            dd($th);
+        }
+      
+     }
 
 
 

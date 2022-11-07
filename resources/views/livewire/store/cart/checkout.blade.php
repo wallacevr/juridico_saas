@@ -3,7 +3,7 @@
 
 
               
-<h1 class="text-center my-4">PAYMENT</h1>
+<h1 class="text-center my-4">{{__('CHECKOUT')}}</h1>
 @if($cart)         
         @php 
             $total = 0 ;
@@ -21,7 +21,45 @@
         @endif
 
 
+<div class="grid grid-cols-1 gap-1 px-6 mx-6 py-4 text-center">
 
+            <div class="mx-6 px-6 lg:w-1/2">
+                <label for="shippingaddress" class="block text-start text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Address')}}<span  class="red">*</span>
+                </label>
+                    <select name="shippingaddress" wire:model="shippingaddress" wire:change="shippingselect" class="form-select block w-full sm:text-sm sm:leading-5 border my-1">
+                        <option value="">{{__('Select an address')}}</option>
+                        @foreach($addresses as $address)
+                            <option value="{{$address->id}}"
+                                >
+                                {{$address->name}}
+                            </option>
+                        @endforeach
+            
+                    </select>
+                    @error('shippingaddress') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
+            </div>
+            <div class="mx-6 px-6 lg:w-1/2">
+                <label for="shippingid" class="block text-start text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Method')}}<span  class="red">*</span>
+                </label>
+                    <select name="shippingid" id="shippingid"  wire:model="shippingid" wire:change="shippingselect" class="form-select block w-full sm:text-sm sm:leading-5 border my-1">
+                    <option value="">{{__('Select an shipping method')}}</option>
+                        @isset($quotations)
+                            @foreach($quotations as $quotation)
+                                 @isset($quotation['price'])
+                                        <option value="{{$quotation['id']}}"
+                                        @if($shippingid == $quotation['id'])
+                                                selected
+                                                @endif
+                                            >
+                                            {{$quotation['name']}} -  {{$quotation['currency']}}{{str_replace('.',',',$quotation['price']) }}({{$quotation['delivery_time']}} days after payment confirmed)
+                                        </option>   
+                                @endisset
+                            @endforeach
+                        @endisset
+                    </select>
+                    @error('shippingid') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
+            </div>
+</div>
 
         <div class="flex items-start" >
         <ul class="nav nav-pills flex flex-col flex-wrap list-none pl-0 mr-4" id="pills-tabVertical" role="tablist" >
@@ -202,20 +240,7 @@
                 
                         </select>
                     </div>
-                    <div>
-                    <label for="shippingaddress" class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Address')}}<span  class="red">*</span>
-                    </label>
-                        <select name="shippingaddress" wire:model="shippingaddress" class="form-select block w-full sm:text-sm sm:leading-5 border my-1">
-                            <option value="">{{__('Select an address')}}</option>
-                            @foreach($addresses as $address)
-                                <option value="{{$address->id}}"
-                                    >
-                                    {{$address->name}}
-                                </option>
-                            @endforeach
-                
-                        </select>
-                    </div>
+                  
                     <div>
                     <label for="installments"  class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Installments')}}<span  class="red">*</span>
                     </label>
@@ -288,26 +313,8 @@
                             </p>
                             @enderror
                     </div>
-                    <div>
-                        <label for="deliveryaddress" class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Address')}}<span  class="red">*</span>
-                        </label>
-                            <select name="deliveryaddress" wire:model="deliveryaddress" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
-                                <option value="">{{__('Select an address')}}</option>
-                                @foreach($addresses as $address)
-                                    <option value="{{$address->id}}"
-                                        >
-                                        {{$address->name}}
-                                    </option>
-                                @endforeach
-                    
-                            </select>
-                            @error('deliveryaddress')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
-                            @enderror
-                    </div>
-                    <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount,2,',','.') }}</h1></div>
+                   
+                    <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount+$shippingprice,2,',','.') }}</h1></div>
                     @if($cart->paymentlink==null)
                         <div class="py-5 px-4 "><button id="btnpayboleto" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button></div>
                     @else
@@ -368,32 +375,16 @@
                                 @endforeach
                     
                             </select>
+                            @error('invoiceaddresspix') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
+           
                             @error('invoiceaddress')
                             <p class="mt-2 text-sm text-red-600">
                                 {{ $message }}
                             </p>
                             @enderror
                     </div>
-                    <div>
-                        <label for="deliveryaddresspix" class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Address')}}<span  class="red">*</span>
-                        </label>
-                            <select name="deliveryaddresspix" wire:model="deliveryaddresspix" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
-                                <option value="">{{__('Select an address')}}</option>
-                                @foreach($addresses as $address)
-                                    <option value="{{$address->id}}"
-                                        >
-                                        {{$address->name}}
-                                    </option>
-                                @endforeach
-                    
-                            </select>
-                            @error('deliveryaddress')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
-                            @enderror
-                    </div>
-                    <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount,2,',','.') }}</h1></div>
+                  
+                    <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount+$shippingprice,2,',','.') }}</h1></div>
                             <div class="py-5 px-4 "><button  id="btnpay" class="my-3 bg-blue-500 px-3 rounded" wire:click="pix">{{__('Checkout')}}</button></div>
                         @else
                           @if($cart->paymenttype=='pix')
@@ -507,8 +498,12 @@ copyTest.addEventListener('click', function(event) {
 });
 </script>
         @if((get_config('payments/plataform/creditcard')==1)||(get_config('payments/plataform/boleto')==1))
-            <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-
+           @if(get_config('plugins/payments/pagseguro/sandbox')==1)
+                <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+            @else
+                <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+          
+            @endif
         @endif
         @if(get_config('payments/plataform/creditcard')==1)
     
@@ -531,7 +526,7 @@ copyTest.addEventListener('click', function(event) {
                             
                                     const installmentsSelect = document.getElementById("installments");
                                     PagSeguroDirectPayment.getInstallments({
-                                        amount: {{$total-$discount}},
+                                        amount: {{$total-$discount+$shippingprice}},
                                         maxInstallmentNoInterest: 5,
                                         brand: brand.name,
                                         success: function(response){
@@ -584,6 +579,7 @@ copyTest.addEventListener('click', function(event) {
                         });
 
                     });
+
                     $('#installments').on('change', function() {
                     
                     
@@ -799,10 +795,83 @@ copyTest.addEventListener('click', function(event) {
                         
                     });
                 
-            
+              window.addEventListener('refreshshippingprice', event => {
+
+                $('#installments').html('');
+             
+
+                        PagSeguroDirectPayment.getBrand({
+                            cardBin: getCardNumber().substr(0, 6),
+                            success: function({ brand }) {
+                                if(brand != undefined && brand.name != '')
+                                {
+                                    $('#brand').val(brand.name);
+                            
+                                    const installmentsSelect = document.getElementById("installments");
+                                    PagSeguroDirectPayment.getInstallments({
+                                        amount: parseFloat({{$total-$discount}})+parseFloat(@this.shippingprice),
+                                        maxInstallmentNoInterest: 5,
+                                        brand: brand.name,
+                                        success: function(response){
+                                            // Retorna as opções de parcelamento disponíveis
+                                        
+                                            var retorno_bandeira = response.installments[brand.name];
+                                
+                                            for( var i = 0; i < retorno_bandeira.length; i++ ) {
+                                
+                                                if(retorno_bandeira[i].interestFree){
+                                                option = new Option(retorno_bandeira[i].quantity +'x de R$'+ (retorno_bandeira[i].installmentAmount.toFixed(2)).replace(".", ",") +' sem juros' , retorno_bandeira[i].quantity );
+
+                                                        $('#installments')
+                                                        .append($('<option />')  // Create new <option> element
+                                                            .val(retorno_bandeira[i].quantity)            // Set value as "Hello"
+                                                            .text(retorno_bandeira[i].quantity +'x de R$'+ (retorno_bandeira[i].installmentAmount.toFixed(2)).replace(".", ",") +' sem juros')           // Set textContent as "Hello"
+                                                        //  .prop('selected', true)  // Mark it selected
+                                                        .attr({"interestfree": retorno_bandeira[i].interestFree, "amount": retorno_bandeira[i].installmentAmount.toFixed(2) ,'id':'installments'+retorno_bandeira[i].quantity})
+                                                    
+                                                        );
+
+                                                }else{
+                                                    $('#installments')
+                                                        .append($('<option />')  // Create new <option> element
+                                                            .val(retorno_bandeira[i].quantity)            // Set value as "Hello"
+                                                            .text(retorno_bandeira[i].quantity +'x de R$'+ (retorno_bandeira[i].installmentAmount.toFixed(2)).replace(".", ",") +' com juros')           // Set textContent as "Hello"
+                                                            .attr({"interestfree": retorno_bandeira[i].interestFree, "amount": retorno_bandeira[i].installmentAmount.toFixed(2) ,'id':'installments'+retorno_bandeira[i].quantity})
+                                                        );
+                                                }
+                                            
+                                            
+                                                    // aqui você usa os valores definidos pra montar o select
+                                            }
+                                            
+                                            
+                                        },
+                                        error: function(response) {
+                                            // callback para chamadas que falharam.
+                                        
+                                        },
+                                        complete: function(response){
+                                            // Callback para todas chamadas.
+                                        
+                                    
+                                        }
+                                });
+
+                                }
+                            }
+                        });
+
+             
+
+                });
 
 
                 });
+                
+              
+               
+
+
 
             </script>
 
