@@ -41,28 +41,38 @@ class CartController extends Controller
      */
     public function addToCart($id)
     {
-        $product = Product::findOrFail($id);
+        try {
+            
+            $product = Product::findOrFail($id);
+                
+            $cart = session()->get('cart', []);
+        
           
-        $cart = session()->get('cart', []);
-  
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = [
-                "name" => $product->name,
-                "quantity" => 1,
-                "price" => $product->price,
-                "special_price" => $product->special_price,
-                "final_price" => $product->finalPrice(),
-                "formated_price" => $product->formattedPrice(),
-                "formated_specialprice" => $product->formattedSpecialPrice(),
-                "formated_finalprice" => $product->formattedFinalPrice(),
-                "image" => $product->getImage('thumb')
-            ];
+            if(isset($cart[$id])) {
+                $cart[$id]['quantity']+=1;
+              
+            } else {
+                $cart[$id] = [
+                    "name" => $product->name,
+                    "quantity" => 1,
+                    "price" => $product->price,
+                    "special_price" => $product->special_price,
+                    "final_price" => $product->finalPrice(),
+                    "formated_price" => $product->formattedPrice(),
+                    "formated_specialprice" => $product->formattedSpecialPrice(),
+                    "formated_finalprice" => $product->formattedFinalPrice(),
+                    "image" => $product->getImage('thumb')
+                ];
+            }
+            
+            session()->put('cart', $cart);
+            session()->keep('cart');
+            dd($cart);
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
         }
-          
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
         
     }
   

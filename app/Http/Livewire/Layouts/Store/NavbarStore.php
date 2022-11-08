@@ -23,6 +23,8 @@ class NavbarStore extends Component
                 $this->cartproducts=[];
             }
                 
+        }else{
+            $this->cartproducts = session()->get('cart', []);
         }
 
         return view('livewire.layouts.store.navbar-store');
