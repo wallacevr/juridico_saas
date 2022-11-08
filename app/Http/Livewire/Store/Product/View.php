@@ -143,6 +143,70 @@ class View extends Component
                
             }
             session()->flash('success', 'Product added to cart successfully!');
+        }else{
+          
+                
+            $cart = session()->get('cart', []);
+        
+          
+            if(isset($cart[$product->id])) {
+                if(count($product->options)==0){
+                    $cart[$product->id]['quantity']+=1;
+                }else{
+                    if(isset($cart[$product->id][$optionid])){
+                        $cart[$product->id][$optionid]['quantity']+=1;
+                    }else{
+                        $cart[$product->id][$optionid]= [
+                            "name" => $product->name,
+                            "quantity" => 1,
+                            "price" => $product->price,
+                            "special_price" => $product->special_price,
+                            "final_price" => $product->finalPrice(),
+                            "formated_price" => $product->formattedPrice(),
+                            "formated_specialprice" => $product->formattedSpecialPrice(),
+                            "formated_finalprice" => $product->formattedFinalPrice(),
+                            "image" => $product->getImage('thumb')
+                        ];
+                    }
+                }
+                   
+              
+            } else {
+
+             if($optionid!=null){
+                    $option = ProductOption::findOrFail($optionid);
+                    $cartproduct->price                      =$option->price;
+                    $cartproduct->product_options_id         =$option->id;
+                    $cart[$id][$option] = [
+                        "name" => $product->name,
+                        "quantity" => 1,
+                        "price" => $option->price,
+                        "special_price" => $option->price,
+                        "final_price" => $option->price,
+                        "formated_price" => $option->price,
+                        "formated_specialprice" => $option->price,
+                        "formated_finalprice" => $option->price,
+                        "image" => $option->getImage('thumb')
+                    ];
+               }else{
+                $cart[$product->id] = [
+                    "name" => $product->name,
+                    "quantity" => 1,
+                    "price" => $product->price,
+                    "special_price" => $product->special_price,
+                    "final_price" => $product->finalPrice(),
+                    "formated_price" => $product->formattedPrice(),
+                    "formated_specialprice" => $product->formattedSpecialPrice(),
+                    "formated_finalprice" => $product->formattedFinalPrice(),
+                    "image" => $product->getImage('thumb')
+                ];
+               }
+              
+            }
+            
+            session()->put('cart', $cart);
+            session()->keep('cart');
+           
         }
     }
 
