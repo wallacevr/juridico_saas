@@ -73,7 +73,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/wallacevr/melhorenvio.git"
+            "url": "https://gitlab.com/maxcommerce/modulos/shippiment/melhor-envio.git"
         }
     ],
     "autoload-dev": {

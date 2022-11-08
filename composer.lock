@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd34f43d7a30a6c77f0669acd836cbec",
+    "content-hash": "3afe739d653e88342fc1542d89ded35e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -185,16 +185,16 @@
         },
         {
             "name": "cakephp/chronos",
-            "version": "2.3.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/chronos.git",
-                "reference": "1075511e200c2333793f4625829e40607a4d1cc9"
+                "reference": "a21b7b633f483c4cf525d200219d200f551ee38b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/chronos/zipball/1075511e200c2333793f4625829e40607a4d1cc9",
-                "reference": "1075511e200c2333793f4625829e40607a4d1cc9",
+                "url": "https://api.github.com/repos/cakephp/chronos/zipball/a21b7b633f483c4cf525d200219d200f551ee38b",
+                "reference": "a21b7b633f483c4cf525d200219d200f551ee38b",
                 "shasum": ""
             },
             "require": {
@@ -239,7 +239,7 @@
                 "issues": "https://github.com/cakephp/chronos/issues",
                 "source": "https://github.com/cakephp/chronos"
             },
-            "time": "2022-10-21T08:22:45+00:00"
+            "time": "2022-11-08T02:17:04+00:00"
         },
         {
             "name": "coderello/laravel-nova-lang",
@@ -3943,16 +3943,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.8",
+            "version": "v0.11.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "f455acf3645262ae389b10e9beba0c358aa6994e"
+                "reference": "1acec99d6684a54ff92f8b548a4e41b566963778"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/f455acf3645262ae389b10e9beba0c358aa6994e",
-                "reference": "f455acf3645262ae389b10e9beba0c358aa6994e",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/1acec99d6684a54ff92f8b548a4e41b566963778",
+                "reference": "1acec99d6684a54ff92f8b548a4e41b566963778",
                 "shasum": ""
             },
             "require": {
@@ -4013,9 +4013,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.8"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.9"
             },
-            "time": "2022-07-28T14:25:11+00:00"
+            "time": "2022-11-06T15:29:46+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -8012,13 +8012,13 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/wallacevr/melhorenvio.git",
-                "reference": "f6ce96d3ccebf9b0e142f2d83a1f07d856571c5d"
+                "url": "git@gitlab.com:maxcommerce/modulos/shippiment/melhor-envio.git",
+                "reference": "607085df62467157c311c8ac04b4f6ee55dd8cbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wallacevr/melhorenvio/zipball/f6ce96d3ccebf9b0e142f2d83a1f07d856571c5d",
-                "reference": "f6ce96d3ccebf9b0e142f2d83a1f07d856571c5d",
+                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fshippiment%2Fmelhor-envio/repository/archive.zip?sha=607085df62467157c311c8ac04b4f6ee55dd8cbf",
+                "reference": "607085df62467157c311c8ac04b4f6ee55dd8cbf",
                 "shasum": ""
             },
             "require": {
@@ -8061,10 +8061,10 @@
             ],
             "description": "API Melhor envio solutions for version php",
             "support": {
-                "source": "https://github.com/wallacevr/melhorenvio/tree/main",
-                "issues": "https://github.com/wallacevr/melhorenvio/issues"
+                "source": "https://gitlab.com/maxcommerce/modulos/shippiment/melhor-envio/-/tree/main",
+                "issues": "https://gitlab.com/maxcommerce/modulos/shippiment/melhor-envio/-/issues"
             },
-            "time": "2022-11-05T03:49:19+00:00"
+            "time": "2022-11-08T11:01:42-03:00"
         },
         {
             "name": "mockery/mockery",
