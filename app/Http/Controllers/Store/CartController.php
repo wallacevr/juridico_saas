@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Store;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Cart;
+use App\CartProduct;
 use Illuminate\Http\Request;
-
-  
+use Auth;
+use Illuminate\Support\Facades\Session;
 class CartController extends Controller
 {
     /**
@@ -31,6 +32,7 @@ class CartController extends Controller
     }
     public function checkout()
     {
+        
         return view('store.checkout.checkout');
     }
   
@@ -42,36 +44,77 @@ class CartController extends Controller
     public function addToCart($id)
     {
         try {
-            
+         
+           
             $product = Product::findOrFail($id);
                 
-            $cart = session()->get('cart', []);
-        
-          
-            if(isset($cart[$id])) {
-                $cart[$id]['quantity']+=1;
+            $cart = Session::get('cart', []);
+           
+       
+            if(isset($cart->id)){
+                if(Auth::guard('customers')->check()){
+                    $cart->id_customer = Auth::guard('customers')->user()->id; 
+                    $cart->save(); 
+                 }
+                $cartproduct = CartProduct::where('id_cart',$cart->id)->where('id_product',$product->id)->get();
+                if(count($cartproduct)==0){
+                    $cartproduct = new CartProduct;
+                    $cartproduct->id_cart = $cart->id;
+                    $cartproduct->id_product = $product->id;
+                    $cartproduct->name= $product->name;
+                    $cartproduct->quantity= 1;
+                    $cartproduct->price= $product->price;
+                    $cartproduct->sku= $product->sku;
+                    $cartproduct->base =0;
+                    $cartproduct->discount_amount =0;
+                    $cartproduct->discount_percent =0;
+                    $cartproduct->save();
+                }else{
+                    $cartproduct = CartProduct::find($cartproduct[0]->id);
+                    $cartproduct->quantity = $cartproduct->quantity+1;
+                    $cartproduct->update();
+                  
+                }
+           
+                Session::put('cart', $cart);
+                Session::save();
               
-            } else {
-                $cart[$id] = [
-                    "name" => $product->name,
-                    "quantity" => 1,
-                    "price" => $product->price,
-                    "special_price" => $product->special_price,
-                    "final_price" => $product->finalPrice(),
-                    "formated_price" => $product->formattedPrice(),
-                    "formated_specialprice" => $product->formattedSpecialPrice(),
-                    "formated_finalprice" => $product->formattedFinalPrice(),
-                    "image" => $product->getImage('thumb')
-                ];
+            }else{
+               
+                $newcart = new Cart;
+                if(Auth::guard('customers')->check()){
+                   $newcart->id_customer = Auth::guard('customers')->user()->id;  
+                }
+                $newcart->id_carrier =0;
+                $newcart->id_currency =0;
+                $newcart->secure_key =0;
+                $newcart->save();
+                $cartproduct = new CartProduct;
+                $cartproduct->id_cart = $newcart->id;
+                $cartproduct->id_product= $product->id;
+                $cartproduct->name= $product->name;
+                $cartproduct->quantity= 1;
+                $cartproduct->price= $product->price;
+                $cartproduct->sku= $product->sku;
+                $cartproduct->base =0;
+                $cartproduct->discount_amount =0;
+                $cartproduct->discount_percent =0;
+                $cartproduct->save();
+             
+       
+                Session::put('cart', $newcart);
+                Session::save();
+                
+               
             }
-            
-            session()->put('cart', $cart);
-            session()->keep('cart');
-            dd($cart);
+          
+
+            $cart = Session::get('cart', []);
+           
             return redirect()->back()->with('success', 'Product added to cart successfully!');
         } catch (\Throwable $th) {
             //throw $th;
-            dd($th);
+           
         }
         
     }

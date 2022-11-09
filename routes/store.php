@@ -48,15 +48,20 @@ Route::group([
 
 
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
-    Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
-    Route::patch('update-cart', [CartController::class, 'update'])->name('update.cart');
-    Route::delete('remove-from-cart', [CartController::class, 'remove'])->name('remove.from.cart');
-    Route::get('/{product:slug}', 'ProductController@show')->name('product.show');
+   
     Route::middleware('auth:customers')->group(function () {
-        Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+        Route::get('/checkout', [CartController::class, 'checkout']);
        
 
         Route::get('add-to-wishlist/{id}', [WishlistController::class, 'addwishlist'])->name('addwishlist');
       
     });
+
+
+    Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
+    Route::patch('update-cart', [CartController::class, 'update'])->name('update.cart');
+    Route::delete('remove-from-cart', [CartController::class, 'remove'])->name('remove.from.cart');
+    Route::get('/{product:slug}', 'ProductController@show')->name('product.show');
+
+
 });

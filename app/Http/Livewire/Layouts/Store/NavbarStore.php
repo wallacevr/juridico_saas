@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Livewire\Layouts\Store;
-
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use App\Cart;
 use App\CartProduct;
@@ -12,21 +12,22 @@ class NavbarStore extends Component
     public $cartproducts=[];
     public function render()
     {
+        
+        $cart = Session::get('cart', []);
        
-        if(Auth::guard('customers')->check()){
-            
-            $cart = Cart::where('id_customer',Auth::guard('customers')->user()->id)->where('open',1)->get();
-           
-            if(count($cart)>0){
-                $this->cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
+        if(isset($cart->id)){
+            if(count($cart->products)>0){
+                $this->cartproducts =  CartProduct::where('id_cart',$cart->id)->get();
             }else{
                 $this->cartproducts=[];
             }
-                
         }else{
-            $this->cartproducts = session()->get('cart', []);
+            $this->cartproducts=[];
         }
 
+            
+
+        
         return view('livewire.layouts.store.navbar-store');
     }
 }
