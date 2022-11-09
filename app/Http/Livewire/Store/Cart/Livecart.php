@@ -56,7 +56,7 @@ class Livecart extends Component
             $cart->id_shipping = $this->shippingid;
          
             $cart->update();
-          
+         
             return redirect()->route('store.checkout');
         } catch (\Throwable $th) {
             //throw $th;
