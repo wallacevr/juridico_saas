@@ -24,13 +24,17 @@ class CartProduct extends Model
         $cart = Cart::find($this->id_cart);
         $customer = Customer::find($cart->id_customer);
         $product = Product::find($this->id_product);
-    
-        $prodcustgrp = ProductCustomersGroup::where('id_product',$this->id_product)
-        ->where('id_customer_group',$customer->id_customer_group)
-        ->where('qty','<',$this->quantity)
-        ->orderBy('qty','Desc')
-        ->limit(1)->get();
-       
+        if($customer!=null){
+            $prodcustgrp = ProductCustomersGroup::where('id_product',$this->id_product)
+            ->where('id_customer_group',$customer->id_customer_group)
+            ->where('qty','<',$this->quantity)
+            ->orderBy('qty','Desc')
+            ->limit(1)->get();
+        }else{
+            $prodcustgrp =[];
+        }
+     
+        
      
         $specialprice=$product->price;
         

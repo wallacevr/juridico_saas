@@ -24,6 +24,7 @@
                 <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
                     <div class="swiper-wrapper">
                      @if(!$optionimages)  
+                   
                             @foreach ($product->images as $image)
                                 <div class="swiper-slide">
                                     <div class="swiper-zoom-container">
@@ -64,7 +65,7 @@
                         @endif
                     </div>
                 </div>
-
+        
             </div>
             <div class="product-info">
                 <h2 class="mb-2 text-5xl leading-9  title-primary  divide-y  divide-gray-300">
@@ -163,7 +164,7 @@
             </div>
 
         </div>
-
+   
         <div class="max-w-full py-16 sm:py-24  ">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{ __('Customers also purchased') }}</h2>
             <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2  lg:grid-cols-4 ">
@@ -190,7 +191,7 @@
                             alt="{{ __('Add to cart') }}">{{ __('Add to cart') }}</a>
                     </div>
                 @endforeach
-
+               
 
             </div>
         </div>

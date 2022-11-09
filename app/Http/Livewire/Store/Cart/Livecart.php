@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Livewire\Store\Cart;
-
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use App\CartProduct;
 use App\Cart;
@@ -26,16 +26,32 @@ class Livecart extends Component
     public $calculator;
     public  $quotations;
     public $shippingid;
+    public $postalcode;
+
+    public function mount(){
+       ;
+    }
 
     public function save(){
-        $this->validate([
-            'shippingaddressid' => 'required',
-            'shippingid' =>'required'
-        ]);
+        if(Auth::guard('customers')->check()){
+            $this->validate([
+                'shippingaddressid' => 'required',
+                'shippingid' =>'required'
+            ]);
+        }else{
+            $this->validate([
+                'postalcode' => 'required',
+                'shippingid' =>'required'
+            ]);
+        }
+        
         try {
 
-            $cart = Cart::find($this->cart[0]->id);
-            $cart->id_address_delivery = $this->shippingaddressid;
+            $cart = Cart::find($this->cart->id);
+            if($this->shippingaddressid!=null){
+                $cart->id_address_delivery = $this->shippingaddressid;
+            }
+               
            
             $cart->id_shipping = $this->shippingid;
          
@@ -49,19 +65,26 @@ class Livecart extends Component
     }
     public function render()
     {
-        $this->shippingaddress = Address::where('customer_id',Auth::guard('customers')->user()->id)->get();
-        $cart = Cart::where('id_customer',Auth::guard('customers')->user()->id)->where('open',1)->get();
        
-        if(count($cart)>0){
-            $this->cart = $cart;
-            $this->cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
-            $this->paymentplugin = Plugin::where('plugin_group_id',1)->limit(1)->get();
-            if($cart[0]->id_address_delivery!=null){
-                $this->shippingaddressid=$cart[0]->id_address_delivery;
+        if(Auth::guard('customers')->check()){
+            $this->shippingaddress = Address::where('customer_id',Auth::guard('customers')->user()->id)->get();
+        }else{
+            $this->shippingaddress =[];
+        }
+      
+        $cart = Session::get('cart', []);
+    
+        if(isset($cart->id)){
+          
+            $this->cart = Cart::find($cart->id);
+            $this->cartproducts = CartProduct::where('id_cart',$cart->id)->get();
+          
+            if($cart->id_address_delivery!=null){
+                $this->shippingaddressid=$cart->id_address_delivery;
                 $this->shippingcalculator();
             }
-            if($cart[0]->id_shipping!=null){
-                $this->shippingid=$cart[0]->id_shipping;
+            if($cart->id_shipping!=null){
+                $this->shippingid=$cart->id_shipping;
             }
            
 
@@ -72,7 +95,7 @@ class Livecart extends Component
     }
 
     public function addcart(CartProduct $cartproduct){
-      
+            $cart = Session::get('cart', []);
       
          
     
@@ -80,9 +103,11 @@ class Livecart extends Component
                     CartProduct::where('id',$cartproduct->id)
                     ->update(['quantity'=>$cartproduct->quantity+1]);
               
-                $cartcustomer = Auth::guard('customers')->user()->opencarts()->get();
-                $cartproducts = CartProduct::where('id_cart',$cartcustomer[0]->id)->get();
-                session()->put('cart', $cartproducts);
+               
+                $cartproducts = CartProduct::where('id_cart',$cart->id)->get();
+               
+                $cart=Cart::find($cartproducts[0]->id_cart);
+                Session::put('cart', $cart);
                 $this->emit('UpdateCart');
                
            
@@ -92,18 +117,23 @@ class Livecart extends Component
 
     public function removecart(CartProduct $cartproduct){
       
-      
+       
+        
          
     
-               
+      if($cartproduct->quantity >1){
         CartProduct::where('id',$cartproduct->id)
         ->update(['quantity'=>$cartproduct->quantity-1]);
-  
-    $cartcustomer = Auth::guard('customers')->user()->opencarts()->get();
-    $cartproducts = CartProduct::where('id_cart',$cartcustomer[0]->id)->get();
-    session()->put('cart', $cartproducts);
-    $this->emit('UpdateCart');
-   
+        $cart=Cart::find($cartproduct->id_cart);
+      }else{
+        $cartproduct->delete();
+      }         
+
+      $cart=Cart::find($cartproduct->id_cart);
+        
+        Session::put('cart', $cart);
+        
+        $this->emit('UpdateCart');
 
     session()->flash('success', 'Product removed to cart successfully!');
 
@@ -113,13 +143,13 @@ class Livecart extends Component
       
       
          
-    
+        $cart = Session::get('cart', []);
                
         $cartproduct->delete();
   
-    $cartcustomer = Auth::guard('customers')->user()->opencarts()->get();
-    $cartproducts = CartProduct::where('id_cart',$cartcustomer[0]->id)->get();
-    session()->put('cart', $cartproducts);
+ 
+    $cart =  Cart::find($cart->id);
+    Session::put('cart', $cart);
     $this->emit('UpdateCart');
    
 
@@ -133,10 +163,10 @@ class Livecart extends Component
      
         if(count($ticket)>0){
           
-            $product = CartProduct::where('id_cart',$this->cart[0]->id)
+            $product = CartProduct::where('id_cart',$this->cart->id)
             ->whereIn('id_product',$ticket[0]->products->pluck('id'))->get();
            
-            $cartproducts = CartProduct::where('id_cart',$this->cart[0]->id)->get();
+            $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
        
             $prodvalido = false;
             
@@ -161,7 +191,7 @@ class Livecart extends Component
           
             if($prodvalido){
              
-                $cart = Cart::find($this->cart[0]->id);
+                $cart = Cart::find($this->cart->id);
                 $cart->id_ticket = $ticket[0]->id;
               
                 $cart->update();
@@ -183,17 +213,25 @@ class Livecart extends Component
     }   
 
     public function shippingcalculator(){
+        if($this->shippingaddressid==null){
+            $this->validate([
+                'postalcode'=>'required'
+            ]);
+        }
         try {
+           
          $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
          $calculator = $shipment->calculator();
         
      
              $shippingaddress = Address::find($this->shippingaddress);
-        
-              $calculator->postalCode( str_replace('-','',get_config('general/store/postalcode')),str_replace('-','',$shippingaddress[0]->postalcode ));
+        if($this->shippingaddressid==null){
+              $calculator->postalCode( str_replace('-','',get_config('general/store/postalcode')),str_replace('-','',$this->postalcode ));
+        }else{
+            $calculator->postalCode( str_replace('-','',get_config('general/store/postalcode')),str_replace('-','',$shippingaddress[0]->postalcode ));
+        }
        
-         
-         $cartproducts = CartProduct::where('id_cart',$this->cart[0]->id)->get();
+         $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
  
          foreach($cartproducts as $cartproduct){
            
@@ -201,7 +239,7 @@ class Livecart extends Component
                  new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),intval($cartproduct->quantity))
              );
          }
-        
+         
          $calculator->addServices(
              Service::CORREIOS_PAC, 
              Service::CORREIOS_SEDEX,

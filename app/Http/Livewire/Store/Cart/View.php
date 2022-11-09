@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Livewire\Store\Cart;
-
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use App\CartProduct;
 use App\Cart;
@@ -21,21 +21,22 @@ class View extends Component
         return view('livewire.store.cart.view');
     }
 
-    public function addcart(CartProduct $cartproduct){
+    public function addcart(CartProduct $cartproduct,$optionid=null){
       
       
-         
+            dd(1);
     
                
                     CartProduct::where('id',$cartproduct->id)
                     ->update(['quantity'=>$cartproduct->quantity+1]);
               
-                $cartcustomer = Auth::guard('customers')->user()->opencarts()->get();
-                $cartproducts = CartProduct::where('id_cart',$cartcustomer[0]->id)->get();
-                session()->put('cart', $cartproducts);
+                    $cart =  Cart::find($this->cart[0]->id);
+                    dd($cart);
+                    Session::put('cart', $cart);
+                  
                 $this->emit('UpdateCart');
                
-           
+          
             session()->flash('success', 'Product added to cart successfully!');
       
     }

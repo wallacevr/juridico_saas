@@ -15,14 +15,18 @@
                             $total += $cartproduct->advancedPrice() * $cartproduct['quantity']; 
                             $discount += $cartproduct->DiscountTicket(); 
                         @endphp
-                       
+                     
                         <div class="flex flex-col py-6 sm:flex-row sm:justify-between product-item" data-id="{{ $cartproduct['id_product'] }}">
                             <div class="flex w-full space-x-2 sm:space-x-4">
-                                @if(count($cartproduct->option->images))
-                                
-                                    <img class="flex-shrink-0  dark:border-transparent rounded outline-none dark:bg-gray-500 h-20"
-                                        src="{{ productImage($cartproduct->id_product .'/'. $cartproduct->product_options_id .'/'. $cartproduct->option->images[0]->image_url) }}" alt="{{ $cartproduct->product->name }}">
-                                    
+                              
+                                @if($cartproduct->option!=null)
+                                    @if(count($cartproduct->option->images))
+                                        <img class="flex-shrink-0  dark:border-transparent rounded outline-none dark:bg-gray-500 h-20"
+                                            src="{{ productImage($cartproduct->id_product .'/'. $cartproduct->product_options_id .'/'. $cartproduct->option->images[0]->image_url) }}" alt="{{ $cartproduct->product->name }}">
+                                    @else
+                                        <img class="flex-shrink-0  dark:border-transparent rounded outline-none dark:bg-gray-500 h-20"
+                                            src="{{ productImage($cartproduct->id_product .'/'. $cartproduct->product->images[0]->image_url) }}" alt="{{ $cartproduct->product->name }}">
+                                    @endif
                                 @else
                                 <img class="flex-shrink-0  dark:border-transparent rounded outline-none dark:bg-gray-500 h-20"
                                         src="{{ productImage($cartproduct->id_product .'/'. $cartproduct->product->images[0]->image_url) }}" alt="{{ $cartproduct->product->name }}">
@@ -30,7 +34,11 @@
                                 <div class="flex flex-col justify-between w-full p-4 ">
                                     <div class="flex justify-between w-full pb-2 space-x-2">
                                         <div class="space-y-1 w-64">
-                                            <h3 class="text-lg font-semibold leading-snug sm:pr-8">{{ $cartproduct->product['name'] }} <br> {{rtrim($cartproduct->option->descricao(),'/')}}</h3>
+                                            <h3 class="text-lg font-semibold leading-snug sm:pr-8">{{ $cartproduct->product['name'] }} <br> 
+                                                @if($cartproduct->option!=null)
+                                                    {{rtrim($cartproduct->option->descricao(),'/')}}
+                                                @endif
+                                            </h3>
 
                                         </div>
                                         <div class="rounded-full text-center bg-gray-500 hover:bg-gray-700 py-3 px-2 w-24">
@@ -96,7 +104,9 @@
                     @endif
                 </h2>
                 <hr>
-                    <div class="text-end my-3">
+                 
+                    <div class="text-end  my-3">
+                    @if(count($shippingaddress)>0 )
                             <label for="shippingaddress">Shipping Address</label>
                             <select name="shippingaddress" class="form-select my-2" wire:change="shippingcalculator" wire:model="shippingaddressid">
                                 @foreach($shippingaddress as $shippingaddress)
@@ -110,8 +120,17 @@
 
                                 @endforeach
                             </select>
+                            
                             @error('shippingaddressid') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
                             <br>
+                    @else
+                    <div class="grid justify-items-end">
+                        <div class="lg:w-32 justify-items-end">
+                             @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Postalcode', 'placeholder'=>'_____-___', 'name'=>'postalcode', 'value'=> '' ,'wiremodel'=>'postalcode','wirechange'=>'shippingcalculator'])        
+                        </div>
+                    </div>
+                       
+                    @endif
                             @isset($quotations)
                         <div class="grid grid-cols-12 justify-items-end py-3">     
                         @foreach($quotations as $quotation)
@@ -123,7 +142,7 @@
                         
 
                                 <div class="text-end col-span-11">
-                                    <label for="shippingmethod" class="ml-2 text-start text-sm font-medium text-gray-900 dark:text-gray-300" > {{$quotation['name']}} -  {{$quotation['currency']}}{{$quotation['price']}}({{$quotation['delivery_time']}} days after payment confirmed)</label>
+                                    <label for="shippingmethod" class="ml-2 text-start text-sm font-medium text-gray-900 dark:text-gray-300" > {{$quotation['name']}} -  {{$quotation['currency']}}{{ number_format($quotation['price'],2,',','.') }}({{$quotation['delivery_time']}} days after payment confirmed)</label>
                                      <input type="radio"  name="shippingmethod" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" value="{{$quotation['id']}}" wire:model="shippingid"
                                      @if($shippingid == $quotation['id'])
                                      checked="checked"
@@ -149,14 +168,16 @@
                     
 
                 <hr>
-                    <div class="w-1/5 my-3">
-                        @include('layouts.snippets.fields', ['type'=>'text','label'=>'Do you have a Ticket?','placeholder'=>'Ticket','name'=>'ticket','value'=> '','require'=>'false','wiremodel'=>'ticket' ])
-                        <button class="bg-blue-500 px-2 py-1 my-2  rounded font-bold" wire:click="validaticket"> Valid Ticket</button>
+                    <div class="grid justify-items-end">
+                        <div class="w-1/5 my-3">
+                            @include('layouts.snippets.fields', ['type'=>'text','label'=>'Do you have a Ticket?','placeholder'=>'Ticket','name'=>'ticket','value'=> '','require'=>'false','wiremodel'=>'ticket' ])
+                            <button class="bg-blue-500 px-2 py-1 my-2  rounded font-bold" wire:click="validaticket"> Valid Ticket</button>
+                        </div>
+                        @if($cart->id_ticket!=null)
+                    
+                            <h2 class="text-right font-bold ">Applied Ticket:<span class="text-green-400 font-bold">{{$cart->ticket->validator}}</span> </h2>
+                        @endif
                     </div>
-                    @if($cart[0]->id_ticket!=null)
-                
-                        <h2 class="text-right font-bold ">Applied Ticket:<span class="text-green-400 font-bold">{{$cart[0]->ticket->validator}}</span> </h2>
-                    @endif
                   <hr>
               <a href="#" wire:click="save" class="my-3">
                 <button class="bg-blue-500 px-2 py-1 my-3 rounded font-bold"> Finalizar</button>

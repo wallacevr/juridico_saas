@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Livewire\Store\Product;
-
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use App\Product;
 use App\ProductOption;
@@ -76,16 +76,18 @@ class View extends Component
     }
 
     public function addcart(Product $product,$optionid){
+        try {
       
-        if(Auth::guard('customers')->check()){
-         
-            $cart = Cart::where('id_customer',Auth::guard('customers')->user()->id)->where('open',1)->get();
-            if(count($cart)==0){
+            $cart = Session::get('cart', []);
+           
+            if(!isset($cart->id)){
                 $cart = new Cart;
                 $cart->id_carrier           = 0;      #incluir id do metodo de envio
-                $cart->id_customer          = Auth::guard('customers')->user()->id;
-                $cart->id_address_delivery  = Auth::guard('customers')->user()->addresses()->first()->id;
-                $cart->id_address_invoice   = Auth::guard('customers')->user()->addresses()->first()->id;
+                if(Auth::guard('customers')->check()){
+                    $cart->id_customer          = Auth::guard('customers')->user()->id;
+                }
+                
+             
                 $cart->id_currency          = 0;      #incluir id da moeda
                 $cart->secure_key            =0;
                 $cart->open                  =1;
@@ -108,15 +110,20 @@ class View extends Component
                         $cartproduct->price          =$product->price;
                     }
                     $cartproduct->save();
+                    $cart= Cart::find($cart->id);
+                    Session::put('cart', $cart);
+                 
+                    $this->emit('UpdateCart');
+                    session()->flash('success', 'Product added to cart successfully!');
             }else{
-           
-                $cartproduct = CartProduct::where('id_cart',$cart[0]->id)
+              
+                $cartproduct = CartProduct::where('id_cart',$cart->id)
                 ->where('id_product',$product->id)
                 ->where('product_options_id',$optionid)
                 ->get();
                 if(count($cartproduct)==0){
                     $cartproduct                     = new CartProduct;
-                    $cartproduct->id_cart            =$cart[0]->id;
+                    $cartproduct->id_cart            =$cart->id;
                     $cartproduct->id_product         =$product->id;
                     $cartproduct->name               =$product->name;
                     $cartproduct->sku                =$product->sku;
@@ -136,78 +143,23 @@ class View extends Component
                     CartProduct::where('id',$cartproduct[0]->id)
                     ->update(['quantity'=>$cartproduct[0]->quantity+1]);
                 }
-                $cartcustomer = Auth::guard('customers')->user()->opencarts()->get();
-                $cartproducts = CartProduct::where('id_cart',$cartcustomer[0]->id)->get();
-                session()->put('cart', $cartproducts);
-                $this->emit('UpdateCart');
                
+                $cart= Cart::find($cart->id);
+                Session::put('cart', $cart);
+             
+                $this->emit('UpdateCart');
+                session()->flash('success', 'Product added to cart successfully!');
             }
-            session()->flash('success', 'Product added to cart successfully!');
-        }else{
-          
-                
-            $cart = session()->get('cart', []);
-        
-          
-            if(isset($cart[$product->id])) {
-                if(count($product->options)==0){
-                    $cart[$product->id]['quantity']+=1;
-                }else{
-                    if(isset($cart[$product->id][$optionid])){
-                        $cart[$product->id][$optionid]['quantity']+=1;
-                    }else{
-                        $cart[$product->id][$optionid]= [
-                            "name" => $product->name,
-                            "quantity" => 1,
-                            "price" => $product->price,
-                            "special_price" => $product->special_price,
-                            "final_price" => $product->finalPrice(),
-                            "formated_price" => $product->formattedPrice(),
-                            "formated_specialprice" => $product->formattedSpecialPrice(),
-                            "formated_finalprice" => $product->formattedFinalPrice(),
-                            "image" => $product->getImage('thumb')
-                        ];
-                    }
-                }
-                   
-              
-            } else {
-
-             if($optionid!=null){
-                    $option = ProductOption::findOrFail($optionid);
-                    $cartproduct->price                      =$option->price;
-                    $cartproduct->product_options_id         =$option->id;
-                    $cart[$id][$option] = [
-                        "name" => $product->name,
-                        "quantity" => 1,
-                        "price" => $option->price,
-                        "special_price" => $option->price,
-                        "final_price" => $option->price,
-                        "formated_price" => $option->price,
-                        "formated_specialprice" => $option->price,
-                        "formated_finalprice" => $option->price,
-                        "image" => $option->getImage('thumb')
-                    ];
-               }else{
-                $cart[$product->id] = [
-                    "name" => $product->name,
-                    "quantity" => 1,
-                    "price" => $product->price,
-                    "special_price" => $product->special_price,
-                    "final_price" => $product->finalPrice(),
-                    "formated_price" => $product->formattedPrice(),
-                    "formated_specialprice" => $product->formattedSpecialPrice(),
-                    "formated_finalprice" => $product->formattedFinalPrice(),
-                    "image" => $product->getImage('thumb')
-                ];
-               }
-              
-            }
-            
-            session()->put('cart', $cart);
-            session()->keep('cart');
-           
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
         }
+           
+      
+            
+    
+           
+        
     }
 
 
