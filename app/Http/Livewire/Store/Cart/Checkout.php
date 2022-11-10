@@ -312,7 +312,7 @@ class Checkout extends Component
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
-     
+           
         }
 
         
@@ -391,6 +391,7 @@ class Checkout extends Component
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
+   
      
         }
     }

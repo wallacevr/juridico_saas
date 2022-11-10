@@ -55,6 +55,7 @@
     }
   }
 </script>
+<link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
     @stack('head')
     @livewireStyles
 </head>
@@ -260,7 +261,7 @@
   <x-livewire-alert::scripts />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
-    
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
     @stack('js')
     
 </body>
