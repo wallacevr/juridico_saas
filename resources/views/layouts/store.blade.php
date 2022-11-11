@@ -262,6 +262,27 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+    <script>
+        // set the target element that will be collapsed or expanded (eg. navbar menu)
+const targetEl = document.getElementById('targetEl');
+
+// optionally set a trigger element (eg. a button, hamburger icon)
+const triggerEl = document.getElementById('triggerEl');
+
+// optional options with default values and callback functions
+const options = {
+  triggerEl: triggerEl,
+  onCollapse: () => {
+      console.log('element has been collapsed')
+  },
+  onExpand: () => {
+      console.log('element has been expanded')
+  },
+  onToggle: () => {
+      console.log('element has been toggled')
+  }
+};
+    </script>
     @stack('js')
     
 </body>
