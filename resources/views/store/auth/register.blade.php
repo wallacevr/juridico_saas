@@ -1,4 +1,4 @@
-@extends('layouts.store')
+@extends('layouts.login')
 
 @section('content')
 
@@ -54,7 +54,7 @@
             </div>
 
             <div class="mt-6">
-                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Telephone', 'placeholder'=>'(__)____-____', 'name'=>'telephone', 'value'=> '' ])
+                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Telephone', 'placeholder'=>'(__)____-____', 'name'=>'telephone', 'value'=> '' ,'require'=>false])
             </div>
         </div>
 
@@ -80,12 +80,10 @@
             </div>
 
             <div class="mt-6">
-                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Complement', 'placeholder'=>'', 'name'=>'complement', 'value'=> '' ])
+                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Complement', 'placeholder'=>'', 'name'=>'complement', 'value'=> '' ,'require'=>false])
             </div>
 
-            <div class="mt-6">
-                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'City', 'placeholder'=>'', 'name'=>'city', 'value'=> '' ])
-            </div>
+
 
             <div class="col-span-12 sm:col-span-3 mt-6">
                 <label for="country" class="block text-sm font-medium text-gray-700">
@@ -104,27 +102,20 @@
                 @enderror
             </div>
 
-            <div class="col-span-12 sm:col-span-3 mt-6">
-                <label for="state" class="block text-sm font-medium text-gray-700">
-                    {{ __('State') }}
-                </label>
-                <select name="state" class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option selected disabled>{{ __('Select one of the options') }}</option>
-                    <option value="BA">
-                        {{ __('Bahia') }}
-                    </option>
-                </select>
-                @error('state')
-                <p class="mt-2 text-sm text-red-500">
-                    {{ $message }}
-                </p>
-                @enderror
+            <div class="mt-6">
+                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'State', 'placeholder'=>'', 'name'=>'state', 'value'=> '' ])
+            </div>
+          
+                <div class="mt-6">
+                  @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'City', 'placeholder'=>'', 'name'=>'city', 'value'=> '' ])
+                </div>
+ 
             </div>
 
 
         </div>
-
-        <div class="bg-white py-8 px-4 mt-8 shadow sm:rounded-lg sm:px-10">
+                    
+        <div class="bg-white py-8 px-4 mt-8 shadow sm:rounded-lg lg:mx-60 sm:px-10">
             <h3 class="text-xl leading-6 font-medium text-gray-900 mb-6">
                 {{ __('Your password') }}
             </h3>
@@ -154,7 +145,7 @@
             </div>
         </div>
 
-        <div class="bg-white py-8 px-4 mt-8 shadow sm:rounded-lg sm:px-10">
+        <div class="bg-white py-8 px-4 mt-8 shadow sm:rounded-lg lg:mx-60 sm:px-10">
             <h3 class="text-xl leading-6 font-medium text-gray-900 mb-6">
                 {{ __('Other information') }}
             </h3>

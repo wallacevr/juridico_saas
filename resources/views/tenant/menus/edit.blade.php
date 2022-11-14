@@ -126,10 +126,7 @@
     var searchPost = '{{ route("tenant.menus.get-url")}}';
  
 
-    // $('#select2').on('change', function(e) {
-    //     var item = $('#select2').select2("val");
-    //     @this.set('viralSongs', item);
-    // });
+
     
 </script>
 @push('js')

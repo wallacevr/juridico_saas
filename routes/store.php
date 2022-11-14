@@ -17,8 +17,8 @@ Route::group([
         Route::middleware('guest:customers')->group(function () {
             //login route
             Route::get('/login', 'LoginController@login')->name('customer.login');
-            Route::post('/login', 'LoginController@processLogin');
-
+            Route::post('/login', 'LoginController@processLogin')->name('customer.login');
+          
             Route::get('/register', 'CustomerController@show')->name('customer.register');
             Route::post('/register/submit', 'CustomerController@submit')->name('customer.register.submit');
         });
@@ -50,7 +50,7 @@ Route::group([
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
    
     Route::middleware('auth:customers')->group(function () {
-        Route::get('/checkout', [CartController::class, 'checkout']);
+        Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
        
 
         Route::get('add-to-wishlist/{id}', [WishlistController::class, 'addwishlist'])->name('addwishlist');

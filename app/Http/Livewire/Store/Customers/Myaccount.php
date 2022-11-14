@@ -43,9 +43,9 @@ class Myaccount extends Component
             // User data
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:customers,email,'. Auth::guard('customers')->user()->id],
-            'telephone' => ['required'],
+            'telephone' => [],
             'phone' => ['required'],
-            'taxvat' => ['required', 'unique:customers'],
+            'taxvat' => ['required', 'unique:customers,taxvat,'. Auth::guard('customers')->user()->id],
 
         ]);
     }
@@ -108,9 +108,9 @@ class Myaccount extends Component
             // User data
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:customers,email,'. Auth::guard('customers')->user()->id],
-            'telephone' => ['required'],
+            'telephone' => [],
             'phone' => ['required'],
-            'taxvat' => ['required', 'unique:customers'],
+            'taxvat' => ['required', 'unique:customers,taxvat,'. Auth::guard('customers')->user()->id],
 
         ]);
         try {

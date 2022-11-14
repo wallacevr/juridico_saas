@@ -1,4 +1,4 @@
-@extends('layouts.store')
+@extends('layouts.login')
 
 @section('content')
 
@@ -31,7 +31,7 @@
         </div>
         @endif
         <form method="POST" action="{{ route('store.customer.login') }}">
-            @csrf
+       @CSRF
             <div>
                 <label for="email" class="block text-sm font-medium leading-5 text-gray-700">
                     {{ __('Email address') }}:

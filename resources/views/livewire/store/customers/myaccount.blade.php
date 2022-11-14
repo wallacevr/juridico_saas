@@ -165,7 +165,7 @@
                                             </div>
 
                                             <div class="col-span-4 mx-2">
-                                                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Telephone', 'placeholder'=>'(__)____-____', 'name'=>'telephone', 'value'=> '','wiremodel'=>'telephone' ])
+                                                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Telephone', 'placeholder'=>'(__)____-____', 'name'=>'telephone', 'value'=> '','wiremodel'=>'telephone','require'=>false ])
                                             </div>
                                             <span class="col-span-12 my-5 text-center">
                                                 <button type="button"  wire:click="storeprofile"
@@ -238,7 +238,7 @@
 
 
                                            <div class="col-span-2 mx-2">
-                                                  @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Complement', 'placeholder'=>'', 'name'=>'complement', 'value'=> '' , 'wiremodel'=>'complement'])
+                                                  @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Complement', 'placeholder'=>'', 'name'=>'complement', 'value'=> '' , 'wiremodel'=>'complement','require'=>false])
                                             </div>
 
                                             <div class="col-span-5 mx-2">
