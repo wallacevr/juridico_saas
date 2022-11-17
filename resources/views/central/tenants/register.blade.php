@@ -31,10 +31,10 @@
                         @enderror
                     </div>
 
-                   
+
                     <div class="mt-6">
                         <div class="mt-1 rounded-md">
-                            @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Taxvat', 'placeholder'=>'___.___.___-__', 'name'=>'taxvat', 'value'=> '' ])
+                            @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Taxvat','class'=>'cpfcnpj', 'placeholder'=>'___.___.___-__', 'name'=>'taxvat', 'value'=> '' ])
                         </div>
                     </div>
                     <div class="mt-6">
@@ -112,7 +112,7 @@
 
                     <div class="mt-6">
                         <label for="password_confirmation" class="block text-sm font-medium text-gray-700 leading-5">
-                            
+
                             {{__('Confirm Password')}}
                         </label>
 

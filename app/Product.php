@@ -25,15 +25,15 @@ class Product extends Model
         return 'R$ '.number_format($this->special_price,2,',','.');
     }
     public function getImage($size='small'){
-       
+
         $image = null;
-     
+
         if($this->images()->first()){
             $image ='/tenant/'. tenant('id') .'/images/catalog/'. $this->id .'/'.  $this->images()->first()->image_url;
-           
+
         }
        // $image = imageCache($image,$size);
-       
+
         return $image;
     }
 
@@ -42,7 +42,7 @@ class Product extends Model
     }
 
     public function collections(){
-        return $this->belongsToMany(Collection::class);
+        return $this->belongsToMany(Collection::class,'collection_product', 'product_id', 'collection_id');
     }
     public function options(){
         return $this->belongsToMany(Option::class, 'product_options', 'id_product', 'id_options')->withPivot('nivel','price','qty_stock')->where('nivel',0);

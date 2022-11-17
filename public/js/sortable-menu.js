@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     // Define o HTML dos botões que gerenciam as linhas de categorias
     // const buttonElement = '<div class="float-right border"><button class="bg-white hover:bg-gray-100 py-0 px-3 text-black">Edit</button><button type="button" class="bg-white hover:bg-gray-100 py-0 px-3 text-black delete-menu">Delete</button></div>'
     const editAction =
@@ -99,7 +99,7 @@ $(document).ready(function () {
                 if (!isValidHttpUrl(params.term)) {
                     return null;
                 }
-    
+
                 return {
                     id: params.term,
                     text: params.term
@@ -114,10 +114,11 @@ $(document).ready(function () {
                 data: function(params) {
                     return {
                         _token: CSRF_TOKEN,
-                        search: params.term 
+                        search: params.term
                     };
                 },
                 processResults: function(response) {
+                    console.log(response);
                     return {
                         results: response
                     };
@@ -128,5 +129,5 @@ $(document).ready(function () {
 
     initializeSelect2()
 
-    
+
 })

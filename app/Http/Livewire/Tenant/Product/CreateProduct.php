@@ -18,7 +18,7 @@ use Illuminate\Support\Arr;
 
 class CreateProduct extends Component
 {
-  
+
     use WithFileUploads;
     public $habilitavariations=0;
     public $selected = [];
@@ -66,29 +66,29 @@ class CreateProduct extends Component
 
     public function render()
     {
-      
+
         $opcoes = $this->selected2;
-     
+
           $combinar = array();
           foreach( $opcoes as $k => $v )
           {
             $combinar[] = $v;
           }
-          
+
           $texto = $this->combinacao( '', $combinar, 0 );
           $texto = preg_split( '/\n/', $texto, -1, PREG_SPLIT_NO_EMPTY );
-          
+
           $combinacoes = array();
           foreach( $texto as $k => $v )
           {
             $combinacoes[] = preg_split( '/##/', $v, -1, PREG_SPLIT_NO_EMPTY );
           }
           $this->combinacoes=$combinacoes;
-        
+
         array_push($this->options ,count($this->variationsselected));
-     
-       
-         
+
+
+
         return view('livewire.tenant.product.create-product');
     }
 
@@ -104,9 +104,9 @@ class CreateProduct extends Component
         foreach($this->variationsselected as $variationsselected){
             $this->optionsselected[$variationsselected->id]=[];
         }
-     
-        
-        
+
+
+
     }
     public function combinacao( $txt, $termos, $i )
     {
@@ -132,9 +132,8 @@ class CreateProduct extends Component
 
     public function store(){
       try {
-            
-            
-              $this->validate( [
+         if($this->habilitavariations){
+            $this->validate( [
                 'name' => 'required',
                 'description' => 'required',
                 'slug' => ['required','unique:products'],
@@ -143,7 +142,17 @@ class CreateProduct extends Component
                 'optionprice.*'=>'required',
                 'optionqty.*' =>'required'
             ]);
-         
+         }else{
+            $this->validate( [
+                'name' => 'required',
+                'description' => 'required',
+                'slug' => ['required','unique:products'],
+
+            ]);
+         }
+
+
+
             $product = new Product;
             $product->name = $this->name;
             $product->description =  $this->description;
@@ -159,7 +168,7 @@ class CreateProduct extends Component
             $product->meta_description = $this->meta_description;
             $product->slug = $this->slug;
             $product->status = $this->status;
-          
+
             $product->save();
 
 
@@ -168,26 +177,26 @@ class CreateProduct extends Component
 
             $x=0;
             foreach ($this->productimages as $photo) {
-              
+
                $photo->storeAs(tenant('id') .'/images/catalog/'. $product->id,$photo->getClientOriginalName() ,'catalogo');
                $product->images()->create(['image_url'=>$photo->getClientOriginalName(),'sort'=>$x,'title'=>Str::of($photo->getClientOriginalName())->basename('.'.$photo->getClientOriginalExtension())]);
                 $x=$x+1;
               }
-            $dados=[];   
-            
+            $dados=[];
+
             foreach($this->selectedcollections as $index=>$collection){
                 $dados=Arr::add($dados,$collection,['collection_id'=>$collection,'sort'=>100]);
             }
             $product->collections()->sync($dados);
-          
+            if($this->habilitavariations){
             foreach ($this->optionprice as $key => $value) {
               $max=count($this->combinacoes[$key])-1;
               $ultima="";
               $key2=0;
               foreach($this->combinacoes[$key] as $opts){
-                
-          
-               
+
+
+
                     $productoption               = new ProductOption;
                     $productoption->id_product   = $product->id;
                     $productoption->id_options   = $opts ;
@@ -195,15 +204,15 @@ class CreateProduct extends Component
                     if($key2 == $max){
                       $productoption->price   = $this->optionprice[$key];
                       $productoption->qty_stock   = $this->optionqty[$key];
-                    
-        
-                    
+
+
+
                     }
                     if($key2 != 0){
                       $productoption->id_product_options  =$ultima;
-                
+
                     }
-             
+
                     $productoption->save();
                     if($key2 == $max){
                       if(($this->optionimages[$key]!="")or($this->optionimages[$key]!=null)){
@@ -222,31 +231,34 @@ class CreateProduct extends Component
                     $key2 = $key2 + 1;
                     $ultima =  $productoption->id;
 
-            
+
               }
           }
-            
-          foreach($this->grpcustomer as $key=>$grpcustomer) {
-              ProductCustomersGroup::create([
-                'id_customer_group' => $this->grpcustomer[$key],
-                'id_product' => $product->id ,
-                'qty' => $this->minqtyspecialprice[$key], 
-                'price' => $this->specialpricegrp[$key], 
-              ]);
-          }
-            
-             
-             
+        }
+        if($this->grpcustomer!=[]){
+            foreach($this->grpcustomer as $key=>$grpcustomer) {
+                ProductCustomersGroup::create([
+                  'id_customer_group' => $this->grpcustomer[$key],
+                  'id_product' => $product->id ,
+                  'qty' => $this->minqtyspecialprice[$key],
+                  'price' => $this->specialpricegrp[$key],
+                ]);
+            }
+        }
+
+
+
+
                 return redirect()->route('tenant.products.index')->with("success", "Product created successfully!");
-         
+
 
       } catch (\Throwable $th) {
         //throw $th;
-          
+          dd($th);
       }
     }
     public function removerimagem($x,$position){
-     
+
       unset($this->optionimages[$x][$position]);
     }
 
@@ -256,18 +268,18 @@ class CreateProduct extends Component
             'grpcustomer.'. (count($this->groups)+1) .''=>'required',
             'specialpricegrp.'. (count($this->groups)+1) .'' =>'required',
             'minqtyspecialprice.'. (count($this->groups)+1) .''=>'required'
-        
+
         ]);
         array_push($this->groups ,1);
-     
+
       } catch (\Throwable $th) {
         //throw $th;
-        
+
       }
     }
 
     public function removegroup($x){
-    
+
 
     }
 

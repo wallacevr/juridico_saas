@@ -37,57 +37,59 @@ class View extends Component
         }])->where('status',1)->inRandomOrder()->limit(4))->get();
         $this->product = $product;
        // $this->$idsCollection = $idsCollection;
-       $this->maxnivel= max(ProductOption::Where('id_product',$product->id)->get()->pluck('nivel')->toArray());
-      
-         $variations= array_unique(ProductOption::Where('id_product',$product->id)->where('nivel',0)->get()->pluck('id_options')->toArray());
-         $this->variations[0] = Option::whereIn('id', $variations)->get(); 
+
          if(count($product->options)>0){
             $this->hasoptions=true;
+
+            $this->maxnivel= max(ProductOption::Where('id_product',$product->id)->get()->pluck('nivel')->toArray());
+
+             $variations= array_unique(ProductOption::Where('id_product',$product->id)->where('nivel',0)->get()->pluck('id_options')->toArray());
+            $this->variations[0] = Option::whereIn('id', $variations)->get();
          }else{
             $this->hasoptions=false;
          }
-        
+
     }
 
 
     public function optionslist($nivel,$selected){
         if($nivel<$this->maxnivel){
-          
+
             $variations = array_unique(ProductOption::Where('id_product',$this->product->id)->where('nivel',$nivel)->get()->pluck('id_options')->toArray());
-            $this->variations[$nivel] = Option::whereIn('id', $variations)->get(); 
+            $this->variations[$nivel] = Option::whereIn('id', $variations)->get();
             $this->optionprice = "";
             $this->optionimages = [];
             $this->optioncart = "";
         }else{
 
             $variations = array_unique(ProductOption::Where('id_product',$this->product->id)->where('nivel',($nivel-1))->where('id_options',$selected)->get()->pluck('id')->toArray());
-        
+
             $this->variations[$nivel] =ProductOption::Where('id_product',$this->product->id)->where('nivel',$nivel)->whereIn('id_product_options',$variations)->get();
-            
+
         }
-       
+
     }
 
     public function showoptionsproperty(ProductOption $option){
             $this->optionprice = $option->formattedPrice();
             $this->optionimages = ProductOptionsImage::where('product_options_id',$option->id)->get();
             $this->optioncart = $option->id;
-        
+
     }
 
     public function addcart(Product $product,$optionid){
         try {
-      
+
             $cart = Session::get('cart', []);
-           
+
             if(!isset($cart->id)){
                 $cart = new Cart;
                 $cart->id_carrier           = 0;      #incluir id do metodo de envio
                 if(Auth::guard('customers')->check()){
                     $cart->id_customer          = Auth::guard('customers')->user()->id;
                 }
-                
-             
+
+
                 $cart->id_currency          = 0;      #incluir id da moeda
                 $cart->secure_key            =0;
                 $cart->open                  =1;
@@ -112,11 +114,11 @@ class View extends Component
                     $cartproduct->save();
                     $cart= Cart::find($cart->id);
                     Session::put('cart', $cart);
-                 
+
                     $this->emit('UpdateCart');
                     session()->flash('success', 'Product added to cart successfully!');
             }else{
-              
+
                 $cartproduct = CartProduct::where('id_cart',$cart->id)
                 ->where('id_product',$product->id)
                 ->where('product_options_id',$optionid)
@@ -143,10 +145,10 @@ class View extends Component
                     CartProduct::where('id',$cartproduct[0]->id)
                     ->update(['quantity'=>$cartproduct[0]->quantity+1]);
                 }
-               
+
                 $cart= Cart::find($cart->id);
                 Session::put('cart', $cart);
-             
+
                 $this->emit('UpdateCart');
                 session()->flash('success', 'Product added to cart successfully!');
             }
@@ -154,12 +156,12 @@ class View extends Component
             //throw $th;
             dd($th);
         }
-           
-      
-            
-    
-           
-        
+
+
+
+
+
+
     }
 
 

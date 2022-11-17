@@ -18,7 +18,7 @@ Route::group([
         return UserImpersonation::makeResponse($token);
     })->name('impersonate');
 
-   
+
     Route::get('/', 'HomeController@index')->name('tenant.home');
     Route::post('/ploi/webhook/certificateIssued', 'PloiWebhookController@certificateIssued')->name('ploi.certificate.issued');
     Route::post('/ploi/webhook/certificateRevoked', 'PloiWebhookController@certificateRevoked')->name('ploi.certificate.revoked');
@@ -30,14 +30,14 @@ Route::group([
 
         Route::middleware(['auth', CheckSubscription::class])->group(function () {
             Route::get('/dashboard', 'ApplicationSettingsController@show')->name('admin.dashboad');
-          
+
             // Collection routes
             Route::get('collections/all', 'CollectionController@getAll')->name('collections.all');
             Route::resource('collections', 'CollectionController');
 
              // Options routes
              Route::get('options/all/{variation_id}', 'OptionController@getAll')->name('options.all');
-            
+
             //Customer routes
             Route::resource('customers', 'CustomerController');
             // Brand routes
@@ -66,6 +66,7 @@ Route::group([
 			// Menu routes
 
 			Route::post('menus/getUrl', 'MenuController@getUrl')->name('menus.get-url');
+            
             Route::resource('menus', 'MenuController');
 
             Route::post('ckeditor/upload', 'CKEditorController@upload')->name('ckeditor.image-upload');
