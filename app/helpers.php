@@ -430,6 +430,8 @@ if (!function_exists('create_menu')) {
 if (!function_exists('buildMainMenu')) {
     function buildMainMenu($id_mainmenu, $parent = 0, $indent = 0){
         $arrmain = Menu::find($id_mainmenu);
+        
+        if(count($arrmain->children)>0){
         echo'<nav class="px-2 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">';
              echo'<div class="container flex flex-wrap justify-between items-center mx-auto">';
                  echo'  <div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">';
@@ -455,6 +457,7 @@ if (!function_exists('buildMainMenu')) {
                       }
 
         echo'</ul><div></div></nav>';
+        }
     }
 }
 
@@ -464,7 +467,7 @@ if (!function_exists('buildMenu')) {
     {
         $arr = Menu::find($id_menu);
 
-
+        if(count($arr->children)>0){
             foreach($arr->children as $menu){
 
                 if(count($menu->children)==0){
@@ -486,7 +489,7 @@ if (!function_exists('buildMenu')) {
                 }
             }
 
-
+        }
 
 
         }

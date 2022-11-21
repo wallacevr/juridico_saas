@@ -18,7 +18,7 @@ $(document).ready(function () {
         },
         isValidTarget: function ($item, container) {
             var depth = 1, // Start with a depth of one (the element itself)
-                maxDepth = 3,
+                maxDepth = 2,
                 children = $item
                     .find('ol')
                     .first()

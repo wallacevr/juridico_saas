@@ -71,7 +71,9 @@ class MenuController extends Controller
             $subMenus = json_decode($data['menu-items'])[0];
             // Loop to insert the submenus from the MAIN Menu
             foreach ($subMenus as $subMenu) {
-
+                if($subMenu->url=='#'){
+                    $subMenu->url='#|page';
+                }
                 $currentSubMenu = Menu::create([
                     'title' => $subMenu->name,
                     'slug' => generateSlug($subMenu->name, 'menus'),
@@ -114,7 +116,9 @@ class MenuController extends Controller
             $subMenus = json_decode($data['menu-items'])[0];
 
             foreach ($subMenus as $sort => $subMenu) {
-
+                if($subMenu->url=='#'){
+                    $subMenu->url='#|page';
+                }
                 $this->insertOrUpdateMenu($subMenu, $menu->id, $sort);
 
                 if ($subMenu->children[0]) {
