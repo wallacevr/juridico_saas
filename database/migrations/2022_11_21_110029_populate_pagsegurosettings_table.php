@@ -20,7 +20,7 @@ class PopulatePagseguroSettingsTable extends Migration
                 'description' => 'Plugin for payments using Pagseguro',
                 'active'=>1,
                 'image'=> 'vendor/pagseguro/img/pagseguro.png',
-                'settingsroute'=>1,
+                'settingsroute'=>'/admin/plugins/pagseguro/setconfig',
                 'mainroute'=>'#',
                 'plugin_group_id'=>1
             )
