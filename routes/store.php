@@ -46,7 +46,7 @@ Route::group([
     Route::get('/collections/{slug}', 'CollectionController@show')->name('collection.show');
     Route::get('/categorias/{slug}', 'CollectionController@show')->name('categorias.show');
     Route::get('/page/{slug}', 'PageController@show')->name('page.show');
-
+    Route::get('/pagina/{slug}', 'PageController@show')->name('page.show');
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
    
     Route::middleware('auth:customers')->group(function () {
