@@ -44,7 +44,7 @@ Route::group([
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/collections/{slug}', 'CollectionController@show')->name('collection.show');
-   
+    Route::get('/categorias/{slug}', 'CollectionController@show')->name('categorias.show');
     Route::get('/page/{slug}', 'PageController@show')->name('page.show');
 
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
