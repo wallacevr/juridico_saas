@@ -15,6 +15,7 @@ class CheckSubscription
      */
     public function handle($request, Closure $next)
     {
+        
         if (! tenant()->can_use_app && request()->route()->getName() !== 'tenant.settings.application') {
             return redirect(route('tenant.settings.application'));
         }

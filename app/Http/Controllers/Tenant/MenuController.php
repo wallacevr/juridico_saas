@@ -224,7 +224,7 @@ class MenuController extends Controller
             if ($pages->count()) {
                 $children = [];
                 foreach ($pages as $page) {
-                    $children[] = ['id' => '/pagina/'.$page->url .'|page', 'text' => $page->name];
+                    $children[] = ['id' => '/page/'.$page->url .'|page', 'text' => $page->name];
                 }
                 $urls[] = (object)[
                     'text' => 'Páginas',

@@ -25,14 +25,14 @@ class LoginController extends Controller
     {
         $credentials = $request->except(['_token']);
 
-
-        if(Auth::guard('customers')->attempt($credentials))
-        {
-            return redirect(RouteServiceProvider::HOME);
-        }elseif(Auth::guard('users')->attempt($credentials)){
-            return redirect()->route('admin.dashboad');
-        }
-
+        
+            if(Auth::guard('customers')->attempt($credentials))
+            {
+                return redirect(RouteServiceProvider::HOME);
+            }elseif(Auth::guard('admin')->attempt($credentials)){
+                return redirect()->route('admin.dashboad');
+            }
+       
         return redirect()->action([
             LoginController::class,
             'login'

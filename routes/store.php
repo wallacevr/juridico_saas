@@ -14,7 +14,7 @@ Route::group([
 ], function () {
     Route::prefix('customer')->group(function () {
 
-        Route::middleware('guest:customers')->group(function () {
+        Route::middleware('guest:customer')->group(function () {
             //login route
             Route::get('/login', 'LoginController@login')->name('customer.login');
             Route::post('/login', 'LoginController@processLogin')->name('customer.login');
@@ -44,8 +44,8 @@ Route::group([
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/collections/{slug}', 'CollectionController@show')->name('collection.show');
-    Route::get('/pagina/{slug}', 'PageController@show')->name('page.show');
-
+   
+    Route::get('/page/{slug}', 'PageController@show')->name('page.show');
 
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
    
