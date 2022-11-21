@@ -544,7 +544,7 @@
 
                                                     var data = $('#collections').select2("val");
                                                       alert(data);
-                                                        @this.set('selectedcollections', data);
+                                                        @this.set('selectedcollections', data.split(','));
 
 
                                                 });

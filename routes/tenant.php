@@ -26,7 +26,7 @@ Route::group([
     Route::prefix('admin')->group(function () {
         Auth::routes();
 
-        Route::redirect('/', '/admin/login/')->middleware('guest');
+        Route::redirect('/', '/admin/login/')->middleware('guest:users');
 
         Route::middleware(['auth', CheckSubscription::class])->group(function () {
             Route::get('/dashboard', 'ApplicationSettingsController@show')->name('admin.dashboad');

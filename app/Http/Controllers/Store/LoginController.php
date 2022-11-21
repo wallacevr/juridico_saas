@@ -29,6 +29,8 @@ class LoginController extends Controller
         if(Auth::guard('customers')->attempt($credentials))
         {
             return redirect(RouteServiceProvider::HOME);
+        }elseif(Auth::guard('users')->attempt($credentials)){
+            return redirect()->route('admin.dashboad');
         }
 
         return redirect()->action([

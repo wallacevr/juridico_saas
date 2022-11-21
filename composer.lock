@@ -8024,12 +8024,12 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.com:maxcommerce/modulos/payment/pagseguro.git",
-                "reference": "42bd3b014b0cc7188659caa79c12555e1bc70def"
+                "reference": "fe0bd3a26826766c9da58421686435848630e3d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=42bd3b014b0cc7188659caa79c12555e1bc70def",
-                "reference": "42bd3b014b0cc7188659caa79c12555e1bc70def",
+                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fpayment%2Fpagseguro/repository/archive.zip?sha=fe0bd3a26826766c9da58421686435848630e3d4",
+                "reference": "fe0bd3a26826766c9da58421686435848630e3d4",
                 "shasum": ""
             },
             "require": {
@@ -8076,7 +8076,7 @@
                 "source": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/tree/main",
                 "issues": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro/-/issues"
             },
-            "time": "2022-11-03T14:52:35-03:00"
+            "time": "2022-11-21T14:45:44+00:00"
         },
         {
             "name": "maxcommerce/melhorenvio",
