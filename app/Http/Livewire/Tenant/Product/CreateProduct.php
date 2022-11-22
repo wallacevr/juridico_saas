@@ -137,27 +137,32 @@ class CreateProduct extends Component
     }
 
     public function store(){
+      if($this->habilitavariations){
+        $this->validate( [
+            'name' => 'required',
+            'sku' =>'required',
+            'price' =>'required',
+            'description' => 'required',
+            'slug' => ['required','unique:products'],
+            'optionprice.0'=>'required',
+            'optionqty.0' =>'required',
+            'optionprice.*'=>'required',
+            'optionqty.*' =>'required'
+        ]);
+     }else{
+        $this->validate( [
+            'name' => 'required',
+            'price' =>'required',
+            'sku' =>'required',
+            'description' => 'required',
+            'slug' => ['required','unique:products'],
+
+        ]);
+     }
+
+
       try {
-         if($this->habilitavariations){
-            $this->validate( [
-                'name' => 'required',
-                'description' => 'required',
-                'slug' => ['required','unique:products'],
-                'optionprice.0'=>'required',
-                'optionqty.0' =>'required',
-                'optionprice.*'=>'required',
-                'optionqty.*' =>'required'
-            ]);
-         }else{
-            $this->validate( [
-                'name' => 'required',
-                'description' => 'required',
-                'slug' => ['required','unique:products'],
-
-            ]);
-         }
-
-
+         
 
             $product = new Product;
             $product->name = $this->name;
