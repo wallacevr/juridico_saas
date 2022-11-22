@@ -94,6 +94,12 @@ class CreateProduct extends Component
 
 
     public function mount(){
+        
+        $path = __DIR__."\\..\\..\\..\\..\\..\\storage\\tenant".tenant('id') .'\\framework\\cache';
+        
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
         $this->variations = Variation::all();
         $this->customergroups =  CustomerGroup::all()->sortBy('name');
     }
@@ -254,7 +260,7 @@ class CreateProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-          dd($th);
+          
       }
     }
     public function removerimagem($x,$position){

@@ -86,7 +86,11 @@ class EditProduct extends Component
 
 
     public function mount(Product $product){
-
+      $path = __DIR__."\\..\\..\\..\\..\\..\\storage\\tenant".tenant('id') .'\\framework\\cache';
+        
+      if (!is_dir($path)) {
+          mkdir($path, 0777, true);
+      }
         $this->variations = Variation::all();
         $this->productid=$product->id;
         $this->name=$product->name;
@@ -269,7 +273,7 @@ class EditProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-       dd($th);
+       
       }
     }
     public function removerimagem($x,$position){
