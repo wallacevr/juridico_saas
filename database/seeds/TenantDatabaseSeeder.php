@@ -109,8 +109,8 @@ class TenantDatabaseSeeder extends Seeder
             Config::create($config);
         }
         Menu::query()->truncate();
-        Menu::create(['title'=>'Menu Inicial','slug'=>'main','url'=>'#','status'=>1,'sort'=>0]);
-        Menu::create(['title'=>'Contato','slug'=>'contato','url'=>'/contato','status'=>1,'parent_id'=>1,'sort'=>0]);
+        Menu::create(['title'=>'Menu Inicial','slug'=>'main','url'=>'#|page','status'=>1,'sort'=>0]);
+        Menu::create(['title'=>'Contato','slug'=>'contato','url'=>'/contato|page','status'=>1,'parent_id'=>1,'sort'=>0]);
 
     }
 }
