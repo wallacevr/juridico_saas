@@ -104,6 +104,7 @@ class TenantDatabaseSeeder extends Seeder
                 'path' => 'general/store/total_by_product',
                 'value' => 36
             ]
+
         ];
         foreach($configs as $config){
             Config::create($config);
