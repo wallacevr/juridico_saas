@@ -224,7 +224,7 @@
                                 </label>
                                 <div class="mt-1">
                                     <select name="manage_stock" wire:model="manage_stock">
-                                        <option>{{ __('Select') }}</option>
+                                        
                                         <option value="1" selected>{{ __('Yes') }}</option>
                                         <option value="0">{{ __('No') }}</option>
                                     </select>
@@ -234,7 +234,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Qty',
-                                    'placeholder' => 'R$ 90,00',
+                                    'placeholder' => '90',
                                     'name' => 'qty',
                                     'value' => '1',
                                     'require' => false,
@@ -245,7 +245,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Min Qty',
-                                    'placeholder' => 'R$ 90,00',
+                                    'placeholder' => '90',
                                     'name' => 'min_qty',
                                     'value' => '1',
                                     'require' => false,
@@ -257,7 +257,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Max Qty',
-                                    'placeholder' => 'R$ 90,00',
+                                    'placeholder' => '90',
                                     'name' => 'max_qty',
                                     'value' => '0',
                                     'require' => false,

@@ -327,6 +327,16 @@ if (!function_exists('create_menu')) {
                 // ],
             ],
             [
+                'name' => __('My Store'),
+                'icon' => 'StoreIcon',
+                'href' => route('store.home')
+                // 'children' => [
+                //     ['name' => __('menu.See All'), 'href' => '#'],
+                //     ['name' => __('menu.Groups'), 'href' => '#'],
+                //     ['name' => __('menu.Newsletter'), 'href' => '#']
+                // ],
+            ],
+            [
                 'name' => __('menu.Products'),
                 'icon' => 'ProductsIcon',
                 'children' => [
