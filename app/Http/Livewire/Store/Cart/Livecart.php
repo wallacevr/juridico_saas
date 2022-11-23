@@ -29,11 +29,37 @@ class Livecart extends Component
     public $postalcode;
 
     public function mount(){
-       ;
+       
+        if(Auth::guard('customers')->check()){
+            $this->shippingaddress = Address::where('customer_id',Auth::guard('customers')->user()->id)->get();
+        }else{
+            $this->shippingaddress =[];
+        }
+
+        $cart = Session::get('cart', []);
+
+        if(isset($cart->id)){
+
+            $this->cart = Cart::find($cart->id);
+            $this->cartproducts = CartProduct::where('id_cart',$cart->id)->get();
+
+            if($cart->id_address_delivery!=null){
+                $this->shippingaddressid=$cart->id_address_delivery;
+                $this->shippingcalculator();
+            }
+            if($cart->id_shipping!=null){
+                $this->shippingid=$cart->id_shipping;
+            }
+
+
+
+        }
+
     }
 
     public function save(){
         if(Auth::guard('customers')->check()){
+            
             $this->validate([
                 'shippingaddressid' => 'required',
                 'shippingid' =>'required'
@@ -219,7 +245,7 @@ class Livecart extends Component
             ]);
         }
         try {
-
+       
          $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
          $calculator = $shipment->calculator();
 

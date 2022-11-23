@@ -109,13 +109,10 @@
                     @if(count($shippingaddress)>0 )
                             <label for="shippingaddress">Shipping Address</label>
                             <select name="shippingaddress" class="form-select my-2" wire:change="shippingcalculator" wire:model="shippingaddressid">
+                               <option value="">Select</option>
                                 @foreach($shippingaddress as $shippingaddress)
                                     <option value="{{$shippingaddress->id}}" 
-                                         @if($shippingaddressid!=null)
-                                                @if($shippingaddress->id == $shippingaddressid)
-                                                    selected
-                                                @endif
-                                        @endif
+                                       
                                     >{{$shippingaddress->name}}</option>
 
                                 @endforeach

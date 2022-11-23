@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Store\Cart;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
 use App\Cart;
 use App\Cartproduct;
+use App\Order;
 use App\Models\Address;
 use Auth;
 use PagSeguro; 
@@ -54,7 +56,7 @@ class Checkout extends Component
     public  $quotations;
     public $shippingid;
     public $shippingprice=0;
-
+    public $orderid;
     protected $listener=['render','refreshshippingprice'];
     public function render()
     {
@@ -63,7 +65,8 @@ class Checkout extends Component
     }
 
     public function mount(){
-      
+       
+       
         if(get_config('payments/plataform/creditcard')==1){
 
        
@@ -90,13 +93,16 @@ class Checkout extends Component
           
         }
 
-
-        $cart = Cart::where('id_customer',Auth::guard('customers')->user()->id)->where('open',1)->get();
+        $cartsession = Session::get('cart', []);
+      
+        $cart = Cart::where('id',$cartsession->id)->where('open',1)->get();
   
        if(count($cart)>0){ 
         $this->addresses = Address::where('customer_id',Auth::guard('customers')->user()->id)->get();
         $cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
         $this->cart=Cart::find($cart[0]->id);
+        $this->cart->id_customer =Auth::guard('customers')->user()->id;
+        $this->cart->update();
         $this->cartproducts=$cartproducts;
         if($cart[0]->id_address_delivery!=null){
             $this->shippingaddress =$this->cart->id_address_delivery;
@@ -108,6 +114,7 @@ class Checkout extends Component
             foreach ($this->quotations as $quotation) {
                 # code...
                 if($quotation['id'] == $cart[0]->id_shipping){
+                    
                     $this->shippingprice = $quotation['price'];
                 }
             }
@@ -130,7 +137,7 @@ class Checkout extends Component
             
             $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
             $itens=[];
-   
+           
             foreach($cartproducts as $cartproduct){
                     array_push($itens, [
                         'itemId' => 'ID '. $cartproduct->id_product,
@@ -203,6 +210,7 @@ class Checkout extends Component
             ->send($paymentSettings);
                
             $cartclosed = Cart::find($this->cart->id);
+            
             $cartclosed->id_address_delivery = $shippingaddress->id;
             $cartclosed->id_address_invoice = $billingaddress->id;
             $cartclosed->transactioncode = $pagseguro;
@@ -211,16 +219,27 @@ class Checkout extends Component
             $cartclosed->paymenttype = $this->paymentmethod;
  
             $cartclosed->update();
-
+            $order = new Order;
+            $order->id_cart=$cartclosed->id;
+            $order->id_customer=$cartclosed->id_customer;
+            $order->id_address_delivery = $shippingaddress->id;
+            $order->id_address_invoice = $billingaddress->id;
+            $order->id_shipping = $cartclosed->id_shipping;
+            $order->price_shipping = $cartclosed->price_shipping;
+            $order->status = 'PENDING';
+            $order->save();
+ 
+            
                 
                 $this->cart = $cartclosed;
+                $this->orderid = $order->id;
             session()->flash('success', 'Order completed successfully!');
         }
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
-    
+            dd($e);
         }
 
         

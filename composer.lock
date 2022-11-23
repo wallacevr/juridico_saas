@@ -8084,12 +8084,12 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.com:maxcommerce/modulos/shippiment/melhor-envio.git",
-                "reference": "607085df62467157c311c8ac04b4f6ee55dd8cbf"
+                "reference": "76a53c998a2741d7ff926cf47693b55f94a18a0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fshippiment%2Fmelhor-envio/repository/archive.zip?sha=607085df62467157c311c8ac04b4f6ee55dd8cbf",
-                "reference": "607085df62467157c311c8ac04b4f6ee55dd8cbf",
+                "url": "https://gitlab.com/api/v4/projects/maxcommerce%2Fmodulos%2Fshippiment%2Fmelhor-envio/repository/archive.zip?sha=76a53c998a2741d7ff926cf47693b55f94a18a0c",
+                "reference": "76a53c998a2741d7ff926cf47693b55f94a18a0c",
                 "shasum": ""
             },
             "require": {
@@ -8135,7 +8135,7 @@
                 "source": "https://gitlab.com/maxcommerce/modulos/shippiment/melhor-envio/-/tree/main",
                 "issues": "https://gitlab.com/maxcommerce/modulos/shippiment/melhor-envio/-/issues"
             },
-            "time": "2022-11-08T11:01:42-03:00"
+            "time": "2022-11-23T17:30:08+00:00"
         },
         {
             "name": "mockery/mockery",
