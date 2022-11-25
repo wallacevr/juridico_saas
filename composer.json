@@ -22,7 +22,7 @@
         "laravel/telescope": "^3.5",
         "laravel/tinker": "^2.0",
         "livewire/livewire": "^2.0",
-        "mediconesystems/livewire-datatables": "^0.9.4",
+        "mediconesystems/livewire-datatables": "0.9.1",
         "predis/predis": "^2.0",
         "spatie/laravel-medialibrary": "9.0.0",
         "spatie/laravel-sluggable": "^2.6",

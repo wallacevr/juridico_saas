@@ -313,6 +313,7 @@
     "Putting your pagseguro settings under sandbox mode": "Deixar suas configurações do PagSeguro em sandbox",
     "You can obtain this credentials in your PagSeguro account.": "Voce pode obter estas credenciais em sua Conta PagSeguro.",
     "PagSeguro Configuration": "Configurações PagSeguro",
-    "My Store": "Minha Loja"
-
+    "My Store": "Minha Loja",
+    "Orders": "Pedidos",
+    "Order": "Pedido"
 }

@@ -52,6 +52,8 @@ Route::group([
             Route::resource('variations', 'VariationController');
             // Option routes
             Route::resource('options', 'OptionController');
+            // Orders routes
+            Route::resource('orders', 'OrderController');
 
             // Products routes
             Route::resource('products', 'ProductController');

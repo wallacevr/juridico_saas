@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "61acd785735e68ebd61cb5fb601c36f8",
+    "content-hash": "543669125137b3522824931f43724b4e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2956,16 +2956,16 @@
         },
         {
             "name": "mediconesystems/livewire-datatables",
-            "version": "v0.9.4",
+            "version": "v0.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MedicOneSystems/livewire-datatables.git",
-                "reference": "141b6fd0a21937bf56e54eac2ff090def6ce793a"
+                "reference": "a9286211158c25f1cc8e0a4eada66e9774305c03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MedicOneSystems/livewire-datatables/zipball/141b6fd0a21937bf56e54eac2ff090def6ce793a",
-                "reference": "141b6fd0a21937bf56e54eac2ff090def6ce793a",
+                "url": "https://api.github.com/repos/MedicOneSystems/livewire-datatables/zipball/a9286211158c25f1cc8e0a4eada66e9774305c03",
+                "reference": "a9286211158c25f1cc8e0a4eada66e9774305c03",
                 "shasum": ""
             },
             "require": {
@@ -3013,9 +3013,9 @@
             ],
             "support": {
                 "issues": "https://github.com/MedicOneSystems/livewire-datatables/issues",
-                "source": "https://github.com/MedicOneSystems/livewire-datatables/tree/v0.9.4"
+                "source": "https://github.com/MedicOneSystems/livewire-datatables/tree/v0.9.1"
             },
-            "time": "2022-04-04T13:57:02+00:00"
+            "time": "2022-03-22T15:28:24+00:00"
         },
         {
             "name": "moneyphp/money",
