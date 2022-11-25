@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-class AlterTableCartProducts extends Migration
+      
+class CreateTableOrderProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AlterTableCartProducts extends Migration
      */
     public function up()
     {
-        Schema::create('cart_products', function (Blueprint $table) {
+        Schema::create('order_products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_cart');
+            $table->unsignedBigInteger('id_order');
             $table->unsignedBigInteger('id_product')->nullable();
             $table->decimal('quantity',12,4);
             $table->decimal('price',12,4);
@@ -23,9 +23,9 @@ class AlterTableCartProducts extends Migration
             $table->decimal('discount_amount',12,4);
             $table->decimal('discount_percent',12,4);
             $table->timestamps();
-            $table->foreign('id_cart')->references('id')->on('carts')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_order')->references('id')->on('orders')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_product')->references('id')->on('products')->onUpdate('set null')->onDelete('set null');
-            $table->foreignId('product_options_id');
+            $table->foreignId('product_options_id')->nullable();
             $table->foreign('product_options_id')->references('id')->on('product_options')->onUpdate('cascade')->onDelete('cascade');
          
         });
@@ -38,6 +38,6 @@ class AlterTableCartProducts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cart_products');
+        Schema::dropIfExists('order_products');
     }
 }

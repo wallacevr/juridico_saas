@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Store;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Cart;
+use App\Order;
 use App\CartProduct;
 use Illuminate\Http\Request;
 use Auth;
@@ -180,7 +181,7 @@ class CartController extends Controller
             
                        case('2'):
                             
-                             $cart->paymentstatus= "In Analysis";
+                             $cart->paymentstatus= "Payment In Analysis";
             
                            break;
                        case('3'):
@@ -195,32 +196,34 @@ class CartController extends Controller
                           break;
                         case('5'):
                             
-                            $cart->paymentstatus= "In dispute";
+                            $cart->paymentstatus= "Payment In dispute";
            
                           break;
                         case('6'):
                             
-                            $cart->paymentstatus= "Returned";
+                            $cart->paymentstatus= "Payment Returned";
            
                           break;
                           case('7'):
                             
-                            $cart->paymentstatus= "Cancelled";
+                            $cart->paymentstatus= "Payment Cancelled";
            
                           break;
                           case('8'):
                             
-                            $cart->paymentstatus= "Returned";
+                            $cart->paymentstatus= "Payment Returned";
            
                           break;
                           case('9'):
                             
-                            $cart->paymentstatus= "Temporary Retention";
+                            $cart->paymentstatus= "Temporary Retention Payment";
            
                           break;
             
                    }
                    $cart->update();
+                   $order = Order::where('id_cart',$cart->id)->first();
+                   $order->status =   $cart->paymentstatus;
 
 
         } catch (\Throwable $th) {

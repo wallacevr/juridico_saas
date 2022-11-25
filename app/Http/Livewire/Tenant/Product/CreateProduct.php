@@ -44,7 +44,7 @@ class CreateProduct extends Component
     public $price;
     public $special_price;
     public $cost_price;
-    public $manage_stock;
+    public $manage_stock=1;
     public $qty;
     public $min_qty;
     public $max_qty;
@@ -265,7 +265,7 @@ class CreateProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-          
+         
       }
     }
     public function removerimagem($x,$position){

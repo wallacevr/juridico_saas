@@ -497,15 +497,17 @@ copyTest.addEventListener('click', function(event) {
   document.getElementById('s3').setAttribute('d','M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z')
 });
 </script>
-        @if((get_config('payments/plataform/creditcard')==1)||(get_config('payments/plataform/boleto')==1))
-           @if(get_config('plugins/payments/pagseguro/sandbox')==1)
+
+        @if((get_config('payments/plataform/creditcard')==$pagseguroid)||(get_config('payments/plataform/boleto')==$pagseguroid))
+      
+        @if(get_config('plugins/payments/pagseguro/sandbox')==1)
                 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
             @else
                 <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
           
             @endif
         @endif
-        @if(get_config('payments/plataform/creditcard')==1)
+        @if(get_config('payments/plataform/creditcard')==$pagseguroid)
     
             <script>
             PagSeguroDirectPayment.setSessionId("{{$cardtoken}}");
@@ -880,7 +882,7 @@ copyTest.addEventListener('click', function(event) {
 
 
         @endif
-        @if(get_config('payments/plataform/boleto')==1)
+        @if(get_config('payments/plataform/boleto')==$pagseguroid)
         <script>
             
         $('#btnpayboleto').click(function(event) {
