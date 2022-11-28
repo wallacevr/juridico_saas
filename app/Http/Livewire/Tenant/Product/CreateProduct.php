@@ -144,6 +144,7 @@ class CreateProduct extends Component
             'sku' =>'required',
             'price' =>'required',
             'description' => 'required',
+            'productimages' => 'required',
             'slug' => ['required','unique:products'],
             'optionprice.0'=>'required',
             'optionqty.0' =>'required',
@@ -155,6 +156,7 @@ class CreateProduct extends Component
             'name' => 'required',
             'price' =>'required',
             'sku' =>'required',
+            'productimages' => 'required',
             'description' => 'required',
             'slug' => ['required','unique:products'],
 
@@ -216,7 +218,7 @@ class CreateProduct extends Component
                     if($key2 == $max){
                       $productoption->price   = $this->optionprice[$key];
                       $productoption->qty_stock   = $this->optionqty[$key];
-                      $productoption->id_product_options  =0;
+                    
 
 
                     }
@@ -227,7 +229,7 @@ class CreateProduct extends Component
 
                     $productoption->save();
                     if($key2 == $max){
-                      if(($this->optionimages[$key]!="")or($this->optionimages[$key]!=null)){
+                      if(isset($this->optionimages[$key])){
                           foreach ($this->optionimages[$key] as $key3=>$photo) {
                            if($key3 == $this->principaloptionimage[$key]){
                              $main = 1;
@@ -266,7 +268,7 @@ class CreateProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-         dd($th);
+        
       }
     }
     public function removerimagem($x,$position){

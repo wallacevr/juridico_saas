@@ -555,17 +555,18 @@
                         </div>
 
                         <div class="">
-                                <x-input.filepond wire:model="productimages" multiple></x-input>
+                                <x-input.filepond name="productimages" wire:model="productimages" multiple></x-input>
+                                @error('productimages')
+                            <p class="mt-2 text-sm text-red-500">
+                                {{ $message }}
+                            </p>
+                        @enderror
                         </div>
                         <script>
 
 
                         </script>
-                        @error('image_url')
-                            <p class="mt-2 text-sm text-red-500">
-                                {{ $message }}
-                            </p>
-                        @enderror
+
 
                     </div>
                 </div>

@@ -122,7 +122,7 @@
                                     @else
                                     
                                         <div>
-                                            {{dd($option)}}
+                                         
                                             <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}"  wire:click="showoptionsproperty({{$option['id']}})"
                                                     @if($option['qty_stock'] <=0)
                                                         disabled
