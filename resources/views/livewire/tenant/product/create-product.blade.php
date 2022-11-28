@@ -425,6 +425,7 @@
         </div>
         <br>
             <div class="shadow sm:rounded-md sm:overflow-hidden">
+                     @if($habilitavariations)  
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                                 <div>
                                     
@@ -433,7 +434,7 @@
                                     </h3>
                             
                                 </div>
-                                @if($habilitavariations)   
+                             
                                 
                                         <div class="grid grid-cols-6 gap-6">
                                             <div class="col-span-12 sm:col-span-6">
@@ -540,9 +541,9 @@
                                             </div>
                                     
                                          </div>
-                                 @endif
+                                 
                     </div>
-            
+                    @endif
                 </div>
                 <br>
                 <div class="shadow sm:rounded-md sm:overflow-hidden" wire:ignore>

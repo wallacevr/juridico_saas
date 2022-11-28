@@ -122,11 +122,19 @@
                                     @else
                                     
                                         <div>
+                                            {{dd($option)}}
                                             <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}"  wire:click="showoptionsproperty({{$option['id']}})"
                                                     @if($option['qty_stock'] <=0)
                                                         disabled
                                                     @endif                            
-                                                   > <label for="opt1">{{ $option['options']['name'] }}</label>
+                                                   > <label for="opt1">
+                                                    @if(isset($option['options']['name']))
+                                                        {{ $option['options']['name'] }}
+                                                    
+                                                    @else
+                                                        {{ $option['name'] }}
+                                                    @endif
+                                                    </label>
                                             </div>
                                     @endif
                                 @endforeach

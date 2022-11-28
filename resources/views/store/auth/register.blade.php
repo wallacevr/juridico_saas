@@ -193,7 +193,7 @@
 <script>
     $(document).ready(function() {
         $('#postalcode').mask('00000-000');
-        $('#taxvat').mask('000.000.000-00');
+       
         $('#phone').mask('(00) 00000-0000');
         $('#telephone').mask('(00) 0000-0000');
 
@@ -210,6 +210,7 @@
                 },
                 taxvat: {
                     required: true,
+                    
                 },
                 phone: {
                     required: true,

@@ -137,6 +137,7 @@ class CreateProduct extends Component
     }
 
     public function store(){
+      
       if($this->habilitavariations){
         $this->validate( [
             'name' => 'required',
@@ -215,7 +216,7 @@ class CreateProduct extends Component
                     if($key2 == $max){
                       $productoption->price   = $this->optionprice[$key];
                       $productoption->qty_stock   = $this->optionqty[$key];
-
+                      $productoption->id_product_options  =0;
 
 
                     }
@@ -265,7 +266,7 @@ class CreateProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-         
+         dd($th);
       }
     }
     public function removerimagem($x,$position){
