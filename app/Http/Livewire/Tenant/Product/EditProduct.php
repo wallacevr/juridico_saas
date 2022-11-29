@@ -32,7 +32,7 @@ class EditProduct extends Component
     public $i=0;
     public $combinacoes=[];
     public $productimages=[];
-    public $optionimages;
+    public $optionimages=[];
     public $optionimagessaveds=[];
     public $principaloptionimage;
     public $optionprice;
@@ -76,7 +76,7 @@ class EditProduct extends Component
             $combinacoes[] = preg_split( '/##/', $v, -1, PREG_SPLIT_NO_EMPTY );
           }
           $this->combinacoes=$combinacoes;
-
+      
         array_push($this->options ,count($this->variationsselected));
 
 
@@ -171,6 +171,7 @@ class EditProduct extends Component
             'sku' =>'required',
             'price' =>'required',
             'description' => 'required',
+            'productimages' => 'required',
             'slug' => ['required','unique:products,slug,'.$this->productid],
             'optionprice.0'=>'required',
             'optionqty.0' =>'required',
@@ -183,11 +184,13 @@ class EditProduct extends Component
             'price' =>'required',
             'sku' =>'required',
             'description' => 'required',
+            'productimages' => 'required',
             'slug' => ['required','unique:products,slug,'.$this->productid],
 
         ]);
      }
 
+     
 
       try {
 

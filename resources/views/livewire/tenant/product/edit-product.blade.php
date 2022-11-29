@@ -492,6 +492,13 @@
 
                     </div>
                 </div>
+                <div>
+                    @error('productimages')
+                    <p class="mt-2 text-sm text-red-500">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
         </div>
         <!-- RIGHT FORM -->
         <div class="space-y-6 sm:px-6 lg:px-6 lg:col-span-4">

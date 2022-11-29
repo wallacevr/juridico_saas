@@ -31,7 +31,7 @@
             </div>
 
             <div class="mt-6">
-                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Taxvat', 'placeholder'=>'___.___.___-__', 'name'=>'taxvat', 'value'=> '' ])
+                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Taxvat','class'=>'cpfcnpj', 'placeholder'=>'___.___.___-__', 'name'=>'taxvat', 'value'=> '' ])
             </div>
 
             <div class="mt-6">
