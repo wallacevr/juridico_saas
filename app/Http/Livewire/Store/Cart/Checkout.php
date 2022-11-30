@@ -10,6 +10,8 @@ use App\Order;
 use App\OrderProduct;
 use App\Plugin;
 use App\Models\Address;
+use App\Product as Productstore;
+use App\ProductOption;
 use Auth;
 use PagSeguro; 
 use MelhorEnvio; 
@@ -120,6 +122,7 @@ class Checkout extends Component
         
                 if($cart[0]->id_shipping!=null){
                     $this->shippingid = $cart[0]->id_shipping;
+                  
                     foreach ($this->quotations as $quotation) {
                         # code...
                         if($quotation['id'] == $cart[0]->id_shipping){
@@ -252,7 +255,7 @@ class Checkout extends Component
                 $orderproduct->product_options_id = $cartproduct->product_options_id;
                 $orderproduct->save();
               
-                
+                $this->managestock($cartproduct->id_product, $cartproduct->product_options_id,$cartproduct->quantity);  
         }
             
                 
@@ -537,15 +540,16 @@ class Checkout extends Component
 
     public function shippingcalculator(){
        try {
+        
         $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
         $calculator = $shipment->calculator();
 
-        
+       
                  $shippingaddress = Address::find($this->shippingaddress);
-           
-                $calculator->postalCode(str_replace('-','',get_config('general/store/postalcode')) ,$shippingaddress->postalcode );
-               
-          
+                 
+                $calculator->postalCode(str_replace('-','',get_config('general/store/postalcode')) ,str_replace('-','',$shippingaddress->postalcode) );
+              
+                
         $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
 
         foreach($cartproducts as $cartproduct){
@@ -565,6 +569,7 @@ class Checkout extends Component
             Service::LATAMCARGO_JUNTOS,
             Service::VIABRASIL_RODOVIARIO
         );
+        
         $this->quotations = $calculator->calculate();
        
        } catch (\Throwable $th) {
@@ -626,6 +631,18 @@ class Checkout extends Component
       
      }
 
-
+     public function managestock($productid,$productoptionid,$qty){
+        $product=Productstore::find($productid);
+         if($product->manage_stock){
+            if($productoptionid!=null){
+                $productoption = ProductOption::find($productoptionid);
+                $productoption->qty_stock=$productoption->qty_stock-$qty;
+                $productoption->update();
+            }else{
+                $product->qty=$product->qty-$qty;
+                $product->update();
+            }
+         }
+     }
 
 }
