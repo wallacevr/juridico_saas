@@ -29,7 +29,7 @@ Route::group([
                 Route::get('/', 'CustomerController@customerDashboard')->name('customer.dashboard');
                 Route::get('/addresses', 'CustomerController@customerAddresses')->name('customer.addresses');
             });
-
+            Route::resource('orders', 'OrderController');
             Route::post('/logout', function () {
                 Auth::guard('customers')->logout();
                 return redirect()->action([
@@ -52,7 +52,7 @@ Route::group([
     Route::middleware('auth:customers')->group(function () {
         Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
        
-
+       
         Route::get('add-to-wishlist/{id}', [WishlistController::class, 'addwishlist'])->name('addwishlist');
       
     });

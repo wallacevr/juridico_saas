@@ -48,10 +48,19 @@
                                         </div>
                                         <div class="text-right w-36">
 
-                                    
+                                                @php 
+                                                    if($cartproduct->DiscountTicket()>0){
+                                                        $classdiscount ="line-through";
+                                                    }else{
+                                                        $classdiscount ="";
+                                                    }    
 
-                                                <h3 class="text-lg font-semibold leading-snug sm:pr-8">R$ {{round($cartproduct->quantity,0)*($cartproduct->advancedPrice())}}</h3>
-                                                <h3 class="text-lg font-semibold leading-snug sm:pr-8">R$ {{number_format($cartproduct->DiscountTicket(),2,",",".")}}</h3>
+                                                @endphp
+
+                                                <h3 class="text-lg font-semibold leading-snug {{$classdiscount}} sm:pr-8">R$ {{number_format(round($cartproduct->quantity,0)*($cartproduct->advancedPrice()),2,",",".")}}</h3>
+                                                @if($cartproduct->DiscountTicket()>0)
+                                                    <h3 class="text-lg font-semibold leading-snug sm:pr-8">R$ {{number_format((round($cartproduct->quantity,0)*($cartproduct->advancedPrice())-$cartproduct->DiscountTicket()),2,",",".")}}</h3>
+                                                @endif
                                         </div>
                                     </div>
                                     <div class="flex text-sm divide-x">

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Store\Customers;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\Address;
+use App\Order;
 use Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
@@ -36,6 +37,7 @@ class Myaccount extends Component
     public $newaddress = false;
     public $wishlistproducts = [];
    
+   
 
     protected function validatorprofile()
     {
@@ -51,7 +53,9 @@ class Myaccount extends Component
     }
     public function render()
     {
-        return view('livewire.store.customers.myaccount');
+        return view('livewire.store.customers.myaccount',[
+            'orders' => Order::where('id_customer',Auth::guard('customers')->user()->id)->paginate(5)
+        ]);
     }
 
     public function mount(){
@@ -75,7 +79,7 @@ class Myaccount extends Component
        $this->state = $this->addresses[0]->state;
        $this->country = $this->addresses[0]->country;
        $this->wishlistproducts = $customer->wishlist;
-   
+      
         
     }
     public function setaddress(){

@@ -149,41 +149,44 @@
                 <div><h6>Boleto</h6></div>
             </a>
             </li>
-            <li class="nav-item flex-grow text-center my-2" role="presentation">
-            @if($tab==3)
-            <a href="#pills-contactVertical" class="
-                nav-link
-                block
-                font-medium
-                text-xs
-                leading-tight
-                uppercase
-                rounded
-                px-6
-                py-3
-                focus:outline-none focus:ring-0
-                active
-                " id="pills-contact-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-contactVertical" role="tab"
-                aria-controls="pills-contactVertical" aria-selected="true" wire:click="tabactive(3)">PIX</a>
-              @else
-                <a href="#pills-contactVertical" class="
-                    nav-link
-                    block
-                    font-medium
-                    text-xs
-                    leading-tight
-                    uppercase
-                    rounded
-                    px-6
-                    py-3
-                    focus:outline-none focus:ring-0
-           
-                    " id="pills-contact-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-contactVertical" role="tab"
-                    aria-controls="pills-contactVertical" aria-selected="false" wire:click="tabactive(3)">PIX</a>
-              
+                @if(get_config('plugins/payments/pagseguro/habilitarpix'))
+                    <li class="nav-item flex-grow text-center my-2" role="presentation">
 
-              @endif
-            </li>
+                        @if($tab==3)
+                        <a href="#pills-contactVertical" class="
+                            nav-link
+                            block
+                            font-medium
+                            text-xs
+                            leading-tight
+                            uppercase
+                            rounded
+                            px-6
+                            py-3
+                            focus:outline-none focus:ring-0
+                            active
+                            " id="pills-contact-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-contactVertical" role="tab"
+                            aria-controls="pills-contactVertical" aria-selected="true" wire:click="tabactive(3)">PIX</a>
+                        @else
+                            <a href="#pills-contactVertical" class="
+                                nav-link
+                                block
+                                font-medium
+                                text-xs
+                                leading-tight
+                                uppercase
+                                rounded
+                                px-6
+                                py-3
+                                focus:outline-none focus:ring-0
+                    
+                                " id="pills-contact-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-contactVertical" role="tab"
+                                aria-controls="pills-contactVertical" aria-selected="false" wire:click="tabactive(3)">PIX</a>
+                        
+
+                        @endif
+                </li>
+             @endif   
         </ul>
         <div class="tab-content" id="pills-tabContentVertical" wire:ignore.self>
             @if($tab==1)
@@ -315,10 +318,12 @@
                     </div>
                    
                     <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount+$shippingprice,2,',','.') }}</h1></div>
-                    @if($cart->paymentlink==null)
+                    @if($cart->open)
                         <div class="py-5 px-4 "><button id="btnpayboleto" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button></div>
                     @else
-                        <div class="py-5 px-4 "><a href="{{$cart->paymentlink}}" target="_bla"> <button  class="my-3 bg-blue-500 px-3 rounded">{{__('Download Boleto')}}</button></a></div>
+                        @if($cart->paymentlink!=null)
+                             <div class="py-5 px-4 "><a href="{{$cart->paymentlink}}" target="_bla"> <button  class="my-3 bg-blue-500 px-3 rounded">{{__('Download Boleto')}}</button></a></div>
+                        @endif
                     @endif
                     @if(!$cart->open)   
                         <div class="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3" role="alert">
@@ -761,7 +766,7 @@ copyTest.addEventListener('click', function(event) {
                               
                                     $('#creditcardtoken').val(response.card.token);
                                      @this.creditcardtoken=response.card.token;
-                              
+                                        
 
                           
                                
