@@ -376,7 +376,7 @@ class Checkout extends Component
                 $orderproduct->discount_percent = $cartproduct->discount_percent;
                 $orderproduct->product_options_id = $cartproduct->product_options_id;
                 $orderproduct->save();
-              
+                $this->managestock($cartproduct->id_product, $cartproduct->product_options_id,$cartproduct->quantity);  
                 
         }
             
@@ -483,7 +483,7 @@ class Checkout extends Component
                 $orderproduct->discount_percent = $cartproduct->discount_percent;
                 $orderproduct->product_options_id = $cartproduct->product_options_id;
                 $orderproduct->save();
-              
+                $this->managestock($cartproduct->id_product, $cartproduct->product_options_id,$cartproduct->quantity);  
                 
         }
             
