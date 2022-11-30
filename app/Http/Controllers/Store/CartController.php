@@ -6,6 +6,7 @@ use App\Product;
 use App\Cart;
 use App\Order;
 use App\CartProduct;
+use App\ProductOption;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Session;
@@ -207,12 +208,12 @@ class CartController extends Controller
                           case('7'):
                             
                             $cart->paymentstatus= "Payment Cancelled";
-           
+                            $this->returnstock($cart->id);
                           break;
                           case('8'):
                             
                             $cart->paymentstatus= "Payment Returned";
-           
+                            $this->returnstock($cart->id);
                           break;
                           case('9'):
                             
@@ -231,4 +232,29 @@ class CartController extends Controller
              
         }
     }
+
+
+
+    public function returnstock($cartid)
+        {
+            $cartproducts = CartProduct::where('id_cart',$cartid)->get();
+            foreach($cartproducts as $cartproduct){
+                $product=Product::find($cartproduct->id_product);
+            if($product->manage_stock){
+                if($productoptionid!=null){
+                    $productoption = ProductOption::find($productoptionid);
+                    $productoption->qty_stock=$productoption->qty_stock+$qty;
+                    $productoption->update();
+                }else{
+                    $product->qty=$product->qty+$qty;
+                    $product->update();
+                }
+            }
+            }    
+        
+     }
+
+
+
+
 }
