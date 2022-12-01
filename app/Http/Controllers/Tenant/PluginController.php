@@ -36,7 +36,7 @@ class PluginController extends Controller
             'boleto' => 'required',
             'pix' => 'required'
          ]);
-            dd($request);
+            
             //code...
             Config::createOrUpdate('payments/plataform/creditcard',$request->creditcard);
             Config::createOrUpdate('payments/plataform/boleto',$request->boleto);

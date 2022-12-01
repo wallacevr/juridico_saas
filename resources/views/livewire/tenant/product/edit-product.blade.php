@@ -3,7 +3,7 @@
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
         <!-- LEFT FORM -->
         <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">
-            <form id="productForm" action="{{ route('tenant.products.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="productForm" enctype="multipart/form-data">
                 @csrf
                 <div class="shadow sm:rounded-md sm:overflow-hidden shadow-indigo-200">
                     <div class="px-4 py-5 sm:px-6 ">
@@ -209,14 +209,14 @@
                 <div class="shadow sm:rounded-md sm:overflow-hidden">
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div>
-                            
+
                             <h3 class="text-lg leading-6 font-medium text-gray-900">
                                 <input type="checkbox" name="options" id="options" wire:model="habilitavariations"> {{ __('This product has options such as size or color') }}
                             </h3>
-                     
+
                         </div>
-                @if($habilitavariations)   
-                        
+                @if($habilitavariations)
+
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-12 sm:col-span-6">
                                     <legend class="text-base font-medium text-gray-900">
@@ -227,82 +227,82 @@
                                     <div class="mt-5 space-y-4 mb-5">
                                         <div class="flex items-start ">
                                             <div wire:ignore class="w-full">
-                                        
+
                                                     <select class="form-control js-basic-multiple w-full" name="variations_id[]" id="select2" multiple="multiple" >
-                                                       
+
                                                         @foreach($variations as $variation)
                                                             <option value="{{ $variation->id }}"
                                                                 @if($selected->contains( $variation->id ))
                                                                         selected
                                                                 @endif
-                                                            
+
                                                                     >{{ $variation->name }}</option>
-                                                        @endforeach 
+                                                        @endforeach
                                                     </select>
                                                     <script>
                                                             $(document).ready(function () {
-                                                    
+
                                                                 $('#select2').select2({
                                                                     placeholder: 'seletec the variations of this product ',
                                                                     allowClear: true   // Shows an X to allow the user to clear the value.
                                                                 });
                                                                 $('#select2').on('change', function (e) {
-                                                                  
+
                                                                     var data = $('#select2').select2("val");
                                                                      @this.set('selected', data);
-                                                                    
-                                                                     
+
+
                                                                 });
-                                        
+
                                                             });
 
                                                     </script>
                                             </div>
-                                            
+
                                         </div>
-                                      
+
                                     </div>
-                                  
+
                                      <div class="mt-1"  wire:poll="listaoptions">
                                             @if($selected)
-                                     
+
                                                 @foreach($variationsselected as $variationselected)
-                                                        
+
                                                             <div wire:ignore>
                                                                 <select class="form-control js-basic-multiple w-full" name="{{ $variationselected->name }}options[]" id="{{ $variationselected->name }}options" multiple="multiple" >
-                                                            
+
                                                                         @foreach($variationselected->options as $option)
-                                                                       
+
                                                                             <option value="{{ $option->id }}"
                                                                             @if(in_array($option->id,$selected2[$option->variation_id]))
                                                                                     selected
                                                                             @endif
-                                                                            
-                                                                            
+
+
                                                                                 >{{ $option->name }}</option>
-                                                                        @endforeach 
-                                                                    
+                                                                        @endforeach
+
                                                                 </select>
                                                                 <script>
                                                                             $(document).ready(function () {
-                                                                    
+
                                                                                 $('#{{ $variationselected->name }}options').select2({
                                                                                     placeholder: "seletec the {{$variationselected->name }}'s options of this product ",
                                                                                     allowClear: true   // Shows an X to allow the user to clear the value.
                                                                                 });
                                                                                 $('#{{ $variationselected->name }}options').on('change', function (e) {
-                                                                                    
+
                                                                                     var data = $('#{{ $variationselected->name }}options').select2("val");
-                                                                                
+
                                                                                     @this.set('selected2.{{$variationselected->id}}', data);
-                                                                                    
-                                                                                    
+
+
                                                                                 });
-                                                        
+
                                                                             });
 
                                                                     </script>
-                                                            </div>                                        
+                                                            </div>
 
                                                     @endforeach
                                              @endif
@@ -312,20 +312,20 @@
                     </div>
                 @endif
             </div>
-            
+
         </div>
         <br>
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                                 <div>
-                                    
+
                                     <h3 class="text-lg leading-6 font-medium text-gray-900">
                                         {{ __("Input the option's price and  qty in stock") }}
                                     </h3>
-                            
+
                                 </div>
-                                @if($habilitavariations)   
-                                
+                                @if($habilitavariations)
+
                                         <div class="grid grid-cols-6 gap-6">
                                             <div class="col-span-12 sm:col-span-6">
 
@@ -338,14 +338,14 @@
                                                                 @endphp
                                                                 @foreach($combinacoes as $combinacao)
                                                                     <tr>
-                                                                       
+
                                                                         @foreach($combinacao as $option)
-                                                                         
+
                                                                             <td>{{$this->getOption($option)}}</td>
-                                                                    
+
                                                                         @endforeach
                                                                         <td class="w-1/4 px-2.5">
-                                                                                
+
                                                                                 @include('layouts.snippets.optionsfields', [
                                                                                     'type' => 'text',
                                                                                     'label' => 'Price',
@@ -356,10 +356,10 @@
                                                                                     'wiremodel' => 'optionprice',
                                                                                     'i'=> $x
                                                                                 ])
-                                                                        
+
                                                                         </td>
                                                                             <td class="w-1/4 px-2.5">
-                                                                                
+
                                                                                     @include('layouts.snippets.optionsfields', [
                                                                                         'type' => 'number',
                                                                                         'label' => 'Qty',
@@ -371,31 +371,31 @@
                                                                                         'wiremodel' => 'optionqty',
                                                                                         'i'=> $x
                                                                                     ])
-                                                                                        
+
                                                                             </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="{{(count($variationsselected)+2)}}" >
                                                                        {{-- <x-input.filepond wire:model="optionimages.{{ $x }}" multiple></x-input> --}}
-                                                            
-                                                                                                                                          
+
+
                                                                                 <input wire:model="optionimages.{{ $x }}" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" multiple>
                                                                                 <div wire:loading wire:target="optionimages.{{ $x }}">Uploading...</div>
-                                                                            
+
                                                                         </td>
                                                                     </tr>
-                                                                    
+
                                                                     <tr>
                                                                         <td colspan="{{(count($variationsselected)+2)}}" >
                                                                              @isset($optionimages[$x])
                                                                                 <div class="flex ...">
-                                                                                     @php 
+                                                                                     @php
                                                                                        $position=1;
                                                                                      @endphp
-                                                                                     <div class="w-full ">Selecione a imagem Pricipal</div>   
-                                                                                    
+                                                                                     <div class="w-full ">Selecione a imagem Pricipal</div>
+
                                                                                        @foreach($optionimages[$x] as $key=>$photo)
-                                                                                       <div class="w-1/5 ">   
+                                                                                       <div class="w-1/5 ">
                                                                                             <img src="{{ $photo->temporaryUrl() }}">
                                                                                             <a href="#" wire:click="removerimagem({{$x}},{{$key}})">
                                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" >
@@ -408,26 +408,26 @@
                                                                                                 selected
                                                                                             @endif
                                                                                             >
-                                                                                           
+
                                                                                         </div>
-                                                                                        
-                                                                                        @php 
+
+                                                                                        @php
                                                                                             $position=$position+1;
                                                                                         @endphp
 
                                                                                        @endforeach
-                                                                                       
-                                                                                </div>     
+
+                                                                                </div>
                                                                               @endisset
                                                                               @isset($optionimagessaveds[$x])
                                                                                 <div class="flex ...">
-                                                                                     @php 
+                                                                                     @php
                                                                                        $position=1;
                                                                                      @endphp
-                                                                                                                                                                  
+
                                                                                        @foreach($optionimagessaveds[$x] as $key=>$photo)
-                                                                                        
-                                                                                       <div class="w-1/5 ">   
+
+                                                                                       <div class="w-1/5 ">
                                                                                             <img  src="{{  tenant_public_path()  }}/images/catalog/{{$productid}}/{{$photo['product_options_id']}}/{{$photo['image_url']}}" >
                                                                                             <a href="#" wire:click="deleteimagem({{$photo['id']}},{{$x}},{{$key}})">
                                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" >
@@ -435,38 +435,38 @@
                                                                                                 </svg>
                                                                                             </a>
                                                                                             <input type="radio" name="principaloptionimage{{$x}}" wire:model="principaloptionimage.{{$x}}" value="{{$key}}">
-                                                                                           
+
                                                                                         </div>
-                                                                                        
-                                                                                        @php 
+
+                                                                                        @php
                                                                                             $position=$position+1;
                                                                                         @endphp
 
                                                                                        @endforeach
-                                                                                       
-                                                                                </div>     
+
+                                                                                </div>
                                                                               @endisset
                                                                         </td>
-                                                                    </tr>  
-                                                                    @php 
+                                                                    </tr>
+                                                                    @php
                                                                             $x=$x+1;
                                                                     @endphp
                                                                 @endforeach
                                                             </table>
 
                                                         </div>
-                                                    
+
                                                     </div>
-                                            
+
                                                  </div>
-                                        
-                                    
+
+
                                             </div>
-                                    
+
                                          </div>
                                  @endif
                     </div>
-            
+
                 </div>
                 <br>
                 <div class="shadow sm:rounded-md sm:overflow-hidden" wire:ignore>
@@ -492,6 +492,13 @@
 
                     </div>
                 </div>
+                <div>
+                    @error('productimages')
+                    <p class="mt-2 text-sm text-red-500">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
         </div>
         <!-- RIGHT FORM -->
         <div class="space-y-6 sm:px-6 lg:px-6 lg:col-span-4">
@@ -518,14 +525,14 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="bg-white py-6 px-4 space-y-6 sm:p-6" wire:ignore>
+                <div class="bg-white py-6 px-4 space-y-6 sm:p-6" >
                     <fieldset>
                         <legend class="text-base font-medium text-gray-900">
                             {{ __('Collections') }}
                         </legend>
                         <div class="mt-4 space-y-4">
                             <div class="flex items-start">
-                                <div class="h-5 flex items-center w-full">
+                                <div class="h-5 flex items-center w-full" wire:ignore>
                                     <select id="collections" name="collections[]" multiple="multiple" class="w-full">
                                             @foreach($collections as $collection)
                                                 <option value="{{$collection->id}}"
@@ -538,16 +545,17 @@
                                     </select>
                                     <script>
                                             $(document).ready(function () {
-                                    
-                                      
+
+
                                                 $('#collections').on('change', function (e) {
-                                                    
+
                                                     var data = $('#collections').select2("val");
-                                                        @this.set('selectedcollections', data);
-                                                    
-                                                        
+                                                      alert(data);
+                                                        @this.set('selectedcollections', data.split(','));
+
+
                                                 });
-                        
+
                                             });
 
                                     </script>

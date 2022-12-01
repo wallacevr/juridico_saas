@@ -33,11 +33,13 @@
                         <select name="creditcard" id="crediticard">
                                  <option value="">{{__('Select an option')}}</option>
                                 @foreach($installedplugins as $installedplugin)
+                                  @if($installedplugin->plugin_group_id==1)
                                     <option value="{{$installedplugin->id}}"
                                         @if(get_config('payments/plataform/creditcard')==$installedplugin->id)
                                             selected
                                         @endif
                                         >{{$installedplugin->name}}</option>
+                                    @endif    
                                 @endforeach
                         </select>
                         @error('creditcard')
@@ -51,11 +53,14 @@
                         <select name="boleto" id="boleto">
                         <option value="">{{__('Select an option')}}</option>
                                 @foreach($installedplugins as $installedplugin)
-                                    <option value="{{$installedplugin->id}}" 
-                                    @if(get_config('payments/plataform/boleto')==$installedplugin->id)
-                                            selected
-                                        @endif
-                                    >{{$installedplugin->name}}</option>
+                                     @if($installedplugin->plugin_group_id==1)
+                                        <option value="{{$installedplugin->id}}" 
+                                    
+                                            @if(get_config('payments/plataform/boleto')==$installedplugin->id)
+                                                    selected
+                                                @endif
+                                            >{{$installedplugin->name}}</option>
+                                    @endif
                                 @endforeach
                         </select>
                         @error('boleto')
@@ -70,12 +75,14 @@
                         <select name="pix" id="pix">
                                 <option value="">{{__('Select an option')}}</option>
                                 @foreach($installedplugins as $installedplugin)
-                                    <option value="{{$installedplugin->id}}" 
-                                        @if(get_config('payments/plataform/creditcard')==$installedplugin->id)
-                                            selected
-                                        @endif
-                                    
-                                    >{{$installedplugin->name}}</option>
+                                     @if($installedplugin->plugin_group_id==1)
+                                            <option value="{{$installedplugin->id}}" 
+                                                @if(get_config('payments/plataform/creditcard')==$installedplugin->id)
+                                                    selected
+                                                @endif
+                                            
+                                            >{{$installedplugin->name}}</option>
+                                    @endif
                                 @endforeach
                         </select>
                         @error('pix')

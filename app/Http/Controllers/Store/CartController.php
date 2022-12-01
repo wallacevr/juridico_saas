@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Store;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Cart;
+use App\Order;
 use App\CartProduct;
+use App\ProductOption;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Session;
@@ -180,7 +182,7 @@ class CartController extends Controller
             
                        case('2'):
                             
-                             $cart->paymentstatus= "In Analysis";
+                             $cart->paymentstatus= "Payment In Analysis";
             
                            break;
                        case('3'):
@@ -195,32 +197,34 @@ class CartController extends Controller
                           break;
                         case('5'):
                             
-                            $cart->paymentstatus= "In dispute";
+                            $cart->paymentstatus= "Payment In dispute";
            
                           break;
                         case('6'):
                             
-                            $cart->paymentstatus= "Returned";
+                            $cart->paymentstatus= "Payment Returned";
            
                           break;
                           case('7'):
                             
-                            $cart->paymentstatus= "Cancelled";
-           
+                            $cart->paymentstatus= "Payment Cancelled";
+                            $this->returnstock($cart->id);
                           break;
                           case('8'):
                             
-                            $cart->paymentstatus= "Returned";
-           
+                            $cart->paymentstatus= "Payment Returned";
+                            $this->returnstock($cart->id);
                           break;
                           case('9'):
                             
-                            $cart->paymentstatus= "Temporary Retention";
+                            $cart->paymentstatus= "Temporary Retention Payment";
            
                           break;
             
                    }
                    $cart->update();
+                   $order = Order::where('id_cart',$cart->id)->first();
+                   $order->status =   $cart->paymentstatus;
 
 
         } catch (\Throwable $th) {
@@ -228,4 +232,29 @@ class CartController extends Controller
              
         }
     }
+
+
+
+    public function returnstock($cartid)
+        {
+            $cartproducts = CartProduct::where('id_cart',$cartid)->get();
+            foreach($cartproducts as $cartproduct){
+                $product=Product::find($cartproduct->id_product);
+            if($product->manage_stock){
+                if($productoptionid!=null){
+                    $productoption = ProductOption::find($productoptionid);
+                    $productoption->qty_stock=$productoption->qty_stock+$qty;
+                    $productoption->update();
+                }else{
+                    $product->qty=$product->qty+$qty;
+                    $product->update();
+                }
+            }
+            }    
+        
+     }
+
+
+
+
 }

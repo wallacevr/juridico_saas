@@ -62,13 +62,13 @@ class PageController extends Controller
         if (!$page->save()) {
             return back()->withInput()->with("error", "Error creating page.");
         }
-
+       
         URL::create([
-            'url' => 'pagina/'.$page->url,
+            'url' => 'page/'.$page->url,
             'entity' => 'PAGE',
             'entity_id' => $page->id,
         ])->save();
-
+       
         return redirect()->route('tenant.pages.index')->with("success", "Page created successfully!");
     }
 
@@ -108,8 +108,10 @@ class PageController extends Controller
             $page->delete();
 
             $url = URL::firstWhere('url', $page->url);
-
-            $url->delete();
+            if($url!=null){
+                $url->delete();
+            }
+               
 
             DB::commit();
         } catch (QueryException $e) {

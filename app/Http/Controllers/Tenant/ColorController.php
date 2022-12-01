@@ -48,7 +48,7 @@ class ColorController extends Controller
             'text_add_cart_hover' => ['required', 'string', new Hex()],
         ]);
 
-
+        
         Config::createOrUpdate('general/layout/primary_color', $validated['primary_color']);
         Config::createOrUpdate('general/layout/secundary_color', $validated['secundary_color']);
         Config::createOrUpdate('general/layout/title_primary_color', $validated['title_primary_color']);
@@ -64,7 +64,7 @@ class ColorController extends Controller
         Config::createOrUpdate('general/layout/background_add_cart_hover', $validated['background_add_cart_hover']);
         Config::createOrUpdate('general/layout/text_add_cart', $validated['text_add_cart']);
         Config::createOrUpdate('general/layout/text_add_cart_hover', $validated['text_add_cart_hover']);
-
+       
 
         return redirect()->back()->with('success', __('Store information updated.'));
     }

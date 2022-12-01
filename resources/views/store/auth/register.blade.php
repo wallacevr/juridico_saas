@@ -31,7 +31,7 @@
             </div>
 
             <div class="mt-6">
-                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Taxvat', 'placeholder'=>'___.___.___-__', 'name'=>'taxvat', 'value'=> '' ])
+                @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Taxvat','class'=>'cpfcnpj', 'placeholder'=>'___.___.___-__', 'name'=>'taxvat', 'value'=> '' ])
             </div>
 
             <div class="mt-6">
@@ -193,7 +193,7 @@
 <script>
     $(document).ready(function() {
         $('#postalcode').mask('00000-000');
-        $('#taxvat').mask('000.000.000-00');
+       
         $('#phone').mask('(00) 00000-0000');
         $('#telephone').mask('(00) 0000-0000');
 
@@ -210,6 +210,7 @@
                 },
                 taxvat: {
                     required: true,
+                    
                 },
                 phone: {
                     required: true,

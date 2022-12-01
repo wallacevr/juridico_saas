@@ -2,10 +2,16 @@
 
 namespace App\Http\Livewire\Store\Cart;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
 use App\Cart;
 use App\Cartproduct;
+use App\Order;
+use App\OrderProduct;
+use App\Plugin;
 use App\Models\Address;
+use App\Product as Productstore;
+use App\ProductOption;
 use Auth;
 use PagSeguro; 
 use MelhorEnvio; 
@@ -54,7 +60,9 @@ class Checkout extends Component
     public  $quotations;
     public $shippingid;
     public $shippingprice=0;
-
+    public $orderid;
+    public $pagseguroid;
+    
     protected $listener=['render','refreshshippingprice'];
     public function render()
     {
@@ -63,8 +71,12 @@ class Checkout extends Component
     }
 
     public function mount(){
-      
-        if(get_config('payments/plataform/creditcard')==1){
+       
+       $pagseguro = Plugin::where('name','PagSeguro')->where('active',1)->first();
+       if($pagseguro!=null){
+        $this->pagseguroid = $pagseguro->id;
+       }
+        if(get_config('payments/plataform/creditcard')==$this->pagseguroid){
 
        
             if(get_config('plugins/payments/pagseguro/sandbox')){
@@ -90,29 +102,37 @@ class Checkout extends Component
           
         }
 
-
-        $cart = Cart::where('id_customer',Auth::guard('customers')->user()->id)->where('open',1)->get();
+        $cartsession = Session::get('cart', []);
+      
+        $cart = Cart::where('id',$cartsession->id)->where('open',1)->get();
   
        if(count($cart)>0){ 
         $this->addresses = Address::where('customer_id',Auth::guard('customers')->user()->id)->get();
         $cartproducts = CartProduct::where('id_cart',$cart[0]->id)->get();
         $this->cart=Cart::find($cart[0]->id);
+        $this->cart->id_customer =Auth::guard('customers')->user()->id;
+        $this->cart->update();
         $this->cartproducts=$cartproducts;
-        if($cart[0]->id_address_delivery!=null){
-            $this->shippingaddress =$this->cart->id_address_delivery;
-            $this->shippingcalculator();
-        }
- 
-        if($cart[0]->id_shipping!=null){
-            $this->shippingid = $cart[0]->id_shipping;
-            foreach ($this->quotations as $quotation) {
-                # code...
-                if($quotation['id'] == $cart[0]->id_shipping){
-                    $this->shippingprice = $quotation['price'];
+        $melhorenvio = Plugin::where('name','Melhor Envio')->where('active',1)->first();
+        if($melhorenvio!=null){
+                if($cart[0]->id_address_delivery!=null){
+                    $this->shippingaddress =$this->cart->id_address_delivery;
+                    $this->shippingcalculator();
+                }
+        
+                if($cart[0]->id_shipping!=null){
+                    $this->shippingid = $cart[0]->id_shipping;
+                  
+                    foreach ($this->quotations as $quotation) {
+                        # code...
+                        if($quotation['id'] == $cart[0]->id_shipping){
+                           
+                            $this->shippingprice = $quotation['price'];
+                        }
+                    }
+                    
                 }
             }
-            
-        }
        }
       
       
@@ -124,13 +144,14 @@ class Checkout extends Component
 
     public function pagsegurocreditcard(){
         try {
+            
             $billingaddress = Address::find($this->billingaddress);
                   
             $shippingaddress = Address::find($this->shippingaddress);
             
             $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
             $itens=[];
-   
+           
             foreach($cartproducts as $cartproduct){
                     array_push($itens, [
                         'itemId' => 'ID '. $cartproduct->id_product,
@@ -203,24 +224,52 @@ class Checkout extends Component
             ->send($paymentSettings);
                
             $cartclosed = Cart::find($this->cart->id);
+            
             $cartclosed->id_address_delivery = $shippingaddress->id;
             $cartclosed->id_address_invoice = $billingaddress->id;
             $cartclosed->transactioncode = $pagseguro;
-            $cartclosed->paymentstatus = 'PENDING';
+            $cartclosed->paymentstatus = 'Awaiting Payment';
             $cartclosed->open =0;
             $cartclosed->paymenttype = $this->paymentmethod;
- 
+            $cartclosed->price_shipping = $this->shippingprice;
             $cartclosed->update();
-
+            $order = new Order;
+            $order->id_cart=$cartclosed->id;
+            $order->id_currency=0;
+            $order->id_customer=$cartclosed->id_customer;
+            $order->id_address_delivery = $shippingaddress->id;
+            $order->id_address_invoice = $billingaddress->id;
+            $order->id_shipping = $cartclosed->id_shipping;
+            $order->price_shipping = $cartclosed->price_shipping;
+            $order->status = 'Awaiting Payment';
+            $order->save();
+            foreach($cartproducts as $cartproduct){
+                $orderproduct = new OrderProduct;
+                $orderproduct->id_order = $order->id;
+                $orderproduct->id_product =  $cartproduct->id_product;
+                $orderproduct->quantity = $cartproduct->quantity;
+                $orderproduct->price = number_format($cartproduct->FinalPrice(), 2, '.', ',');
+                $orderproduct->base = $cartproduct->base;
+                $orderproduct->discount_amount = $cartproduct->discount_amount;
+                $orderproduct->discount_percent = $cartproduct->discount_percent;
+                $orderproduct->product_options_id = $cartproduct->product_options_id;
+                $orderproduct->save();
+              
+                $this->managestock($cartproduct->id_product, $cartproduct->product_options_id,$cartproduct->quantity);  
+        }
+            
                 
                 $this->cart = $cartclosed;
+                $this->orderid = $order->id;
+                Session::put('cart', []);
+                Session::save();
             session()->flash('success', 'Order completed successfully!');
         }
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
-    
+           
         }
 
         
@@ -298,21 +347,51 @@ class Checkout extends Component
             $cartclosed->id_address_delivery = $shippingaddress->id;
             $cartclosed->id_address_invoice = $billingaddress->id;
             $cartclosed->transactioncode = $pagseguro->code;
-            $cartclosed->paymentstatus = 'PENDING';
+            $cartclosed->paymentstatus = 'Awaiting Payment';
             $cartclosed->open =0;
             $cartclosed->paymenttype = 'boleto';
+            $cartclosed->price_shipping = $this->shippingprice;
             $cartclosed->paymentlink =$pagseguro->paymentLink;
             $cartclosed->update();
 
        
+            $order = new Order;
+            $order->id_cart=$cartclosed->id;
+            $order->id_currency=0;
+            $order->id_customer=$cartclosed->id_customer;
+            $order->id_address_delivery = $shippingaddress->id;
+            $order->id_address_invoice = $billingaddress->id;
+            $order->id_shipping = $cartclosed->id_shipping;
+            $order->price_shipping = $cartclosed->price_shipping;
+            $order->status = 'Awaiting Payment';
+            $order->save();
+            foreach($cartproducts as $cartproduct){
+                $orderproduct = new OrderProduct;
+                $orderproduct->id_order = $order->id;
+                $orderproduct->id_product =  $cartproduct->id_product;
+                $orderproduct->quantity = $cartproduct->quantity;
+                $orderproduct->price = number_format($cartproduct->FinalPrice(), 2, '.', ',');
+                $orderproduct->base = $cartproduct->base;
+                $orderproduct->discount_amount = $cartproduct->discount_amount;
+                $orderproduct->discount_percent = $cartproduct->discount_percent;
+                $orderproduct->product_options_id = $cartproduct->product_options_id;
+                $orderproduct->save();
+                $this->managestock($cartproduct->id_product, $cartproduct->product_options_id,$cartproduct->quantity);  
+                
+        }
+            
+                
                 $this->cart = $cartclosed;
+                $this->orderid = $order->id;
+                Session::put('cart', []);
+                Session::save();
             session()->flash('success', 'Order completed successfully!');
         }
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
-           
+           dd($e);
         }
 
         
@@ -322,7 +401,7 @@ class Checkout extends Component
 
     public function pix(){
    
-        if(get_config('payments/plataform/pix')==1){ 
+        if(get_config('payments/plataform/pix')==$this->pagseguroid){ 
             $this->validate([
                 'shippingaddress' => 'required',
                 'invoiceaddresspix' =>'required'
@@ -369,22 +448,51 @@ class Checkout extends Component
              ->setAmount($total)
             ->send($paymentSettings);
   
-        
+          
             $cartclosed = Cart::find($this->cart->id);
             $cartclosed->id_address_delivery = $shippingaddress->id;
             $cartclosed->id_address_invoice = $billingaddress->id;
             $cartclosed->transactioncode = $pagseguro->chave;
-            $cartclosed->paymentstatus = 'PENDING';
+            $cartclosed->paymentstatus = 'Awaiting Payment';
             $cartclosed->transactioncode = $pagseguro->txid;
             $cartclosed->open =0;
             $cartclosed->paymenttype = 'pix';
             $cartclosed->paymentqrcode =$pagseguro->urlImagemQrCode;
+            $cartclosed->price_shipping = $this->shippingprice;
             $cartclosed->paymentpixcopiaecola =$pagseguro->pixCopiaECola;
             $cartclosed->update();
 
-       
-                $this->cart = $cartclosed;
+            $order = new Order;
+            $order->id_cart=$cartclosed->id;
+            $order->id_currency=0;
+            $order->id_customer=$cartclosed->id_customer;
+            $order->id_address_delivery = $shippingaddress->id;
+            $order->id_address_invoice = $billingaddress->id;
+            $order->id_shipping = $cartclosed->id_shipping;
+            $order->price_shipping = $cartclosed->price_shipping;
+            $order->status = 'Awaiting Payment';
+            $order->save();
+            foreach($cartproducts as $cartproduct){
+                $orderproduct = new OrderProduct;
+                $orderproduct->id_order = $order->id;
+                $orderproduct->id_product =  $cartproduct->id_product;
+                $orderproduct->quantity = $cartproduct->quantity;
+                $orderproduct->price = number_format($cartproduct->FinalPrice(), 2, '.', ',');
+                $orderproduct->base = $cartproduct->base;
+                $orderproduct->discount_amount = $cartproduct->discount_amount;
+                $orderproduct->discount_percent = $cartproduct->discount_percent;
+                $orderproduct->product_options_id = $cartproduct->product_options_id;
+                $orderproduct->save();
+                $this->managestock($cartproduct->id_product, $cartproduct->product_options_id,$cartproduct->quantity);  
+                
+        }
             
+                
+                $this->cart = $cartclosed;
+                $this->orderid = $order->id;
+                Session::put('cart', []);
+                Session::save();
+              
             session()->flash('success', 'Order completed successfully!');
         }
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
@@ -432,15 +540,16 @@ class Checkout extends Component
 
     public function shippingcalculator(){
        try {
+        
         $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
         $calculator = $shipment->calculator();
 
-        
+       
                  $shippingaddress = Address::find($this->shippingaddress);
-           
-                $calculator->postalCode('01010010',$shippingaddress->postalcode );
-               
-          
+                 
+                $calculator->postalCode(str_replace('-','',get_config('general/store/postalcode')) ,str_replace('-','',$shippingaddress->postalcode) );
+              
+                
         $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
 
         foreach($cartproducts as $cartproduct){
@@ -460,11 +569,12 @@ class Checkout extends Component
             Service::LATAMCARGO_JUNTOS,
             Service::VIABRASIL_RODOVIARIO
         );
+        
         $this->quotations = $calculator->calculate();
        
        } catch (\Throwable $th) {
         //throw $th;
-       
+        
        }
      
     }
@@ -516,11 +626,23 @@ class Checkout extends Component
         }
         } catch (\Throwable $th) {
          //throw $th;
-            dd($th);
+           
         }
       
      }
 
-
+     public function managestock($productid,$productoptionid,$qty){
+        $product=Productstore::find($productid);
+         if($product->manage_stock){
+            if($productoptionid!=null){
+                $productoption = ProductOption::find($productoptionid);
+                $productoption->qty_stock=$productoption->qty_stock-$qty;
+                $productoption->update();
+            }else{
+                $product->qty=$product->qty-$qty;
+                $product->update();
+            }
+         }
+     }
 
 }

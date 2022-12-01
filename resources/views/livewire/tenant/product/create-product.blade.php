@@ -224,7 +224,7 @@
                                 </label>
                                 <div class="mt-1">
                                     <select name="manage_stock" wire:model="manage_stock">
-                                        <option>{{ __('Select') }}</option>
+                                        
                                         <option value="1" selected>{{ __('Yes') }}</option>
                                         <option value="0">{{ __('No') }}</option>
                                     </select>
@@ -234,7 +234,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Qty',
-                                    'placeholder' => 'R$ 90,00',
+                                    'placeholder' => '90',
                                     'name' => 'qty',
                                     'value' => '1',
                                     'require' => false,
@@ -245,7 +245,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Min Qty',
-                                    'placeholder' => 'R$ 90,00',
+                                    'placeholder' => '90',
                                     'name' => 'min_qty',
                                     'value' => '1',
                                     'require' => false,
@@ -257,7 +257,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Max Qty',
-                                    'placeholder' => 'R$ 90,00',
+                                    'placeholder' => '90',
                                     'name' => 'max_qty',
                                     'value' => '0',
                                     'require' => false,
@@ -425,6 +425,7 @@
         </div>
         <br>
             <div class="shadow sm:rounded-md sm:overflow-hidden">
+                     @if($habilitavariations)  
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                                 <div>
                                     
@@ -433,7 +434,7 @@
                                     </h3>
                             
                                 </div>
-                                @if($habilitavariations)   
+                             
                                 
                                         <div class="grid grid-cols-6 gap-6">
                                             <div class="col-span-12 sm:col-span-6">
@@ -540,9 +541,9 @@
                                             </div>
                                     
                                          </div>
-                                 @endif
+                                 
                     </div>
-            
+                    @endif
                 </div>
                 <br>
                 <div class="shadow sm:rounded-md sm:overflow-hidden" wire:ignore>
@@ -554,20 +555,25 @@
                         </div>
 
                         <div class="">
-                                <x-input.filepond wire:model="productimages" multiple></x-input>
+                                <x-input.filepond name="productimages" wire:model="productimages" multiple></x-input>
+      
                         </div>
+
                         <script>
 
 
                         </script>
-                        @error('image_url')
-                            <p class="mt-2 text-sm text-red-500">
-                                {{ $message }}
-                            </p>
-                        @enderror
+
 
                     </div>
                 </div>
+                <div>
+                    @error('productimages')
+                    <p class="mt-2 text-sm text-red-500">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
         </div>
         <!-- RIGHT FORM -->
         <div class="space-y-6 sm:px-6 lg:px-6 lg:col-span-4">

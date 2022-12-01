@@ -12,7 +12,7 @@
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
     <!-- LEFT FORM -->
     <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">
-        <form action="{{ route('tenant.menus.update', $menu->id) }}" method="POST"">
+        <form action="{{ route('tenant.menus.update', $menu->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class=" shadow sm:rounded-md sm:overflow-hidden">
@@ -37,7 +37,7 @@
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                     {{ __('label.Menu items') }}
                 </h3>
-                
+
                 <div class="flex md:flex md:justify-center pt-3">
                     <input type="text" id="submenuTitle" value="{{ old('title') }}" class="flex-auto mx-1 mt-1 border border-gray-300 rounded-md shadow-sm py-2 px-5 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="{{ __('label.Submenu title') }}" />
                     <select class="" id="submenuUrl">
@@ -120,14 +120,14 @@
 
 @endsection
 <script>
-    
+
 
     // CSRF Token
     var searchPost = '{{ route("tenant.menus.get-url")}}';
- 
 
 
-    
+
+
 </script>
 @push('js')
 <script src="{{ URL::to('/') . '/js/jquery-sortable.js' }}"></script>

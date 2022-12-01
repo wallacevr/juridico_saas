@@ -14,7 +14,7 @@ Route::group([
 ], function () {
     Route::prefix('customer')->group(function () {
 
-        Route::middleware('guest:customers')->group(function () {
+        Route::middleware('guest:customer')->group(function () {
             //login route
             Route::get('/login', 'LoginController@login')->name('customer.login');
             Route::post('/login', 'LoginController@processLogin')->name('customer.login');
@@ -29,7 +29,7 @@ Route::group([
                 Route::get('/', 'CustomerController@customerDashboard')->name('customer.dashboard');
                 Route::get('/addresses', 'CustomerController@customerAddresses')->name('customer.addresses');
             });
-
+            Route::resource('orders', 'OrderController');
             Route::post('/logout', function () {
                 Auth::guard('customers')->logout();
                 return redirect()->action([
@@ -44,15 +44,15 @@ Route::group([
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/collections/{slug}', 'CollectionController@show')->name('collection.show');
+    Route::get('/categorias/{slug}', 'CollectionController@show')->name('categorias.show');
+    Route::get('/page/{slug}', 'PageController@show')->name('page.show');
     Route::get('/pagina/{slug}', 'PageController@show')->name('page.show');
-
-
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
    
     Route::middleware('auth:customers')->group(function () {
         Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
        
-
+       
         Route::get('add-to-wishlist/{id}', [WishlistController::class, 'addwishlist'])->name('addwishlist');
       
     });

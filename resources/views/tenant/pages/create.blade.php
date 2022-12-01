@@ -38,13 +38,13 @@
 
                     <div class="col-span-3 sm:col-span-2">
                         <label for="slug" class="block text-sm font-medium text-gray-700">
-                            {{ __('URL') }}
+                            {{ __('URL') }}<span  class="red">*</span>
                         </label>
                         <div class="mt-1 rounded-md shadow-sm flex">
                             <span class="bg-gray-50 border border-r-0 border-gray-300 px-3 inline-flex items-center text-gray-500 sm:text-sm">
                                 {{ Request::getHost() . '/' . __('pages') . '/'}}
                             </span>
-                            <input type="text" name="url" id="slug" class="block w-full border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('slug') }}" />
+                            <input type="text" name="url" id="slug" class="block w-full border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('slug') }}" required />
                         </div>
                         @error('url')
                         <p class="mt-2 text-sm text-red-500">

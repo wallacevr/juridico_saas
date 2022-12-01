@@ -18,7 +18,7 @@ Route::group([
         return UserImpersonation::makeResponse($token);
     })->name('impersonate');
 
-   
+
     Route::get('/', 'HomeController@index')->name('tenant.home');
     Route::post('/ploi/webhook/certificateIssued', 'PloiWebhookController@certificateIssued')->name('ploi.certificate.issued');
     Route::post('/ploi/webhook/certificateRevoked', 'PloiWebhookController@certificateRevoked')->name('ploi.certificate.revoked');
@@ -26,18 +26,18 @@ Route::group([
     Route::prefix('admin')->group(function () {
         Auth::routes();
 
-        Route::redirect('/', '/admin/login/')->middleware('guest');
+        Route::redirect('/', '/admin/login/')->middleware('guest:admin')->name('admin.login');
 
         Route::middleware(['auth', CheckSubscription::class])->group(function () {
             Route::get('/dashboard', 'ApplicationSettingsController@show')->name('admin.dashboad');
-          
+
             // Collection routes
             Route::get('collections/all', 'CollectionController@getAll')->name('collections.all');
             Route::resource('collections', 'CollectionController');
 
              // Options routes
              Route::get('options/all/{variation_id}', 'OptionController@getAll')->name('options.all');
-            
+
             //Customer routes
             Route::resource('customers', 'CustomerController');
             // Brand routes
@@ -52,6 +52,8 @@ Route::group([
             Route::resource('variations', 'VariationController');
             // Option routes
             Route::resource('options', 'OptionController');
+            // Orders routes
+            Route::resource('orders', 'OrderController');
 
             // Products routes
             Route::resource('products', 'ProductController');
@@ -66,6 +68,7 @@ Route::group([
 			// Menu routes
 
 			Route::post('menus/getUrl', 'MenuController@getUrl')->name('menus.get-url');
+            
             Route::resource('menus', 'MenuController');
 
             Route::post('ckeditor/upload', 'CKEditorController@upload')->name('ckeditor.image-upload');

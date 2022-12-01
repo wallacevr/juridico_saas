@@ -16,7 +16,14 @@ class Authenticate extends Middleware
     {
         
         if (! $request->expectsJson()) {
-            return route('store.customer.login');
+            
+            $prefix = explode('/',$request->getRequestUri());
+            if($prefix[1]=='admin' ){
+                return route('tenant.admin.login');
+            }else{
+                return route('store.customer.login');
+            }
+            
         }
     }
 }

@@ -76,7 +76,7 @@ if (!function_exists("productImage")) {
         if (!is_file($image_path)) {
             $image = '/images/no-image.jpg';
         }
-    
+
         return $image;
     }
 }
@@ -95,18 +95,18 @@ if (!function_exists("deleteImage")) {
 }
 if (!function_exists("imageCache")) {
     /**
-     * 
-     * @param mixed $imageName 
-     * @param mixed $size 
-     * @return string 
-     * @throws BindingResolutionException 
+     *
+     * @param mixed $imageName
+     * @param mixed $size
+     * @return string
+     * @throws BindingResolutionException
      */
     function imageCache($imageName=null,$size)
     {
-        
+
         $width = 254;
         $height = 364;
-      
+
         switch($size){
             case 'thumb':
                 $width = get_config('general/layout/thumb_width');
@@ -115,7 +115,7 @@ if (!function_exists("imageCache")) {
             case 'small':
                 $width = get_config('general/layout/small_width');
                 $height = get_config('general/layout/small_height');
-               
+
                 break;
             case 'medium':
                 $width = get_config('general/layout/medium_width');
@@ -126,12 +126,12 @@ if (!function_exists("imageCache")) {
                 $height = get_config('general/layout/big_height');
                 break;
         }
-        
+
         $tenantPath = 'tenant/' . tenant('id') . '/images/catalog/';
         $imagePath = public_path($tenantPath . $imageName);
-    
+
         $resize = $width.'x'.$height;
-        
+
         if (!is_file($imagePath)) {
             $imagePath = public_path('/images/no-image.jpg');
             $imageName = 'no-image.jpg';
@@ -139,25 +139,25 @@ if (!function_exists("imageCache")) {
         getStoreImagePath('catalog/cache');
         $destination = $tenantPath . 'cache/' . $resize .'/'. $imageName;
         $imagedir=explode("/",$destination ,-1);
-      
+
         if(!file_exists(public_path(implode("\\",$imagedir)))){
             mkdir(public_path(implode("\\",$imagedir)), 0777, true);
-           
+
         }
         if(!is_file($destination)){
             $imgFile = Image::make($imagePath);
-           
+
             $imgFile
                 ->resize($width, $height)
                 ->save($destination);
-               
+
         }
-        
-        
+
+
         return $destination;
     }
 
-  
+
 }
 
 if (!function_exists("generateShortcode")) {
@@ -327,6 +327,16 @@ if (!function_exists('create_menu')) {
                 // ],
             ],
             [
+                'name' => __('My Store'),
+                'icon' => 'StoreIcon',
+                'href' => route('store.home')
+                // 'children' => [
+                //     ['name' => __('menu.See All'), 'href' => '#'],
+                //     ['name' => __('menu.Groups'), 'href' => '#'],
+                //     ['name' => __('menu.Newsletter'), 'href' => '#']
+                // ],
+            ],
+            [
                 'name' => __('menu.Products'),
                 'icon' => 'ProductsIcon',
                 'children' => [
@@ -354,7 +364,7 @@ if (!function_exists('create_menu')) {
                 'icon' => 'TicketIcon',
                 'children' => [
                     ['name' => __('See All'), 'href' => route('tenant.tickets.index')],
-                 
+
                 ],
             ],
             // [
@@ -392,7 +402,7 @@ if (!function_exists('create_menu')) {
                     // ['name' => __('menu.Embed Html Code'), 'href' => '#'],
                     // ['name' => __('menu.Social Network'), 'href' => '#'],
                     ['name' => __('menu.Pages'), 'href' => route('tenant.pages.index')],
-                    
+
                 ],
             ],
             [
@@ -401,8 +411,8 @@ if (!function_exists('create_menu')) {
                 'children' => [
                     ['name' => __('Payments'), 'href' => route('tenant.plugins.index',['group'=>1])],
                     ['name' => __('Shipping'), 'href' => route('tenant.plugins.index',['group'=>2])],
-                       
-                   
+
+
                 ],
             ],
             [
@@ -412,7 +422,7 @@ if (!function_exists('create_menu')) {
                     ['name' => __('menu.General'), 'href' => route('tenant.settings.store')],
                     // ['name' => __('menu.Transaction Email'), 'href' => '#'],
                     // ['name' => __('menu.Checkout'), 'href' => '#'],
-                       
+
                     // ['name' => __('menu.Integrations'), 'href' => '#'],
                     // ['name' => __('menu.Redirects'), 'href' => '#'],
                     // ['name' => __('menu.Users'), 'href' => '#'],
@@ -430,6 +440,8 @@ if (!function_exists('create_menu')) {
 if (!function_exists('buildMainMenu')) {
     function buildMainMenu($id_mainmenu, $parent = 0, $indent = 0){
         $arrmain = Menu::find($id_mainmenu);
+        
+        if(count($arrmain->children)>0){
         echo'<nav class="px-2 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">';
              echo'<div class="container flex flex-wrap justify-between items-center mx-auto">';
                  echo'  <div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">';
@@ -437,9 +449,9 @@ if (!function_exists('buildMainMenu')) {
                       foreach($arrmain->children as $mainmenu){
                             if(count($mainmenu->children)==0){
                                 echo'<li>
-                                        <a href="#" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">'. $mainmenu->title .'</a>
+                                        <a href="'. geturlmenu($mainmenu->url) .'" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">'. $mainmenu->title .'</a>
                                     </li>';
-                                
+
                             }else{
                                 echo'<button id="dropdownNavbarLink" data-dropdown-toggle="'. $mainmenu->slug .'" class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">'. $mainmenu->title .'<svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
                                     <!-- Dropdown menu -->
@@ -447,49 +459,76 @@ if (!function_exists('buildMainMenu')) {
                                         <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                         <li aria-labelledby="dropdownNavbarLink">';
                                              buildMenu($mainmenu->id);
-                                       
-            
-                                       
+
+
+
                                 echo'</li></ul></div></button>';
                             }
                       }
-        
+
         echo'</ul><div></div></nav>';
+        }
     }
 }
 
 if (!function_exists('buildMenu')) {
+
     function buildMenu($id_menu)
     {
         $arr = Menu::find($id_menu);
-  
-          
+
+        if(count($arr->children)>0){
             foreach($arr->children as $menu){
-               
+
                 if(count($menu->children)==0){
                     echo'<li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">'. $menu->title .'</a>
+                            <a href="'. geturlmenu($menu->url) .'" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">'. $menu->title .'</a>
                         </li>';
-                    
+
                 }else{
                     echo'<button id="doubleDropdownButton" data-dropdown-toggle="'. $menu->slug .'" class="flex justify-between items-center w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">'. $menu->title .'<svg aria-hidden="true" class="ml-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button>
                         <!-- Dropdown menu -->
                         <div id="'. $menu->slug .'" class="hidden z-10 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                             <li aria-labelledby="dropdownNavbarLink">';
-                            
+
                                      buildMenu($menu->id);
-                         
-                                        
+
+
                     echo'</li></ul></div></button>';
                 }
             }
-        
-  
-        
 
         }
 
 
+        }
+
+
+
+}
+
+if (!function_exists('geturlmenu')) {
+    function geturlmenu($url){
+        $path=explode("|",$url);
+        $newpath='';
+        switch ($path[1]) {
+            case 'product':
+                $newpath=$path[0];
+                break;
+            case 'brand':
+                $newpath='/brand'.$path[0];
+                break;
+            case 'collection':
+                $newpath='/collections'.$path[0];
+                break;
+            case 'page':
+                $newpath=$path[0];
+                break;
+
+
+        }
+        return $newpath;
+    }
 
 }
