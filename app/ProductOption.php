@@ -66,4 +66,6 @@ class ProductOption extends Model
 
         return $descricao;
     }
+
+
 }

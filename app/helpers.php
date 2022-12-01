@@ -319,7 +319,7 @@ if (!function_exists('create_menu')) {
             [
                 'name' => __('menu.Orders'),
                 'icon' => 'OrdersIcon',
-                'href' => '#'
+                'href' => route('tenant.orders.index')
                 // 'children' => [
                 //     ['name' => __('menu.See All'), 'href' => '#'],
                 //     ['name' => __('menu.Groups'), 'href' => '#'],
@@ -529,6 +529,19 @@ if (!function_exists('geturlmenu')) {
 
         }
         return $newpath;
+    }
+
+}
+
+
+if (!function_exists('getwhatsapp')) {
+    function getwhatsapp(){
+        if(strlen(str_replace(' ','',preg_replace('/[^\p{L}\p{N}\s]/', '',get_config('general/store/whatsapp'))))<13){
+            $whats="55".  str_replace(' ','',preg_replace('/[^\p{L}\p{N}\s]/', '',get_config('general/store/whatsapp')));
+        }else{
+            $whats= str_replace(' ','',preg_replace('/[^\p{L}\p{N}\s]/', '',get_config('general/store/whatsapp')));
+        }
+        return $whats;
     }
 
 }

@@ -62,11 +62,31 @@ class Checkout extends Component
     public $shippingprice=0;
     public $orderid;
     public $pagseguroid;
+    public $whatstext;
     
     protected $listener=['render','refreshshippingprice'];
     public function render()
     {
-        
+        if($this->tab==4){
+            $cart = Cart::find($this->cart->id);
+            $this->whatstext= $this->whatstext . "Olá, segue abaixo meu pedido de compra: \n\n";
+            $this->whatstext= $this->whatstext . " *Cart ID*:  ". $cart->id  ." \n";
+            $this->whatstext= $this->whatstext . " *Customer*:  ". $cart->customer->name  ." \n";
+            $this->whatstext= $this->whatstext . " *Taxvat*:  ". $cart->customer->taxvat  ." \n";
+            $this->whatstext= $this->whatstext . " *Address Delivery*:  ". $cart->addressdelivery->address  ." \n";
+            $this->whatstext= $this->whatstext . " *ITENS*:  \n";
+            foreach($cart->products as $product){
+             
+                if($product->pivot->product_options_id==null){
+                    $this->whatstext= $this->whatstext . " *Product ID*:  ". $product->id  ."   *Product*:  ". $product->name  ."   *Qty*:". number_format($product->pivot->quantity,0,".",',') ."\n";
+                }else{
+                    $option = ProductOption::find($product->pivot->product_options_id);
+                    $this->whatstext= $this->whatstext . " *Product ID*:  ". $product->id  ."   *Product*:  ". $product->name  ."   *Variation*:  ". rtrim($option->descricao(),'/') ."   *Qty*:". number_format($product->pivot->quantity,0,".",',') ."\n";
+                }
+                
+
+            }
+        }
         return view('livewire.store.cart.checkout');
     }
 

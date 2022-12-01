@@ -113,7 +113,7 @@ class Livecart extends Component
                 $this->shippingid=$cart->id_shipping;
             }
 
-
+            
 
         }
 

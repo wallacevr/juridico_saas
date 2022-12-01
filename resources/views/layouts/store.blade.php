@@ -146,11 +146,11 @@
                             <h3 class="text-base font-medium text-footer">MINHA CONTA</h3>
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
-                                    <a href="#" class="text-base text-footer"> Minha Conta </a>
+                                    <a href="{{route('store.customer.dashboard')}}" class="text-base text-footer"> Minha Conta </a>
                                 </li>
 
                                 <li>
-                                    <a href="#" class="text-base text-footer"> Meus Pedidos </a>
+                                    <a href="{{route('store.orders.index')}}" class="text-base text-footer"> Meus Pedidos </a>
                                 </li>
 
                                 <li>
