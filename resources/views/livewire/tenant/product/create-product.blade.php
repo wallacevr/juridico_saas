@@ -632,6 +632,38 @@
                     </fieldset>
 
                 </div>
+                <div class="bg-white py-6 px-4 space-y-6 sm:p-6" wire:ignore>
+                    <fieldset>
+                        <legend class="text-base font-medium text-gray-900">
+                            {{ __('Collections') }}
+                        </legend>
+                        <div class="mt-4 space-y-4">
+                            <div class="flex items-start">
+                                <div class="h-5 flex items-center w-full">
+                                    <select id="collections" name="collections[]" multiple="multiple" class="w-full">
+                                
+                                    </select>
+                                    <script>
+                                            $(document).ready(function () {
+                                    
+                                      
+                                                $('#collections').on('change', function (e) {
+                                                    
+                                                    var data = $('#collections').select2("val");
+                                                        @this.set('selectedcollections', data);
+                                                    
+                                                        
+                                                });
+                        
+                                            });
+
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </div>
             </div>
 
 

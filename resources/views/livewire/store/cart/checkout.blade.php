@@ -59,8 +59,27 @@
                     </select>
                     @error('shippingid') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
             </div>
-</div>
-
+            <div class="mx-6 px-6 lg:w-1/2">
+                        <label for="invoiceaddress" class="block text-sm font-medium leading-5 text-gray-700 text-start">{{__('Billing Address')}}<span  class="red">*</span>
+                        </label>
+                            <select name="invoiceaddress" wire:model="invoiceaddress" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
+                                 <option value="">{{__('Select an address')}}</option>
+                                @foreach($addresses as $address)
+                                    <option value="{{$address->id}}"
+                                        >
+                                        {{$address->name}}
+                                    </option>
+                                @endforeach
+                    
+                            </select>
+                            @error('invoiceaddress')
+                            <p class="mt-2 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                    </div>
+    </div>
+    
         <div class="flex items-start" >
         <ul class="nav nav-pills flex flex-col flex-wrap list-none pl-0 mr-4" id="pills-tabVertical" role="tablist" >
             <li class="nav-item flex-grow text-center mb-2" role="presentation">
@@ -287,20 +306,7 @@
                     <div>
                         @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Credit Card Holder Phone', 'placeholder'=>'Credit Card Holder Phone', 'name'=>'creditcardholderphone', 'value'=> '','wiremodel'=>'creditcardholderphone','require'=>true])
                     </div>
-                    <div>
-                    <label for="billingaddress" class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Billing Address')}}<span  class="red">*</span>
-                    </label>
-                        <select name="billingaddress" wire:model="billingaddress" class="form-select block w-full sm:text-sm sm:leading-5 border my-1">
-                        <option value="">{{__('Select an address')}}</option>
-                            @foreach($addresses as $address)
-                                <option value="{{$address->id}}"
-                                    >
-                                    {{$address->name}}
-                                </option>
-                            @endforeach
-                
-                        </select>
-                    </div>
+                   
                   
                     <div>
                     <label for="installments"  class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Installments')}}<span  class="red">*</span>
@@ -355,29 +361,11 @@
                     <div>
 
                         
-                    <div>
-                        <label for="invoiceaddress" class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Billing Address')}}<span  class="red">*</span>
-                        </label>
-                            <select name="invoiceaddress" wire:model="invoiceaddress" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
-                                 <option value="">{{__('Select an address')}}</option>
-                                @foreach($addresses as $address)
-                                    <option value="{{$address->id}}"
-                                        >
-                                        {{$address->name}}
-                                    </option>
-                                @endforeach
                     
-                            </select>
-                            @error('invoiceaddress')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
-                            @enderror
-                    </div>
                    
                     <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount+$shippingprice,2,',','.') }}</h1></div>
                     @if($cart->open)
-                        <div class="py-5 px-4 "><button id="btnpayboleto" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button></div>
+                        <div class="py-5 px-4 "><button id="btnpayboleto" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button>{{$cart->open}}</div>
                     @else
                         @if($cart->paymentlink!=null)
                              <div class="py-5 px-4 "><a href="{{$cart->paymentlink}}" target="_bla"> <button  class="my-3 bg-blue-500 px-3 rounded">{{__('Download Boleto')}}</button></a></div>
@@ -425,27 +413,7 @@
                             <p>{{__('Click on Checkout to generate the QR code')}}</p>
                             <p>{{__("Check the data and make the payment through your bank's app")}}</p>
                         
-                    <div>
-                        <label for="invoiceaddresspix" class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Billing Address')}}<span  class="red">*</span>
-                        </label>
-                            <select name="invoiceaddresspix" wire:model="invoiceaddresspix" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
-                                 <option value="">{{__('Select an address')}}</option>
-                                @foreach($addresses as $address)
-                                    <option value="{{$address->id}}"
-                                        >
-                                        {{$address->name}}
-                                    </option>
-                                @endforeach
-                    
-                            </select>
-                            @error('invoiceaddresspix') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
-           
-                            @error('invoiceaddress')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
-                            @enderror
-                    </div>
+
                   
                     <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount+$shippingprice,2,',','.') }}</h1></div>
                             <div class="py-5 px-4 "><button  id="btnpay" class="my-3 bg-blue-500 px-3 rounded" wire:click="pix">{{__('Checkout')}}</button></div>
@@ -503,75 +471,11 @@
 
                     </div>
             </div>
-            @if($tab==4)
-                <div class="tab-pane fade show active" id="pills-whatsappVertical" role="tabpanel"
-                aria-labelledby="pills-whatsapp-tabVertical">
-            @else
-                <div class="tab-pane fade" id="pills-whatsappVertical" role="tabpanel"
-                aria-labelledby="pills-whatsapp-tabVertical">
-            @endif
-                <h1 class="bg-gray-500 rounded px-3 text-center">Pay with Whatsapp</h1>
-                    <div class="grid grid-cols-4 gap-4 px-4 py-4">
-            
-                    
-                    <div>
-                            <p>
-                            The Boleto Bancário will be displayed after confirmation of purchase and can be printed for payment at any bank branch, or have the number noted for payment by phone or internet.
-                            </p>
-                    </div>
-                        <div class="form-group">
-                        <input type="hidden" name="senderhash" id="senderhash"  >
-                        <input type="hidden" name="paymentmethod" id="paymentmethod" value="boleto" >
-                        <div>
-                    <div>
-
-                        
-                    <div>
-                        <label for="invoiceaddress" class="block text-sm font-medium leading-5 text-gray-700 ">{{__('Billing Address')}}<span  class="red">*</span>
-                        </label>
-                            <select name="invoiceaddress" wire:model="invoiceaddress" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
-                                 <option value="">{{__('Select an address')}}</option>
-                                @foreach($addresses as $address)
-                                    <option value="{{$address->id}}"
-                                        >
-                                        {{$address->name}}
-                                    </option>
-                                @endforeach
-                    
-                            </select>
-                            @error('invoiceaddress')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
-                            @enderror
-                    </div>
-                   
-                    <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount+$shippingprice,2,',','.') }}</h1></div>
-                    @if($cart->open)
-                        <div class="py-5 px-4 "><button id="btnpayboleto" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button></div>
-                    @else
-                        @if($cart->paymentlink!=null)
-                             <div class="py-5 px-4 "><a href="{{$cart->paymentlink}}" target="_bla"> <button  class="my-3 bg-blue-500 px-3 rounded">{{__('Download Boleto')}}</button></a></div>
-                        @endif
-                    @endif
-                    @if(!$cart->open)   
-                        <div class="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3" role="alert">
-                            {{__('Order Completed')}}
-                        </div>
-                    @else
-                        @if($pagseguroerror)
-                            <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
-                                
-                                    {{ $pagseguroerror }}
-                                
-                            </div>
-                        @endif
-                    @endif
-                </div>
-            
-
+           
             </div>
             </div>
+   
+      
     </div>
         @push('js')
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -690,6 +594,12 @@ copyTest.addEventListener('click', function(event) {
                                         
                                             var retorno_bandeira = response.installments[brand.name];
                                 
+                                            $('#installments')
+                                                        .append($('<option />')  // Create new <option> element
+                                                            .val(null)            // Set value as "Hello"
+                                                            .text("Selecion Nº de parcelas"));           // Set textContent as "Hello"
+                                                        //  .prop('selected', true)  // Mark it selected
+                                                        
                                             for( var i = 0; i < retorno_bandeira.length; i++ ) {
                                 
                                                 if(retorno_bandeira[i].interestFree){

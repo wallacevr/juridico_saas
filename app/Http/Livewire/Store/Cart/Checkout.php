@@ -165,9 +165,15 @@ class Checkout extends Component
     }
 
     public function pagsegurocreditcard(){
+        $this->validate([
+            'shippingid' =>'required',
+            'shippingaddress' => 'required',
+            'invoiceaddress' => 'required',
+         
+        ]);
         try {
             
-            $billingaddress = Address::find($this->billingaddress);
+            $billingaddress = Address::find($this->invoiceaddress);
                   
             $shippingaddress = Address::find($this->shippingaddress);
             
@@ -288,6 +294,7 @@ class Checkout extends Component
             session()->flash('success', 'Order completed successfully!');
         }
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
+            
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
@@ -300,6 +307,12 @@ class Checkout extends Component
     }
 
     public function pagseguroboleto(){
+        $this->validate([
+            'shippingid' =>'required',
+            'shippingaddress' => 'required',
+            'invoiceaddress' => 'required',
+         
+        ]);
         try {
            
             $billingaddress = Address::find($this->invoiceaddress);
@@ -408,6 +421,7 @@ class Checkout extends Component
                 Session::put('cart', []);
                 Session::save();
             session()->flash('success', 'Order completed successfully!');
+            $this->render();
         }
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
             $e->getCode(); //codigo do erro
@@ -425,13 +439,15 @@ class Checkout extends Component
    
         if(get_config('payments/plataform/pix')==$this->pagseguroid){ 
             $this->validate([
+                'shippingid' =>'required',
                 'shippingaddress' => 'required',
-                'invoiceaddresspix' =>'required'
+                'invoiceaddress' => 'required',
+             
             ]);
         try {
            
 
-            $billingaddress = Address::find($this->invoiceaddresspix);
+            $billingaddress = Address::find($this->invoiceaddress);
                   
             $shippingaddress = Address::find($this->shippingaddress);
             $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();

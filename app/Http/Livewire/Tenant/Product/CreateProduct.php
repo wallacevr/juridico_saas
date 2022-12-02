@@ -26,9 +26,11 @@ class CreateProduct extends Component
     public $optionsselected =[];
     public $selectedoptions = [];
     public $opcoes=[];
+    public $brands=[];
     public $variations=[];
     public $variationsselected=[];
     public $selectedcollections = [];
+    public $selectedbrands = [];
     public $idcombinados;
     public $options =[];
     public $i=0;
@@ -100,8 +102,9 @@ class CreateProduct extends Component
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
-        $this->variations = Variation::all();
+        $this->variations = Variation::where('status',1)->get();
         $this->customergroups =  CustomerGroup::all()->sortBy('name');
+     
     }
 
     public function listaoptions(){
