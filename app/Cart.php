@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Product;
+use App\Models\Address;
 use App\Models\Customer;
 class Cart extends Model
 {
@@ -22,10 +23,10 @@ class Cart extends Model
         return $this->belongsTo(Customer::class, 'id_customer');
     }
     public function invoiceaddress(){
-        return $this->belongsTo(Customer::class, 'id_address_invoice');
+        return $this->belongsTo(Address::class,'id', 'id_address_invoice');
     }
     public function deliveryaddress(){
-        return $this->belongsTo(Customer::class, 'id_address_delivery');
+        return $this->belongsTo(Address::class, 'id_address_delivery');
     }
 
 }

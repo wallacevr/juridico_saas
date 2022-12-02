@@ -73,7 +73,9 @@ class Checkout extends Component
             $this->whatstext= $this->whatstext . " *Cart ID*:  ". $cart->id  ." \n";
             $this->whatstext= $this->whatstext . " *Customer*:  ". $cart->customer->name  ." \n";
             $this->whatstext= $this->whatstext . " *Taxvat*:  ". $cart->customer->taxvat  ." \n";
-            $this->whatstext= $this->whatstext . " *Address Delivery*:  ". $cart->addressdelivery->address  ." \n";
+        
+            $this->whatstext= $this->whatstext . " *Address Delivery*:  ". $cart->deliveryaddress->address  ." Nº:". $cart->deliveryaddress->number  ." Compl.:". $cart->deliveryaddress->complement  ." Neighborhood:". $cart->deliveryaddress->neighborhood  ." Postal Code:". $cart->deliveryaddress->postalcode  ." city:". $cart->deliveryaddress->city  ."  State:". $cart->deliveryaddress->state  ."  Country:". $cart->deliveryaddress->country  ."  \n";
+            
             $this->whatstext= $this->whatstext . " *ITENS*:  \n";
             foreach($cart->products as $product){
              
