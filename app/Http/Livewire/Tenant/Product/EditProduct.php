@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use App\Product;
 use App\Collection;
+use App\Brand;
 use App\Variation;
 use App\Option;
 use App\ProductOption;
@@ -26,7 +27,9 @@ class EditProduct extends Component
     public $variations=[];
     public $variationsselected=[];
     public $selectedcollections = [];
-
+    public $newselectedcollections = [];
+    public $selectedbrands= [];
+    public $newselectedbrands= [];
     public $idcombinados;
     public $options =[];
     public $i=0;
@@ -109,7 +112,8 @@ class EditProduct extends Component
          $this->status = $product->status;
          $this->collections = Collection::all();
          $this->selectedcollections = $product->collections->pluck('id');
-
+         $this->brands = Brand::all();
+         $this->selectedbrands = $product->brands->pluck('id');
          if(count($product->options)>0){
             $this->habilitavariations=true;
             $this->selected = $product->options->pluck('variation_id');
@@ -165,6 +169,7 @@ class EditProduct extends Component
     }
 
     public function store(){
+    
       if($this->habilitavariations){
         $this->validate( [
             'name' => 'required',
@@ -223,11 +228,19 @@ class EditProduct extends Component
                 $x=$x+1;
               }
             $dados=[];
-          
-            foreach($this->selectedcollections as $index=>$collection){
-                $dados=Arr::add($dados,$collection,['collection_id'=>$collection,'sort'=>100]);
+            if($this->newselectedcollections!=[]){
+              foreach($this->newselectedcollections as $index=>$collection){
+                  $dados=Arr::add($dados,$collection,['collection_id'=>$collection,'sort'=>100]);
+              }
             }
-
+            $product->collections()->sync($dados);
+            $dados=[];
+            if($this->newselectedbrands!=[]){
+                foreach($this->newselectedbrands as $index=>$brand){
+                  $dados=Arr::add($dados,$brand,['brand_id'=>$brand,'sort'=>100]);
+              }
+            }
+            $product->brands()->sync($dados);
 
 
             if($this->habilitavariations){
@@ -282,7 +295,7 @@ class EditProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-       
+       dd($th);
       }
     }
     public function removerimagem($x,$position){

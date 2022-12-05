@@ -11,7 +11,7 @@ class Productbrand extends Model
         'brand_id',
         'product_id',
     ];
-    protected $table = "product_brands";
+    protected $table = "brand_product";
     public function products(){
         return $this->belongsToMany(Product::class);
     }

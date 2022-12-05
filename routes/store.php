@@ -42,7 +42,8 @@ Route::group([
 
     Route::get('/', 'HomeController@index')->name('store.index');
     Route::get('/', 'HomeController@index')->name('home');
-
+    Route::get('/brands/{slug}', 'BrandController@show')->name('brands.show');
+    Route::get('/marcas/{slug}', 'brandController@show')->name('marcas.show');
     Route::get('/collections/{slug}', 'CollectionController@show')->name('collection.show');
     Route::get('/categorias/{slug}', 'CollectionController@show')->name('categorias.show');
     Route::get('/page/{slug}', 'PageController@show')->name('page.show');

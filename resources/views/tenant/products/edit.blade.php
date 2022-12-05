@@ -27,13 +27,8 @@
 
       
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $('#collections').select2({
-                selectOnClose: true,
-                tags: false,
-                multiple: true,
-                language: "pt-BR",
-            });
-            
+       
+  
 
             // enable fileuploader plugin
             var $fileuploader = $('input.gallery_media').fileuploader({

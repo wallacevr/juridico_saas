@@ -45,6 +45,27 @@
                     }
                 }
             });
+            $('#brands').select2({
+                selectOnClose: true,
+                tags: false,
+                multiple: true,
+                language: "pt-BR",
+                ajax: {
+                    url: "{{ route('tenant.brands.all') }}",
+                    dataType: 'json',
+                    type: "get",
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params
+                        };
+                    }
+                }
+            });
+            
+
+
             
 
             // enable fileuploader plugin

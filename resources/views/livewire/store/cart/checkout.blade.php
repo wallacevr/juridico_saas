@@ -319,7 +319,10 @@
                         <input type="hidden" name="interestFree" wire:model="interestFree" class="form-control" id="interestFree">
                     </div>
                     @if($cart->open)
-                        <div class="py-5 px-4 "><button  id="btnpay" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button></div>
+                        <div class="py-5 px-4 "><button  id="btnpay" class="my-3 bg-blue-500 px-3 rounded" wire:loading.attr="disabled">{{__('Payment')}}</button></div>
+                        <div wire:loading wire:target="pagsegurocreditcard">
+                            Processing Payment...
+                        </div>
                     @endif
 
                 </div>
@@ -336,6 +339,10 @@
                         </div>
                     @endif
                 @endif
+            @endif
+            @if (session('error'))
+                <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">{{session('error')}}</div>
+
             @endif
             </div>
             @if($tab==2)
@@ -365,7 +372,10 @@
                    
                     <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount+$shippingprice,2,',','.') }}</h1></div>
                     @if($cart->open)
-                        <div class="py-5 px-4 "><button id="btnpayboleto" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button>{{$cart->open}}</div>
+                        <div class="py-5 px-4 "><button id="btnpayboleto" wire:loading.attr="disabled" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button>{{$cart->open}}</div>
+                        <div wire:loading wire:target="pagseguroboleto">
+                            Processing Payment...
+                        </div>
                     @else
                         @if($cart->paymentlink!=null)
                              <div class="py-5 px-4 "><a href="{{$cart->paymentlink}}" target="_bla"> <button  class="my-3 bg-blue-500 px-3 rounded">{{__('Download Boleto')}}</button></a></div>
@@ -383,6 +393,10 @@
                                 
                             </div>
                         @endif
+                    @endif
+                    @if (session('error'))
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">{{session('error')}}</div>
+
                     @endif
                 </div>
             
@@ -416,7 +430,10 @@
 
                   
                     <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount+$shippingprice,2,',','.') }}</h1></div>
-                            <div class="py-5 px-4 "><button  id="btnpay" class="my-3 bg-blue-500 px-3 rounded" wire:click="pix">{{__('Checkout')}}</button></div>
+                            <div class="py-5 px-4 "><button  id="btnpay" wire:loading.attr="disabled" class="my-3 bg-blue-500 px-3 rounded" wire:click="pix">{{__('Checkout')}}</button></div>
+                            <div wire:loading wire:target="pagseguropix">
+                                Processing Payment...
+                            </div>
                         @else
                           @if($cart->paymenttype=='pix')
                             <div class="card p-5" wire:poll="consultar('{{$cart->transactioncode}}')">
@@ -468,7 +485,10 @@
                             </div>
 
                         @endif
+                        @if (session('error'))
+                            <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">{{session('error')}}</div>
 
+                        @endif
                     </div>
             </div>
            

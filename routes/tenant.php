@@ -39,6 +39,7 @@ Route::group([
              Route::get('options/all/{variation_id}', 'OptionController@getAll')->name('options.all');
 
             //Customer routes
+            Route::get('brands/all', 'BrandController@getAll')->name('brands.all');
             Route::resource('customers', 'CustomerController');
             // Brand routes
             Route::resource('brands', 'BrandController');

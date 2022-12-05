@@ -16,6 +16,22 @@ class BrandController extends Controller
         ]);
     }
 
+
+    public function getAll()
+    {
+       $brands= Brand::all()->reject(function ($brand) {
+           return $brand->status === 0;
+       })->map(function ($brand) {
+           return ['id'=>$brand->id,'text'=>$brand->name];
+       
+       });
+        return response()->json(['results'=>$brands]);
+    }
+
+
+
+
+
     // Return a single Brand
     public function show(Brand $brand)
     {

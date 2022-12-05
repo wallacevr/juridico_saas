@@ -11,4 +11,7 @@ class Brand extends Model
     protected $attributes = [
         'status' => false,
     ];
+    public function products(){
+        return $this->belongsToMany(Product::class)->orderBy('id','desc');
+    }
 }

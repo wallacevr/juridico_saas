@@ -44,6 +44,10 @@ class Product extends Model
     public function collections(){
         return $this->belongsToMany(Collection::class,'collection_product', 'product_id', 'collection_id');
     }
+    public function brands(){
+        return $this->belongsToMany(Brand::class,'brand_product', 'product_id', 'brand_id');
+    }
+
     public function options(){
         return $this->belongsToMany(Option::class, 'product_options', 'id_product', 'id_options')->withPivot('nivel','price','qty_stock')->where('nivel',0);
     }

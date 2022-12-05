@@ -536,22 +536,31 @@
                                     <select id="collections" name="collections[]" multiple="multiple" class="w-full">
                                             @foreach($collections as $collection)
                                                 <option value="{{$collection->id}}"
+                                                  @if($newselectedcollections==[])
                                                     @if($selectedcollections->contains($collection->id))
                                                         selected
                                                     @endif
                                                         >{{$collection->name}}</option>
+                                                  @else
+                                                    @if( in_array($collection->id,$newselectedcollections))
+                                                     
+                                                        selected
+                                                     @endif
+                                                        >{{$collection->name}}</option>
 
+                                                  @endif
                                             @endforeach
                                     </select>
+                                    
                                     <script>
                                             $(document).ready(function () {
-
+                                                $('#collections').select2();
 
                                                 $('#collections').on('change', function (e) {
 
-                                                    var data = $('#collections').select2("val");
-                                                      alert(data);
-                                                        @this.set('selectedcollections', data.split(','));
+                                                    var datax = $('#collections').select2("val")+ '';
+                                                        console.log(datax);
+                                                        @this.set('newselectedcollections', datax.split(','));
 
 
                                                 });
@@ -565,6 +574,51 @@
                     </fieldset>
 
                 </div>
+                <div class="bg-white py-6 px-4 space-y-6 sm:p-6" >
+                    <fieldset>
+                        <legend class="text-base font-medium text-gray-900">
+                            {{ __('Brands') }}
+                        </legend>
+                        <div class="mt-4 space-y-4">
+                            <div class="flex items-start">
+                                <div class="h-5 flex items-center w-full" wire:ignore>
+                                    <select id="brands" name="brands[]" multiple="multiple" class="w-full">
+                                            @foreach($brands as $brand)
+                                                <option value="{{$brand->id}}"
+                                                @if($newselectedbrands==[])
+                                                    @if($selectedbrands->contains($brand->id))
+                                                        selected
+                                                    @endif
+                                                    
+                                                @else
+                                               
+                                                    @if( in_array($brand->id,$newselectedbrands))
+                                                        selected
+                                                    @endif
+
+                                                @endif
+                                                >{{$brand->name}}</option>
+                                            @endforeach
+                                    </select>
+                        <script>
+                            $(document).ready(function () {
+                                $('#brands').select2();
+                                $('#brands').on('change', function (e) {
+                                    var data = $('#brands').select2("val");
+                                    console.log(data);
+                                @this.set('newselectedbrands', data);
+                                });
+                            });
+                        </script>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </div>
+
+
+
+
             </div>
 
 

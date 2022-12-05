@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Product;
 use App\Collection;
 use App\Variation;
+use App\Brand;
 use App\Option;
 use App\ProductOption;
 use App\CustomerGroup;
@@ -102,7 +103,8 @@ class CreateProduct extends Component
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
-        $this->variations = Variation::where('status',1)->get();
+        $this->variations = Variation::all();
+        $this->brands = Brand::all();
         $this->customergroups =  CustomerGroup::all()->sortBy('name');
      
     }
@@ -140,7 +142,7 @@ class CreateProduct extends Component
     }
 
     public function store(){
-      
+    
       if($this->habilitavariations){
         $this->validate( [
             'name' => 'required',
@@ -166,7 +168,7 @@ class CreateProduct extends Component
         ]);
      }
 
-
+   
       try {
          
 
@@ -205,6 +207,16 @@ class CreateProduct extends Component
                 $dados=Arr::add($dados,$collection,['collection_id'=>$collection,'sort'=>100]);
             }
             $product->collections()->sync($dados);
+            
+            $dados=[];
+           
+            foreach($this->selectedbrands as $index=>$brand){
+                $dados=Arr::add($dados,$brand,['brand_id'=>$brand,'sort'=>100]);
+            }
+           
+            $product->brands()->sync($dados);
+
+
             if($this->habilitavariations){
             foreach ($this->optionprice as $key => $value) {
               $max=count($this->combinacoes[$key])-1;
@@ -271,7 +283,7 @@ class CreateProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-        
+        dd($th);
       }
     }
     public function removerimagem($x,$position){
