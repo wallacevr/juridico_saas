@@ -683,4 +683,14 @@ class Checkout extends Component
          }
      }
 
+     public function closecart(){
+        $cart = Cart::find($this->cart->id);
+        $cart->open = 0;
+        $cart->update();
+        $this->cart = $cart;
+        
+        Session::put('cart', []);
+        Session::save();
+    }
+
 }

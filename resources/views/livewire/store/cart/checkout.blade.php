@@ -516,6 +516,8 @@ function enviarMensagem(){
   if(mobileCheck()){
   	urlApi = "https://api.whatsapp.com/send";
   }
+  @this.closecart()
+
   
   window.open(urlApi + "?phone={{getwhatsapp()}}&text=" + texto, "_blank");
 	//Obs.. use "_system", no lugar de blank, caso você esteja usando Phonegap / Cordova / Ionic ou qualquer um baseado em webview;
