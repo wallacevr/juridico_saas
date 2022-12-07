@@ -15,7 +15,14 @@
                  },
             },
         });
-    FilePond.create($refs.input);" 
+        const pond = FilePond.create($refs.input,{
+    files: [
+        
+    {{ $this->initialimages }}
+    ]
+});
+   " 
+   
     >
     <input type="file" x-ref="input">     
 </div>

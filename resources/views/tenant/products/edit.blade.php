@@ -15,13 +15,7 @@
     <script src="{{ URL::to('/') . '/js/jquery.fileuploader.min.js' }}"></script>
     <script src="{{ URL::to('/') . '/js/string-slugger.js' }}"></script>
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-    <script>
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('input[type="file" class="my-pond"]');
-
-    // Create a FilePond instance
-    const pond = FilePond.create(inputElement);
-</script>
+    
     <script>
         $(document).ready(function() {
 

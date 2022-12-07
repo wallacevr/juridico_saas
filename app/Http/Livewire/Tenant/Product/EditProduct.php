@@ -10,6 +10,7 @@ use App\Variation;
 use App\Option;
 use App\ProductOption;
 use App\ProductOptionsImage;
+use App\ProductImage;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
@@ -38,6 +39,7 @@ class EditProduct extends Component
     public $optionimages=[];
     public $optionimagessaveds=[];
     public $principaloptionimage;
+    public $initialimages="";
     public $optionprice;
     public $optionqty;
     public  $name;
@@ -114,6 +116,11 @@ class EditProduct extends Component
          $this->selectedcollections = $product->collections->pluck('id');
          $this->brands = Brand::all();
          $this->selectedbrands = $product->brands->pluck('id');
+         foreach($product->images as $image){
+          $this->initialimages=$this->initialimages ."{source:'". productImagex($image->image_url,$product->id)  ."'},";
+        
+        }  
+       
          if(count($product->options)>0){
             $this->habilitavariations=true;
             $this->selected = $product->options->pluck('variation_id');
@@ -128,7 +135,6 @@ class EditProduct extends Component
                 $this->optionprice[$key]=$option->price;
                 $this->optionimagessaveds[$key] = ProductOptionsImage::where('product_options_id',$option->id)->get();
             }
-
 
          }else{
             $this->habilitavariations=false;
@@ -221,6 +227,7 @@ class EditProduct extends Component
             $product->update();
 
             $x=0;
+            ProductImage::where('product_id', $product->id)->delete();
             foreach ($this->productimages as $photo) {
 
                $photo->storeAs(tenant('id') .'/images/catalog/'. $product->id,$photo->getClientOriginalName() ,'catalogo');
@@ -232,12 +239,20 @@ class EditProduct extends Component
               foreach($this->newselectedcollections as $index=>$collection){
                   $dados=Arr::add($dados,$collection,['collection_id'=>$collection,'sort'=>100]);
               }
+            }else{
+              foreach($this->selectedcollections as $index=>$collection){
+                $dados=Arr::add($dados,$collection,['collection_id'=>$collection,'sort'=>100]);
+            }
             }
             $product->collections()->sync($dados);
             $dados=[];
             if($this->newselectedbrands!=[]){
                 foreach($this->newselectedbrands as $index=>$brand){
                   $dados=Arr::add($dados,$brand,['brand_id'=>$brand,'sort'=>100]);
+              }
+            }else{
+              foreach($this->selectedbrands as $index=>$brand){
+                $dados=Arr::add($dados,$brand,['brand_id'=>$brand,'sort'=>100]);
               }
             }
             $product->brands()->sync($dados);
