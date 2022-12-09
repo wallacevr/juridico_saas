@@ -21,7 +21,20 @@
     
         <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
         <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
-  
+  <!-- add before </body> -->
+<script src="https://unpkg.com/filepond-plugin-file-metadata/dist/filepond-plugin-file-metadata.js"></script>
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script>
+    // Register the plugin
+    FilePond.registerPlugin(FilePondPluginFileMetadata);
+
+    // ... FilePond initialisation code here
+    document.addEventListener('DOMContentLoaded', function() {
+            FilePond.registerPlugin(FilePondPluginImagePreview);
+        });
+</script>
     @stack('head')
     @livewireStyles
 </head>

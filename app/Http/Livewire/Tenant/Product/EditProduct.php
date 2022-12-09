@@ -40,6 +40,7 @@ class EditProduct extends Component
     public $optionimagessaveds=[];
     public $principaloptionimage;
     public $initialimages="";
+    public $initialoptionimages=[];
     public $optionprice;
     public $optionqty;
     public  $name;
@@ -134,6 +135,10 @@ class EditProduct extends Component
                 $this->optionqty[$key]=$option->qty_stock;
                 $this->optionprice[$key]=$option->price;
                 $this->optionimagessaveds[$key] = ProductOptionsImage::where('product_options_id',$option->id)->get();
+               
+               
+                  $this->initialoptionimages[$option->id]=$option->imagesfilepond();
+                
             }
 
          }else{

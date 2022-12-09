@@ -6,6 +6,7 @@
 
     FilePond.setOptions({
         allowMultiple: {{ isset($attributes['multiple']) ? 'true' : 'false' }},
+        allowFileMetadata: true,
         allowReorder: true,
             server: {
                 process:(fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
@@ -19,9 +20,11 @@
         const pond = FilePond.create($refs.input,{
     files: [
         
-    {{ $this->initialimages }}
+    {{ $this->initialoptionimages[43] }}
     ]
 });
+console.log(pond.getMetadata());
+
    " 
    
     >

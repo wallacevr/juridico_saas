@@ -37,6 +37,7 @@ class CreateProduct extends Component
     public $i=0;
     public $combinacoes=[];
     public $productimages=[];
+    public $initialimages="";
     public $optionimages;
     public $principaloptionimage;
     public $optionprice;

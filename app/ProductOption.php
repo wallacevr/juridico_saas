@@ -68,4 +68,12 @@ class ProductOption extends Model
     }
 
 
+    public function imagesfilepond(){
+        $imgs="";
+        foreach($this->images  as $optimage){
+          
+            $imgs=$imgs ."{source:'". productImagex($optimage->image_url,$this->id_product,$this->id)  ."'},";
+          }
+        return $imgs;
+    }
 }
