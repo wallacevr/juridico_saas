@@ -232,7 +232,7 @@
 
                                                         @foreach($variations as $variation)
                                                             <option value="{{ $variation->id }}"
-                                                                @if($selected->contains( $variation->id ))
+                                                                @if(in_array( $variation->id,$selected))
                                                                         selected
                                                                 @endif
 

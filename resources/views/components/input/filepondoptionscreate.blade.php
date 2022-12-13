@@ -18,22 +18,12 @@
                  },
             },
         });
-        @if(!$this->changeoptions)  
-        const pond = FilePond.create($refs.input,{
-            files: [
-        
-            {{ $this->initialoptionimages[$this->optionid] }}
-            ]
-        });
+       
+        const pond = FilePond.create($refs.input);
         this.addEventListener('pondReset', e => {
                 pond.removeFiles();
             });
-        @else
-            const pond = FilePond.create($refs.input);
-            this.addEventListener('pondReset', e => {
-                pond.removeFiles();
-            });
-        @endif
+  
 
 
    " 

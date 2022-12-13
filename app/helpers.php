@@ -468,7 +468,9 @@ if (!function_exists('create_menu')) {
 if (!function_exists('buildMainMenu')) {
     function buildMainMenu($id_mainmenu, $parent = 0, $indent = 0){
         $arrmain = Menu::find($id_mainmenu);
-        
+       if($arrmain!=null) {
+
+     
         if(count($arrmain->children)>0){
         echo'<nav class="px-2 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">';
              echo'<div class="container flex flex-wrap justify-between items-center mx-auto">';
@@ -496,6 +498,7 @@ if (!function_exists('buildMainMenu')) {
 
         echo'</ul><div></div></nav>';
         }
+      } 
     }
 }
 

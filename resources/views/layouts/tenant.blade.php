@@ -374,6 +374,7 @@
 
 @stack('body')
 @livewireScripts    
+
 <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 @stack('js')

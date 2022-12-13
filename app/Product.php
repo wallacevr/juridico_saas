@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class Product extends Model
 {
     protected $guarded = [];
@@ -54,4 +54,12 @@ class Product extends Model
     public function tickets(){
         return $this->belongsToMany(Ticket::class, 'product_tickets', 'id_product', 'id_ticket');
     }
+
+    public function variations(){
+        return DB::table('product_options')
+            ->where('id_product','=',$this->id)
+            ->join('options', 'product_options.id_options', '=', 'options.id')
+            ->get();
+    }
+
 }
