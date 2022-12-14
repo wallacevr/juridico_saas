@@ -11,6 +11,7 @@ use App\Option;
 use App\ProductOption;
 use App\ProductOptionsImage;
 use App\ProductImage;
+use App\ProductVariation;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
@@ -102,6 +103,7 @@ class EditProduct extends Component
       if (!is_dir($path)) {
           mkdir($path, 0777, true);
       }
+       
         $this->product=$product;
         $this->variations = Variation::all();
         $this->productid=$product->id;
@@ -262,7 +264,12 @@ class EditProduct extends Component
 
 
             if($this->habilitavariations){
-                    
+              foreach($this->selected as $variation){
+                $prodvariation = new ProductVariation;
+                $prodvariation->product_id = $this->product->id;
+                $prodvariation->variation_id = $variation;
+                $prodvariation->save();
+              }    
               foreach($this->productoptions as $prodopt){
           
                   $opt = ProductOption::find($prodopt->id);

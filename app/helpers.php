@@ -96,13 +96,14 @@ if (!function_exists("productImagex")) {
             $image_path = public_path() . '/tenant/' . tenant('id') . '/images/catalog/'. $prodid .'/'. $optid .'/'. $image_url;
         }else{
             $image = tenant_public_path() . '/images/catalog/'. $prodid .'/' . $image_url;
+
             $image_path = public_path() . '/tenant/' . tenant('id') . '/images/catalog/'. $prodid .'/' . $image_url;
         }
- 
+       
         if (!is_file($image_path)) {
             $image = '/images/no-image.jpg';
         }
-
+      
         return $image;
     }
 }

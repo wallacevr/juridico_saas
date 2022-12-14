@@ -56,6 +56,16 @@ class Product extends Model
     public function tickets(){
         return $this->belongsToMany(Ticket::class, 'product_tickets', 'id_product', 'id_ticket');
     }
+
+    public function imagesfilepond(){
+        $imgs="";
+        foreach($this->images  as $image){
+          
+            $imgs=$imgs ."{source:'". productImagex($image->image_url,$this->id,null)  ."'},";
+          }
+          
+        return $imgs;
+    }
 /*
     public function variations(){
         return DB::table('product_options')

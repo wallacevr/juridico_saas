@@ -492,7 +492,7 @@
                                                                     <tr>
                                                                         <td colspan="{{(count($variationsselected)+2)}}" >
                                                                  
-                                                                                <x-input.filepondoptions wire:model="optionimages.{{ $x }}" ></x-input>
+                                                                                <x-input.filepond wire:model="optionimages.{{ $x }}" ></x-input>
                                                                         </td>
                                                                     </tr>
                                                                     

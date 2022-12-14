@@ -16,7 +16,7 @@ use App\TicketProduct;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
-
+use App\ProductVariation;
 class CreateProduct extends Component
 {
 
@@ -197,8 +197,8 @@ class CreateProduct extends Component
             $x=0;
             foreach ($this->productimages as $photo) {
 
-               $photo->storeAs(tenant('id') .'/images/catalog/'. $product->id,$photo->getClientOriginalName() ,'catalogo');
-               $product->images()->create(['image_url'=>$photo->getClientOriginalName(),'sort'=>$x,'title'=>Str::of($photo->getClientOriginalName())->basename('.'.$photo->getClientOriginalExtension())]);
+               $photo->storeAs(tenant('id') .'/images/catalog/'. $product->id,str_replace(" ","_",$photo->getClientOriginalName())  ,'catalogo');
+               $product->images()->create(['image_url'=>str_replace(" ","_",$photo->getClientOriginalName()) ,'sort'=>$x,'title'=>Str::of($photo->getClientOriginalName())->basename('.'.$photo->getClientOriginalExtension())]);
                 $x=$x+1;
               }
             $dados=[];
@@ -222,7 +222,12 @@ class CreateProduct extends Component
               $max=count($this->combinacoes[$key])-1;
               $ultima="";
               $key2=0;
-              
+              foreach($this->selected as $variation){
+                $prodvariation = new ProductVariation;
+                $prodvariation->product_id = $product->id;
+                $prodvariation->variation_id = $variation;
+                $prodvariation->save();
+              }
               foreach($this->combinacoes[$key] as $opts){
 
               

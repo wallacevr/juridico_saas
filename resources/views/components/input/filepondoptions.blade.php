@@ -3,7 +3,15 @@
     x-data="{pond: null}"
     x-init="
         FilePond.registerPlugin(FilePondPluginImagePreview);
-        pond = FilePond.create($refs.input);
+        pond = FilePond.create($refs.input,
+        {
+            files: [
+                
+                    {{$this->initialoptionimages[$this->optionid]}}
+            
+                
+             ]
+        });
         pond.setOptions({
             allowMultiple: {{ isset($attributes['multiple']) ? 'true' : 'false' }},
             labelIdle:'{{__('Drag & Drop your files or Brownse')}}',

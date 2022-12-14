@@ -23,8 +23,6 @@
         this.addEventListener('pondReset', e => {
                 pond.removeFiles();
             });
-  
-
 
    " 
   
