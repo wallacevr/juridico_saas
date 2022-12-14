@@ -55,7 +55,7 @@ class CreateProduct extends Component
     public $meta_title;
     public $meta_description;
     public $slug;
-    public $status;
+    public $status=1;
     public $arquivos;
     public $attributes;
     public $usespecialprice = 0;
@@ -143,7 +143,7 @@ class CreateProduct extends Component
     }
 
     public function store(){
-    
+     
       if($this->habilitavariations){
         $this->validate( [
             'name' => 'required',
@@ -152,8 +152,7 @@ class CreateProduct extends Component
             'description' => 'required',
             'productimages' => 'required',
             'slug' => ['required','unique:products'],
-            'optionprice.0'=>'required',
-            'optionqty.0' =>'required',
+          
             'optionprice.*'=>'required',
             'optionqty.*' =>'required'
         ]);
@@ -169,7 +168,7 @@ class CreateProduct extends Component
         ]);
      }
 
-   
+    
       try {
          
 
@@ -223,14 +222,16 @@ class CreateProduct extends Component
               $max=count($this->combinacoes[$key])-1;
               $ultima="";
               $key2=0;
+              
               foreach($this->combinacoes[$key] as $opts){
 
-
+              
 
                     $productoption               = new ProductOption;
                     $productoption->id_product   = $product->id;
                     $productoption->id_options   = $opts ;
                     $productoption->nivel = $key2;
+                   
                     if($key2 == $max){
                       $productoption->price   = $this->optionprice[$key];
                       $productoption->qty_stock   = $this->optionqty[$key];
@@ -238,24 +239,22 @@ class CreateProduct extends Component
 
 
                     }
+                
                     if($key2 != 0){
                       $productoption->id_product_options  =$ultima;
 
                     }
 
                     $productoption->save();
+               
                     if($key2 == $max){
-                      if(isset($this->optionimages[$key])){
-                          foreach ($this->optionimages[$key] as $key3=>$photo) {
-                           if($key3 == $this->principaloptionimage[$key]){
-                             $main = 1;
-                           }else{
-                            $main = 0;
-                           }
-                            $photo->storeAs(tenant('id') .'/images/catalog/'. $product->id. '/'.$productoption->id ,$photo->getClientOriginalName() ,'catalogo');
-                            ProductOptionsImage::create(['product_options_id'=>$productoption->id ,'image_url'=>$photo->getClientOriginalName(),'sort'=>$x,'title'=>Str::of($photo->getClientOriginalName())->basename('.'.$photo->getClientOriginalExtension()),'main'=>$main]);
-                        }
-                      }
+                     
+                      
+                   
+                            $this->optionimages[$key]->storeAs(tenant('id') .'/images/catalog/'. $product->id. '/'.$productoption->id , $this->optionimages[$key]->getClientOriginalName() ,'catalogo');
+                            ProductOptionsImage::create(['product_options_id'=>$productoption->id ,'image_url'=> $this->optionimages[$key]->getClientOriginalName(),'sort'=>$x,'title'=>Str::of( $this->optionimages[$key]->getClientOriginalName())->basename('.'. $this->optionimages[$key]->getClientOriginalExtension()),'main'=>1]);
+                       
+                      
                     }
 
                     $key2 = $key2 + 1;
@@ -265,6 +264,7 @@ class CreateProduct extends Component
               }
           }
         }
+       
         if($this->grpcustomer!=[]){
             foreach($this->grpcustomer as $key=>$grpcustomer) {
                 ProductCustomersGroup::create([
