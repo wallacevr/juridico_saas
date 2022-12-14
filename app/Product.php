@@ -47,19 +47,21 @@ class Product extends Model
     public function brands(){
         return $this->belongsToMany(Brand::class,'brand_product', 'product_id', 'brand_id');
     }
-
+    public function variations(){
+        return $this->belongsToMany(Variation::class, 'variations_product', 'product_id', 'variation_id');
+    }
     public function options(){
         return $this->belongsToMany(Option::class, 'product_options', 'id_product', 'id_options')->withPivot('nivel','price','qty_stock')->where('nivel',0);
     }
     public function tickets(){
         return $this->belongsToMany(Ticket::class, 'product_tickets', 'id_product', 'id_ticket');
     }
-
+/*
     public function variations(){
         return DB::table('product_options')
             ->where('id_product','=',$this->id)
             ->join('options', 'product_options.id_options', '=', 'options.id')
             ->get();
     }
-
+*/
 }

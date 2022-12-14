@@ -1,44 +1,26 @@
-<div 
-    wire:ignore wire:key="changeoptions"
-    x-data 
-   
+<div
+    wire:ignore
+    x-data="{pond: null}"
     x-init="
-
-    FilePond.setOptions({
-        allowMultiple: {{ isset($attributes['multiple']) ? 'true' : 'false' }},
-        allowFileMetadata: true,
-        imagePreviewMaxHeight:150,
-        allowReorder: true,
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+        pond = FilePond.create($refs.input);
+        pond.setOptions({
+            allowMultiple: {{ isset($attributes['multiple']) ? 'true' : 'false' }},
+            labelIdle:'{{__('Drag & Drop your files or Brownse')}}',
+            
             server: {
-                process:(fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
                     @this.upload('{{ $attributes['wire:model'] }}', file, load, error, progress)
                 },
                 revert: (filename, load) => {
                     @this.removeUpload('{{ $attributes['wire:model'] }}', filename, load)
-                 },
+                },
             },
         });
-        @if(!$this->changeoptions)  
-        const pond = FilePond.create($refs.input,{
-            files: [
-        
-            {{ $this->initialoptionimages[$this->optionid] }}
-            ]
-        });
-        this.addEventListener('pondReset', e => {
-                pond.removeFiles();
-            });
-        @else
-            const pond = FilePond.create($refs.input);
-            this.addEventListener('pondReset', e => {
-                pond.removeFiles();
-            });
-        @endif
-
-
-   " 
-  
-    >
+">
+    
+   
+    
     <input type="file" x-ref="input">     
 </div>
 

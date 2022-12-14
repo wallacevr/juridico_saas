@@ -65,7 +65,7 @@ class ProductOption extends Model
       
       
 
-        return $descricao;
+        return rtrim($descricao,'/');
     }
 
 

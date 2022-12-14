@@ -470,17 +470,16 @@
                                                                         </td>
                                                                             <td class="w-1/4 px-2.5">
                                                                                 
-                                                                                    @include('layouts.snippets.optionsfields', [
-                                                                                        'type' => 'number',
-                                                                                        'label' => 'Qty',
-                                                                                        'placeholder' => 'Qty',
-                                                                                        'name' => 'qty',
-                                                                                        'value' => '',
-                                                                                        'require' => false,
-                                                                                        'min' => 0,
-                                                                                        'wiremodel' => 'optionqty',
-                                                                                        'i'=> $x
-                                                                                    ])
+                                                                            @include('layouts.snippets.optionsfields', [
+                                                                                    'type' => 'text',
+                                                                                    'label' => 'Price',
+                                                                                    'placeholder' => 'R$90,00',
+                                                                                    'name' => 'price',
+                                                                                    'value' => '',
+                                                                                    'require' => false,
+                                                                                    'wiremodel' => 'optionprice',
+                                                                                    'i'=> $x
+                                                                                ])
                                                                                         
                                                                             </td>
                                                                     </tr>

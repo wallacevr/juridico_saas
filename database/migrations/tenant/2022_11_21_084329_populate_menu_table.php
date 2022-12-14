@@ -13,7 +13,7 @@ class PopulateMenuTable extends Migration
      */
     public function up()
     {
-        //
+        /*
         DB::table('menus')->insert(
             array(
                 'title' => 'Menu Inicial',
@@ -23,7 +23,7 @@ class PopulateMenuTable extends Migration
                 'status'=>1,
                 'sort'=>0
             )
-        );
+        );*/
     }
 
     /**

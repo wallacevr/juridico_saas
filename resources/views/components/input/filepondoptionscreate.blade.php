@@ -1,5 +1,5 @@
 <div 
-    wire:ignore wire:key="changeoptions"
+    wire:ignore
     x-data 
    
     x-init="
