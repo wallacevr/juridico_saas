@@ -21,9 +21,9 @@
         @endif
 
 
-<div class="grid grid-cols-1 gap-1 px-6 mx-6 py-4 text-center">
+<div class="grid grid-cols-1 gap-1  md:grid-cols-3 px-6 mx-6 py-4 text-center">
 
-            <div class="mx-6 px-6 lg:w-1/2">
+            <div class="mx-6 px-6 md:w-full">
                 <label for="shippingaddress" class="block text-start text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Address')}}<span  class="red">*</span>
                 </label>
                     <select name="shippingaddress" wire:model="shippingaddress" wire:change="shippingselect" class="form-select block w-full sm:text-sm sm:leading-5 border my-1">
@@ -38,7 +38,7 @@
                     </select>
                     @error('shippingaddress') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
             </div>
-            <div class="mx-6 px-6 lg:w-1/2">
+            <div class="mx-6 px-6 md:w-full">
                 <label for="shippingid" class="block text-start text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Method')}}<span  class="red">*</span>
                 </label>
                     <select name="shippingid" id="shippingid"  wire:model="shippingid" wire:change="shippingselect" class="form-select block w-full sm:text-sm sm:leading-5 border my-1">
@@ -59,7 +59,7 @@
                     </select>
                     @error('shippingid') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
             </div>
-            <div class="mx-6 px-6 lg:w-1/2">
+            <div class="mx-6 px-6 md:w-full">
                         <label for="invoiceaddress" class="block text-sm font-medium leading-5 text-gray-700 text-start">{{__('Billing Address')}}<span  class="red">*</span>
                         </label>
                             <select name="invoiceaddress" wire:model="invoiceaddress" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
@@ -77,7 +77,7 @@
                                 {{ $message }}
                             </p>
                             @enderror
-                    </div>
+                </div>
     </div>
     
         <div class="flex items-start" >
@@ -281,7 +281,7 @@
             @endif
     
             @if($cart)
-                <div class="grid grid-cols-4 gap-4 px-4 py-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 py-4">
 
                     @csrf
                     <div class="form-group">
@@ -359,7 +359,7 @@
                 aria-labelledby="pills-profile-tabVertical">
             @endif
                 <h1 class="bg-gray-500 rounded px-3 text-center">Pay with Boleto</h1>
-                    <div class="grid grid-cols-4 gap-4 px-4 py-4">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 py-4">
             
                     
                     <div>
@@ -423,7 +423,7 @@
             <div class="tab-pane fade  " id="pills-homeVertical" role="tabpanel"
             aria-labelledby="pills-home-tabVertical">
             @endif
-            <div class="grid grid-cols-12 gap-12 px-4 py-4">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-1 md:gap-12 px-4 py-4">
 
                     <div class=" col-span-12  rounded bg-white px-3">
                        
@@ -443,7 +443,7 @@
                         @else
                           @if($cart->paymenttype=='pix')
                             <div class="card p-5" wire:poll="consultar('{{$cart->transactioncode}}')">
-                                <div class="row pb-3 pt-5">
+                                <div class="grid grid-cols-1 pb-3 pt-5">
                                     <div class="col-12 text-center">
                                         <h2>PAGAR COM PIX</h2>
                                     </div>
@@ -451,8 +451,8 @@
                                         <p>Você pode scannear o QRCODE ou copiar e colar o código abaixo em seu banco.</p>
                                     </div>
                                 </div>
-                                <div class="row pb-3 pt-5 items-center">
-                                    <div class="container mx-auto bg-white w-1/5 p-4 relative text-center items-center">
+                                <div class="grid grid-cols-1 pb-3 pt-5 items-center">
+                                    <div class="container mx-auto bg-white w-full md:w-1/5 p-4 relative text-center items-center">
                                         @if($cart['paymentqrcode']!=null)
                                         <img src="{{$cart['paymentqrcode']}}" class="mx-0 w-48 object-center"  alt="QRCODE" class="qrcode">
                                         @elseif($pix['qrcorde']!=null)
@@ -460,9 +460,9 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <p>PIX COPIA E COLA: {{$cart['paymentpixcopiaecola']}} 
+                                <div class="grid grid-cols-1">
+                                    <div class="text-center">
+                                        <p class="text-[7px] md:text-base text-center ">PIX COPIA E COLA: {{$cart['paymentpixcopiaecola']}}  </p>
                                         
                                         <a href="#" id="btncopiar" >
                                             <svg xmlns="http://www.w3.org/2000/svg" id="svgcopiar"  width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path id="s3" d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4v-4c0-1.103-.897-2-2-2h-4V4h10v10z"></path></svg>
@@ -470,7 +470,7 @@
                                         
                                         </a>
                                         
-                                        </p>
+                                       
 
                                     </div>
                                 </div>
