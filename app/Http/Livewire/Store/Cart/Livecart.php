@@ -239,16 +239,18 @@ class Livecart extends Component
     }
 
     public function shippingcalculator(){
+       
         if($this->shippingaddressid==null){
             $this->validate([
                 'postalcode'=>'required'
             ]);
         }
+       
         try {
-        $melhorenvio = Plugin::where('name','Melhor Envio')->where('active',1)->first();
+        $melhorenvio = Plugin::where('name','MelhorEnvio')->where('active',1)->first();
        
         if($melhorenvio!=null){    
-            
+                
                 $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
                 $calculator = $shipment->calculator();
 
@@ -286,7 +288,7 @@ class Livecart extends Component
             }
         } catch (\Throwable $th) {
          //throw $th;
-            
+            dd($th);
         }
 
      }

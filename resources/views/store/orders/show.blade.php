@@ -23,58 +23,8 @@
 
     <div class="font-bold">{{__('Shipping Price: R$'. number_format( $order->price_shipping,2,',','.'))}}</div>
 
-    <div class="font-bold">{{__('Method Shipping:')}}
-        @if($melhorenvio!=null)
-            @switch($order->id_shipping)
-
-                @case(1)
-                    Correios - PAC
-                    @break
-            
-                @case(2)
-                    Correios - SEDEX
-                    @break
-                @case(14)
-                    Correios - ESEDEX
-                    @break
-            
-                @case(17)
-                    Correios - MINI
-                    @break
-                @case(3)
-                    Jadlog - PACKAGE
-                    @break
-            
-                @case(4)
-                    Jadlog - .PACKAGE
-                    @break
-                @case(8)
-                    Via Brasil - AÉREO
-                    @break
-            
-                @case(9)
-                    Via Brasil - RODOVIÁRIO
-                    @break
-                @case(10)
-                    LATAM CARGO - PROXIMO DIA
-                    @break
-            
-                @case(11)
-                    LATAM CARGO - PROXIMO VOO
-                    @break
-                @case(12)
-                    LATAM CARGO - JUNTOS
-                    @break
-                @case(15)
-                    AZUL CARGO - AMANHÃ
-                    @break
-                @case(16)
-                    AZUL CARGO - ECOMMERCE
-                    @break                    
-                @default
-                    Default case...
-            @endswitch
-        @endif
+    <div class="font-bold">{{__('Method Shipping:')}} {{$order->methodshipping()}}
+       
     </div>
 </div>
 <div class="grid grid-cols-2 gap-2 my-4">

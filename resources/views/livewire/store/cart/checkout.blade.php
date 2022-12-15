@@ -264,7 +264,13 @@
                         {{("This option will sent your order to store's whatsapp")}}
                         </p>
                 </div>
-                <div class="py-5 px-4 "><button id="btnsendwhats" class="my-3 bg-blue-500 px-3 rounded" onclick="enviarMensagem()">{{__('Sent order to Whatsapp')}}</button></div>
+                @if(!$cart->open)   
+                        <div class="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3" role="alert">
+                            {{__('Order Completed')}}
+                        </div>
+                    @else
+                         <div class="py-5 px-4 "><button id="btnsendwhats" class="my-3 bg-blue-500 px-3 rounded" onclick="enviarMensagem()">{{__('Sent order to Whatsapp')}}</button></div>
+                    @endif     
             </div>
             @if($tab==1)
                 <div class="tab-pane fade show active" id="pills-homeVertical" role="tabpanel"
@@ -372,7 +378,7 @@
                    
                     <div><h1 class="text-lg font-semibold leading-snug sm:pr-8">Total R${{ number_format($total-$discount+$shippingprice,2,',','.') }}</h1></div>
                     @if($cart->open)
-                        <div class="py-5 px-4 "><button id="btnpayboleto" wire:loading.attr="disabled" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button>{{$cart->open}}</div>
+                        <div class="py-5 px-4 "><button id="btnpayboleto" wire:loading.attr="disabled" class="my-3 bg-blue-500 px-3 rounded">{{__('Payment')}}</button></div>
                         <div wire:loading wire:target="pagseguroboleto">
                             Processing Payment...
                         </div>
