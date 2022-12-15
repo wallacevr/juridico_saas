@@ -3,8 +3,8 @@
 @section('content')
 <h1 class="text-center font-bold">{{__('Order')}}</h1>
 
-<div class="grid grid-cols-2 gap-2 my-4">
 
+<div class="grid grid-cols-1 gap-1 md:grid-cols-2 my-4">
     <div class="font-bold">{{__('Total: R$'. number_format( $order->products->sum('pivot.price'),2,',','.'))}}</div>
 
     <div class="font-bold">{{__('Status:')}}
@@ -19,7 +19,7 @@
             @endif
     </div>
 </div>
-<div class="grid grid-cols-2 gap-2 my-4">
+<div class="grid grid-cols-1 gap-1 md:grid-cols-2 my-4">
 
     <div class="font-bold">{{__('Shipping Price: R$'. number_format( $order->price_shipping,2,',','.'))}}</div>
 
@@ -27,7 +27,7 @@
       
     </div>
 </div>
-<div class="grid grid-cols-2 gap-2 my-4">
+<div class="grid grid-cols-1 gap-1 md:grid-cols-2 my-4">
 
     <div>{{__('Customer:'. $order->customer->name)}}</div>
 
@@ -82,7 +82,7 @@
 
   
 </div>
-<div class="grid grid-cols-4 gap-4 my-4">
+<div class="grid grid-cols-1 gap-1 md:grid-cols-4">
     
     <div>{{__('Address:'. $order->addressdelivery->address)}}</div>
 
@@ -100,7 +100,7 @@
 
   
 </div>
-<div class="grid grid-cols-4 gap-4 my-4">
+<div class="grid grid-cols-1 gap-1 md:grid-cols-4">
     
     <div>{{__('Address:'. $order->addressinvoice->address)}}</div>
 
