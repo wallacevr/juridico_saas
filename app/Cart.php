@@ -12,7 +12,7 @@ class Cart extends Model
 
 
     public function products(){
-        return $this->belongsToMany(Product::class, 'cart_products', 'id_cart', 'id_product')->withPivot(["quantity","product_options_id"]);
+        return $this->belongsToMany(Product::class, 'cart_products', 'id_cart', 'id_product')->withPivot(["quantity","product_options_id","price"]);
     }
 
     public function ticket(){
@@ -23,7 +23,7 @@ class Cart extends Model
         return $this->belongsTo(Customer::class, 'id_customer');
     }
     public function invoiceaddress(){
-        return $this->belongsTo(Address::class,'id', 'id_address_invoice');
+        return $this->belongsTo(Address::class, 'id_address_invoice');
     }
     public function deliveryaddress(){
         return $this->belongsTo(Address::class, 'id_address_delivery');

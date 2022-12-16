@@ -26,4 +26,11 @@ class OrderController extends Controller
                 'melhorenvio'=>$melhorenvio
             ]);
         }
+
+        
+        public function create()
+        {
+            
+            return view('tenant.orders.create');
+        }
 }

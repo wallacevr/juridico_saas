@@ -1,9 +1,5 @@
 <div>
-@if (!$errors->isEmpty()) 
-    <p class="mt-2 text-sm text-red-500">
-        {{ $errors }}
-    </p>
-@endif
+
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
         <!-- LEFT FORM -->
         <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">

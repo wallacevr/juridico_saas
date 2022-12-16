@@ -684,13 +684,22 @@ class Checkout extends Component
      }
 
      public function closecart(){
-        $cart = Cart::find($this->cart->id);
-        $cart->open = 0;
-        $cart->update();
-        $this->cart = $cart;
-        
-        Session::put('cart', []);
-        Session::save();
+
+        try {
+            $cart = Cart::find($this->cart->id);
+            $cart->id_address_delivery =$this->shippingaddress;
+            $cart->id_address_invoice =$this->invoiceaddress;
+            $cart->id_Shipping=$this->shippingid;
+           
+            $cart->update();
+            $this->cart = $cart;
+            
+            Session::put('cart', []);
+            Session::save();
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
     }
 
 }

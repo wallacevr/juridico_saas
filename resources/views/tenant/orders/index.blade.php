@@ -4,9 +4,9 @@
 
 <div class="">
 	<div class="max-w-7xl mx-auto">
-		{{-- <a href="{{ route('tenant.order.create') }}" class="px-5 py-2 text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 active:bg-indigo-700 transition ease-in-out duration-150">
+		 <a href="{{ route('tenant.orders.create') }}" class="px-5 py-2 text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 active:bg-indigo-700 transition ease-in-out duration-150">
 			{{ __('New order') }}
-		</a> --}}
+		</a> 
 		<div class="block mt-8">
 			<div class="flex flex-col">
 				<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

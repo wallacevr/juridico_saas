@@ -120,4 +120,23 @@ class CartProduct extends Model
         return $collinticket;
     }
 
+
+    public function optiondescription(){
+        $description="";
+      if($this->product_options_id!=null){
+        $option = ProductOption::find($this->product_options_id);
+        
+        $description = $option->descricao();  
+     }
+      
+      
+
+        return rtrim($description,'/');
+      
+      
+    }
+
+
+
+
 }
