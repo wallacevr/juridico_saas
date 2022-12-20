@@ -29,9 +29,9 @@
 </div>
 <div class="grid grid-cols-1 gap-1 md:grid-cols-2 my-4">
 
-    <div>{{__('Customer:'. $order->customer->name)}}</div>
+    <div class="font-bold">{{__('Customer:'. $order->customer->name)}}</div>
 
-    <div>{{__('Taxvat:'. $order->customer->taxvat)}}</div>
+    <div class="font-bold">{{__('Taxvat:'. $order->customer->taxvat)}}</div>
 </div>
 
 <div class="overflow-x-auto relative my-4">
@@ -56,19 +56,19 @@
             </tr>
         </thead>
         <tbody>
-          @foreach($order->products as $product)
+          @foreach($orderproducts as $product)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   {{ $product->name}}
+                   {{ $product->product->name}}
                 </th>
                 <td class="py-4 px-6">
-                    
+                   {{ $product->optiondescription() }} 
                 </td>
                 <td class="py-4 px-6">
-                 {{ number_format($product->pivot->quantity,0,',','.')}}
+                 {{ number_format($product->quantity,0,',','.')}}
                 </td>
                 <td class="py-4 px-6">
-                {{__('R$'. number_format($product->pivot->price,2,',','.')) }}
+                {{__('R$'. number_format($product->price,2,',','.')) }}
                 </td>
             </tr>
             @endforeach

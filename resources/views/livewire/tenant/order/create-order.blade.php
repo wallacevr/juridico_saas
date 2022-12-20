@@ -11,7 +11,8 @@
                         <p class="mt-1 max-w-2xl text-sm text-gray-500"></p>
                     </div>
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
-                        <div class="grid grid-cols-3 gap-6">
+                     @if($orderid==null)   
+                        <div class="grid grid-cols-2 gap-6">
                         <div wire:ignore class="w-full">
                                         <label for="customer">{{__('Customer')}}</label>
                                         <select class="form-control js-basic-single w-full" name="customer" id="customer"  >
@@ -47,7 +48,7 @@
                                         <div class="mt-1 rounded-md ">
 
                             
-                                            <select name="cart" id="cart" wire:model="cartid" class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded">
+                                            <select name="cart" id="cart" wire:model="cartid" wire:change="refreshaddress"  class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded">
                                                 <option value="null">{{__('Select a cart')}}</option>
                                                     @foreach($carts as $cart)
                                                         <option value="{{$cart->id}}">{{$cart->id}}</option>
@@ -56,17 +57,276 @@
                                         </div>
                                 </div>
 
-
-
-
-
-
-
-
-
                            @endif
+                            </div>
+                            <div class="grid grid-cols-2 gap-6">
+                           @if($addresses!=null)
+                                    <div  class="w-full">
+                                            <label for="id_address_delivery">{{__('Address Delivery')}}</label>
+                                            <div class="mt-1 rounded-md ">
+                                                <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="customer"  wire:model="id_address_delivery">
+                                                    <option value="null">{{ __('Select a Address') }}</option>
+                                                    @foreach($addresses as $address)
+                                                        <option value="{{ $address->id }}"
+                                                        @if($address->id == $id_address_delivery)
+                                                            selected
+                                                        @endif
+                                                        >{{ $address->name }}</option>
+                                                    @endforeach 
+                                                </select>
+                                            </div>
+
+                                    </div>
+                         @endif
+                         @if($addresses!=null)
+                                    <div  class="w-full">
+                                            <label for="id_address_delivery">{{__('Address Invoice')}}</label>
+                                            <div class="mt-1 rounded-md ">
+                                                <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="customer"  wire:model="id_address_invoice">
+                                                    <option value="null">{{ __('Select a Address') }}</option>
+                                                    @foreach($addresses as $address)
+                                                        <option value="{{ $address->id }}"
+                                                        @if($address->id == $id_address_invoice)
+                                                            selected
+                                                        @endif
+                                                        >{{ $address->name }}</option>
+                                                    @endforeach 
+                                                </select>
+                                            </div>
+
+                                    </div>
+                         @endif
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                                    <div    >
+                                            <label for="id_address_delivery">{{__('Payment Method')}}</label>
+                                            <div class="mt-1 rounded-md ">
+                                                <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="paymentmethod"  wire:model="paymentmethod">
+                                                    <option value="null">{{ __('Select a Payment Method') }}</option>
+                                                    <option value="Money">{{ __('Money') }}</option>
+                                                    <option value="Pix">{{ __('Pix') }}</option>
+                                                    <option value="Credit Card">{{ __('Credit Card') }}</option>
+                                                    <option value="Billet">{{ __('Billet') }}</option>
+                                                    <option value="ank transfer">{{ __('Bank transfer') }}</option>
+                                                </select>
+                                            </div>
+
+                                    </div>
+                                    <div  >
+                                            <label for="id_address_delivery">{{__('Status order')}}</label>
+                                            <div class="mt-1 rounded-md ">
+                                                <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="statusorder"  wire:model="statusorder">
+                                                    <option value="null">{{ __('Select a status') }}</option>
+                                                    <option value="Money">{{ __('Awayting Payment') }}</option>
+                                                    <option value="Pix">{{ __('Pay') }}</option>
+                                                    <option value="Credit Card">{{ __('Sent') }}</option>
+               
+                                                </select>
+                                            </div>
+
+                                    </div>
                         
+                        
+                         @if($products!=null)
+                                    <div wire:ignore class="w-full">
+                                            <label for="id_address_delivery">{{__('Product')}}</label>
+                                            <div class="mt-1 rounded-md ">
+                                                <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="productid" id="productid" wire:model="productid">
+                                                    <option value="null">{{ __('Select a Product') }}</option>
+                                                    @foreach($products as $product)
+                                                        <option value="{{ $product->id }}"
+                                                        @if($product->id == $productid)
+                                                            selected
+                                                        @endif
+                                                        >{{ $product->name }}</option>
+                                                    @endforeach 
+                                                </select>
+                                                <script>
+                                                $(document).ready(function () {
+                                        
+                                                    $('#productid').select2({
+                                                        placeholder: 'seletec the product',
+                                                        allowClear: true   // Shows an X to allow the user to clear the value.
+                                                    });
+                                                    $('#productid').on('change', function (e) {
+                                                      
+                                                        var data = $('#productid').select2("val");
+                                                        @this.set('productid', data);
+                                                        
+                                                         
+                                                    });
+                            
+                                                });
+
+                                        </script>
+                                            </div>
+
+                                    </div>
+                         @endif
+            @else
+                <div class="grid grid-cols-2 gap-6">
+                    <div><span>{{__('Order')}}:</span>{{$orderid}}</div>
+                </div>
+            @endif              
         </div>
+     
+                @if($productid!=null)
+                <div class="min-h-full px-4 py-16 sm:px-6 sm:py-24  lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
+                    
+                    <div class=" flex-initial product-image ">
+                        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                            <div class="swiper-wrapper">
+                            @if(!$optionimages)  
+                        
+                                    @foreach ($productshow->images as $image)
+                                        <div class="swiper-slide">
+                                            <div class="swiper-zoom-container">
+                                                <img src="{{ productImage($productshow->id .'/'. $image->image_url,'thumb') }}" />
+                                            </div> 
+                                        </div>
+                                    @endforeach
+                                @else
+                                    @foreach ($optionimages as $image)
+
+                                        <div class="swiper-slide">
+                                            <div class="swiper-zoom-container">
+                                                <img src="{{ productImage($productshow->id .'/'. $image->product_options_id .'/'.$image->image_url,'thumb') }}" />
+                                            </div> 
+                                        </div>
+                                    @endforeach
+
+                                @endif
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                        <div thumbsSlider="" class="swiper mySwiper mt-2">
+                            <div class="swiper-wrapper">
+                                @if(!$optionimages)
+                                    @foreach ($productshow->images as $image)
+                                        <div class="swiper-slide">
+                                        <img src="{{ imageCache($productshow->id .'/'.$image->image_url,'thumb') }}" />
+                                        </div>
+                                    @endforeach
+                                @else
+                                    @foreach ($optionimages as $image)
+                                        <div class="swiper-slide">
+                                            <img src="{{ imageCache($productshow->id .'/'. $image->product_options_id .'/'.$image->image_url,'thumb') }}" />
+                                        </div>
+                                    @endforeach
+
+                                @endif
+                            </div>
+                        </div>
+                
+                    </div>
+                    <div class="product-info">
+                        <h5 class="mb-2 text-5xl leading-9  title-primary  divide-y  divide-gray-300">
+                            {{ $productshow->name }}</h5>
+                        <!-- rating-->
+                        <div class="flex items-center">
+                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Second star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Third star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fourth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-300 dark:text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fifth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">4.95 out of 5</p>
+                        </div>
+                        <!-- rating end-->
+                        <div class="mb-6 text-3xl leading-9  title-primary ">
+                            @if($optionprice=="" )
+                                {{ $productshow->formattedPrice() }}
+                            @else
+                                {{$optionprice }}
+                            @endif
+                            </div>
+                        <div class="product-description text-sm mb-6">
+                            @foreach($variations as $key=>$variation)
+                                <div class="grid grid-cols-3">
+                                        @foreach($variation as $option)
+                                            @if($key < $maxnivel)
+                                                <div >
+                                                    
+                                                        @switch($option['type']) 
+                                                            @case('NONE')
+                                                            <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}" wire:click="optionslist({{($key+1)}},{{$option['id']}})">
+                                                                <label for="opt1">{{ $option['name'] }}</label>
+                                                                @break
+                                                            @case('COLOR')
+                                                            <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}" wire:click="optionslist({{($key+1)}},{{$option['id']}})">
+                                                                <input type="color" value="{{$option['value']}}" id="" disabled>
+                                                                @break
+                                                            @case('IMAGE')
+                                                                <div class="grid grid-cols-2">
+                                                                    <div class="w-1/6">
+                                                                        <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}" wire:click="optionslist({{($key+1)}},{{$option['id']}})">
+                                                                    </div>
+                                                                    <div>
+                                                                        <img  class="h-10 w-10" src="{{ tenant_public_path() . '/images/options/' . $option['value']}}">
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                                @break
+                                                            @default
+                                                        
+                                                        @endswitch
+                                                </div>
+                                            @else
+                                            
+                                                <div>
+                                                
+                                                    <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}"  wire:click="showoptionsproperty({{$option['id']}})"
+                                                            @if($option['qty_stock'] <=0)
+                                                                disabled
+                                                            @endif                            
+                                                        > <label for="opt1">
+                                                            @if(isset($option['options']['name']))
+                                                                {{ $option['options']['name'] }}
+                                                            
+                                                            @else
+                                                                {{ $option['name'] }}
+                                                            @endif
+                                                            </label>
+                                                    </div>
+                                            @endif
+                                        @endforeach
+                                </div>
+                            @endforeach
+                        </div>
+                    
+                            @if($hasoptions==false)
+                                <a href="#" wire:click="addcart({{$productid}},null)"
+                                    class="add-tocart inline-flex items-center justify-center w-40 h-13 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none"
+                                    alt="{{ __('Add to cart') }}">{{ __('Add to order') }}</a>
+                            @else
+                                @if(($optioncart!="")||$optioncart!=null)
+                                    
+                                        <a href="#" wire:click="addcart({{$productid}},{{$optioncart}})"
+                                            class="add-tocart inline-flex items-center justify-center w-40 h-13 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none"
+                                            alt="{{ __('Add to cart') }}">{{ __('Add to order') }}</a>
+
+                                @else
+                                        <button type="button"
+                                            class="add-tocart inline-flex items-center justify-center w-40 h-13 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none disabled:opacity-25 " disabled
+                                            alt="{{ __('Add to cart') }}" >{{ __('Add to order') }}</button>
+
+                                @endif
+                            @endif
+                            <div>
+                                @if (session()->has('success'))
+                                    <div class="bg-green-100 rounded-lg py-5 px-6 mb-4 text-base text-green-700 mb-3" role="alert">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                        </div>
+                    </div>
+
+                </div>
+
+
+                @endif
         <div class="overflow-x-auto relative my-4">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -93,7 +353,7 @@
           @foreach($cartproducts as $product)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   {{ $product->name}}
+                   {{ $productshow->name}}
                 </th>
                 <td class="py-4 px-6">
                   {{$product->optiondescription()}}
