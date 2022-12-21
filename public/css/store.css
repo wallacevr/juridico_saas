@@ -429,11 +429,42 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 100%;
 }
 
+
+
+@media screen and (max-width: 568px) {
+  table tr td:nth-child(1) {
+    display: none;
+  }
+  table tr td:nth-child(2) {
+    display: none;
+  }
+  table tr td:nth-child(3) {
+    display: none;
+  }
+  table tr td:nth-child(5) {
+    display: none;
+  }
+  table tr th:nth-child(1) {
+    display: none;
+  }
+  table tr th:nth-child(2) {
+    display: none;
+  }
+  table tr th:nth-child(3) {
+    display: none;
+  }
+  table tr th:nth-child(5) {
+    display: none;
+  }
+
+}
+
 @media (min-width: 640px) {
 
   .container {
     max-width: 640px;
   }
+
 }
 
 @media (min-width: 768px) {
