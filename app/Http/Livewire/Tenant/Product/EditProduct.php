@@ -217,9 +217,9 @@ class EditProduct extends Component
             $product->name = $this->name;
             $product->description =  $this->description;
             $product->sku = $this->sku;
-            $product->price = $this->price;
-            $product->special_price = $this->special_price;
-            $product->cost = $this->cost_price;
+            $product->price = number_format($this->price,2,'.',',');
+            $product->special_price = number_format($this->special_price,2,'.',',');
+            $product->cost = number_format($this->cost_price,2,'.',',');
             $product->manage_stock = $this->manage_stock;
             $product->qty = $this->qty;
             $product->min_qty = $this->min_qty;
@@ -274,7 +274,7 @@ class EditProduct extends Component
           
                   $opt = ProductOption::find($prodopt->id);
                   $opt->qty_stock = $this->optionqty[$prodopt->id];
-                  $opt->price = $this->optionprice[$prodopt->id];
+                  $opt->price = number_format($this->optionprice[$prodopt->id],2,'.',',');
                   $opt->update();
 
                   $x=0;

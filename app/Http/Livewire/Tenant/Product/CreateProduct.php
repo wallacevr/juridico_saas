@@ -170,19 +170,45 @@ class CreateProduct extends Component
 
     
       try {
-         
-
+           if(empty($this->price)){
+            $this->price=0;
+           }
+           if(empty($this->special_price)){
+            $this->special_price=0;
+           }
+           if(empty($this->cost_price)){
+            $this->cost_price=0;
+           }
             $product = new Product;
             $product->name = $this->name;
             $product->description =  $this->description;
             $product->sku = $this->sku;
-            $product->price = $this->price;
-            $product->special_price = $this->special_price;
-            $product->cost = $this->cost_price;
+           
+            $product->price = number_format( str_replace(',','.',$this->price) ,2,'.',',');
+            $product->special_price = number_format(str_replace(',','.',$this->special_price),2,'.',',');
+            $product->cost = number_format(str_replace(',','.',$this->cost_price),2,'.',',');
+            $product->weight=0;
+            $product->width=0;
+            $product->height=0;
             $product->manage_stock = $this->manage_stock;
-            $product->qty = $this->qty;
-            $product->min_qty = $this->min_qty;
-            $product->max_qty = $this->max_qty;
+            if($this->qty==null || $this->qty==""){
+              $product->qty =0;
+            }else{
+              $product->qty = $this->qty;
+            }  
+            
+        
+            if($this->min_qty==null || $this->min_qty==""){
+              $product->min_qty =0;
+             }else{
+              $product->min_qty = $this->min_qty;
+             }
+             if($this->max_qty==null || $this->max_qty==""){
+              $product->max_qty =0;
+             }else{
+              $product->max_qty = $this->max_qty;
+             }
+         
             $product->meta_title = $this->meta_title;
             $product->meta_description = $this->meta_description;
             $product->slug = $this->slug;
@@ -238,7 +264,10 @@ class CreateProduct extends Component
                     $productoption->nivel = $key2;
                    
                     if($key2 == $max){
-                      $productoption->price   = $this->optionprice[$key];
+                      if(empty($this->optionprice[$key])){
+                        $this->optionprice[$key]=0;
+                       }
+                      $productoption->price   = number_format(str_replace(",",'.',$this->optionprice[$key]),2,'.',',');
                       $productoption->qty_stock   = $this->optionqty[$key];
                     
 
@@ -254,12 +283,14 @@ class CreateProduct extends Component
                
                     if($key2 == $max){
                      
-                      
+                      if(isset($this->optionimages[$key])){
+                        $this->optionimages[$key]->storeAs(tenant('id') .'/images/catalog/'. $product->id. '/'.$productoption->id , $this->optionimages[$key]->getClientOriginalName() ,'catalogo');
+                        ProductOptionsImage::create(['product_options_id'=>$productoption->id ,'image_url'=> $this->optionimages[$key]->getClientOriginalName(),'sort'=>$x,'title'=>Str::of( $this->optionimages[$key]->getClientOriginalName())->basename('.'. $this->optionimages[$key]->getClientOriginalExtension()),'main'=>1]);
                    
-                            $this->optionimages[$key]->storeAs(tenant('id') .'/images/catalog/'. $product->id. '/'.$productoption->id , $this->optionimages[$key]->getClientOriginalName() ,'catalogo');
-                            ProductOptionsImage::create(['product_options_id'=>$productoption->id ,'image_url'=> $this->optionimages[$key]->getClientOriginalName(),'sort'=>$x,'title'=>Str::of( $this->optionimages[$key]->getClientOriginalName())->basename('.'. $this->optionimages[$key]->getClientOriginalExtension()),'main'=>1]);
-                       
-                      
+                  
+                      }
+                   
+                        
                     }
 
                     $key2 = $key2 + 1;
@@ -275,8 +306,8 @@ class CreateProduct extends Component
                 ProductCustomersGroup::create([
                   'id_customer_group' => $this->grpcustomer[$key],
                   'id_product' => $product->id ,
-                  'qty' => $this->minqtyspecialprice[$key],
-                  'price' => $this->specialpricegrp[$key],
+                  'qty' =>str_replace(',','.', $this->minqtyspecialprice[$key]),
+                  'price' => number_format(str_replace(",",'.', $this->specialpricegrp[$key]),2,'.',','),
                 ]);
             }
         }

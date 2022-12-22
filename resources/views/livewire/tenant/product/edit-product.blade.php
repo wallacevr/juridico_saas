@@ -269,7 +269,7 @@
                                                 @foreach($product->variations as $variationselected)
 
                                                             <div >
-                                                        <label for="{{ $variationselected->name }}options[]" class="block text-sm font-medium leading-5 text-gray-700">{{ $variationselected->name }}</label>
+                                                                 <label for="{{ $variationselected->name }}options[]" class="block text-sm font-medium leading-5 text-gray-700">{{ $variationselected->name }}</label>
                                                                 <select class="form-control w-full" wire:model="optionadd.{{$variationselected->id}}" class="max-w-xs">
                                                                 <option value="">{{ __('Select an option') }}</option>
                                                                         @foreach($variationselected->options as $option)
