@@ -206,46 +206,46 @@
                         @endif
                 </li>
              @endif
-             
-             <li class="nav-item flex-grow text-center my-2" role="presentation">
-              @if($tab==4)
+             @if(get_config('plugins/commnunication/whatsapppcheckout/enabled')=='on') 
+                    <li class="nav-item flex-grow text-center my-2" role="presentation">
+                    @if($tab==4)
+                                <a href="#pills-whatsappVertical" class="
+                                        nav-link
+                                        block
+                                        font-medium
+                                        text-xs
+                                        leading-tight
+                                        uppercase
+                                        rounded
+                                        px-6
+                                        py-3
+                                        focus:outline-none focus:ring-0
+                                        active
+                                        " id="pills-whatsapp-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-whatsapppVertical" role="tab"
+                                        aria-controls="pills-whatsappVertical" aria-selected="true" wire:click="tabactive(4)">
+                        @else
                         <a href="#pills-whatsappVertical" class="
-                                nav-link
-                                block
-                                font-medium
-                                text-xs
-                                leading-tight
-                                uppercase
-                                rounded
-                                px-6
-                                py-3
-                                focus:outline-none focus:ring-0
-                                active
-                                " id="pills-whatsapp-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-whatsapppVertical" role="tab"
-                                aria-controls="pills-whatsappVertical" aria-selected="true" wire:click="tabactive(4)">
-                @else
-                <a href="#pills-whatsappVertical" class="
-                                nav-link
-                                block
-                                font-medium
-                                text-xs
-                                leading-tight
-                                uppercase
-                                rounded
-                                px-6
-                                py-3
-                                focus:outline-none focus:ring-0
-                                " id="pills-whatsapp-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-whatsappVertical" role="tab"
-                                aria-controls="pills-whatsappVertical" aria-selected="false" wire:click="tabactive(4)">
-                
-                @endif
-                <div>
-            
-                </div>
-                <div><h6>{{__('Whatsapp')}}</h6></div>
-            </a>
-            </li>
-
+                                        nav-link
+                                        block
+                                        font-medium
+                                        text-xs
+                                        leading-tight
+                                        uppercase
+                                        rounded
+                                        px-6
+                                        py-3
+                                        focus:outline-none focus:ring-0
+                                        " id="pills-whatsapp-tabVertical" data-bs-toggle="pill" data-bs-target="#pills-whatsappVertical" role="tab"
+                                        aria-controls="pills-whatsappVertical" aria-selected="false" wire:click="tabactive(4)">
+                        
+                        @endif
+                        <div>
+                    
+                        </div>
+                        <div><h6>{{__('Whatsapp')}}</h6></div>
+                    </a>
+                    </li>
+            @endif
 
 
 

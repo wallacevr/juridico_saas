@@ -98,6 +98,13 @@ Route::group([
 
             Route::post('/upload', 'UploadController@submit')->name('upload.upload');
             Route::post('/ajax_remove_file', 'UploadController@removeFile');
+
+            
+            Route::get('/plugins/whatsappcheckout/setconfig', 'PluginController@whatsappsetconfig')->name('whatssetconfig');
+            Route::post('/plugins/whatsappcheckout/storeconfig', 'PluginController@whatsappstoreconfig')->name('whatsstoreconfig');
+           
+       
+        
         });
     });
 

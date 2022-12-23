@@ -169,8 +169,8 @@ if (!function_exists("imageCache")) {
         $destination = $tenantPath . 'cache/' . $resize .'/'. $imageName;
         $imagedir=explode("/",$destination ,-1);
 
-        if(!file_exists(public_path(implode("\\",$imagedir)))){
-            mkdir(public_path(implode("\\",$imagedir)), 0777, true);
+        if(!file_exists(public_path(implode("/",$imagedir)))){
+            mkdir(public_path(implode("/",$imagedir)), 0777, true);
 
         }
         if(!is_file($destination)){
@@ -440,7 +440,7 @@ if (!function_exists('create_menu')) {
                 'children' => [
                     ['name' => __('Payments'), 'href' => route('tenant.plugins.index',['group'=>1])],
                     ['name' => __('Shipping'), 'href' => route('tenant.plugins.index',['group'=>2])],
-
+                    ['name' => __('Communication'), 'href' => route('tenant.plugins.index',['group'=>3])],
 
                 ],
             ],

@@ -72,4 +72,37 @@ class PluginController extends Controller
         $plugin->save();
         return redirect()->back()->with('success','Plugin installed successfully!');
     }
+
+
+    public function whatsappsetconfig()
+    {
+       return view('tenant.plugins.whatsapp');
+    }
+    public function whatsappstoreconfig(Request $request)
+    {
+      
+
+            $request->validate([
+                'whatsapp' => 'required|string||max:18',
+
+            ]);
+    
+      
+        
+        foreach($request->request as $key=>$value){
+            
+          
+          if($key!='_token'){
+            Config::createOrUpdate('plugins/commnunication/whatsapppcheckout/'. $key,$value);
+          }  
+        if(!isset($request->enabled)){
+            Config::createOrUpdate('plugins/commnunication/whatsapppcheckout/enabled',false);
+        }     
+          
+        }
+
+        return redirect()->back()->with("success", "Settings saved successfully");
+    
+    }
+
 }
