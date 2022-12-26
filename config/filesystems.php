@@ -54,6 +54,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'publictenant' => [
+            'driver' => 'local',
+            'root' => public_path('/tenant/'),
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+        ],
         'catalogo' => [
             'driver' => 'local',
             'root' => public_path('/tenant/'),

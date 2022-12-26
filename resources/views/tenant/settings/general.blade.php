@@ -279,6 +279,19 @@
                     </div>
 
 
+
+           <!-- Mail Settings -->
+           <div class="mt-4 md:mt-0 w-full md:w-2/3 pl-0 md:pl-2">
+                <div class="shadow overflow-hidden sm:rounded-md">
+
+
+                    
+
+
+
+
+
+
                     <!-- Group 4 -->
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="flex flex-row flex-wrap">
@@ -313,8 +326,92 @@
 
         @include('layouts.snippets.divide')
 
-        <!-- Block 4 -->
+        <!-- Block 5 -->
         <div class="flex flex-row flex-wrap">
+            <!-- header -->
+            <div class="w-full md:w-1/3">
+                <div class="px-4 md:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">{{ __('Mail Sender') }}
+                    </h3>
+                    <p class="mt-1 text-sm leading-5 text-gray-600">
+
+                    </p>
+                </div>
+            </div>
+            <!-- body -->
+            <div class="mt-4 mb-4 md:mt-0 w-full md:w-2/3 pl-0 md:pl-2">
+                <div class="shadow overflow-hidden sm:rounded-md">
+                   
+                    <!-- Group 1 -->
+                    <div class="px-4 pt-1 bg-white sm:p-6">
+                        <div class="flex flex-row flex-wrap">
+                            <div class="w-full">
+                                <div class="mt-4  pr-2">
+                                    @include('layouts.snippets.fields', [
+                                        'type' => 'email',
+                                        'label' => 'Email',
+                                        'placeholder' => 'youemail@domain.com.br',
+                                        'name' => 'email_sender',
+                                        'value' => get_config('general/store/email_sender'),
+                                    ])
+                                </div>
+                                <div class="mt-4  pr-2">
+                                    @include('layouts.snippets.fields', [
+                                        'type' => 'text',
+                                        'label' => 'SMTP MAIL HOST',
+                                        'placeholder' => 'smtp.domain.com',
+                                        'name' => 'smtp_mail_host',
+                                        'value' => get_config('general/store/smtp_mail_host'),
+                                    ])
+                                </div>
+                                <div class="mt-4  pr-2">
+                                    @include('layouts.snippets.fields', [
+                                        'type' => 'text',
+                                        'label' => 'Mail Port',
+                                        'placeholder' => '587',
+                                        'name' => 'mail_port',
+                                        'value' => get_config('general/store/mail_port'),
+                                    ])
+                                </div>
+                                <div class="mt-4  pr-2">
+                                    @include('layouts.snippets.fields', [
+                                        'type' => 'password',
+                                        'label' => 'Password',
+                                        'placeholder' => 'Password',
+                                        'name' => 'email_sender_password',
+                                        'value' => get_config('general/store/email_sender_password'),
+                                    ])
+                                </div>
+                                <div class="mt-4  pr-2">
+                                    @include('layouts.snippets.fields', [
+                                        'type' => 'text',
+                                        'label' => 'Mail Encryption',
+                                        'placeholder' => 'tls',
+                                        'name' => 'email_sender_encryption',
+                                        'value' => get_config('general/store/email_sender_encryption'),
+                                    ])
+                                </div>
+                                <div class="mt-4  pr-2">
+                                    @include('layouts.snippets.fields', [
+                                        'type' => 'text',
+                                        'label' => 'Mail Sender Name',
+                                        'placeholder' => 'Sender Name',
+                                        'name' => 'email_sender_name',
+                                        'value' => get_config('general/store/email_sender_name'),
+                                    ])
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+         <!-- Block 4 -->
+         <div class="flex flex-row flex-wrap">
             <!-- header -->
             <div class="w-full md:w-1/3">
                 <div class="px-4 md:px-0">
@@ -385,6 +482,7 @@
                 </div>
             </div>
         </div>
+
 
         @include('layouts.snippets.save')
 

@@ -52,13 +52,19 @@ class ConfigurationController extends Controller
                 'email',
                 'max:255'
             ],
+            'email_sender'=>['required','email'],
+            'smtp_mail_host'=>['required','max:255'],
+            'mail_port'=>['required','numeric'],
+            'email_sender_password'=>['required','string','min:6'],
+            'email_sender_encryption'=>['required','string','min:3'],
+            'email_sender_name'=>['required','string'],
             'whatsapp' => ['string', 'min:10'],
             'facebook' => ['url', 'string', 'min:10'],
             'instagram' => ['url', 'string', 'min:10'],
             'youtube' => ['url', 'string', 'min:10'],
             'pinterest' => ['url', 'string', 'min:10'],
         ]);
-
+       
 
         Config::where('path', 'general/store/name')->update(['value' => $validated['name']]);
         Config::where('path', 'general/store/email')->update(['value' => $validated['email']]);
@@ -70,6 +76,12 @@ class ConfigurationController extends Controller
         Config::where('path', 'general/store/city')->update(['value' => $validated['city']]);
         Config::where('path', 'general/store/state')->update(['value' => $validated['state']]);
 
+        Config::createOrUpdate('general/store/email_sender',$validated['email_sender']);
+        Config::createOrUpdate('general/store/smtp_mail_host', $validated['smtp_mail_host']);
+        Config::createOrUpdate('general/store/mail_port',$validated['mail_port']);
+        Config::createOrUpdate('general/store/email_sender_password', $validated['email_sender_password']);
+        Config::createOrUpdate('general/store/email_sender_encryption', $validated['email_sender_encryption']);
+        Config::createOrUpdate('general/store/email_sender_name', $validated['email_sender_name']);
 
         Config::where('path', 'general/store/registred_company_name')->update(['value' => $validated['registred_company_name']]);
         Config::where('path', 'general/store/taxvat')->update(['value' => $validated['taxvat']]);
@@ -81,7 +93,13 @@ class ConfigurationController extends Controller
         Config::where('path', 'general/store/social_youtube')->update(['value' => $validated['youtube']]);
         Config::where('path', 'general/store/social_pinterest')->update(['value' => $validated['pinterest']]);
 
-
+       
         return redirect()->back()->with('success', __('Store information updated.'));
+    }
+
+
+    public function setlogos()
+    {
+        return view('tenant.settings.logos');
     }
 }
