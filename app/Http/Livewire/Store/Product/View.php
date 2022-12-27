@@ -22,6 +22,7 @@ class View extends Component
     public $optionimages =[];
     public $hasoptions;
     public $optioncart;
+    public $selectedoption;
     public function render()
     {
 
@@ -74,6 +75,9 @@ class View extends Component
             $this->optionprice = $option->formattedPrice();
             $this->optionimages = ProductOptionsImage::where('product_options_id',$option->id)->get();
             $this->optioncart = $option->id;
+            if( $option->price !=null){
+                $this->selectedoption = $option->id;
+            }
 
     }
 
@@ -154,7 +158,7 @@ class View extends Component
             }
         } catch (\Throwable $th) {
             //throw $th;
-            dd($th);
+            
         }
 
 

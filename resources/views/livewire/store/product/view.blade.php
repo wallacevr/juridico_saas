@@ -92,49 +92,107 @@
                         <div class="grid grid-cols-6">
                                 @foreach($variation as $option)
                                     @if($key < $maxnivel)
-                                        <div >
-                                               
+                                    <div class="grid grid-cols-2 text-center">
+                                                 <div class="mx-0 px-0">
+                                                        <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}" wire:click="optionslist({{($key+1)}},{{$option['id']}})" 
+                                                     
+                                                        >
+                                                 </div>
                                                 @switch($option['type']) 
                                                      @case('NONE')
-                                                     <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}" wire:click="optionslist({{($key+1)}},{{$option['id']}})">
-                                                         <label for="opt1">{{ $option['name'] }}</label>
+                                                        <div>
+                                                             <label for="opt1">{{ $option['name'] }}</label>
+                                                        </div>
+                                                         
                                                          @break
                                                     @case('COLOR')
-                                                    <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}" wire:click="optionslist({{($key+1)}},{{$option['id']}})">
-                                                        <input type="color" value="{{$option['value']}}" id="" disabled>
+                                                        <div class="h-10 w-10 px-m mx-0 rounded-full" style="background: {{$option['value']}}"></div>
                                                         @break
                                                     @case('IMAGE')
-                                                        <div class="grid grid-cols-2">
-                                                            <div class="w-1/6">
-                                                                 <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}" wire:click="optionslist({{($key+1)}},{{$option['id']}})">
-                                                            </div>
-                                                            <div>
-                                                                 <img  class="h-10 w-10" src="{{ tenant_public_path() . '/images/options/' . $option['value']}}">
+                                                            <div class="px-m mx-0 ">
+                                                                 <img  class="h-10 w-10 px-m mx-0  rounded-full" src="{{ tenant_public_path() . '/images/options/' . $option['value']}}">
                                                             </div>
                                                             
-
-                                                        </div>
                                                         @break
                                                     @default
                                                 
                                                 @endswitch
                                         </div>
                                     @else
-                                    
-                                        <div>
-                                         
-                                            <input type="radio" name="opt{{$key}}"  value="{{ $option['id'] }}"  wire:click="showoptionsproperty({{$option['id']}})"
-                                                    @if($option['qty_stock'] <=0)
-                                                        disabled
-                                                    @endif                            
-                                                   > <label for="opt1">
-                                                    @if(isset($option['options']['name']))
-                                                        {{ $option['options']['name'] }}
+                                       
+                                        <div class="grid grid-cols-2 text-center">
+                                            <div class="mx-0 px-0">
+                                                <input type="radio" class="mx-0 px-0" name="opt{{$key}}"  value="{{ $option['id'] }}" 
+                                                        @if(isset($option->price))
+                                                             wire:click="showoptionsproperty({{$option['id']}})"
+                                                      
+                                                        @endif
+                                                        @if($option['qty_stock'] <=0)
+                                                            disabled
+                                                        @endif  
+                                                        @if($selectedoption==$option['id'])
+                                                           
+                                                            checked
+                                                        @endif                          
+                                                    >
+                                            </div>
+                                            @if(!isset($option->price))        
+                                               
+                                                @switch($option['options']['type']) 
+                                                     @case('NONE')
+                                                        <div>
+                                                             <label for="opt1">{{ $option['options']['name']}}</label>
+                                                        </div>
+                                                         
+                                                         @break
+                                                    @case('COLOR')
+                                                   
+                                                        
+                                                        <div class="h-10 w-10 px-m mx-0 rounded-full" style="background: {{$option['options']['value'] }}"></div>
+                                                        @break
+                                                    @case('IMAGE')
+                                                       
+
+                                                            <div class="px-m mx-0 ">
+                                                                 <img  class="h-10 w-10 px-m mx-0  rounded-full" src="{{ tenant_public_path() . '/images/options/' . $option['options']['value']}}">
+                                                            </div>
+                                                            
+
+                                                       
+                                                        @break
+                                                    @default
+                                                
+                                                @endswitch
+                                            @else
+                                                @switch($option->options->type) 
+                                                        @case('NONE')
+                                                            <div>
+                                                                <label for="opt1">{{ $option->options->name }}</label>
+                                                            </div>
+                                                            
+                                                            @break
+                                                        @case('COLOR')
                                                     
-                                                    @else
-                                                        {{ $option['name'] }}
-                                                    @endif
-                                                    </label>
+                                                            
+                                                            <div class="h-10 w-10 px-m mx-0 rounded-full" style="background: {{$option->options->value }}"></div>
+                                                            @break
+                                                        @case('IMAGE')
+                                                        
+
+                                                                <div class="px-m mx-0 ">
+                                                                    <img  class="h-10 w-10 px-m mx-0  rounded-full" src="{{ tenant_public_path() . '/images/options/' . $option->options->value}}">
+                                                                </div>
+                                                                
+
+                                                        
+                                                            @break
+                                                        @default
+                                                
+                                                @endswitch
+
+
+                                            @endif
+
                                             </div>
                                     @endif
                                 @endforeach
@@ -194,9 +252,15 @@
                         @else
                             <p class="mt-0 text-lg font-medium ">&nbsp;</p>
                         @endif
-                        <a href="{{ url($similar->slug) }}"
-                            class="add-tocart inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none"
-                            alt="{{ __('Add to cart') }}">{{ __('Add to cart') }}</a>
+                        @if(count($similar->options) == 0)  
+                            <a href="{{ route('store.add.to.cart', $similar->id) }}"
+                                class="add-tocart inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none"
+                                alt="{{ __('Add to cart') }}">{{ __('Add to cart') }}</a>
+                        @else
+                            <a href="{{ url($similar->slug) }}"
+                                class="add-tocart inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md  focus:shadow-outline focus:outline-none"
+                                alt="{{ __('Add to cart') }}">{{ __('Add to cart') }}</a>
+                        @endif
                     </div>
                 @endforeach
                
