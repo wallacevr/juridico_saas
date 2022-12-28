@@ -120,6 +120,7 @@ class View extends Component
                     Session::put('cart', $cart);
 
                     $this->emit('UpdateCart');
+                    $this->mount();
                     session()->flash('success', 'Product added to cart successfully!');
             }else{
 

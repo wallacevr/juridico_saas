@@ -138,31 +138,31 @@
                                             </div>
                                             @if(!isset($option->price))        
                                                
-                                                @switch($option['options']['type']) 
-                                                     @case('NONE')
-                                                        <div>
-                                                             <label for="opt1">{{ $option['options']['name']}}</label>
-                                                        </div>
-                                                         
-                                                         @break
-                                                    @case('COLOR')
-                                                   
+                                                        @switch($option['options']['type']) 
+                                                            @case('NONE')
+                                                                <div>
+                                                                    <label for="opt1">{{ $option['options']['name']}}</label>
+                                                                </div>
+                                                                
+                                                                @break
+                                                            @case('COLOR')
                                                         
-                                                        <div class="h-10 w-10 px-m mx-0 rounded-full" style="background: {{$option['options']['value'] }}"></div>
-                                                        @break
-                                                    @case('IMAGE')
-                                                       
-
-                                                            <div class="px-m mx-0 ">
-                                                                 <img  class="h-10 w-10 px-m mx-0  rounded-full" src="{{ tenant_public_path() . '/images/options/' . $option['options']['value']}}">
-                                                            </div>
+                                                                
+                                                                <div class="h-10 w-10 px-m mx-0 rounded-full" style="background: {{$option['options']['value'] }}"></div>
+                                                                @break
+                                                            @case('IMAGE')
                                                             
 
-                                                       
-                                                        @break
-                                                    @default
-                                                
-                                                @endswitch
+                                                                    <div class="px-m mx-0 ">
+                                                                        <img  class="h-10 w-10 px-m mx-0  rounded-full" src="{{ tenant_public_path() . '/images/options/' . $option['options']['value']}}">
+                                                                    </div>
+                                                                    
+
+                                                            
+                                                                @break
+                                                            @default
+                                                        
+                                                        @endswitch
                                             @else
                                                 @switch($option->options->type) 
                                                         @case('NONE')

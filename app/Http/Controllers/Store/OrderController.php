@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Plugin;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\StatusOrder;
 class OrderController extends Controller
 {
     //

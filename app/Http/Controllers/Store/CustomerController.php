@@ -71,7 +71,7 @@ class CustomerController extends Controller
                 return $customer;
        } catch (\Throwable $th) {
         //throw $th;
-        dd($th);
+      
        }
     }
 

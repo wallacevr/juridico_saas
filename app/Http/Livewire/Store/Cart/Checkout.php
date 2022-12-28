@@ -175,7 +175,7 @@ class Checkout extends Component
             
             $billingaddress = Address::find($this->invoiceaddress);
                   
-            $shippingaddress = Address::find($this->shippingaddress);
+            $shippingaddress = Address::find($this->deliveryaddress);
             
             $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
             $itens=[];
@@ -294,7 +294,7 @@ class Checkout extends Component
             session()->flash('success', 'Order completed successfully!');
         }
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
-            
+            dd($e,$this);
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
@@ -343,7 +343,7 @@ class Checkout extends Component
                 'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
 
             ];
-           
+         
             $pagseguro = PagSeguro::setReference($this->cart->id)
             ->setSenderInfo([
                'senderName' =>  Auth::guard('customers')->user()->name, //Deve conter nome e sobrenome

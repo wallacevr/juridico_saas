@@ -316,5 +316,7 @@
     "PagSeguro Configuration": "Configurações PagSeguro",
     "My Store": "Minha Loja",
     "Orders": "Pedidos",
-    "Order": "Pedido"
+    "Order": "Pedido",
+    "Pay": "Pago",
+    "Awaiting Payment": "Aguardando Pagamento"
 }

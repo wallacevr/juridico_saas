@@ -7,11 +7,11 @@
         <p>Caro(a),<b>{{$order->customer->name}}</b></p>
     </div>
     <div>
-        <p>O status do seu pedido na {{get_config('general/store/name')}} foi alterado para {{__('$order->status')}}.</p>        
+        <p>O status do seu pedido na {{get_config('general/store/name')}} foi alterado para {{__($order->status)}}.</p>        
     </div>
     <div>
         <p>
-             Você também pode acompanhar seus pedidos na seção de Meus Pedidos em nosso <a href="{{$currentDomain}}">{{$currentDomain}}</a>
+             Você também pode acompanhar seus pedidos na seção de Meus Pedidos em nosso <a href="{{route('store.home')}}">{{route('store.home')}}</a>
         </p>
     </div>
 

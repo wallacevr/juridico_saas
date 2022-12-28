@@ -10,6 +10,8 @@ use App\ProductOption;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\StatusOrder;
 class CartController extends Controller
 {
     /**
@@ -225,7 +227,8 @@ class CartController extends Controller
                    $cart->update();
                    $order = Order::where('id_cart',$cart->id)->first();
                    $order->status =   $cart->paymentstatus;
-
+                   Storage::disk('local')->put('cliente.txt', $order->customer()->email);
+                   Mail::to($order->customer()->email)->send(new StatusOrder($order));
 
         } catch (\Throwable $th) {
             //throw $th;
