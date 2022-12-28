@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeCustomer;
 class CustomerController extends Controller
 {
     public function index()
@@ -40,33 +41,38 @@ class CustomerController extends Controller
 
     protected function create(array $data)
     {
-        $customer = Customer::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => preg_replace("/[^0-9]/", "", $data['phone']),
-            'telephone' => !empty($data['telephone']) ? preg_replace("/[^0-9]/", "", $data['telephone']) : null,
-            'dob' => !empty($data['dob']) ? $data['dob'] : null,
-            'taxvat' => preg_replace("/[^0-9]/", "", $data['taxvat']),
-            'ip' => \Request::ip(),
-            'newsletter' => $data['newsletter'],
-            'accepts_terms_of_use' => $data['terms'],
-            'password' => Hash::make($data['password']),
-        ]);
+       try {
+                $customer = Customer::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'phone' => preg_replace("/[^0-9]/", "", $data['phone']),
+                    'telephone' => !empty($data['telephone']) ? preg_replace("/[^0-9]/", "", $data['telephone']) : null,
+                    'dob' => !empty($data['dob']) ? $data['dob'] : null,
+                    'taxvat' => preg_replace("/[^0-9]/", "", $data['taxvat']),
+                    'ip' => \Request::ip(),
+                    'newsletter' => $data['newsletter'],
+                    'accepts_terms_of_use' => $data['terms'],
+                    'password' => Hash::make($data['password']),
+                ]);
 
-        $address = Address::create([
-            'name' => $customer->name,
-            'postalcode' => preg_replace("/[^0-9]/", "", $data['postalcode']),
-            'address' => $data['address'],
-            'neighborhood' => $data['neighborhood'],
-            'complement' => !empty($data['complement']) ? $data['complement'] : null,
-            'number' => !empty($data['number']) ? $data['number'] : null,
-            'city' => $data['city'],
-            'state' => $data['state'],
-            'country' => $data['country'],
-            'customer_id' => $customer->id,
-        ]);
-
-        return $customer;
+                $address = Address::create([
+                    'name' => $customer->name,
+                    'postalcode' => preg_replace("/[^0-9]/", "", $data['postalcode']),
+                    'address' => $data['address'],
+                    'neighborhood' => $data['neighborhood'],
+                    'complement' => !empty($data['complement']) ? $data['complement'] : null,
+                    'number' => !empty($data['number']) ? $data['number'] : null,
+                    'city' => $data['city'],
+                    'state' => $data['state'],
+                    'country' => $data['country'],
+                    'customer_id' => $customer->id,
+                ]);
+                Mail::to($customer->email)->send(new WelcomeCustomer($customer));
+                return $customer;
+       } catch (\Throwable $th) {
+        //throw $th;
+        dd($th);
+       }
     }
 
     protected function validator(array $data)
