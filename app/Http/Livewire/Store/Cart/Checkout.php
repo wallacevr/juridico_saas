@@ -54,7 +54,7 @@ class Checkout extends Component
     public $deliveryaddress;
     public $invoiceaddresspix;
     public $deliveryaddresspix;
-    public $tab=1;
+    public $tab=4;
     public $pagseguroerror;
     public $calculator;
     public  $quotations;
@@ -63,29 +63,37 @@ class Checkout extends Component
     public $orderid;
     public $pagseguroid;
     public $whatstext;
+    public $pluginspayment=[];
+    public $enablesend;
     
     protected $listener=['render','refreshshippingprice'];
     public function render()
     {
         if($this->tab==4){
             $cart = Cart::find($this->cart->id);
-            $this->whatstext= $this->whatstext . "Olá, segue abaixo meu pedido de compra: \n\n";
+ 
+            $this->whatstext= $this->whatstext . "Olá ". get_config('general/store/name')  .", segue abaixo meu pedido de compra: \n\n";
             $this->whatstext= $this->whatstext . " *Cart ID*:  ". $cart->id  ." \n";
             $this->whatstext= $this->whatstext . " *Customer*:  ". $cart->customer->name  ." \n";
             $this->whatstext= $this->whatstext . " *Taxvat*:  ". $cart->customer->taxvat  ." \n";
-        
-            $this->whatstext= $this->whatstext . " *Address Delivery*:  ". $cart->deliveryaddress->address  ." Nº:". $cart->deliveryaddress->number  ." Compl.:". $cart->deliveryaddress->complement  ." Neighborhood:". $cart->deliveryaddress->neighborhood  ." Postal Code:". $cart->deliveryaddress->postalcode  ." city:". $cart->deliveryaddress->city  ."  State:". $cart->deliveryaddress->state  ."  Country:". $cart->deliveryaddress->country  ."  \n";
+            if($cart->id_address_delivery!=null){
+                $this->whatstext= $this->whatstext . " *Address Delivery*:  ". $cart->deliveryaddress->address  ." Nº:". $cart->deliveryaddress->number  ." Compl.:". $cart->deliveryaddress->complement  ." Neighborhood:". $cart->deliveryaddress->neighborhood  ." Postal Code:". $cart->deliveryaddress->postalcode  ." city:". $cart->deliveryaddress->city  ."  State:". $cart->deliveryaddress->state  ."  Country:". $cart->deliveryaddress->country  ."  \n";
+            }
+            if($cart->id_address_invoice!=null){
+                $this->whatstext= $this->whatstext . " *Address Invoice*:  ". $cart->invoiceaddress->address  ." Nº:". $cart->invoiceaddress->number  ." Compl.:". $cart->invoiceaddress->complement  ." Neighborhood:". $cart->invoiceaddress->neighborhood  ." Postal Code:". $cart->invoiceaddress->postalcode  ." city:". $cart->invoiceaddress->city  ."  State:". $cart->invoiceaddress->state  ."  Country:". $cart->invoiceaddress->country  ."  \n";
+            }  
             
-            $this->whatstext= $this->whatstext . " *ITENS*:  \n";
+           
+            $itens="";
             foreach($cart->products as $product){
              
                 if($product->pivot->product_options_id==null){
-                    $this->whatstext= $this->whatstext . " *Product ID*:  ". $product->id  ."   *Product*:  ". $product->name  ."   *Qty*:". number_format($product->pivot->quantity,0,".",',') ."\n";
+                    $itens= $itens . " *Product ID*:  ". $product->id  ."   *Product*:  ". $product->name  ."   *Qty*:". number_format($product->pivot->quantity,0,".",',') ."\n";
                 }else{
                     $option = ProductOption::find($product->pivot->product_options_id);
-                    $this->whatstext= $this->whatstext . " *Product ID*:  ". $product->id  ."   *Product*:  ". $product->name  ."   *Variation*:  ". rtrim($option->descricao(),'/') ."   *Qty*:". number_format($product->pivot->quantity,0,".",',') ."\n";
+                    $itens= $itens . " *Product ID*:  ". $product->id  ."   *Product*:  ". $product->name  ."   *Variation*:  ". rtrim($option->descricao(),'/') ."   *Qty*:". number_format($product->pivot->quantity,0,".",',') ."\n";
                 }
-                
+                $this->whatstext= $this->whatstext . " *ITENS*:  \n".$itens;
 
             }
         }
@@ -93,7 +101,12 @@ class Checkout extends Component
     }
 
     public function mount(){
-       
+        $pluginspayment = Plugin::where('plugin_group_id',2)->where('active',1)->get();
+        if($pluginspayment==null){
+            $this->$pluginspayment=[];
+        }else{
+            $this->$pluginspayment=$pluginspayment;
+        }
        $pagseguro = Plugin::where('name','PagSeguro')->where('active',1)->first();
        if($pagseguro!=null){
         $this->pagseguroid = $pagseguro->id;
@@ -165,17 +178,27 @@ class Checkout extends Component
     }
 
     public function pagsegurocreditcard(){
-        $this->validate([
-            'shippingid' =>'required',
-            'shippingaddress' => 'required',
-            'invoiceaddress' => 'required',
-         
-        ]);
+        $melhorenvio = Plugin::where('name','Melhor Envio')->where('active',1)->first();
+        if($melhorenvio!=null){
+            $this->validate([
+                'shippingid' =>'required',
+                'shippingaddress' => 'required',
+                'invoiceaddress' => 'required',
+            
+            ]);
+        }else{
+            $this->validate([
+               
+                'shippingaddress' => 'required',
+                'invoiceaddress' => 'required',
+            
+            ]);  
+        }
         try {
             
             $billingaddress = Address::find($this->invoiceaddress);
                   
-            $shippingaddress = Address::find($this->deliveryaddress);
+            $shippingaddress = Address::find($this->shippingaddress);
             
             $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
             $itens=[];
@@ -189,12 +212,14 @@ class Checkout extends Component
                     ]);
                     
             }
-            array_push($itens, [
-                'itemId' => 'ID '. 0,
-                'itemDescription' => 'Shipping',
-                'itemAmount' =>  number_format($this->shippingprice, 2, '.', ','),
-                'itemQuantity' => 1,
-            ]);
+            if($melhorenvio!=null){
+                array_push($itens, [
+                    'itemId' => 'ID '. 0,
+                    'itemDescription' => 'Shipping',
+                    'itemAmount' =>  number_format($this->shippingprice, 2, '.', ','),
+                    'itemQuantity' => 1,
+                ]);
+            }
             if($this->installments==1){
                 $paymentSettings = [
                     'paymentMethod'                 => $this->paymentmethod,
@@ -294,7 +319,7 @@ class Checkout extends Component
             session()->flash('success', 'Order completed successfully!');
         }
         catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
-            dd($e,$this);
+           
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
@@ -332,12 +357,14 @@ class Checkout extends Component
                   
                     
             }
-            array_push($itens, [
-                'itemId' => 'ID '. 0,
-                'itemDescription' => 'Shipping',
-                'itemAmount' =>  number_format($this->shippingprice, 2, '.', ','),
-                'itemQuantity' => 1,
-            ]);
+            if($melhorenvio!=null){
+                array_push($itens, [
+                    'itemId' => 'ID '. 0,
+                    'itemDescription' => 'Shipping',
+                    'itemAmount' =>  number_format($this->shippingprice, 2, '.', ','),
+                    'itemQuantity' => 1,
+                ]);
+            }
             $paymentSettings = [
                 'paymentMethod'                 => 'boleto',
                 'notificationURL'               =>  URL::to('/notification/'.$this->cart->id)
@@ -462,12 +489,14 @@ class Checkout extends Component
                     ]);
                     $total = $total+ ($cartproduct->quantity*$cartproduct->FinalPrice());    
             }
-            array_push($itens, [
-                'itemId' => 'ID '. 0,
-                'itemDescription' => 'Shipping',
-                'itemAmount' =>  number_format($this->shippingprice, 2, '.', ','),
-                'itemQuantity' => 1,
-            ]);
+            if($melhorenvio!=null){
+                array_push($itens, [
+                    'itemId' => 'ID '. 0,
+                    'itemDescription' => 'Shipping',
+                    'itemAmount' =>  number_format($this->shippingprice, 2, '.', ','),
+                    'itemQuantity' => 1,
+                ]);
+            }
             $total=$total+$this->shippingprice;
             $paymentSettings = [
                 'paymentMethod'                 => 'pix',
@@ -578,90 +607,110 @@ class Checkout extends Component
 
     public function shippingcalculator(){
        try {
-        
-        $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
-        $calculator = $shipment->calculator();
+        $melhorenvio = Plugin::where('name','Melhor Envio')->where('active',1)->first();
+        if($melhorenvio!=null){
+                $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
+                $calculator = $shipment->calculator();
 
-       
-                 $shippingaddress = Address::find($this->shippingaddress);
-                 
-                $calculator->postalCode(str_replace('-','',get_config('general/store/postalcode')) ,str_replace('-','',$shippingaddress->postalcode) );
-              
+            
+                        $shippingaddress = Address::find($this->shippingaddress);
+                        
+                        $calculator->postalCode(str_replace('-','',get_config('general/store/postalcode')) ,str_replace('-','',$shippingaddress->postalcode) );
+                    
+                        
+                $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
+
+                foreach($cartproducts as $cartproduct){
+
+                    $calculator->addProducts(
+                        new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),1)
+                    );
+                }
+                $calculator->addServices(
+                    Service::CORREIOS_PAC, 
+                    Service::CORREIOS_SEDEX,
+                    Service::CORREIOS_MINI,
+                    Service::JADLOG_PACKAGE, 
+                    Service::JADLOG_COM, 
+                    Service::AZULCARGO_AMANHA,
+                    Service::AZULCARGO_ECOMMERCE,
+                    Service::LATAMCARGO_JUNTOS,
+                    Service::VIABRASIL_RODOVIARIO
+                );
                 
-        $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
-
-        foreach($cartproducts as $cartproduct){
-
-            $calculator->addProducts(
-                new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),1)
-            );
-        }
-        $calculator->addServices(
-            Service::CORREIOS_PAC, 
-            Service::CORREIOS_SEDEX,
-            Service::CORREIOS_MINI,
-            Service::JADLOG_PACKAGE, 
-            Service::JADLOG_COM, 
-            Service::AZULCARGO_AMANHA,
-            Service::AZULCARGO_ECOMMERCE,
-            Service::LATAMCARGO_JUNTOS,
-            Service::VIABRASIL_RODOVIARIO
-        );
-        
-        $this->quotations = $calculator->calculate();
-       
-       } catch (\Throwable $th) {
+                $this->quotations = $calculator->calculate();
+            }else{
+                $this->quotations =[];
+            }
+        } catch (\Throwable $th) {
         //throw $th;
         
        }
      
     }
 
-
+    public function invoiceselect(){
+        try {
+            if(($this->invoiceaddress!=null)&&($this->shippingaddress!=null)){
+                $this->enablesend = true;
+            }else{
+                $this->enablesend = false;
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
     public function shippingselect(){
         try {
-           
-         $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
-         $calculator = $shipment->calculator();
- 
-         
-                  $shippingaddress = Address::find($this->shippingaddress);
-            
-                 $calculator->postalCode('01010010',$shippingaddress->postalcode );
-                
-           
-         $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
- 
-         foreach($cartproducts as $cartproduct){
- 
-             $calculator->addProducts(
-                 new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),1)
-             );
-         }
-         $calculator->addServices(
-             Service::CORREIOS_PAC, 
-             Service::CORREIOS_SEDEX,
-             Service::CORREIOS_MINI,
-             Service::JADLOG_PACKAGE, 
-             Service::JADLOG_COM, 
-             Service::AZULCARGO_AMANHA,
-             Service::AZULCARGO_ECOMMERCE,
-             Service::LATAMCARGO_JUNTOS,
-             Service::VIABRASIL_RODOVIARIO
-         );
-         $this->quotations = $calculator->calculate();
-         if($this->shippingid!=null){
-          
-            foreach ($this->quotations as $quotation) {
-                # code...
-                if($quotation['id'] == $this->shippingid){
-                    $this->shippingprice = $quotation['price'];
-                }
+            if(($this->invoiceaddress!=null)&&($this->shippingaddress!=null)){
+                $this->enablesend = true;
+            }else{
+                $this->enablesend = false;
             }
+            $melhorenvio = Plugin::where('name','Melhor Envio')->where('active',1)->first();
+            if($melhorenvio!=null){
+                    $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
+                    $calculator = $shipment->calculator();
             
-       
-            $this->dispatchBrowserEvent('refreshshippingprice', []);
-        }
+                    
+                            $shippingaddress = Address::find($this->shippingaddress);
+                        
+                            $calculator->postalCode('01010010',$shippingaddress->postalcode );
+                            
+                    
+                    $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
+            
+                    foreach($cartproducts as $cartproduct){
+            
+                        $calculator->addProducts(
+                            new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),1)
+                        );
+                    }
+                    $calculator->addServices(
+                        Service::CORREIOS_PAC, 
+                        Service::CORREIOS_SEDEX,
+                        Service::CORREIOS_MINI,
+                        Service::JADLOG_PACKAGE, 
+                        Service::JADLOG_COM, 
+                        Service::AZULCARGO_AMANHA,
+                        Service::AZULCARGO_ECOMMERCE,
+                        Service::LATAMCARGO_JUNTOS,
+                        Service::VIABRASIL_RODOVIARIO
+                    );
+                    $this->quotations = $calculator->calculate();
+                    if($this->shippingid!=null){
+                    
+                        foreach ($this->quotations as $quotation) {
+                            # code...
+                            if($quotation['id'] == $this->shippingid){
+                                $this->shippingprice = $quotation['price'];
+                            }
+                        }
+                        
+                
+                        $this->dispatchBrowserEvent('refreshshippingprice', []);
+                    }
+                }
         } catch (\Throwable $th) {
          //throw $th;
            

@@ -58,36 +58,48 @@ class Livecart extends Component
     }
 
     public function save(){
-        if(Auth::guard('customers')->check()){
-            
-            $this->validate([
-                'shippingaddressid' => 'required',
-                'shippingid' =>'required'
-            ]);
-        }else{
-            $this->validate([
-                'postalcode' => 'required',
-                'shippingid' =>'required'
-            ]);
-        }
+        $melhorenvio = Plugin::where('name','MelhorEnvio')->where('active',1)->first();
+        $cart = Cart::find($this->cart->id);
+        if($melhorenvio!=null){
+            if(get_config('plugins/shipping/melhorenvio/clientid')!=null){
 
-        try {
-
-            $cart = Cart::find($this->cart->id);
-            if($this->shippingaddressid!=null){
-                $cart->id_address_delivery = $this->shippingaddressid;
+                if(Auth::guard('customers')->check()){
+                        
+                    $this->validate([
+                        'shippingaddressid' => 'required',
+                        'shippingid' =>'required'
+                    ]);
+                }else{
+                    $this->validate([
+                        'postalcode' => 'required',
+                        'shippingid' =>'required'
+                    ]);
+                }
             }
-
-
-            $cart->id_shipping = $this->shippingid;
-
-            $cart->update();
-
-            return redirect()->route('store.checkout');
-        } catch (\Throwable $th) {
-            //throw $th;
-
+    
         }
+            try {
+    
+                
+                if($this->shippingaddressid!=null){
+                    $cart->id_address_delivery = $this->shippingaddressid;
+                }
+                if($melhorenvio!=null){
+                    if($this->shippingid!=null){
+                        $cart->id_shipping = $this->shippingid;
+                    }
+                
+                }   
+                $cart->update();
+    
+               
+            } catch (\Throwable $th) {
+                //throw $th;
+    
+            }
+            return redirect()->route('store.checkout');
+        
+        
     }
     public function render()
     {
@@ -239,58 +251,63 @@ class Livecart extends Component
     }
 
     public function shippingcalculator(){
-       
-        if($this->shippingaddressid==null){
-            $this->validate([
-                'postalcode'=>'required'
-            ]);
-        }
-       
-        try {
         $melhorenvio = Plugin::where('name','MelhorEnvio')->where('active',1)->first();
-       
         if($melhorenvio!=null){    
-                
-                $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
-                $calculator = $shipment->calculator();
-
-
-                    $shippingaddress = Address::find($this->shippingaddress);
-                if($this->shippingaddressid==null){
-                    $calculator->postalCode( str_replace('-','',get_config('general/store/postalcode')),str_replace('-','',$this->postalcode ));
-                }else{
-                    $calculator->postalCode( str_replace('-','',get_config('general/store/postalcode')),str_replace('-','',$shippingaddress[0]->postalcode ));
-                }
-
-                $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
-
-                foreach($cartproducts as $cartproduct){
-
-                    $calculator->addProducts(
-                        new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),intval($cartproduct->quantity))
-                    );
-                }
-            
-                $calculator->addServices(
-                    Service::CORREIOS_PAC,
-                    Service::CORREIOS_SEDEX,
-                    Service::CORREIOS_MINI,
-                    Service::JADLOG_PACKAGE,
-                    Service::JADLOG_COM,
-                    Service::AZULCARGO_AMANHA,
-                    Service::AZULCARGO_ECOMMERCE,
-                    Service::LATAMCARGO_JUNTOS,
-                    Service::VIABRASIL_RODOVIARIO
-                );
-
-                $this->quotations = $calculator->calculate();
-                
+            if($this->shippingaddressid==null){
+                $this->validate([
+                    'postalcode'=>'required'
+                ]);
             }
-        } catch (\Throwable $th) {
-         //throw $th;
-            dd($th);
-        }
+        
+            try {
+       
+        
+            if(get_config('plugins/shipping/melhorenvio/clientid'!=null)){
+                 if(get_config('plugins/shipping/melhorenvio/sandbox')){
+                    $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::SANDBOX);
+                 }   
+                 if(!get_config('plugins/shipping/melhorenvio/sandbox')){
+                    $shipment = new Shipment( get_config('plugins/shipping/melhorenvio/token'), Environment::PRODUCTION);
+                 }   
+                    $calculator = $shipment->calculator();
 
+
+                        $shippingaddress = Address::find($this->shippingaddress);
+                    if($this->shippingaddressid==null){
+                        $calculator->postalCode( str_replace('-','',get_config('general/store/postalcode')),str_replace('-','',$this->postalcode ));
+                    }else{
+                        $calculator->postalCode( str_replace('-','',get_config('general/store/postalcode')),str_replace('-','',$shippingaddress[0]->postalcode ));
+                    }
+
+                    $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
+
+                    foreach($cartproducts as $cartproduct){
+
+                        $calculator->addProducts(
+                            new Product(uniqid(), 40, 30, 50, 10.00, $cartproduct->FinalPrice(),intval($cartproduct->quantity))
+                        );
+                    }
+                
+                    $calculator->addServices(
+                        Service::CORREIOS_PAC,
+                        Service::CORREIOS_SEDEX,
+                        Service::CORREIOS_MINI,
+                        Service::JADLOG_PACKAGE,
+                        Service::JADLOG_COM,
+                        Service::AZULCARGO_AMANHA,
+                        Service::AZULCARGO_ECOMMERCE,
+                        Service::LATAMCARGO_JUNTOS,
+                        Service::VIABRASIL_RODOVIARIO
+                    );
+
+                    $this->quotations = $calculator->calculate();
+                    
+                }
+            } catch (\Throwable $th) {
+            //throw $th;
+               
+            }
+        }
      }
 
 

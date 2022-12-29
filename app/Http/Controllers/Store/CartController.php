@@ -36,7 +36,11 @@ class CartController extends Controller
     }
     public function checkout()
     {
-        
+        $cartsession = Session::get('cart', []);
+        if($cartsession==[]){
+           
+            return redirect()->route('store.home');
+        }
         return view('store.checkout.checkout');
     }
   

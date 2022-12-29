@@ -38,31 +38,37 @@
                     </select>
                     @error('shippingaddress') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
             </div>
-            <div class="mx-6 px-6 md:w-full">
-                <label for="shippingid" class="block text-start text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Method')}}<span  class="red">*</span>
-                </label>
-                    <select name="shippingid" id="shippingid"  wire:model="shippingid" wire:change="shippingselect" class="form-select block w-full sm:text-sm sm:leading-5 border my-1">
-                    <option value="">{{__('Select an shipping method')}}</option>
-                        @isset($quotations)
-                            @foreach($quotations as $quotation)
-                                 @isset($quotation['price'])
-                                        <option value="{{$quotation['id']}}"
-                                        @if($shippingid == $quotation['id'])
-                                                selected
-                                                @endif
-                                            >
-                                            {{$quotation['name']}} -  {{$quotation['currency']}}{{str_replace('.',',',$quotation['price']) }}({{$quotation['delivery_time']}} days after payment confirmed)
-                                        </option>   
-                                @endisset
-                            @endforeach
-                        @endisset
-                    </select>
+            @isset($quotations)
+                @if(count($quotations)>0)
+                <div class="mx-6 px-6 md:w-full">
+                    <label for="shippingid" class="block text-start text-sm font-medium leading-5 text-gray-700 ">{{__('Shipping Method')}}<span  class="red">*</span>
+                    </label>
+            
+                        <select name="shippingid" id="shippingid"  wire:model="shippingid" wire:change="shippingselect" class="form-select block w-full sm:text-sm sm:leading-5 border my-1">
+                        <option value="">{{__('Select an shipping method')}}</option>
+                        
+                                @foreach($quotations as $quotation)
+                                    @isset($quotation['price'])
+                                            <option value="{{$quotation['id']}}"
+                                            @if($shippingid == $quotation['id'])
+                                                    selected
+                                                    @endif
+                                                >
+                                                {{$quotation['name']}} -  {{$quotation['currency']}}{{str_replace('.',',',$quotation['price']) }}({{$quotation['delivery_time']}} days after payment confirmed)
+                                            </option>   
+                                    @endisset
+                                @endforeach
+                            
+                        </select>
+         
                     @error('shippingid') <br><span class="error bg-red-100 rounded-lg py-1 px-6  text-base text-red-700 my-2">{{ $message }}</span> @enderror
             </div>
+            @endif
+        @endisset
             <div class="mx-6 px-6 md:w-full">
                         <label for="invoiceaddress" class="block text-sm font-medium leading-5 text-gray-700 text-start">{{__('Billing Address')}}<span  class="red">*</span>
                         </label>
-                            <select name="invoiceaddress" wire:model="invoiceaddress" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
+                            <select name="invoiceaddress" wire:model="invoiceaddress" wire:change="invoiceselect" class="form-select block w-full sm:text-sm sm:leading-5 border my-1" >
                                  <option value="">{{__('Select an address')}}</option>
                                 @foreach($addresses as $address)
                                     <option value="{{$address->id}}"
@@ -82,6 +88,7 @@
     
         <div class="flex items-start" >
         <ul class="nav nav-pills flex flex-col flex-wrap list-none pl-0 mr-4" id="pills-tabVertical" role="tablist" >
+           @if(count($pluginspayment)>0)  
             <li class="nav-item flex-grow text-center mb-2" role="presentation">
                 @if($tab==1)
                         <a href="#pills-homeVertical" class="
@@ -206,6 +213,7 @@
                         @endif
                 </li>
              @endif
+             @endif
              @if(get_config('plugins/commnunication/whatsapppcheckout/enabled')=='on') 
                     <li class="nav-item flex-grow text-center my-2" role="presentation">
                     @if($tab==4)
@@ -269,7 +277,11 @@
                             {{__('Order Completed')}}
                         </div>
                     @else
-                         <div class="py-5 px-4 "><button id="btnsendwhats" class="my-3 bg-blue-500 px-3 rounded" onclick="enviarMensagem()">{{__('Sent order to Whatsapp')}}</button></div>
+                         <div class="py-5 px-4 "><button id="btnsendwhats" class="my-3 bg-blue-500 px-3 rounded" onclick="enviarMensagem()" 
+                         @if(!$enablesend)
+                            disabled
+                         @endif
+                         >{{__('Sent order to Whatsapp')}}</button></div>
                     @endif     
             </div>
             @if($tab==1)
