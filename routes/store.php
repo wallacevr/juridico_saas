@@ -9,7 +9,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 Route::get('/', 'HomeController@index')->name('tenant.home');
 Route::group([
-    'middleware' => ['tenant', PreventAccessFromCentralDomains::class], // See the middleware group in Http Kernel
+    'middleware' => ['tenant', PreventAccessFromCentralDomains::class,'maintenance'], // See the middleware group in Http Kernel
     'as' => 'store.',
 ], function () {
     Route::prefix('customer')->group(function () {

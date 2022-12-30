@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Config;
 use App\Rules\DocumentId;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\ValidationException;
 class ConfigurationController extends Controller
 {
     /**
@@ -28,6 +28,19 @@ class ConfigurationController extends Controller
      */
     public function update(Request $request)
     {
+
+        if(($request->maintenance!="on")&&((get_config('general/layout/thumb_width')==null)||(get_config('general/layout/small_width')==null)||(get_config('general/layout/medium_width')==null)||(get_config('general/layout/big_width')==null))){
+          
+            throw ValidationException::withMessages([
+                'maintenance' => __('Keep your store under maintenance until you configure the entire store.'),
+            ]);
+        }
+        if(($request->maintenance!="on")&&((get_config('plugins/commnunication/whatsapppcheckout/whatsapp')==null)||(get_config('plugins/commnunication/whatsapppcheckout/enabled')!="on"))){
+          
+            throw ValidationException::withMessages([
+                'maintenance' => __("Keep your store under maintenance until you've set up the entire store. Whatsapp chekout settings are not defined"),
+            ]);
+        }
         $validated = $this->validate($request, [
 
             'email' => [
@@ -52,20 +65,16 @@ class ConfigurationController extends Controller
                 'email',
                 'max:255'
             ],
-            'email_sender'=>['required','email'],
-            'smtp_mail_host'=>['required','max:255'],
-            'mail_port'=>['required','numeric'],
-            'email_sender_password'=>['required','string','min:6'],
-            'email_sender_encryption'=>['required','string','min:3'],
-            'email_sender_name'=>['required','string'],
+
             'whatsapp' => ['string', 'min:10'],
             'facebook' => ['url', 'string', 'min:10'],
             'instagram' => ['url', 'string', 'min:10'],
             'youtube' => ['url', 'string', 'min:10'],
             'pinterest' => ['url', 'string', 'min:10'],
+          
         ]);
        
-
+       
         Config::where('path', 'general/store/name')->update(['value' => $validated['name']]);
         Config::where('path', 'general/store/email')->update(['value' => $validated['email']]);
         Config::where('path', 'general/store/postalcode')->update(['value' => $validated['postalcode']]);
@@ -76,13 +85,20 @@ class ConfigurationController extends Controller
         Config::where('path', 'general/store/city')->update(['value' => $validated['city']]);
         Config::where('path', 'general/store/state')->update(['value' => $validated['state']]);
 
+        if($request->maintenance=="on"){
+            Config::where('path', 'general/store/maintenance')->update(['value' => 1]);
+        }else{
+            Config::where('path', 'general/store/maintenance')->update(['value' => 0]);
+        }
+       
+     /*
         Config::createOrUpdate('general/store/email_sender',$validated['email_sender']);
         Config::createOrUpdate('general/store/smtp_mail_host', $validated['smtp_mail_host']);
         Config::createOrUpdate('general/store/mail_port',$validated['mail_port']);
         Config::createOrUpdate('general/store/email_sender_password', $validated['email_sender_password']);
         Config::createOrUpdate('general/store/email_sender_encryption', $validated['email_sender_encryption']);
         Config::createOrUpdate('general/store/email_sender_name', $validated['email_sender_name']);
-
+*/
         Config::where('path', 'general/store/registred_company_name')->update(['value' => $validated['registred_company_name']]);
         Config::where('path', 'general/store/taxvat')->update(['value' => $validated['taxvat']]);
         Config::where('path', 'general/store/company_email')->update(['value' => $validated['company_email']]);

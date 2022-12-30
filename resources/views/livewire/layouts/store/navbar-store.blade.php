@@ -20,14 +20,15 @@
                                 </svg>
                             </button>
 
-                            <!-- Logo -->
-                            <div class="ml-4 flex lg:ml-0">
-                                <a href="{{ url('/') }}">
-                                    <span class="sr-only">Maxcommerce</span>
-                                    <img class="object-contain h-12 w-96 p-0 m-0" src="{{publicImage(get_config('general/store/logo/desktop') ) }}" alt="">
-                                </a>
-                            </div>
-
+                                <!-- Logo -->
+                            @if(get_config('general/store/logo/desktop')!=null)    
+                                <div class="ml-4 flex lg:ml-0">
+                                    <a href="{{ url('/') }}">
+                                        <span class="sr-only">Maxcommerce</span>
+                                        <img class="object-contain h-12 w-96 p-0 m-0" src="{{publicImage(get_config('general/store/logo/desktop') ) }}" alt="">
+                                    </a>
+                                </div>
+                            @endif
                             <!-- Flyout menus -->
                             <div class=" xl:ml-8 xl:self-stretch hidden lg:block">
                                 @include('layouts.menu.store_menu')

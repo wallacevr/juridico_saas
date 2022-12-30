@@ -18,7 +18,7 @@ class PopulateMelhorenvioSettingsTable extends Migration
             array(
                 'name' => 'Melhor Envio',
                 'description' => 'Plugin for shipping using Melhor Envio',
-                'active'=>1,
+                'active'=>0,
                 'image'=> 'vendor/melhorenvio/img/melhorenvio.png',
                 'settingsroute'=>'/admin/plugins/melhorenvio/setconfig',
                 'mainroute'=>'#',

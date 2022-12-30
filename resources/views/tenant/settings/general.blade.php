@@ -58,18 +58,22 @@
                                     <!-- This example requires Tailwind CSS v2.0+ -->
                                     <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
                                     <div class="mt-1 relative rounded-md shadow-sm">
-                                        <button type="button"
-                                            class="bg-indigo-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                            role="switch" aria-checked="false">
-                                            <span
-                                                class="sr-only">{{ __('Putting your store under maintenance mode') }}</span>
-                                            <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
-                                            <span aria-hidden="true"
-                                                class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"></span>
-                                        </button>
-                                        <span class="ml-3" id="annual-billing-label">
-                                            <span class="text-sm font-medium text-gray-900">{{ __('Yes') }}</span>
-                                        </span>
+    
+                                        <div class="flex ">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" name="maintenance" id="maintenance" 
+                                                    @if(get_config('general/store/maintenance')==1)
+                                                        checked
+                                                    @endif
+                                                    >
+                                                <label class="form-check-label inline-block text-gray-800" for="flexSwitchCheckChecked">{{__('Yes')}}</label>
+                                                    @error('maintenance')
+                                                        <p class="mt-2 text-sm text-red-600">
+                                                            {{ $message }}
+                                                        </p>
+                                                    @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -325,7 +329,7 @@
         </div>
 
         @include('layouts.snippets.divide')
-
+{{--
         <!-- Block 5 -->
         <div class="flex flex-row flex-wrap">
             <!-- header -->
@@ -408,7 +412,7 @@
                 </div>
             </div>
         </div>
-
+--}}
 
          <!-- Block 4 -->
          <div class="flex flex-row flex-wrap">
@@ -494,7 +498,7 @@
         $(document).ready(function() {
             $('#postalcode').mask('00000-000');
             $('#phone').mask('(00) 0000-0000');
-            $('#whatsapp').mask('(00) 0000-0000');
+            $('#whatsapp').mask('(00) 00000-0000');
             $('#taxvat').mask('00.000.000/0000-00');
             $("#storeSettings").validate({
                 rules: {
