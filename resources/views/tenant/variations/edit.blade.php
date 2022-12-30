@@ -35,13 +35,13 @@
         <div class="shadow sm:rounded-md sm:overflow-hidden">
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div>
-                    <div class="grid grid-cols-6 gap-4">
-                        <div class="col-start-1 col-end-3">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                     <h3 class="text-center uppercase text-lg leading-6 font-medium text-gray-900">
                                 {{ __('Options') }}
-                            </h3>
-                        </div>
-                        <div class="col-end-8 col-span-1">
+                    </h3>
+                    <div class="grid grid-cols-6 gap-4 mt-2">
+                        <div class="col-start-1 col-end-3">
+
+                      
                             <a id="new-option-button" href="#" class="mr-8 px-5 py-2 items-end text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 active:bg-indigo-700 transition ease-in-out duration-150">
                                 {{ __('New option') }}
                             </a>
