@@ -14,9 +14,11 @@
   <div class="flex flex-row flex-wrap">
     <div class="w-full md:w-1/3">
       <div class="px-4 md:px-0">
+     
         <h3 class="text-lg font-medium leading-6 text-gray-900">{{__('applicationSettings.Configurations')}}
         </h3>
         <p class="mt-1 text-sm leading-5 text-gray-600">
+      
           {{__('applicationSettings.Settings for your store')}}
         </p>
       </div>
@@ -67,9 +69,12 @@
       </div>
     </div>
     <div class="mt-4 md:mt-0 w-full md:w-2/3 pl-0 md:pl-2">
+  
       @livewire('domains')
       @livewire('new-domain')
+      
       @livewire('fallback-domain')
+      
     </div>
   </div>
 </div>
@@ -90,12 +95,15 @@
       </div>
     </div>
     <div class="mt-4 md:mt-0 w-full md:w-2/3 pl-0 md:pl-2">
+    
       @livewire('subscription-banner')
       @livewire('upcoming-payment')
       @livewire('billing-address')
       @livewire('invoices')
       @livewire('subscription-plan')
+    
       @livewire('payment-method')
+  
     </div>
   </div>
 </div>
