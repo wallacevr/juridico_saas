@@ -28,4 +28,10 @@ class ProductController extends Controller
         return view('store.product.view', ['product' => $product,'similarCategory'=>$similarCategory]);
     }
 
+    public function search()
+    {
+
+        return view('store.product.search');
+    }
+
 }

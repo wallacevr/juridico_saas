@@ -13,7 +13,12 @@
 
       wire:change="{{$wirechange}}"
 
-@endisset
+    @endisset
+    @isset($wirekeydown)
+
+    wire:keydown="{{$wirekeydown}}"
+
+    @endisset
     @isset($min)
         min="{{$min}}"
 

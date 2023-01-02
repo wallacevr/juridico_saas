@@ -45,6 +45,7 @@ Route::group([
     Route::get('/brand/{slug}', 'BrandController@show')->name('brands.show');
     Route::get('/marca/{slug}', 'brandController@show')->name('marcas.show');
     Route::get('/collections/{slug}', 'CollectionController@show')->name('collection.show');
+    Route::get('/search', 'ProductController@search')->name('product.search');
     Route::get('/categorias/{slug}', 'CollectionController@show')->name('categorias.show');
     Route::get('/page/{slug}', 'PageController@show')->name('page.show');
     Route::get('/pagina/{slug}', 'PageController@show')->name('page.show');

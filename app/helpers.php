@@ -552,7 +552,7 @@ if (!function_exists('create_menu')) {
     }
 }
 
-if (!function_exists('buildMainMenu')) {
+/*if (!function_exists('buildMainMenu')) {
     function buildMainMenu($id_mainmenu, $parent = 0, $indent = 0){
         $arrmain = Menu::find($id_mainmenu);
        if($arrmain!=null) {
@@ -625,6 +625,74 @@ if (!function_exists('buildMenu')) {
 
 
 }
+*/
+if(!function_exists('buildMenu')){
+    function buildMenu($id_menu){
+      $menu=Menu::find($id_menu);
+      if($menu!=null){
+        if(count($menu->children)==0){
+           
+            echo('<div><a href="'. geturlmenu($menu->url)  . '"><button @click="show'. $menu->slug .'Top = !show'. $menu->slug .'Top" type="button"
+            class="max-w-xs bg-white flex items-center text-sm rounded-full " id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+            <h6>'. $menu->title .'</h6>
+        </button></a></div>
+        ');
+        }else{
+            echo('<div><button @click="show'. $menu->slug .'Top = !show'. $menu->slug .'Top" type="button"
+            class="max-w-xs bg-white flex items-center text-sm rounded-full " id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+            <h6>'. $menu->title .'</h6>
+        </button>
+        <div x-show="show'. $menu->slug .'Top"
+        x-transition:enter="transition ease-out duration-100"
+        x-transition:enter-start="transform opacity-0 scale-95"
+        x-transition:enter-end="transform opacity-100 scale-100"
+        x-transition:leave="transition ease-in-out duration-300 transform"
+        x-transition:leave-start="transform opacity-100 scale-100"
+        x-transition:leave-end="transform opacity-0 scale-95"
+        class="z-10 absolute  origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5  divide-gray-200 focus:outline-none"
+        role="menu" aria-orientation="vertical"
+        aria-labelledby="user-menu-button" tabindex="-1">
+        ');
+            foreach($menu->children as $children){
+               
+                   echo('<a href="'. geturlmenu($children->url)  .'"
+                   class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+                   tabindex="-1"
+                   id="options-menu-item-2">'. $children->title .'</a>
+          ');
+               
+            }
+            echo('</div></div>');
+        }
+      }
+    }
+}
+
+
+if(!function_exists('BuildMainMenu')){
+    function BuildMainMenu($id_mainmenu){
+        $menu = Menu::find($id_mainmenu);
+        
+        if($menu!=null){
+            
+          
+            if(count($menu->children)>0){
+                echo(' <div class="flex items-center relative   grid grid-cols-12 ">');
+                    foreach($menu->children as $children){
+                        echo('<div class="ml-3" x-data="{ show'. $children->slug .'Top: false }">');
+                            buildmenu($children->id);
+                         echo('</div>');
+               
+                    }
+                    echo('</div>');
+            }
+          
+        }
+        
+
+    }
+}
+
 
 if (!function_exists('geturlmenu')) {
     function geturlmenu($url){

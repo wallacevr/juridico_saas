@@ -11,7 +11,7 @@ class ProductColletion extends Model
         'collection_id',
         'product_id',
     ];
-    protected $table = "product_collections";
+    protected $table = "collection_product";
     public function products(){
         return $this->belongsToMany(Product::class);
     }

@@ -88,7 +88,7 @@
                                 </div>
                                 <!-- Search -->
                                 <div class="flex lg:ml-6">
-                                    <a href="#" class="p-2 text-gray-400 hover:text-gray-500">
+                                    <a href="{{route('store.product.search')}}" class="p-2 text-gray-400 hover:text-gray-500">
                                         <span class="sr-only">Search</span>
                                         <!-- Heroicon name: outline/search -->
                                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
