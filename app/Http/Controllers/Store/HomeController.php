@@ -23,8 +23,12 @@ class HomeController extends Controller
             ['status', '=', '1'],
             ['type', '=', 'STRIPE'],
         ])->select('image_url', 'url', 'name')->get();
+        $bannersMini = DB::table('banners')->where([
+            ['status', '=', '1'],
+            ['type', '=', 'MINI'],
+        ])->select('image_url', 'url', 'name')->get();
         $productsFeatured = Product::get();
 
-        return view('store.home')->with(['pageBanners'=>$pageBanners,'bannersStripe'=>$bannersStripe,'productsFeatured'=>$productsFeatured]);
+        return view('store.home')->with(['pageBanners'=>$pageBanners,'bannersMini'=>$bannersMini,'bannersStripe'=>$bannersStripe,'productsFeatured'=>$productsFeatured]);
     }
 }

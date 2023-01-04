@@ -1,8 +1,8 @@
 <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-        @foreach ($bannersStripe as $banner)
-        <div class="swiper-slidec max-h-32">
-            <img class="w-full" src="{{ tenant_public_path() . '/images/banners/'. $banner->image_url }}" alt="{{ $banner->name }}" />
+    <div class="grid grid-cols-{{count($bannersMini)}} gap-{{count($bannersMini)}} mx-6">
+        @foreach ($bannersMini as $banner)
+        <div class="swiper-slidec max-h-48 ">
+            <img class="w-max-48 h-max-48" src="{{ tenant_public_path() . '/images/banners/'. $banner->image_url }}" alt="{{ $banner->name }}" />
         </div>
         @endforeach
     </div>

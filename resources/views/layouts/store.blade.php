@@ -76,6 +76,9 @@
         @if (!empty($bannersStripe))
             @includeWhen(isset($bannersStripe), 'store.banners.stripe-banners', $bannersStripe)
         @endif
+        @if (!empty($bannersMini))
+            @includeWhen(isset($bannersMini), 'store.banners.mini-banners', $bannersMini)
+        @endif
         <main class="w-full max-w-7xl mx-auto px-3 xl:px-0">
             @include('partials.alerts')
             @yield('content')
