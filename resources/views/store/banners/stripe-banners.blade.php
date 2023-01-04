@@ -1,14 +1,12 @@
-<div class="swiper mySwiper">
-    <div class="swiper-wrapper">
+<div class="swiper mySwiper w-full">
+    <div class=" w-full">
         @foreach ($bannersStripe as $banner)
-        <div class="swiper-slidec max-h-32">
+        <div class="swiper-slidec max-h-32 w-full ">
             <img class="w-full" src="{{ tenant_public_path() . '/images/banners/'. $banner->image_url }}" alt="{{ $banner->name }}" />
         </div>
         @endforeach
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
+   
 </div>
 
 

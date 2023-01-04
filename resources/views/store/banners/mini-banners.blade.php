@@ -1,14 +1,12 @@
-<div class="swiper mySwiper">
-    <div class="grid grid-cols-{{count($bannersMini)}} gap-{{count($bannersMini)}} mx-6">
+<div class="swiper mySwiper ">
+    <div class="grid grid-cols-{{count($bannersMini)}} gap-{{count($bannersMini)}} mx-6 flex items-center">
         @foreach ($bannersMini as $banner)
-        <div class="swiper-slidec max-h-48 ">
-            <img class="w-max-48 h-max-48" src="{{ tenant_public_path() . '/images/banners/'. $banner->image_url }}" alt="{{ $banner->name }}" />
+        <div class="swiper-slidec max-h-48 px-8" >
+            <img class="w-max-48 h-max-48 object-center object-cover" src="{{ tenant_public_path() . '/images/banners/'. $banner->image_url }}" alt="{{ $banner->name }}" />
         </div>
         @endforeach
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
+
 </div>
 
 
