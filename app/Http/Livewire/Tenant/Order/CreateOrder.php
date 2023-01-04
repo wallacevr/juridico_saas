@@ -69,7 +69,7 @@ class CreateOrder extends Component
             return view('livewire.tenant.order.create-order');
         } catch (\Throwable $th) {
             //throw $th;
-            dd($th);
+           
         }
 
     }
@@ -185,11 +185,11 @@ public function addcart(Product $product,$optionid){
                 }
             } catch (\Throwable $th) {
                 //throw $th;
-                dd($th);
+              
             }
         }
 public function store(){
-
+               
                 $this->validate([
                     'customerid' =>'required',
                     'cartid'=>'required',
@@ -199,6 +199,8 @@ public function store(){
                     'statusorder' =>'required'
 
                 
+                ],[
+                    'customerid.required'=>'Selecione um Cliente'
                 ]);
             try {
             
@@ -262,7 +264,7 @@ public function store(){
                 $e->getMessage(); //mensagem do erro
                 session()->flash('error', $e->getMessage().'Tente Novamente');
 
-        
+               
             }
         
     

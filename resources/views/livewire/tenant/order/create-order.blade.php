@@ -21,6 +21,11 @@
                                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                             @endforeach 
                                         </select>
+                                        @error('customerid')
+                                            <p class="mt-2 text-sm text-red-600">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                         <script>
                                                 $(document).ready(function () {
                                         
@@ -54,6 +59,11 @@
                                                         <option value="{{$cart->id}}">{{$cart->id}}</option>
                                                     @endforeach
                                             </select>
+                                            @error('ccartrid')
+                                            <p class="mt-2 text-sm text-red-600">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                         </div>
                                 </div>
 
@@ -353,7 +363,7 @@
           @foreach($cartproducts as $product)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   {{ $productshow->name}}
+                   {{ $product->name}}
                 </th>
                 <td class="py-4 px-6">
                   {{$product->optiondescription()}}
