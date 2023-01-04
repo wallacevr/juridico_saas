@@ -454,7 +454,7 @@ class Checkout extends Component
             $e->getCode(); //codigo do erro
             $e->getMessage(); //mensagem do erro
             session()->flash('error', $e->getMessage().'Tente Novamente');
-           dd($e);
+          
         }
 
         
@@ -747,7 +747,7 @@ class Checkout extends Component
             Session::save();
         } catch (\Throwable $th) {
             //throw $th;
-            dd($th);
+         
         }
     }
 
