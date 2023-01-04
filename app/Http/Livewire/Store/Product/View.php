@@ -41,11 +41,23 @@ class View extends Component
 
          if(count($product->options)>0){
             $this->hasoptions=true;
-
-            $this->maxnivel= max(ProductOption::Where('id_product',$product->id)->get()->pluck('nivel')->toArray());
-
-             $variations= array_unique(ProductOption::Where('id_product',$product->id)->where('nivel',0)->get()->pluck('id_options')->toArray());
-            $this->variations[0] = Option::whereIn('id', $variations)->get();
+            $this->maxnivel = ProductOption::where('id_product',$product->id)->max('nivel');
+           
+           if($this->maxnivel!=0){
+                  
+                   
+                       
+                        $variations = array_unique(ProductOption::Where('id_product',$this->product->id)->where('nivel',0)->get()->pluck('id_options')->toArray());
+                        $this->variations[0] = Option::whereIn('id', $variations)->get();
+                        $this->optionprice = "";
+                        $this->optionimages = [];
+                        $this->optioncart = "";
+                
+            }else{
+               
+            
+                $this->variations[0] =ProductOption::Where('id_product',$this->product->id)->where('nivel',0)->get();
+            }
          }else{
             $this->hasoptions=false;
          }
@@ -54,6 +66,7 @@ class View extends Component
 
 
     public function optionslist($nivel,$selected){
+      
         if($nivel<$this->maxnivel){
 
             $variations = array_unique(ProductOption::Where('id_product',$this->product->id)->where('nivel',$nivel)->get()->pluck('id_options')->toArray());
@@ -68,6 +81,7 @@ class View extends Component
             $this->variations[$nivel] =ProductOption::Where('id_product',$this->product->id)->where('nivel',$nivel)->whereIn('id_product_options',$variations)->get();
 
         }
+        
 
     }
 

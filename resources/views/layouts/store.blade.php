@@ -285,6 +285,13 @@ const options = {
   }
 };
     </script>
+<script>
+        $(document).ready(function () {
+            Livewire.emit('UpdateCart');
+        });
+   
+</script>
+
     @stack('js')
     
 </body>

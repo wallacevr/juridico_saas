@@ -123,13 +123,18 @@
                                         <div class="grid grid-cols-2 text-center">
                                             <div class="mx-0 px-0">
                                                 <input type="radio" class="mx-0 px-0" name="opt{{$key}}"  value="{{ $option['id'] }}" 
+                                               
                                                         @if(isset($option->price))
                                                              wire:click="showoptionsproperty({{$option['id']}})"
+
+                                                             @if($option['qty_stock'] <=0)
+                                                                disabled
+                                                            @endif  
+                                                        @else
+                                                            wire:click="optionslist({{($key+1)}},{{$option['id']}})" 
                                                       
                                                         @endif
-                                                        @if($option['qty_stock'] <=0)
-                                                            disabled
-                                                        @endif  
+
                                                         @if($selectedoption==$option['id'])
                                                            
                                                             checked
@@ -137,7 +142,8 @@
                                                     >
                                             </div>
                                             @if(!isset($option->price))        
-                                               
+                                                  
+                                                   @if($option['id_product_options']!=null)
                                                         @switch($option['options']['type']) 
                                                             @case('NONE')
                                                                 <div>
@@ -163,6 +169,35 @@
                                                             @default
                                                         
                                                         @endswitch
+                                                    @else
+                                                    
+                                                        @switch($option['options']['type']) 
+                                                            @case('NONE')
+                                                                <div>
+                                                                    
+                                                                    <label for="opt1">{{ $option['options']['name']}}</label>
+                                                                </div>
+                                                                
+                                                                @break
+                                                            @case('COLOR')
+                                                        
+                                                                
+                                                                <div class="h-10 w-10 px-m mx-0 rounded-full" style="background: {{$option['options']['value'] }}"></div>
+                                                                @break
+                                                            @case('IMAGE')
+                                                            
+
+                                                                    <div class="px-m mx-0 ">
+                                                                        <img  class="h-10 w-10 px-m mx-0  rounded-full" src="{{ tenant_public_path() . '/images/options/' . $option['options']['value']}}">
+                                                                    </div>
+                                                                    
+
+                                                            
+                                                                @break
+                                                            @default
+
+                                                            @endswitch
+                                                    @endif
                                             @else
                                                 @switch($option->options->type) 
                                                         @case('NONE')

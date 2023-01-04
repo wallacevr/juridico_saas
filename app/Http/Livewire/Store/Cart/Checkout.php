@@ -71,7 +71,7 @@ class Checkout extends Component
     {
         if($this->tab==4){
             $cart = Cart::find($this->cart->id);
- 
+            $this->whatstext="";
             $this->whatstext= $this->whatstext . "Olá ". get_config('general/store/name')  .", segue abaixo meu pedido de compra: \n\n";
             $this->whatstext= $this->whatstext . " *Cart ID*:  ". $cart->id  ." \n";
             $this->whatstext= $this->whatstext . " *Customer*:  ". $cart->customer->name  ." \n";
@@ -111,7 +111,7 @@ class Checkout extends Component
        if($pagseguro!=null){
         $this->pagseguroid = $pagseguro->id;
        }
-        if(get_config('payments/plataform/creditcard')==$this->pagseguroid){
+        if((get_config('payments/plataform/creditcard')==$this->pagseguroid)&&(get_config('payments/plataform/creditcard')!=null)){
 
        
             if(get_config('plugins/payments/pagseguro/sandbox')){

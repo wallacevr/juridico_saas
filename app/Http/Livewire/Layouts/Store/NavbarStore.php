@@ -16,7 +16,8 @@ class NavbarStore extends Component
         $cart = Session::get('cart', []);
        
         if(isset($cart->id)){
-            if(count($cart->products)>0){
+       
+            if(count($cart->products()->get())>0){
                 $this->cartproducts =  CartProduct::where('id_cart',$cart->id)->get();
             }else{
                 $this->cartproducts=[];

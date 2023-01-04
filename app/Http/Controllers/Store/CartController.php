@@ -118,7 +118,7 @@ class CartController extends Controller
           
 
             $cart = Session::get('cart', []);
-           
+          
             return redirect()->back()->with('success', 'Product added to cart successfully!');
         } catch (\Throwable $th) {
             //throw $th;
