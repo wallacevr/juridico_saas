@@ -221,11 +221,12 @@
                             <div class="col-span-12 sm:col-span-6">
                                     <legend class="text-base font-medium text-gray-900">
 
-                                        {{ __("Product's variations ") }}
+                                        {{ __("Product's variations") }}
 
                                     </legend>
                                     <div class="mt-5 space-y-4 mb-5">
                                         <div class="flex items-start ">
+                                           {{-- 
                                             <div wire:ignore class="w-full">
 
                                                     <select class="form-control js-basic-multiple w-full" name="variations_id[]" id="select2" multiple="multiple" >
@@ -258,19 +259,31 @@
 
                                                     </script>
                                             </div>
-                                            
+                                       --}}
                                         </div>
-
+                                        @if($variationsupdate)
+                                                <div>
+                                                    <p>
+                                                        {{__('to save new options you must save the variation type change.')}}
+                                                    </p>
+                                                    <p>
+                                                        {{__('After clicking save, the options below will be deleted and you will have to include the options you want.')}}
+                                                    </p>
+                                                    <button wire:click="updatevariations"
+                                                    class="button py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">{{__('Save')}}</button>
+                                                </div>
+                                            @endif
                                     </div>
 
+                                @if($variationsupdate!=true)
                                      <div class="grid grid-cols-6 gap-6 mt-1">
                                            
 
-                                                @foreach($product->variations as $variationselected)
+                                                @foreach($variationsselected as $variationselected)
 
                                                             <div >
                                                                  <label for="{{ $variationselected->name }}options[]" class="block text-sm font-medium leading-5 text-gray-700">{{ $variationselected->name }}</label>
-                                                                <select class="form-control w-full" wire:model="optionadd.{{$variationselected->id}}" class="max-w-xs">
+                                                                <select class="form-select w-full" wire:model="optionadd.{{$variationselected->id}}" class="max-w-xs">
                                                                 <option value="">{{ __('Select an option') }}</option>
                                                                         @foreach($variationselected->options as $option)
 
@@ -280,7 +293,7 @@
                                                                 </select>
                                                                 
                                                             </div>
-
+                                               
                                                     @endforeach
                                                         <div>
                                                             @include('layouts.snippets.optionsfields', [
@@ -306,7 +319,12 @@
                                                                     'i'=>'0'
                                                                 ])
                                                         </div>
-                                                        <a href="#" class="mt-6" wire:click="addoptions">
+                                                        <button class="mt-6 bg-white" wire:click="addoptions"
+                                                        @if($variationsupdate==true)
+                                                                disabled
+
+                                                        @endif
+                                                        >
                                                        
                                                       
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -314,9 +332,10 @@
                                                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                                                             </svg>
                                                         
-                                                            </a>
+                                                            </button>
 
                                      </div>
+                                    @endif
                             </div>
 
                     </div>
@@ -383,9 +402,18 @@
                                                                                     ])
 
                                                                             </td>
+                                                                            <td class="w-1/6 px-2.5 pt-6">
+
+                                                                                    <a href="#" wire:click="deleteoption({{$option->id}})">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                                                             <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                                                                        </svg>
+                                                                                    </a>
+
+                                                                                </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="3">
+                                                                        <td colspan="4">
                                                                         <div class="">
                                                                                 @php 
                                                                                     $this->optionid=$option->id;

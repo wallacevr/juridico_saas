@@ -11,6 +11,9 @@ class ProductVariation extends Model
        
         'id_product',
         'id_variation',
+        'created_at',
+        'updated_at',
+        'deleted_at'
 
     ];
     protected $table = "variations_product";

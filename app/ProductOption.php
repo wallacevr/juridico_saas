@@ -31,6 +31,10 @@ class ProductOption extends Model
         return $this->belongsTo(Option::class, 'id_options');
     }
 
+    public function suboptions(){
+        return $this->belongsTo(ProductOption::class, 'id_product_options');
+    }
+
     public function getImage($size='small'){
        
         $image = null;
@@ -78,5 +82,17 @@ class ProductOption extends Model
         return $imgs;
     }
 
+
+    public static function boot()
+    {
+        parent::boot();    
+    
+        // cause a delete of a product to cascade to children so they are also deleted
+        static::deleted(function($product)
+        {
+            $product->suboptions()->delete();
+        
+        });
+    } 
 
 }

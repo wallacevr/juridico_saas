@@ -45,7 +45,7 @@
 
                                         </script>
                             </div>
-                            
+                       
                             @if(count($carts)>0)
                                 <div class="w-full">
                                 <label for="cart" class="block mb-2 leading-5 text-gray-700">{{__('Cart')}}
@@ -59,7 +59,7 @@
                                                         <option value="{{$cart->id}}">{{$cart->id}}</option>
                                                     @endforeach
                                             </select>
-                                            @error('ccartrid')
+                                            @error('cartid')
                                             <p class="mt-2 text-sm text-red-600">
                                                 {{ $message }}
                                             </p>
@@ -75,7 +75,12 @@
                                             <label for="id_address_delivery">{{__('Address Delivery')}}</label>
                                             <div class="mt-1 rounded-md ">
                                                 <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="customer"  wire:model="id_address_delivery">
-                                                    <option value="null">{{ __('Select a Address') }}</option>
+                                                    <option value="null"   
+                                                        @if($id_address_delivery==null)
+                                                            selected
+                                                        @endif
+                                                    
+                                                    >{{ __('Select a Address') }}</option>
                                                     @foreach($addresses as $address)
                                                         <option value="{{ $address->id }}"
                                                         @if($address->id == $id_address_delivery)
@@ -84,6 +89,11 @@
                                                         >{{ $address->name }}</option>
                                                     @endforeach 
                                                 </select>
+                                                @error('id_address_delivery')
+                                                    <p class="mt-2 text-sm text-red-600">
+                                                        {{ $message }}
+                                                    </p>
+                                                @enderror
                                             </div>
 
                                     </div>
@@ -93,7 +103,13 @@
                                             <label for="id_address_delivery">{{__('Address Invoice')}}</label>
                                             <div class="mt-1 rounded-md ">
                                                 <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="customer"  wire:model="id_address_invoice">
-                                                    <option value="null">{{ __('Select a Address') }}</option>
+                                                    <option value="null"
+                                                         @if( $id_address_invoice==null)
+                                                            selected
+                                                        @endif
+                                                    
+                                                    
+                                                    >{{ __('Select a Address') }}</option>
                                                     @foreach($addresses as $address)
                                                         <option value="{{ $address->id }}"
                                                         @if($address->id == $id_address_invoice)
@@ -102,6 +118,11 @@
                                                         >{{ $address->name }}</option>
                                                     @endforeach 
                                                 </select>
+                                                @error('id_address_invoice')
+                                                    <p class="mt-2 text-sm text-red-600">
+                                                        {{ $message }}
+                                                    </p>
+                                                @enderror
                                             </div>
 
                                     </div>
@@ -119,6 +140,11 @@
                                                     <option value="Billet">{{ __('Billet') }}</option>
                                                     <option value="ank transfer">{{ __('Bank transfer') }}</option>
                                                 </select>
+                                                @error('paymentmethod')
+                                                    <p class="mt-2 text-sm text-red-600">
+                                                        {{ $message }}
+                                                    </p>
+                                                @enderror
                                             </div>
 
                                     </div>
@@ -132,6 +158,11 @@
                                                     <option value="Credit Card">{{ __('Sent') }}</option>
                
                                                 </select>
+                                                @error('statusorder')
+                                                    <p class="mt-2 text-sm text-red-600">
+                                                        {{ $message }}
+                                                    </p>
+                                                @enderror
                                             </div>
 
                                     </div>

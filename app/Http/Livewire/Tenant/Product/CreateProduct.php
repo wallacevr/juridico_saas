@@ -249,10 +249,14 @@ class CreateProduct extends Component
               $ultima="";
               $key2=0;
               foreach($this->selected as $variation){
-                $prodvariation = new ProductVariation;
-                $prodvariation->product_id = $product->id;
-                $prodvariation->variation_id = $variation;
-                $prodvariation->save();
+                  $productvariation = ProductVariation::where('product_id',$product->id)->where('variation_id',$variation->id)->get();
+                  if($productvariation==null){
+                    $prodvariation = new ProductVariation;
+                    $prodvariation->product_id = $product->id;
+                    $prodvariation->variation_id = $variation;
+                    $prodvariation->save();
+                  }
+                 
               }
               foreach($this->combinacoes[$key] as $opts){
 

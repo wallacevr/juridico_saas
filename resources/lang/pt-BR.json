@@ -320,5 +320,10 @@
     "Orders": "Pedidos",
     "Order": "Pedido",
     "Pay": "Pago",
-    "Awaiting Payment": "Aguardando Pagamento"
+    "Awaiting Payment": "Aguardando Pagamento",
+    "to save new options you must save the variation type change.":"Para salvar novas opções voce deve salvar a alteração de tipo de variações.",
+    "Product's variations":"Variações do Produto",
+    "Input the option's price and  qty in stock":"Insira o preço da opção e a quantidade em estoque",
+    "This product has options such as size or color": "Este produto tem opções como tamanho ou cor",
+    "After clicking save, the options below will be deleted and you will have to include the options you want.":"Após clicar em salvar as opções abaixo serão deletadas e você deverá incluir as opções que desejar."
 }

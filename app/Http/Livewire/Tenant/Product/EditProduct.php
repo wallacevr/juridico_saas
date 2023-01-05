@@ -66,6 +66,8 @@ class EditProduct extends Component
     public $optionadd=[];
     public $optionid="";
     public $imagesoption=[];
+    public $variationsupdate = false;
+    public $initialvariarions=[];
     protected $listeners = ['listaoptions' => 'listaoptions'];
 
     public function render()
@@ -125,6 +127,10 @@ class EditProduct extends Component
          $this->selectedcollections = $product->collections->pluck('id');
          $this->brands = Brand::all();
          $this->selectedbrands = $product->brands->pluck('id');
+         $this->selected = ProductVariation::where('product_id',$product->id)->pluck('variation_id');
+        $this->initialvariations= $this->selected;
+         $this->variationsselected = Variation::whereIn('id',$this->selected)->get();
+        
          foreach($product->images as $image){
           $this->initialimages=$this->initialimages ."{source:'". productImagex($image->image_url,$product->id)  ."'},";
         
@@ -151,11 +157,32 @@ class EditProduct extends Component
          }
 
     }
-
+    public function updatevariations(){
+      $this->product->variations()->sync($this->selected);
+      $this->initialvariations= $this->selected;
+      $this->variationsupdate=false;
+      $this->variationsselected = Variation::whereIn('id',$this->selected)->get();
+      if((array_diff($this->initialvariations->toArray(), $this->selected)!=[])&&array_diff( $this->selected,$this->initialvariations->toArray())!=[]){
+        $this->variationsupdate=true;
+      }else{
+        $this->variationsupdate=false;
+      }
+    }
     public function listaoptions(){
 
         $this->variationsselected = Variation::whereIn('id',$this->selected)->get();
-    
+   
+            if(!((array_diff($this->initialvariations->toArray(), $this->selected)!=[])&&array_diff( $this->selected,$this->initialvariations->toArray())!=[])){
+              
+              if(count($this->initialvariations)!=count($this->selected)){
+                $this->variationsupdate=true;
+              }else{
+                $this->variationsupdate=false;
+              }
+            }else{
+              $this->variationsupdate=false;
+            }
+        
 
     }
     public function combinacao( $txt, $termos, $i )
@@ -327,12 +354,13 @@ class EditProduct extends Component
 
 
     public function addoptions(){
-      
+    
         $this->validate( [
           'optionprice.0'=>'required',
           'optionqty.0' =>'required',
 
         ]);
+        dd(1);
         try {
           //code...
           $x=1;
@@ -374,13 +402,31 @@ class EditProduct extends Component
            
               $this->initialoptionimages[$option->id]=$option->imagesfilepond();
             
-        }
+          }
         } catch (\Throwable $th) {
           //throw $th;
           dd($th);
         }
     }
-
+public function deleteoption(ProductOption $productoption){
+  try {
+    //code...
+    $productoption->delete();
+    $this->productoptions = ProductOption::where('id_product',$this->product->id)->whereNotNull('price')->get();
+    foreach($this->productoptions as $key =>$option){
+      $this->optionqty[$option->id]=$option->qty_stock;
+      $this->optionprice[$option->id]=$option->price;
+      $this->optionimagessaveds[$option->id] = ProductOptionsImage::where('product_options_id',$option->id)->get();
+     $this->principaloptionimage[$option->id]= ProductOptionsImage::where('product_options_id',$option->id)->where('main',1)->pluck('id');
+     
+        $this->initialoptionimages[$option->id]=$option->imagesfilepond();
+      
+    }
+  } catch (\Throwable $th) {
+    //throw $th;
+    dd($th);
+  }
+}
     
 }
 

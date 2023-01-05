@@ -80,8 +80,14 @@ class CreateOrder extends Component
 
     public function refreshaddress(){
         $cart = Cart::find($this->cartid);
-        $this->id_address_delivery = $cart->id_address_delivery;
-        $this->id_address_invoice =  $cart->id_address_invoice;
+        if($cart!=null){
+            $this->id_address_delivery = $cart->id_address_delivery;
+            $this->id_address_invoice =  $cart->id_address_invoice;
+        }else{
+            $this->id_address_delivery = null;
+            $this->id_address_invoice =  null;
+        }
+
     }
     public function showoptionsproperty(ProductOption $option){
         $this->optionprice = $option->formattedPrice();
@@ -189,10 +195,10 @@ public function addcart(Product $product,$optionid){
             }
         }
 public function store(){
-               
+                 
                 $this->validate([
                     'customerid' =>'required',
-                    'cartid'=>'required',
+                  'cartid'=>'required',
                     'id_address_delivery' => 'required',
                     'id_address_invoice' => 'required',
                     'paymentmethod' => 'required',
@@ -202,6 +208,7 @@ public function store(){
                 ],[
                     'customerid.required'=>'Selecione um Cliente'
                 ]);
+              
             try {
             
 
