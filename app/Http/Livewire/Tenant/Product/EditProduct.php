@@ -354,13 +354,13 @@ class EditProduct extends Component
 
 
     public function addoptions(){
-    
+      
         $this->validate( [
           'optionprice.0'=>'required',
           'optionqty.0' =>'required',
 
         ]);
-        dd(1);
+        
         try {
           //code...
           $x=1;
@@ -424,7 +424,7 @@ public function deleteoption(ProductOption $productoption){
     }
   } catch (\Throwable $th) {
     //throw $th;
-    dd($th);
+    
   }
 }
     
