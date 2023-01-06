@@ -19,13 +19,19 @@ class ProductController extends Controller
     public function show(Product $product)
     {
 
-        $idsCollection = $product->collections()->pluck('collections.id')->all();
+ 
+        if($product->status){
+            $idsCollection = $product->collections()->pluck('collections.id')->all();
 
-        $similarCategory = (Product::with(["collections" => function($q) use($idsCollection) {
-            $q->whereIn('collections.id',$idsCollection);
-        }])->where('status',1)->inRandomOrder()->limit(4))->get();
-      
-        return view('store.product.view', ['product' => $product,'similarCategory'=>$similarCategory]);
+            $similarCategory = (Product::with(["collections" => function($q) use($idsCollection) {
+                $q->whereIn('collections.id',$idsCollection);
+            }])->where('status',1)->inRandomOrder()->limit(4))->get();
+        
+            return view('store.product.view', ['product' => $product,'similarCategory'=>$similarCategory]);
+        }else{
+            abort(404);
+        }
+
     }
 
     public function search()

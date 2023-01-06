@@ -27,7 +27,7 @@ class HomeController extends Controller
             ['status', '=', '1'],
             ['type', '=', 'MINI'],
         ])->select('image_url', 'url', 'name')->get();
-        $productsFeatured = Product::get();
+        $productsFeatured = Product::where('status',1)->get();
 
         return view('store.home')->with(['pageBanners'=>$pageBanners,'bannersMini'=>$bannersMini,'bannersStripe'=>$bannersStripe,'productsFeatured'=>$productsFeatured]);
     }

@@ -73,6 +73,29 @@ class ProductOption extends Model
     }
 
 
+    public function codoption(){
+        $descricao="";
+      
+        $option = ProductOption::where('id_product',$this->id_product)->where('id',$this->id)->get();
+        
+        $proxima = $option[0]->id;
+      
+        for($x=$this->nivel;$x>=0; $x--){
+            $option = ProductOption::find($proxima);
+           
+            $descricao = $option->options->id .'-' . $descricao;
+           
+            $proxima = $option->id_product_options;
+        }
+      
+      
+
+        return rtrim($descricao,'/');
+    }
+
+
+
+
     public function imagesfilepond(){
         $imgs="";
         foreach($this->images  as $optimage){
