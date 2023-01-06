@@ -93,9 +93,10 @@ class Checkout extends Component
                     $option = ProductOption::find($product->pivot->product_options_id);
                     $itens= $itens . " *Product ID*:  ". $product->id  ."   *Product*:  ". $product->name  ."   *Variation*:  ". rtrim($option->descricao(),'/') ."   *Qty*:". number_format($product->pivot->quantity,0,".",',') ."\n";
                 }
-                $this->whatstext= $this->whatstext . " *ITENS*:  \n".$itens;
+                
 
             }
+            $this->whatstext= $this->whatstext . " *ITENS*:  \n".$itens;
         }
         return view('livewire.store.cart.checkout');
     }

@@ -469,7 +469,7 @@ if (!function_exists('create_menu')) {
                 'icon' => 'UsersIcon',
                 'children' => [
                     ['name' => __('menu.See All'), 'href' => route('tenant.customers.index')],
-                    // ['name' => __('menu.Groups'), 'href' => '#'],
+                    ['name' => __('menu.Groups'), 'href' => route('tenant.groups.index')],
                     // ['name' => __('menu.Newsletter'), 'href' => '#']
                 ],
             ],

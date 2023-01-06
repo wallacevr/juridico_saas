@@ -105,12 +105,7 @@
                         <div class="w-full" >
                             <table>
                                 <tr>
-                                    <td class="py-2"> 
-                                        <button type="button" wire:click="addgrpcustomer"
-                                            class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
-                                            {{ __('Save') }}
-                                        </button>
-                                    </td>
+                      
                                     <td>
 
                                         <label for="customergroup{{count($groups)+1}}" class="block text-sm font-medium leading-5 text-gray-700 ">Customer Group<span class="red">*</span></label>
@@ -132,6 +127,7 @@
                                                 'name' => 'minqtyspecialprice',
                                                 'value' => '',
                                                 'require' => true,
+                                               
                                                 'min' => 0,
                                                 'wiremodel' => 'minqtyspecialprice',
                                                 'i'=> count($groups)+1
@@ -151,6 +147,12 @@
                                                 'i'=> count($groups)+1
                                             ])
                                     </td>
+                                    <td class="pt-6"> 
+                                        <button type="button" wire:click="addgrpcustomer"
+                                            class="py-1 px-4 my-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </td>
                                 </tr>
                                 @foreach($groups as $key=>$group)
                                 
@@ -165,7 +167,7 @@
                                                 <td>
                                                  
                                                     <label for="customergroup{{($key)+1}}" class="block text-sm font-medium leading-5 text-gray-700 ">Customer Group<span class="red">*</span></label>
-                                                    <select name="customergroup" id="customergroup{{($key+1)}}"  class="form-control js-basic-multiple" wire:model="grpcustomer.{{($key)+1}}"  >
+                                                    <select name="customergroup" id="customergroup{{($key+1)}}"  class="form-select r js-basic-multiple" wire:model="grpcustomer.{{($key)+1}}"  >
                                                         <option value="null">Selecione um Grupo</option>
                                                         @foreach($customergroups as $group)
 

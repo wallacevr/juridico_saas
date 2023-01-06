@@ -15,8 +15,8 @@
                     @foreach ($cartproducts as $cartproduct)
                     
                     @php 
-                        $total += $cartproduct->advancedPrice() * $cartproduct['quantity']; 
-                        $discount += $cartproduct->DiscountTicket(); 
+                        $total += $cartproduct->price * $cartproduct['quantity']; 
+                        $discount += $cartproduct->Discount()* $cartproduct['quantity']; 
                     @endphp
                     <div class="grid grid-cols-2 gap-1 md:grid-cols-4">
                         <div class="py-3 px-4 ">
@@ -59,7 +59,7 @@
                         <div class="text-right w-36">
 
                             @php 
-                                if($cartproduct->DiscountTicket()>0){
+                                if($cartproduct->Discount()>0){
                                     $classdiscount ="line-through";
                                 }else{
                                     $classdiscount ="";
@@ -67,9 +67,9 @@
 
                             @endphp
 
-                            <h3 class="text-lg font-semibold leading-snug {{$classdiscount}} sm:pr-8">R$ {{number_format(round($cartproduct->quantity,0)*($cartproduct->advancedPrice()),2,",",".")}}</h3>
-                            @if($cartproduct->DiscountTicket()>0)
-                                <h3 class="text-lg font-semibold leading-snug sm:pr-8">R$ {{number_format((round($cartproduct->quantity,0)*($cartproduct->advancedPrice())-$cartproduct->DiscountTicket()),2,",",".")}}</h3>
+                            <h3 class="text-lg font-semibold leading-snug {{$classdiscount}} sm:pr-8">R$ {{number_format(round($cartproduct->quantity,0)*($cartproduct->price),2,",",".")}}</h3>
+                            @if($cartproduct->Discount()>0)
+                                <h3 class="text-lg font-semibold leading-snug sm:pr-8">R$ {{number_format((round($cartproduct->quantity,0)*($cartproduct->price-$cartproduct->Discount())),2,",",".")}}</h3>
                             @endif
                         </div>
                         <div class="flex text-sm divide-x pl-12">

@@ -30,11 +30,12 @@ class CartProduct extends Model
             ->where('qty','<',$this->quantity)
             ->orderBy('qty','Desc')
             ->limit(1)->get();
+          
         }else{
             $prodcustgrp =[];
         }
      
-        
+       
      
         $specialprice=$product->price;
         
@@ -58,6 +59,53 @@ class CartProduct extends Model
        
         return $specialprice;
     }
+
+
+    public function Discount(){
+        $cart = Cart::find($this->id_cart);
+        $customer = Customer::find($cart->id_customer);
+        $product = Product::find($this->id_product);
+        if($customer!=null){
+            $prodcustgrp = ProductCustomersGroup::where('id_product',$this->id_product)
+            ->where('id_customer_group',$customer->id_customer_group)
+            ->where('qty','<',$this->quantity)
+            ->orderBy('qty','Desc')
+            ->limit(1)->get();
+          
+        }else{
+            $prodcustgrp =[];
+        }
+     
+       
+     
+        $specialprice=$product->price;
+        
+        if(($product->special_price!=null)&&($product->special_price!=0)){
+            if($specialprice > $product->special_price){
+                 $specialprice=$product->special_price;
+            }
+        }
+        if($this->product_options_id!=null){
+          
+            $option = ProductOption::find($this->product_options_id);
+            if($specialprice > $option->price){
+                 $specialprice=$option->price;
+             }
+        }
+        if(count($prodcustgrp)>0){
+            if($specialprice > $prodcustgrp[0]->price){
+              $specialprice=$prodcustgrp[0]->price;
+            }
+        }
+        $discount = $product->price-$specialprice;
+        if($this->DiscountTicket()>$discount){
+            $discount =$this->DiscountTicket();
+        }
+      
+        return  $discount;
+    }
+
+
 
     public function DiscountTicket(){
     try {

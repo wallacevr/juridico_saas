@@ -65,7 +65,7 @@ class CustomerController extends Controller
             'newsletter' => $request['newsletter'],
             'status' => !empty($request['status']) ? $request['status'] : $customer->status,
         ];
-
+        
         if (!$customer->update($data)) {
             return back()->withInput()->with("error", "Error updating customer.");
         }
@@ -111,5 +111,8 @@ class CustomerController extends Controller
         }
 
         return redirect()->route('tenant.customers.index')->with("success", "Customer deleted successfully");
+    }
+    public function show(Customer $customer){
+
     }
 }

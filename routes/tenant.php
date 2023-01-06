@@ -89,7 +89,7 @@ Route::group([
             Route::post('/settings/user/personal', 'UserSettingsController@personal')->name('settings.user.personal');
             Route::post('/settings/user/password', 'UserSettingsController@password')->name('settings.user.password');
 
-            Route::resource('customers/groups', 'CustomerGroupController');
+            Route::resource('groups', 'CustomerGroupController');
 
             Route::middleware(OwnerOnly::class)->group(function () {
                 Route::get('/settings/application', 'ApplicationSettingsController@show')->name('settings.application');

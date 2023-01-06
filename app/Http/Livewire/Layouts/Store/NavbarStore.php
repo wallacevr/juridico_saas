@@ -16,7 +16,11 @@ class NavbarStore extends Component
         $cart = Session::get('cart', []);
        
         if(isset($cart->id)){
-       
+            if(Auth::guard('customers')->check()){
+                $cartcustomer = Cart::find($cart->id);
+                $cartcustomer->id_customer = Auth::guard('customers')->user()->id;
+                $cartcustomer->update();
+            }
             if(count($cart->products()->get())>0){
                 $this->cartproducts =  CartProduct::where('id_cart',$cart->id)->get();
             }else{

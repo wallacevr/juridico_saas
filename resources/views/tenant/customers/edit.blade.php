@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="col-span-12 sm:col-span-3">
-                            @include('layouts.snippets.fields', ['type'=>'text','label'=>'Telephone','placeholder'=>'(__)____-____','name'=>'telephone','value'=> $customer->telephone ])
+                            @include('layouts.snippets.fields', ['type'=>'text','label'=>'Telephone','placeholder'=>'(__)____-____','name'=>'telephone','value'=> $customer->telephone,'require'=>false ])
                         </div>
 
                         <div class="col-span-12 sm:col-span-3">
@@ -52,12 +52,16 @@
                                 <option value="0">   </option>
                                 @foreach($groups as $group)
 
-                                    <option value="{{$group->id}}">{{$group->name}}</option>
+                                    <option value="{{$group->id}}"
+                                    @if($group->id == $customer->id_customer_group)
+                                        selected
+                                    @endif
+                                    >{{$group->name}}</option>
                                 @endforeach
                            </select>
                         </div>
                         <div class="col-span-12 sm:col-span-3">
-                            @include('layouts.snippets.fields', ['type'=>'password','label'=>'Password','placeholder'=>'*************','name'=>'password','value'=> '' ])
+                            @include('layouts.snippets.fields', ['type'=>'password','label'=>'Password','placeholder'=>'*************','name'=>'password','value'=> '' ,'require'=>false])
                         </div>
 
                     </div>
