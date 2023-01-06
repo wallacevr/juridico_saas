@@ -403,7 +403,7 @@
                  {{ number_format($product->quantity,0,',','.')}}
                 </td>
                 <td class="py-4 px-6">
-                {{__('R$'. number_format($product->advancedPrice(),2,',','.')) }}
+                {{__('R$'. number_format($product->FinalPrice(),2,',','.')) }}
                 </td>
             </tr>
             @endforeach
