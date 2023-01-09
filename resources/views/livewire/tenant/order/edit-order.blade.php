@@ -18,7 +18,11 @@
                                         <select class="form-control js-basic-single w-full" name="customer" id="customer"  >
                                             <option value="null">{{ __('Select a customer') }}</option>
                                             @foreach($customers as $customer)
-                                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                                <option value="{{ $customer->id }}"
+                                                @if($customer->id==$order->id_customer)
+                                                    selected
+                                                @endif
+                                                >{{ $customer->name }}</option>
                                             @endforeach 
                                         </select>
                                         @error('customerid')
@@ -56,7 +60,12 @@
                                             <select name="cart" id="cart" wire:model="cartid" wire:change="refreshaddress"  class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded">
                                                 <option value="null">{{__('Select a cart')}}</option>
                                                     @foreach($carts as $cart)
-                                                        <option value="{{$cart->id}}">{{$cart->id}}</option>
+                                                        <option value="{{$cart->id}}"
+                                                        @if($cart->id==$order->id_cart)
+                                                            selected
+                                                        @endif
+                                                        
+                                                        >{{$cart->id}}</option>
                                                     @endforeach
                                             </select>
                                             @error('cartid')
@@ -73,17 +82,16 @@
                            @if($addresses!=null)
                                     <div  class="w-full">
                                             <label for="id_address_delivery">{{__('Address Delivery')}}</label>
+                                         
                                             <div class="mt-1 rounded-md ">
                                                 <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="customer"  wire:model="id_address_delivery">
                                                     <option value="null"   
-                                                        @if($id_address_delivery==null)
-                                                            selected
-                                                        @endif
+                                                     
                                                     
                                                     >{{ __('Select an Address') }}</option>
                                                     @foreach($addresses as $address)
                                                         <option value="{{ $address->id }}"
-                                                        @if($address->id == $id_address_delivery)
+                                                        @if($address->id == $order->id_address_delivery)
                                                             selected
                                                         @endif
                                                         >{{ $address->name }}</option>
@@ -104,7 +112,7 @@
                                             <div class="mt-1 rounded-md ">
                                                 <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="customer"  wire:model="id_address_invoice">
                                                     <option value="null"
-                                                         @if( $id_address_invoice==null)
+                                                        @if(null == $order->id_address_invoice)
                                                             selected
                                                         @endif
                                                     
@@ -112,7 +120,7 @@
                                                     >{{ __('Select an Address') }}</option>
                                                     @foreach($addresses as $address)
                                                         <option value="{{ $address->id }}"
-                                                        @if($address->id == $id_address_invoice)
+                                                        @if($address->id == $order->id_address_invoice)
                                                             selected
                                                         @endif
                                                         >{{ $address->name }}</option>
@@ -134,11 +142,36 @@
                                             <div class="mt-1 rounded-md ">
                                                 <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="paymentmethod"  wire:model="paymentmethod">
                                                     <option value="null">{{ __('Select a Payment Method') }}</option>
-                                                    <option value="Money">{{ __('Money') }}</option>
-                                                    <option value="Pix">{{ __('Pix') }}</option>
-                                                    <option value="Credit Card">{{ __('Credit Card') }}</option>
-                                                    <option value="Billet">{{ __('Billet') }}</option>
-                                                    <option value="ank transfer">{{ __('Bank transfer') }}</option>
+                                                    <option value="1"
+                                                    @if($paymentmethod=='1')
+                                                        selected
+
+                                                    @endif
+                                                    >{{ __('Money') }}</option>
+                                                    <option value="2"
+                                                    @if($paymentmethod==2)
+                                                        selected
+
+                                                    @endif
+                                                    >{{ __('Pix') }}</option>
+                                                    <option value="3"
+                                                    @if($paymentmethod==3)
+                                                        selected
+
+                                                    @endif
+                                                    >{{ __('Credit Card') }}</option>
+                                                    <option value="4"
+                                                    @if($paymentmethod==4)
+                                                        selected
+
+                                                    @endif
+                                                    >{{ __('Billet') }}</option>
+                                                    <option value="5"
+                                                    @if($paymentmethod==5)
+                                                        selected
+
+                                                    @endif
+                                                    >{{ __('Bank transfer') }}</option>
                                                 </select>
                                                 @error('paymentmethod')
                                                     <p class="mt-2 text-sm text-red-600">
@@ -150,12 +183,30 @@
                                     </div>
                                     <div  >
                                             <label for="id_address_delivery">{{__('Status order')}}</label>
+                                        
+                                  
                                             <div class="mt-1 rounded-md ">
                                                 <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="statusorder"  wire:model="statusorder">
                                                     <option value="null">{{ __('Select the status') }}</option>
-                                                    <option value="Money">{{ __('Awayting Payment') }}</option>
-                                                    <option value="Pix">{{ __('Pay') }}</option>
-                                                    <option value="Credit Card">{{ __('Sent') }}</option>
+                                                    <option value="Awaiting Payment"
+                                                    @if($statusorder=="Awaiting Payment")
+                                                        selected
+
+                                                    @endif
+                                                    >{{ __('Awayting Payment') }}</option>
+                                                    <option value="Pay" 
+                                                    @if($statusorder=="Pay")
+                                                        selected
+
+                                                    @endif
+                                                    >{{ __('Pay') }}</option>
+                                                    <option value="Sent"
+                                                    @if($statusorder=="Sent")
+                                                        selected
+
+                                                    @endif
+                                                    
+                                                    >{{ __('Sent') }}</option>
                
                                                 </select>
                                                 @error('statusorder')
@@ -479,7 +530,7 @@
                         </a>
                     </span>
                     <span class="ml-3 inline-flex rounded-md shadow-sm">
-                        <button type="button" wire:click="store"
+                        <button type="button" wire:click="update"
                             class="py-1 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600 transition duration-150 ease-in-out">
                             {{ __('Save') }}
                         </button>

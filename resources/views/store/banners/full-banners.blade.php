@@ -1,9 +1,11 @@
 <div class="swiper mySwiper">
     <div class="swiper-wrapper">
         @foreach ($pageBanners as $banner)
-        <div class="swiper-slide">
-            <img class="w-full" src="{{ tenant_public_path() . '/images/banners/'. $banner->image_url }}" alt="{{ $banner->name }}" />
-        </div>
+        <a href="{{$banner->url}}">
+          <div class="swiper-slide">
+              <img class="w-full" src="{{ tenant_public_path() . '/images/banners/'. $banner->image_url }}" alt="{{ $banner->name }}" />
+          </div>
+        </a>
         @endforeach
     </div>
     <div class="swiper-button-next"></div>

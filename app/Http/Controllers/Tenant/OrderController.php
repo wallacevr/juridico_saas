@@ -29,7 +29,10 @@ class OrderController extends Controller
                 'orderproducts'=>$orderproducts
             ]);
         }
-
+        public function edit(Order $order)
+        {
+             return view('tenant.orders.edit',compact('order'));
+        }
         
         public function create()
         {

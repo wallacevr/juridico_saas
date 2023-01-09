@@ -345,7 +345,12 @@
     "Final Price":"Preço Final",
     "Final Value":"Valor Final",
     "Discount":"Desconto",
-    "Applied Ticket":"Cupom Aplicado"
+    "Applied Ticket":"Cupom Aplicado",
+    "Address Delivery":"Endereço de Entrega",
+    "Address Invoice":"Endereço de Cobrança",
+    "Select an Address":"Selecion um endereço",
+    "Edit Order":"Cupom Aplicado",
+    "Select a Product":"Selecione um produto"
  
    
 }
