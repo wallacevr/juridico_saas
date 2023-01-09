@@ -196,51 +196,53 @@ class Livecart extends Component
     }
     public function validaticket(){
         try {
+           
+        $ticket = Ticket::where('validator',$this->ticket)->where('active',1)->get();
+      
+                if(count($ticket)>0){
 
-        $ticket = Ticket::where('validator',$this->ticket)->get();
+                    $product = CartProduct::where('id_cart',$this->cart->id)
+                    ->whereIn('id_product',$ticket[0]->products->pluck('id'))->get();
 
-        if(count($ticket)>0){
+                    $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
 
-            $product = CartProduct::where('id_cart',$this->cart->id)
-            ->whereIn('id_product',$ticket[0]->products->pluck('id'))->get();
+                    $prodvalido = false;
 
-            $cartproducts = CartProduct::where('id_cart',$this->cart->id)->get();
+                    foreach($cartproducts  as $cartprod){
 
-            $prodvalido = false;
-
-            foreach($cartproducts  as $cartprod){
-
-                if($ticket[0]->products->pluck('id_product')->contains($cartprod->id_product)){
-                    $prodvalido = true;
-                    break;
-                }
-                foreach($cartprod->product->collections as $coll){
-                    $col= $cartprod->product->collections;
-
-                  if(count($col)>0){
-
-                        if($ticket[0]->collections->pluck('id')->contains($coll->id)){
+                        if($ticket[0]->products->pluck('id_product')->contains($cartprod->id_product)){
                             $prodvalido = true;
-                            break 2;
+                            break;
+                        }
+                        foreach($cartprod->product->collections as $coll){
+                            $col= $cartprod->product->collections;
+
+                        if(count($col)>0){
+
+                                if($ticket[0]->collections->pluck('id')->contains($coll->id)){
+                                    $prodvalido = true;
+                                    break 2;
+                                }
+                            }
                         }
                     }
+
+                    if($prodvalido){
+
+                        $cart = Cart::find($this->cart->id);
+                        $cart->id_ticket = $ticket[0]->id;
+
+                        $cart->update();
+                        session()->flash('success', 'coupon successfully applied!!!');
+                    }else{
+                        session()->flash('invalidcoupon', 'Coupon is not valid for products in your cart!!');
+                    }
+
+                }else{
+                   
+                    session()->flash('invalidcoupon', 'Invalid Coupon');
                 }
-            }
-
-            if($prodvalido){
-
-                $cart = Cart::find($this->cart->id);
-                $cart->id_ticket = $ticket[0]->id;
-
-                $cart->update();
-                session()->flash('success', 'coupon successfully applied!!!');
-            }else{
-                session()->flash('erro', 'coupon successfully applied!!!');
-            }
-
-        }else{
-            session()->flash('erro', 'Coupon is not valid for products in your cart!!');
-        }
+   
         } catch (\Throwable $th) {
             //throw $th;
 

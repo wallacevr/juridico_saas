@@ -17,7 +17,7 @@ class PageController extends Controller
      */
     public function show($url)
     {
-        $page = Page::where('url', $url)->firstOrFail();
+        $page = Page::where('url', $url)->where('status',1)->firstOrFail();
         return view('store.pages.page', ['page' => $page]);
     }
 

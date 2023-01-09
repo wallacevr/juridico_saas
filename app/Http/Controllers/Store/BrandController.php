@@ -16,7 +16,7 @@ class BrandController extends Controller
      */
     public function show($slug)
     {
-        $brand = Brand::where('slug', $slug)->firstOrFail();
+        $brand = Brand::where('slug', $slug)->where('status',1)->firstOrFail();
 
         return view('store.brands.brands', ['brand' => $brand]);
     }

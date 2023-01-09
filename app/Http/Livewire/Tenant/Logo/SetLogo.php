@@ -57,6 +57,8 @@ class SetLogo extends Component
             $this->email->storeAs(tenant('id') .'/images/logo/','email.'.$this->email->getClientOriginalExtension() ,'publictenant');
             Config::createOrUpdate('general/store/logo/checkout','logo/checkout.'.$this->checkout->getClientOriginalExtension() );
             $this->checkout->storeAs(tenant('id') .'/images/logo/','checkout.'.$this->checkout->getClientOriginalExtension() ,'publictenant');
+            return redirect()->route('tenant.admin.dashboad')->with("success",  __('Store information updated.'));
+           
         } catch (\Throwable $th) {
             //throw $th;
             dd($th);

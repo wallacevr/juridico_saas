@@ -325,5 +325,27 @@
     "Product's variations":"Variações do Produto",
     "Input the option's price and  qty in stock":"Insira o preço da opção e a quantidade em estoque",
     "This product has options such as size or color": "Este produto tem opções como tamanho ou cor",
-    "After clicking save, the options below will be deleted and you will have to include the options you want.":"Após clicar em salvar as opções abaixo serão deletadas e você deverá incluir as opções que desejar."
+    "After clicking save, the options below will be deleted and you will have to include the options you want.":"Após clicar em salvar as opções abaixo serão deletadas e você deverá incluir as opções que desejar.",
+    "Customer":"Cliente",
+    "Select a customer":"Selecione um cliente",
+    "Cart":"Carrinho",
+    "Select a cart":"Selecione um carrinho",
+    "Payment Method":"Metodo de Pagamento",
+    "Select a Payment Method":"Selecione um método de pagamento",
+    "Status order":"Status do Pedido",
+    "Select the status":"Selecione o status do pedido",
+    "Product":"Produto",
+    "Sent":"Enviado",
+    "Awayting Payment":"Aguardando Pagamento",
+    "Money":"Dinheiro",
+    "Billet":"Boleto",
+    "Bank transfer":"Tranferência Bancária",
+    "Credit Card":"Cartão de Crédito",
+    "Product Name":"Produto",
+    "Final Price":"Preço Final",
+    "Final Value":"Valor Final",
+    "Discount":"Desconto",
+    "Applied Ticket":"Cupom Aplicado"
+ 
+   
 }

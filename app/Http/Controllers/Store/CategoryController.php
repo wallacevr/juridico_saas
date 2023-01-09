@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function show($url)
     {
         die("category");
-        $page = Page::where('url', $url)->firstOrFail();
+        $page = Page::where('url', $url)->where('status,1')->firstOrFail();
         return view('store.pages.page', ['page' => $page]);
     }
 

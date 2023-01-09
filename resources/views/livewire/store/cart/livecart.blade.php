@@ -16,7 +16,7 @@
                     
                     @php 
                         $total += $cartproduct->price * $cartproduct['quantity']; 
-                        $discount += $cartproduct->Discount()* $cartproduct['quantity']; 
+                        $discount += $cartproduct->Discount(); 
                     @endphp
                     <div class="grid grid-cols-2 gap-1 md:grid-cols-4">
                         <div class="py-3 px-4 ">
@@ -69,7 +69,7 @@
 
                             <h3 class="text-lg font-semibold leading-snug {{$classdiscount}} sm:pr-8">R$ {{number_format(round($cartproduct->quantity,0)*($cartproduct->price),2,",",".")}}</h3>
                             @if($cartproduct->Discount()>0)
-                                <h3 class="text-lg font-semibold leading-snug sm:pr-8">R$ {{number_format((round($cartproduct->quantity,0)*($cartproduct->price-$cartproduct->Discount())),2,",",".")}}</h3>
+                                <h3 class="text-lg font-semibold leading-snug sm:pr-8">R$ {{number_format((round($cartproduct->quantity,0)*($cartproduct->FinalPrice())),2,",",".")}}</h3>
                             @endif
                         </div>
                         <div class="flex text-sm divide-x pl-12">
@@ -109,7 +109,7 @@
             <div class="w-full  text-right bg-gray-500 rounded mb-10 py-3 px-3" style="margin-bottom:10px">
                  <h1 class="text-right font-bold ">Resumo do Pedido </h1>
                 <h2 class="text-right font-bold ">Total {{count($cartproducts)}} 
-                    @if(count($cartproducts)>0)
+                    @if(count($cartproducts)>1)
                         items
                     @else
                         item
@@ -193,6 +193,13 @@
                     
                             <h2 class="text-right font-bold ">Applied Ticket:<span class="text-green-400 font-bold">{{$cart->ticket->validator}}</span> </h2>
                         @endif
+                        @if (session('invalidcoupon'))
+                            <div class="w-1/5 my-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                                    <span class="font-medium">{{ session('invalidcoupon') }}</span> 
+                            </div>
+
+                        @endif
+                        
                     </div>
                   <hr>
               <a href="#" wire:click="save" class="my-3">

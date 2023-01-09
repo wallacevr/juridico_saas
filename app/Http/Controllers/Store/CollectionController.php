@@ -16,7 +16,7 @@ class CollectionController extends Controller
      */
     public function show($slug)
     {
-        $collection = Collection::where('slug', $slug)->firstOrFail();
+        $collection = Collection::where('slug', $slug)->where('status',1)->firstOrFail();
 
         return view('store.collections.collection', ['collection' => $collection]);
     }

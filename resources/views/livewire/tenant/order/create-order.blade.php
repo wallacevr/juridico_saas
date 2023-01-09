@@ -16,7 +16,7 @@
                         <div wire:ignore class="w-full">
                                         <label for="customer">{{__('Customer')}}</label>
                                         <select class="form-control js-basic-single w-full" name="customer" id="customer"  >
-                                            <option value="null">{{ __('Select a cart') }}</option>
+                                            <option value="null">{{ __('Select a customer') }}</option>
                                             @foreach($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                             @endforeach 
@@ -152,7 +152,7 @@
                                             <label for="id_address_delivery">{{__('Status order')}}</label>
                                             <div class="mt-1 rounded-md ">
                                                 <select class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded" name="statusorder"  wire:model="statusorder">
-                                                    <option value="null">{{ __('Select a status') }}</option>
+                                                    <option value="null">{{ __('Select the status') }}</option>
                                                     <option value="Money">{{ __('Awayting Payment') }}</option>
                                                     <option value="Pix">{{ __('Pay') }}</option>
                                                     <option value="Credit Card">{{ __('Sent') }}</option>
@@ -376,22 +376,31 @@
             </tr>
             <tr>
                 <th scope="col" class="py-3 px-6">
-                    Product name
+                    {{__('Product Name')}}
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Variations
+                    {{__('Variations')}}
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Qty
+                    {{__('Qty')}}
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Price
+                    {{__('Final Price')}}
                 </th>
             </tr>
         </thead>
         <tbody>
         @if(count($cartproducts)>0)
+        @php
+            $total=0;
+            $finalvalue=0;
+         @endphp
           @foreach($cartproducts as $product)
+            @php
+                $total += $product->quantity* $product->product->price;
+                $finalvalue += $product->quantity* $product->FinalPrice();
+
+            @endphp
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                    {{ $product->name}}
@@ -411,24 +420,32 @@
         </tbody>
     </table>
 
+
     @if($carrinho!=null)
-            <div class="grid grid-cols-2 gap-2 my-4">
-
-                <div class="font-bold">{{__('Address Delivery')}}</div>
-
-            
+            <div class="grid grid-cols-1 gap-1 my-4">
+                <div>    
+                    @if(isset($cart))
+                        @if($cart->id_ticket!=null)
+                        
+                                <h2 class="text-left font-bold ">{{__('Applied Ticket')}}:<span class="text-green-400 font-bold">{{$cart->ticket->validator}}</span> </h2>
+                        @endif
+                    @endif
+                 </div>
+                <div class="font-bold">{{__('Total')}}: R${{$total}}</div>
+                <div class="font-bold">{{__('Discount')}}: R${{($total-$finalvalue)}}</div>
+                <div class="font-bold">{{__('Final Value')}}: R${{$finalvalue}}</div>
             </div>
         <div class="grid grid-cols-1 gap-1 md:grid-cols-2">
         @if($carrinho->id_address_delivery!=null)  
-            <div>{{__('Address:'. $carrinho->deliveryaddress->address)}}</div>
+            <div>{{__('Address')}}{{':'. $carrinho->deliveryaddress->address}}</div>
 
-            <div>{{__('Number:'. $carrinho->deliveryaddress->number)}}</div>
-            <div>{{__('Complement:'. $carrinho->deliveryaddress->complement)}}</div>
-            <div>{{__('Neighborhood:'. $carrinho->deliveryaddress->neighborhood)}}</div>
-            <div>{{__('Postalcode:'. $carrinho->deliveryaddress->postalcode)}}</div>
-            <div>{{__('City:'. $carrinho->deliveryaddress->city)}}</div>
-            <div>{{__('State:'. $carrinho->deliveryaddress->state)}}</div>
-            <div>{{__('Country:'. $carrinho->deliveryaddress->country)}}</div>
+            <div>{{__('Number')}}{{':'. $carrinho->deliveryaddress->number}}</div>
+            <div>{{__('Complement')}}:{{ $carrinho->deliveryaddress->complement}}</div>
+            <div>{{__('Neighborhood')}}:{{ $carrinho->deliveryaddress->neighborhood}}</div>
+            <div>{{__('Postalcode')}}:{{$carrinho->deliveryaddress->postalcode}}</div>
+            <div>{{__('City')}}:{{$carrinho->deliveryaddress->city}}</div>
+            <div>{{__('State')}}:{{$carrinho->deliveryaddress->state}}</div>
+            <div>{{__('Country')}}:{{$carrinho->deliveryaddress->country}}</div>
         @endif  
         </div>
         <div class="grid grid-cols-2 gap-2 my-4">
@@ -439,15 +456,15 @@
         </div>
         <div class="grid grid-cols-1 gap-1 md:grid-cols-2">
         @if($carrinho->id_address_invoice!=null)    
-            <div>{{__('Address:'. $carrinho->invoiceaddress->address)}}</div>
+        <div>{{__('Address')}}{{':'. $carrinho->invoiceaddress->address}}</div>
 
-            <div>{{__('Number:'. $carrinho->invoiceaddress->number)}}</div>
-            <div>{{__('Complement:'. $carrinho->invoiceaddress->complement)}}</div>
-            <div>{{__('Neighborhood:'. $carrinho->invoiceaddress->neighborhood)}}</div>
-            <div>{{__('Postalcode:'. $carrinho->invoiceaddress->postalcode)}}</div>
-            <div>{{__('City:'. $carrinho->invoiceaddress->city)}}</div>
-            <div>{{__('State:'. $carrinho->invoiceaddress->state)}}</div>
-            <div>{{__('Country:'. $carrinho->invoiceaddress->country)}}</div>
+            <div>{{__('Number')}}{{':'. $carrinho->invoiceaddress->number}}</div>
+            <div>{{__('Complement')}}:{{ $carrinho->invoiceaddress->complement}}</div>
+            <div>{{__('Neighborhood')}}:{{ $carrinho->invoiceaddress->neighborhood}}</div>
+            <div>{{__('Postalcode')}}:{{$carrinho->invoiceaddress->postalcode}}</div>
+            <div>{{__('City')}}:{{$carrinho->invoiceaddress->city}}</div>
+            <div>{{__('State')}}:{{$carrinho->invoiceaddress->state}}</div>
+            <div>{{__('Country')}}:{{$carrinho->invoiceaddress->country}}</div>
         @endif 
         </div>
     @endif

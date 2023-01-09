@@ -63,7 +63,7 @@ class CustomerController extends Controller
             'id_customer_group' =>!empty($request['customergroup']) ?  $request['customergroup'] : null,
             'password' => !empty($request['password']) ? Hash::make($request['password']) : $customer->password,
             'newsletter' => $request['newsletter'],
-            'status' => !empty($request['status']) ? $request['status'] : $customer->status,
+            'status' => !empty($request['status']) ? $request['status'] : 0,
         ];
         
         if (!$customer->update($data)) {
