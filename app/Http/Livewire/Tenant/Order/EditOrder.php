@@ -79,6 +79,7 @@ class EditOrder extends Component
         $this->customers=Customer::where('status',1)->get();
         $this->products = Product::all();
         $this->order = $order;
+        $this->customerid =  $order->id_customer;
         $this->id_address_invoice =$order->id_address_invoice;
         $this->id_address_delivery =$order->id_address_delivery;
         $this->method =$order->id_address_delivery;
@@ -254,7 +255,7 @@ public function addcart(Product $product,$optionid){
             }
         }
 public function update(){
-                 
+ 
                 $this->validate([
                     'customerid' =>'required',
                   'cartid'=>'required',
@@ -278,7 +279,7 @@ public function update(){
                 $itens=[];
                 $total=0;
                
-              
+             
             
                
             
@@ -300,13 +301,13 @@ public function update(){
                 $this->order->id_address_invoice = $billingaddress->id;
                 $this->order->id_shipping = $cartclosed->id_shipping;
                 $this->order->price_shipping = $cartclosed->price_shipping;
-                $this->order->status = 'Awaiting Payment';
+                $this->order->status = $this->statusorder;;
                 $this->order->update();
                 
           
                 
                 session()->flash('success', 'Order completed successfully!');
-                return redirect()->route('tenant.orders.show', ['order' => $this->orderid]);
+                return redirect()->route('tenant.orders.index');
             }
             catch(\Maxcommerce\PagSeguro\PagSeguroException $e) {
                 $e->getCode(); //codigo do erro

@@ -348,9 +348,13 @@
     "Applied Ticket":"Cupom Aplicado",
     "Address Delivery":"Endereço de Entrega",
     "Address Invoice":"Endereço de Cobrança",
-    "Select an Address":"Selecion um endereço",
+    "Select an Address":"Selecione um endereço",
     "Edit Order":"Cupom Aplicado",
-    "Select a Product":"Selecione um produto"
+    "Select a Product":"Selecione um produto",
+    "Canceled":"Cancelado",
+    "Delivered":"Entregue",
+    "Shipping Price":"Preço de Envio",
+    "Method Shipping":"Metodo de Envio"
  
    
 }

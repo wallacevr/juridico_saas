@@ -22,7 +22,7 @@ class OrderProduct extends Model
 
     public function advancedPrice(){
         $order = Order::find($this->id_order);
-        $customer = Customer::find($cart->id_customer);
+        $customer = Customer::find($order->id_customer);
         $product = Product::find($this->id_product);
         if($customer!=null){
             $prodcustgrp = ProductCustomersGroup::where('id_product',$this->id_product)

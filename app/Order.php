@@ -95,5 +95,10 @@ class Order extends Model
         return $description;
     }
 
-
+    public function invoiceaddress(){
+        return $this->belongsTo(Address::class, 'id_address_invoice');
+    }
+    public function deliveryaddress(){
+        return $this->belongsTo(Address::class, 'id_address_delivery');
+    }
 }

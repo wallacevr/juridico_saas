@@ -21,17 +21,17 @@
 </div>
 <div class="grid grid-cols-1 gap-1 md:grid-cols-2 my-4">
 
-    <div class="font-bold">{{__('Shipping Price: R$'. number_format( $order->price_shipping,2,',','.'))}}</div>
+    <div class="font-bold">{{__('Shipping Price')}}:R${{ number_format( $order->price_shipping,2,',','.')}}</div>
 
-    <div class="font-bold">{{__('Method Shipping:')}} {{$order->methodshipping()}}
+    <div class="font-bold">{{__('Method Shipping')}}: {{$order->methodshipping()}}
       
     </div>
 </div>
 <div class="grid grid-cols-1 gap-1 md:grid-cols-2 my-4">
 
-    <div class="font-bold">{{__('Customer:'. $order->customer->name)}}</div>
+    <div class="font-bold">{{__('Customer')}}:{{$order->customer->name}}</div>
 
-    <div class="font-bold">{{__('Taxvat:'. $order->customer->taxvat)}}</div>
+    <div class="font-bold">{{__('Taxvat')}}:{{$order->customer->taxvat}}</div>
 </div>
 
 <div class="overflow-x-auto relative my-4">
@@ -56,7 +56,16 @@
             </tr>
         </thead>
         <tbody>
+        @php
+            $total=0;
+            $finalvalue=0;
+         @endphp
           @foreach($orderproducts as $product)
+          @php
+                $total += $product->quantity* $product->product->price;
+                $finalvalue += $product->quantity* $product->FinalPrice();
+
+            @endphp
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                    {{ $product->product->name}}
@@ -76,6 +85,19 @@
         </tbody>
     </table>
 </div>
+<div class="grid grid-cols-1 gap-1 my-4">
+    <div>    
+        @if(isset($cart))
+            @if($cart->id_ticket!=null)
+            
+                    <h2 class="text-left font-bold ">{{__('Applied Ticket')}}:<span class="text-green-400 font-bold">{{$cart->ticket->validator}}</span> </h2>
+            @endif
+        @endif
+        </div>
+    <div class="font-bold">{{__('Total')}}: R${{$total}}</div>
+    <div class="font-bold">{{__('Discount')}}: R${{($total-$finalvalue)}}</div>
+    <div class="font-bold">{{__('Final Value')}}: R${{$finalvalue}}</div>
+</div>
 <div class="grid grid-cols-2 gap-2 my-4">
 
     <div class="font-bold">{{__('Address Delivery')}}</div>
@@ -94,23 +116,25 @@
     <div>{{__('State:'. $order->addressdelivery->state)}}</div>
     <div>{{__('Country:'. $order->addressdelivery->country)}}</div>
 </div>
-<div class="grid grid-cols-2 gap-2 my-4">
 
-    <div class="font-bold">{{__('Address Invoice')}}</div>
+        <div class="grid grid-cols-2 gap-2 my-4">
 
-  
-</div>
-<div class="grid grid-cols-1 gap-1 md:grid-cols-4">
-    
-    <div>{{__('Address:'. $order->addressinvoice->address)}}</div>
+            <div class="font-bold">{{__('Address Invoice')}}</div>
 
-    <div>{{__('Number:'. $order->addressinvoice->number)}}</div>
-    <div>{{__('Complement:'. $order->addressinvoice->complement)}}</div>
-    <div>{{__('Neighborhood:'. $order->addressinvoice->neighborhood)}}</div>
-    <div>{{__('Postalcode:'. $order->addressinvoice->postalcode)}}</div>
-    <div>{{__('City:'. $order->addressinvoice->city)}}</div>
-    <div>{{__('State:'. $order->addressinvoice->state)}}</div>
-    <div>{{__('Country:'. $order->addressinvoice->country)}}</div>
+        
+        </div>
+        <div class="grid grid-cols-1 gap-1 md:grid-cols-2">
+        @if($order->id_address_invoice!=null)    
+        <div>{{__('Address')}}{{':'. $order->invoiceaddress->address}}</div>
+
+            <div>{{__('Number')}}{{':'. $order->invoiceaddress->number}}</div>
+            <div>{{__('Complement')}}:{{ $order->invoiceaddress->complement}}</div>
+            <div>{{__('Neighborhood')}}:{{ $order->invoiceaddress->neighborhood}}</div>
+            <div>{{__('Postalcode')}}:{{$order->invoiceaddress->postalcode}}</div>
+            <div>{{__('City')}}:{{$order->invoiceaddress->city}}</div>
+            <div>{{__('State')}}:{{$order->invoiceaddress->state}}</div>
+            <div>{{__('Country')}}:{{$order->invoiceaddress->country}}</div>
+        @endif
 </div>
 
 

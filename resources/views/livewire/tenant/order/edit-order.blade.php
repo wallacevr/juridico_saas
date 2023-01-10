@@ -15,7 +15,7 @@
                         <div class="grid grid-cols-2 gap-6">
                         <div wire:ignore class="w-full">
                                         <label for="customer">{{__('Customer')}}</label>
-                                        <select class="form-control js-basic-single w-full" name="customer" id="customer"  >
+                                        <select class="form-control js-basic-single w-full" name="customer" id="customer"  wire:model="customerid">
                                             <option value="null">{{ __('Select a customer') }}</option>
                                             @foreach($customers as $customer)
                                                 <option value="{{ $customer->id }}"
@@ -50,33 +50,7 @@
                                         </script>
                             </div>
                        
-                            @if(count($carts)>0)
-                                <div class="w-full">
-                                <label for="cart" class="block mb-2 leading-5 text-gray-700">{{__('Cart')}}
-                                        </label>
-                                        <div class="mt-1 rounded-md ">
 
-                            
-                                            <select name="cart" id="cart" wire:model="cartid" wire:change="refreshaddress"  class="form-select block w-full sm:text-sm sm:leading-5 border px-4 py-3 rounded">
-                                                <option value="null">{{__('Select a cart')}}</option>
-                                                    @foreach($carts as $cart)
-                                                        <option value="{{$cart->id}}"
-                                                        @if($cart->id==$order->id_cart)
-                                                            selected
-                                                        @endif
-                                                        
-                                                        >{{$cart->id}}</option>
-                                                    @endforeach
-                                            </select>
-                                            @error('cartid')
-                                            <p class="mt-2 text-sm text-red-600">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
-                                        </div>
-                                </div>
-
-                           @endif
                             </div>
                             <div class="grid grid-cols-2 gap-6">
                            @if($addresses!=null)
@@ -207,7 +181,20 @@
                                                     @endif
                                                     
                                                     >{{ __('Sent') }}</option>
-               
+                                                    <option value="Canceled"
+                                                    @if($statusorder=="Canceled")
+                                                        selected
+
+                                                    @endif
+                                                    
+                                                    >{{ __('Canceled') }}</option>
+                                                    <option value="Delivered"
+                                                    @if($statusorder=="Delivered")
+                                                        selected
+
+                                                    @endif
+                                                    
+                                                    >{{ __('Delivered') }}</option>
                                                 </select>
                                                 @error('statusorder')
                                                     <p class="mt-2 text-sm text-red-600">
