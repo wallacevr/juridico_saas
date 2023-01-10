@@ -12,6 +12,6 @@ class Brand extends Model
         'status' => false,
     ];
     public function products(){
-        return $this->belongsToMany(Product::class)->orderBy('id','desc');
+        return $this->belongsToMany(Product::class)->where('status',1)->orderBy('id','desc');
     }
 }

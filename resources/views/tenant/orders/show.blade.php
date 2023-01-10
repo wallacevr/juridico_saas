@@ -37,21 +37,21 @@
 <div class="overflow-x-auto relative my-4">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th colspan="4" class="text-center">Itens</th>
+        <tr>
+                <th colspan="4" class="text-center">{{__('Items')}}</th>
             </tr>
             <tr>
                 <th scope="col" class="py-3 px-6">
-                    Product name
+                    {{__('Product Name')}}
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Variations
+                    {{__('Variations')}}
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Qty
+                    {{__('Qty')}}
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Price
+                    {{__('Price')}}
                 </th>
             </tr>
         </thead>
@@ -106,15 +106,15 @@
 </div>
 <div class="grid grid-cols-1 gap-1 md:grid-cols-4">
     
-    <div>{{__('Address:'. $order->addressdelivery->address)}}</div>
+<div>{{__('Address')}}{{':'. $order->deliveryaddress->address}}</div>
 
-    <div>{{__('Number:'. $order->addressdelivery->number)}}</div>
-    <div>{{__('Complement:'. $order->addressdelivery->complement)}}</div>
-    <div>{{__('Neighborhood:'. $order->addressdelivery->neighborhood)}}</div>
-    <div>{{__('Postalcode:'. $order->addressdelivery->postalcode)}}</div>
-    <div>{{__('City:'. $order->addressdelivery->city)}}</div>
-    <div>{{__('State:'. $order->addressdelivery->state)}}</div>
-    <div>{{__('Country:'. $order->addressdelivery->country)}}</div>
+<div>{{__('Number')}}{{':'. $order->deliveryaddress->number}}</div>
+<div>{{__('Complement')}}:{{ $order->deliveryaddress->complement}}</div>
+<div>{{__('Neighborhood')}}:{{ $order->deliveryaddress->neighborhood}}</div>
+<div>{{__('Postalcode')}}:{{$order->deliveryaddress->postalcode}}</div>
+<div>{{__('City')}}:{{$order->deliveryaddress->city}}</div>
+<div>{{__('State')}}:{{$order->deliveryaddress->state}}</div>
+<div>{{__('Country')}}:{{$order->deliveryaddress->country}}</div>
 </div>
 
         <div class="grid grid-cols-2 gap-2 my-4">
@@ -136,6 +136,16 @@
             <div>{{__('Country')}}:{{$order->invoiceaddress->country}}</div>
         @endif
 </div>
+<div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                <div class="flex justify-end">
+                    <span class="inline-flex rounded-md shadow-sm">
+                        <a href="{{ route('tenant.orders.index') }}"
+                            class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                            {{ __('Cancel') }}
+                        </a>
+                    </span>
 
+                </div>
+            </div>
 
 @endsection

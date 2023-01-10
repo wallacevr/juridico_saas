@@ -677,7 +677,7 @@ if(!function_exists('BuildMainMenu')){
             
           
             if(count($menu->children)>0){
-                echo(' <div class="flex items-center relative   grid grid-cols-12 ">');
+                echo(' <div class="flex items-center relative   grid grid-cols-6 ">');
                     foreach($menu->children as $children){
                         echo('<div class="ml-3" x-data="{ show'. $children->slug .'Top: false }">');
                             buildmenu($children->id);

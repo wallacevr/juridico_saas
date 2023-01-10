@@ -372,7 +372,7 @@
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th colspan="4" class="text-center">Itens</th>
+                <th colspan="4" class="text-center">{{__('Items')}}</th>
             </tr>
             <tr>
                 <th scope="col" class="py-3 px-6">
@@ -473,7 +473,7 @@
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div class="flex justify-end">
                     <span class="inline-flex rounded-md shadow-sm">
-                        <a href="{{ route('tenant.products.index') }}"
+                        <a href="{{ route('tenant.orders.index') }}"
                             class="py-1 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
                             {{ __('Cancel') }}
                         </a>

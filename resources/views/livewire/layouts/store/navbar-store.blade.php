@@ -22,7 +22,7 @@
 
                                 <!-- Logo -->
                             @if(get_config('general/store/logo/desktop')!=null)    
-                                <div class="ml-4 flex lg:ml-0">
+                                <div class="w-20 ml-4 flex lg:ml-0">
                                     <a href="{{ url('/') }}">
                                         <span class="sr-only">Maxcommerce</span>
                                         <img class="object-contain h-12 w-96 p-0 m-0" src="{{publicImage(get_config('general/store/logo/desktop') ) }}" alt="">
@@ -30,7 +30,7 @@
                                 </div>
                             @endif
                             <!-- Flyout menus -->
-                            <div class=" xl:ml-8 xl:self-stretch hidden lg:block">
+                            <div class="py-3  xl:ml-8 xl:self-stretch hidden lg:block">
                                 @include('layouts.menu.store_menu')
                             </div>
 

@@ -103,7 +103,15 @@
                     </div>
 
                     <div class="flex-shrink-0 flex items-center px-4">
-                        <img class="h-8 w-auto" src="{{ URL::to('/') . '/images/logo_max_commerce.png'}}"
+                        <img class="h-8 w-auto" 
+                            @if(get_config('general/store/logo/desktop')!=null)
+                                    src="{{publicImage(get_config('general/store/logo/desktop') ) }}"
+                            @else
+                                    src="{{ URL::to('/') . '/images/logo_max_commerce.png'}}"
+                            @endif
+
+                             
+                              
                              alt="Max Commerce">
                     </div>
                     <div class="mt-5 flex-1 h-0 overflow-y-auto">
@@ -164,7 +172,12 @@
             <div class="hidden lg:flex lg:flex-shrink-0 ">
                 <div class="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-white">
                     <div class="flex items-center flex-shrink-0 px-6">
-                        <img class="h-15 w-auto m-auto" src="{{ URL::to('/') . '/images/logo_max_commerce.png'}}"
+                        <img class="h-15 w-auto m-auto" 
+                            @if(get_config('general/store/logo/desktop')!=null)
+                                    src="{{publicImage(get_config('general/store/logo/desktop') ) }}"
+                            @else
+                                    src="{{ URL::to('/') . '/images/logo_max_commerce.png'}}"
+                            @endif
                              alt="Max Commerce">
                     </div>
                     <!-- Sidebar component, swap this element with another sidebar if you like -->
