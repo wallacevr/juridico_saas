@@ -31,13 +31,24 @@
                         <div class="flex flex-row flex-wrap grid grid-cols-1 gap-1">
                             <div class="w-48 md:w-1/2">
                                 <div class="mt-4  pr-2">
-                                    @include('layouts.snippets.fields', [
-                                        'type' => 'text',
-                                        'label' => 'Whatsapp',
-                                        'placeholder' => 'Whatsapp to Checkout',
-                                        'name' => 'whatsapp',
-                                        'value' => get_config('plugins/commnunication/whatsapppcheckout/whatsapp'),
-                                    ])
+                                    @if(strlen(getwhatsapp())>13)
+                                        @include('layouts.snippets.fields', [
+                                            'type' => 'text',
+                                            'label' => 'Whatsapp',
+                                            'placeholder' => 'Whatsapp to Checkout',
+                                            'name' => 'whatsapp',
+                                            'value' => getwhatsapp(),
+                                        ])
+                                       
+                                    @else
+                                        @include('layouts.snippets.fields', [
+                                                'type' => 'text',
+                                                'label' => 'Whatsapp',
+                                                'placeholder' => 'Whatsapp to Checkout',
+                                                'name' => 'whatsapp',
+                                                'value' =>substr(getwhatsapp(),2)
+                                            ])                                      
+                                    @endif  
                                 </div>
                             </div>
                             <div class="w-5">
@@ -51,8 +62,10 @@
                                         <input id="enabled" type="checkbox" name="enabled" class="form-input block w-full sm:text-sm sm:leading-5 border " 
                                         @if(get_config('plugins/commnunication/whatsapppcheckout/enabled')=='on')
                                             checked
-
+                                        @else
+                                            checked
                                         @endif
+                                        disabled
                                         />
                                     </div>
 
