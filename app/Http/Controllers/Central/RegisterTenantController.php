@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Step;
 use App\Rules\DocumentId;
 use App\Tenant;
+use App\Models\Config;
 use Illuminate\Http\Request;
 
 class RegisterTenantController extends Controller
@@ -41,6 +42,7 @@ class RegisterTenantController extends Controller
     }
     public function submit(Request $request)
     {
+       
         $data = $this->validate($request, [
             'domain' => 'required|string|unique:domains',
             'company' => 'required|string|max:255',
@@ -48,6 +50,7 @@ class RegisterTenantController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:tenants',
             'password' => 'required|string|confirmed|max:255',
+            'phone'=>'required'
         ]);
 
         $data['password'] = bcrypt($data['password']);
@@ -58,6 +61,7 @@ class RegisterTenantController extends Controller
         $tenant = (new CreateTenantAction)($data, $domain);
         
         // We impersonate user with id 1. This user will be created by the CreateTenantAdmin job.
+
         return redirect($tenant->impersonationUrl(1));
     }
 }

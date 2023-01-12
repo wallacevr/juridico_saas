@@ -16,6 +16,7 @@ use Auth;
 use PagSeguro; 
 use MelhorEnvio; 
 use PagSeguroPix; 
+use App\Tenant;
 use MelhorEnvio\Shipment;
 use MelhorEnvio\Resources\Shipment\Package;
 use MelhorEnvio\Enums\Service;
@@ -102,6 +103,7 @@ class Checkout extends Component
     }
 
     public function mount(){
+     
         $pluginspayment = Plugin::where('plugin_group_id',2)->where('active',1)->get();
         if($pluginspayment==null){
             $this->$pluginspayment=[];
@@ -657,6 +659,8 @@ class Checkout extends Component
             }else{
                 $this->enablesend = false;
             }
+            $this->cart->id_address_invoice=$this->invoiceaddress;
+            $this->cart->update();
         } catch (\Throwable $th) {
             //throw $th;
         }

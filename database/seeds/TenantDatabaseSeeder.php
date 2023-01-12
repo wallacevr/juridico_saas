@@ -18,10 +18,41 @@ class TenantDatabaseSeeder extends Seeder
                 'path' => 'general/layout/thumb_width',
                 'value' => 30
             ],
-        
             [
-                'path' => 'general/layout/thumb_width',
-                'value' => '30'
+                'path' => 'general/layout/small_width',
+                'value' => 60
+            ],
+            [
+                'path' => 'general/layout/medium_width',
+                'value' => 100
+            ],
+            [
+                'path' => 'general/layout/big_width',
+                'value' => 140
+            ],
+            [
+                'path' => 'general/layout/thumb_height',
+                'value' => 30
+            ],
+            [
+                'path' => 'general/layout/small_height',
+                'value' => 60
+            ],
+            [
+                'path' => 'general/layout/medium_height',
+                'value' => 100
+            ],
+            [
+                'path' => 'general/layout/big_height',
+                'value' => 140
+            ],
+            [
+                'path' => 'general/store/wallace',
+                'value' => 'wallace'
+            ],
+            [
+                'path' => 'general/store/name',
+                'value' => 'MaxCommerce'
             ], [
                 'path' => 'general/store/description',
                 'value' => 'Monte sua loja online sem dificuldades, com preços acessíveis'
@@ -148,7 +179,7 @@ class TenantDatabaseSeeder extends Seeder
                 <br />
                 Sin&ocirc;nimo de feminilidade e versatilidade, o&nbsp;<strong>vestido&nbsp;</strong>&eacute; uma pe&ccedil;a curinga e pr&aacute;tica. &Oacute;timo aliado para todos os momentos, sua modelagem pode variar sendo mais ajustada ou mais ampla e seu comprimento pode ser encontrado desde curto at&eacute; longo, favorecendo todos os gostos e adapt&aacute;vel a v&aacute;rios estilos e idades.<br />
                 <br />
-                Criada pensando no que h&aacute; de mais atual no mundo da moda, a marca&nbsp;<strong>Pool by Riachuelo</strong>&nbsp;re&uacute;ne desde a leveza para os pequenos, at&eacute; a atitude jovem com uma pegada fashionista para o guarda-roupa de quem ama estar sempre por dentro das tend&ecirc;ncias! Trazendo em sua identidade pe&ccedil;as modernas, despojadas, b&aacute;sicas e o bom e velho jeans.<br />
+                Criada pensando no que h&aacute; de mais atual no mundo da moda, a marca&nbsp;&nbsp;re&uacute;ne desde a leveza para os pequenos, at&eacute; a atitude jovem com uma pegada fashionista para o guarda-roupa de quem ama estar sempre por dentro das tend&ecirc;ncias! Trazendo em sua identidade pe&ccedil;as modernas, despojadas, b&aacute;sicas e o bom e velho jeans.<br />
                 <br />
                 <strong>A cor do produto nas fotos reproduzidas com modelos pode sofrer altera&ccedil;&otilde;es, em decorr&ecirc;ncia do uso do flash.</strong></p>
                 ',
@@ -169,7 +200,7 @@ class TenantDatabaseSeeder extends Seeder
                 <br />
                 Sin&ocirc;nimo de feminilidade e versatilidade, o&nbsp;<strong>vestido&nbsp;</strong>&eacute; uma pe&ccedil;a curinga e pr&aacute;tica. &Oacute;timo aliado para todos os momentos, sua modelagem pode variar sendo mais ajustada ou mais ampla e seu comprimento pode ser encontrado desde curto at&eacute; longo, favorecendo todos os gostos e adapt&aacute;vel a v&aacute;rios estilos e idades.<br />
                 <br />
-                Criada pensando no que h&aacute; de mais atual no mundo da moda, a marca&nbsp;<strong>Pool by Riachuelo</strong>&nbsp;re&uacute;ne desde a leveza para os pequenos, at&eacute; a atitude jovem com uma pegada fashionista para o guarda-roupa de quem ama estar sempre por dentro das tend&ecirc;ncias! Trazendo em sua identidade pe&ccedil;as modernas, despojadas, b&aacute;sicas e o bom e velho jeans.<br />
+                Criada pensando no que h&aacute; de mais atual no mundo da moda, a marca&nbsp;re&uacute;ne desde a leveza para os pequenos, at&eacute; a atitude jovem com uma pegada fashionista para o guarda-roupa de quem ama estar sempre por dentro das tend&ecirc;ncias! Trazendo em sua identidade pe&ccedil;as modernas, despojadas, b&aacute;sicas e o bom e velho jeans.<br />
                 <br />
                 <strong>A cor do produto nas fotos reproduzidas com modelos pode sofrer altera&ccedil;&otilde;es, em decorr&ecirc;ncia do uso do flash.</strong></p>
                 ',
@@ -335,13 +366,6 @@ class TenantDatabaseSeeder extends Seeder
        
         ); 
          
-        Config::createOrUpdate('general/layout/thumb_width', 30);
-        Config::createOrUpdate('general/layout/thumb_height', 30);
-        Config::createOrUpdate('general/layout/small_width', 60);
-        Config::createOrUpdate('general/layout/small_height', 60);
-        Config::createOrUpdate('general/layout/medium_width',100);
-        Config::createOrUpdate('general/layout/medium_height', 100);
-        Config::createOrUpdate('general/layout/big_width', 140);
-        Config::createOrUpdate('general/layout/big_height', 140);
+
     }
 }

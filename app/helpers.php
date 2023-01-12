@@ -133,8 +133,7 @@ if (!function_exists("imageCache")) {
     function imageCache($imageName=null,$size)
     {
 
-        $width = 254;
-        $height = 364;
+    
 
         switch($size){
             case 'thumb':
@@ -155,7 +154,11 @@ if (!function_exists("imageCache")) {
                 $height = get_config('general/layout/big_height');
                 break;
         }
-
+        if(($width==null)||($height==null)){
+            $width = 254;
+            $height = 364;
+    
+        }
         $tenantPath = 'tenant/' . tenant('id') . '/images/catalog/';
         $imagePath = public_path($tenantPath . $imageName);
 
@@ -218,9 +221,7 @@ if (!function_exists("publicImage")) {
         function publicimageCache($imageName=null,$size)
         {
     
-            $width = 254;
-            $height = 364;
-    
+        
             switch($size){
                 case 'thumb':
                     $width = get_config('general/layout/thumb_width');
@@ -240,7 +241,11 @@ if (!function_exists("publicImage")) {
                     $height = get_config('general/layout/big_height');
                     break;
             }
-    
+            if(($width==null)||($height==null)){
+                $width = 254;
+                $height = 364;
+        
+            }
             $tenantPath = 'tenant/' . tenant('id') . '/';
             $imagePath = public_path($tenantPath . $imageName);
     
@@ -722,10 +727,16 @@ if (!function_exists('geturlmenu')) {
 
 if (!function_exists('getwhatsapp')) {
     function getwhatsapp(){
-        if(strlen(str_replace(' ','',preg_replace('/[^\p{L}\p{N}\s]/', '',get_config('general/store/whatsapp'))))<13){
-            $whats="55".  str_replace(' ','',preg_replace('/[^\p{L}\p{N}\s]/', '',get_config('general/store/whatsapp')));
+        if(get_config('general/store/whatsapp')!="(xx) xxxxx - xxxx"){
+            $whats=get_config('general/store/whatsapp');
         }else{
-            $whats= str_replace(' ','',preg_replace('/[^\p{L}\p{N}\s]/', '',get_config('general/store/whatsapp')));
+            $whats=tenant('phone');
+        }
+      
+        if(strlen(str_replace(' ','',preg_replace('/[^\p{L}\p{N}\s]/', '',$whats)))<13){
+            $whats="55".  str_replace(' ','',preg_replace('/[^\p{L}\p{N}\s]/', '',$whats));
+        }else{
+            $whats= str_replace(' ','',preg_replace('/[^\p{L}\p{N}\s]/', '',$whats));
         }
         return $whats;
     }

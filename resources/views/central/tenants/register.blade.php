@@ -76,6 +76,12 @@
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div class="mt-6">
+                        @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Phone', 'placeholder'=>'(__)_____-____', 'name'=>'phone', 'value'=> '' ])
+                    </div>
+
+
+
 
                     <div class="mt-6">
                         <label for="email" class="block text-sm font-medium text-gray-700 leading-5">
