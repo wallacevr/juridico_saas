@@ -19,12 +19,12 @@ class SetLogo extends Component
     }
 
     public function mount(){
-        $path = __DIR__."\\..\\..\\..\\..\\..\\storage\\tenant".tenant('id') .'\\framework\\cache';
+        $path = __DIR__."/../../../../../../storage/tenant".tenant('id') .'/framework/cache';
         
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
-
+        
         if(get_config('general/store/logo/mobile') !=null){
             $this->initiallogos['mobile']="{source:'".publicImage(get_config('general/store/logo/mobile'))  ."'},";
         }else{
@@ -40,11 +40,12 @@ class SetLogo extends Component
         }else{
             $this->initiallogos['email']='';
         }
-        if(get_config('general/store/logo/checktout')!=null){
+        if(get_config('general/store/logo/checkout')!=null){
             $this->initiallogos['checkout']="{source:'". publicImage(get_config('general/store/logo/checkout'))   ."'},";
         }else{
             $this->initiallogos['checkout']='';
         }
+      
     }
 
     public function store(){
@@ -57,17 +58,17 @@ class SetLogo extends Component
         try {
             Config::createOrUpdate('general/store/logo/desktop','logo/desktop.'.$this->desktop->getClientOriginalExtension());
             $this->desktop->storeAs(tenant('id') . '/images/logo/','desktop.'.$this->desktop->getClientOriginalExtension() ,'publictenant');
-            Config::createOrUpdate('general/store/logo/mobile','mobile.'.$this->mobile->getClientOriginalExtension() );
+            Config::createOrUpdate('general/store/logo/mobile','logo/mobile.'.$this->mobile->getClientOriginalExtension() );
             $this->mobile->storeAs(tenant('id') .'/images/logo/','mobile.'.$this->mobile->getClientOriginalExtension() ,'publictenant');
-            Config::createOrUpdate('general/store/logo/email','email.'.$this->email->getClientOriginalExtension());
+            Config::createOrUpdate('general/store/logo/email','logo/email.'.$this->email->getClientOriginalExtension());
             $this->email->storeAs(tenant('id') .'/images/logo/','email.'.$this->email->getClientOriginalExtension() ,'publictenant');
-            Config::createOrUpdate('general/store/logo/checkout','checkout.'.$this->checkout->getClientOriginalExtension() );
+            Config::createOrUpdate('general/store/logo/checkout','logo/checkout.'.$this->checkout->getClientOriginalExtension() );
             $this->checkout->storeAs(tenant('id') .'/images/logo/','checkout.'.$this->checkout->getClientOriginalExtension() ,'publictenant');
             return redirect()->route('tenant.admin.dashboad')->with("success",  __('Store information updated.'));
            
         } catch (\Throwable $th) {
             //throw $th;
-            dd($th);
+          
         }
 
     }

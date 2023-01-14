@@ -22,8 +22,8 @@
       
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
        
-  
-
+          
+        
             // enable fileuploader plugin
             var $fileuploader = $('input.gallery_media').fileuploader({
                 limit: 100,
@@ -355,6 +355,7 @@
     
         });
 
+        
     </script>
 
 @endpush

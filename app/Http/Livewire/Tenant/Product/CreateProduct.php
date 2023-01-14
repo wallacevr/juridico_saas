@@ -66,6 +66,8 @@ class CreateProduct extends Component
     public $removedgroups=[];
     public $countremoved=0;
     public $customergroups=[];
+    public $optionid;
+  public $initialoptionimages="";
     protected $listeners = ['listaoptions' => 'listaoptions'];
 
     public function render()
@@ -99,11 +101,11 @@ class CreateProduct extends Component
 
     public function mount(){
         
-        $path = __DIR__."\\..\\..\\..\\..\\..\\storage\\tenant".tenant('id') .'\\framework\\cache';
+      $path = __DIR__."/../../../../../storage/tenant".tenant('id') .'/framework/cache';
         
-        if (!is_dir($path)) {
-            mkdir($path, 0777, true);
-        }
+      if (!is_dir($path)) {
+          mkdir($path, 0777, true);
+      }
         $this->variations = Variation::all();
         $this->brands = Brand::all();
         $this->customergroups =  CustomerGroup::all()->sortBy('name');
@@ -145,6 +147,7 @@ class CreateProduct extends Component
     public function store(){
      
       if($this->habilitavariations){
+      
         $this->validate( [
             'name' => 'required',
             'sku' =>'required',
@@ -249,12 +252,15 @@ class CreateProduct extends Component
               $ultima="";
               $key2=0;
               foreach($this->selected as $variation){
-                  $productvariation = ProductVariation::where('product_id',$product->id)->where('variation_id',$variation->id)->get();
-                  if($productvariation==null){
+                 
+                  $productvariation = ProductVariation::where('product_id',$product->id)->where('variation_id',$variation)->get();
+               
+                  if(count($productvariation)==0){
                     $prodvariation = new ProductVariation;
                     $prodvariation->product_id = $product->id;
                     $prodvariation->variation_id = $variation;
                     $prodvariation->save();
+                   
                   }
                  
               }
@@ -317,7 +323,7 @@ class CreateProduct extends Component
         }
 
 
-
+        dd(1);
 
                 return redirect()->route('tenant.products.index')->with("success", "Product created successfully!");
 

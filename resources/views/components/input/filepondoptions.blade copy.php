@@ -6,9 +6,9 @@
         pond = FilePond.create($refs.input,
         {
             files: [
-                @if(isset($this->initialoptionimages[$this->optionid]))
+                
                     {{$this->initialoptionimages[$this->optionid]}}
-                @endif
+            
                 
              ]
         });

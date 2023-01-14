@@ -1,37 +1,33 @@
-<div
+
+
+
+<div 
     wire:ignore
-    x-data="{pond: null}"
+    x-data 
+    
     x-init="
-        FilePond.registerPlugin(FilePondPluginImagePreview);
-        pond = FilePond.create($refs.input,
-        {
-            @if(isset($this->product))
-            files: [
-                
-                    {{$this->product->imagesfilepond()}}
-            
-                
-             ]
-             @endif
-});
-        pond.setOptions({
-            allowMultiple: {{ isset($attributes['multiple']) ? 'true' : 'false' }},
-            labelIdle:'{{__('Drag & Drop your files or Brownse')}}',
-            
+
+    FilePond.setOptions({
+        allowMultiple: {{ isset($attributes['multiple']) ? 'true' : 'false' }},
             server: {
-                process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                process:(fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
                     @this.upload('{{ $attributes['wire:model'] }}', file, load, error, progress)
                 },
                 revert: (filename, load) => {
                     @this.removeUpload('{{ $attributes['wire:model'] }}', filename, load)
-                },
+                 },
             },
         });
-">
-    
-   
-    
+    FilePond.create($refs.input,
+    {
+            @if(isset($this->initialimages))
+            files: [
+               {{$this->initialimages}}
+               
+           
+             ]
+            @endif
+}   );" 
+    >
     <input type="file" x-ref="input">     
 </div>
-
-

@@ -76,7 +76,7 @@ if (!function_exists("productImage")) {
         if (!is_file($image_path)) {
             $image = '/images/no-image.jpg';
         }
-
+     
         return $image;
     }
 }
@@ -103,7 +103,7 @@ if (!function_exists("productImagex")) {
         if (!is_file($image_path)) {
             $image = '/images/no-image.jpg';
         }
-      
+       
         return $image;
     }
 }
@@ -168,9 +168,17 @@ if (!function_exists("imageCache")) {
             $imagePath = public_path('/images/no-image.jpg');
             $imageName = 'no-image.jpg';
         }
+       
         getStoreImagePath('catalog/cache');
         $destination = $tenantPath . 'cache/' . $resize .'/'. $imageName;
         $imagedir=explode("/",$destination ,-1);
+
+        $path = public_path('tenant/'. tenant('id') .'/images/catalog/cache/'.$resize);
+        
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
+
 
         if(!file_exists(public_path(implode("/",$imagedir)))){
             mkdir(public_path(implode("/",$imagedir)), 0777, true);

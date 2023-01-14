@@ -160,6 +160,11 @@ class TenantDatabaseSeeder extends Seeder
             'slug'=>'summer']
        
         );
+        $path = public_path('tenant/'.tenant('id') .'/images/collections');
+        
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
         Storage::disk('publictenant')->copy("images/collections/verao.png",  tenant('id') . '/images/collections/verao.png' );
         $productId=DB::table('products')->insertGetId(
             
@@ -216,10 +221,15 @@ class TenantDatabaseSeeder extends Seeder
             ]
        
         );
+        $path = public_path('tenant/'.tenant('id') .'/images/catalog');
+        
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
         Storage::disk('publictenant')->copy("images/product/1/1.png",  tenant('id') . '/images/catalog/'. $productId .'/1.png' );
         Storage::disk('publictenant')->copy("images/product/1/2.png",  tenant('id') . '/images/catalog/'. $productId .'/2.png' );
-        Storage::disk('publictenant')->copy("images/product/1/3.png",  tenant('id') . '/images/catalog/'. $productId .'/3.png' );
-        DB::table('product_images')->insertGetId(
+
+        DB::table('product_images')->insert(
             
             ['image_url' => '1.png',
             'title' => 'frente',
@@ -228,7 +238,7 @@ class TenantDatabaseSeeder extends Seeder
             ]
        
         );
-        DB::table('product_images')->insertGetId(
+        DB::table('product_images')->insert(
             
             ['image_url' => '2.png',
             'title' => 'tras',
@@ -237,18 +247,11 @@ class TenantDatabaseSeeder extends Seeder
             ]
        
         );
-        DB::table('product_images')->insertGetId(
-            
-            ['image_url' => '3.png',
-            'title' => 'frente',
-            'sort'=>3,
-            'product_id'=>$productId
-            ]
-       
-        );
+     
 
 
-        $collectionId=DB::table('collections')->insertGetId(
+
+        $collectionId=DB::table('collections')->insert(
             
             ['name' => 'Inverno',
             'description' => '<p>Os melhores produtos da Moda inverno</p>',
@@ -317,7 +320,7 @@ class TenantDatabaseSeeder extends Seeder
                 ]
            
         );
-        DB::table('collection_product')->insertGetId(
+        DB::table('collection_product')->insert(
             
             ['collection_id' => $collectionId,
             'product_id' => $productId,
@@ -329,7 +332,7 @@ class TenantDatabaseSeeder extends Seeder
         Storage::disk('publictenant')->copy("images/product/2/2.png",  tenant('id') . '/images/catalog/'. $productId .'/2.png' );
         Storage::disk('publictenant')->copy("images/product/2/3.png",  tenant('id') . '/images/catalog/'. $productId .'/3.png' );
         Storage::disk('publictenant')->copy("images/product/2/4.png",  tenant('id') . '/images/catalog/'. $productId .'/4.png' );
-        DB::table('product_images')->insertGetId(
+        DB::table('product_images')->insert(
             
             ['image_url' => '1.png',
             'title' => 'frente',
@@ -338,7 +341,7 @@ class TenantDatabaseSeeder extends Seeder
             ]
        
         );
-        DB::table('product_images')->insertGetId(
+        DB::table('product_images')->insert(
             
             ['image_url' => '2.png',
             'title' => 'tras',
@@ -347,7 +350,7 @@ class TenantDatabaseSeeder extends Seeder
             ]
        
         );
-        DB::table('product_images')->insertGetId(
+        DB::table('product_images')->insert(
             
             ['image_url' => '3.png',
             'title' => 'tecido externo',
@@ -356,9 +359,9 @@ class TenantDatabaseSeeder extends Seeder
             ]
        
         ); 
-        DB::table('product_images')->insertGetId(
+        DB::table('product_images')->insert(
             
-            ['image_url' => '3.png',
+            ['image_url' => '4.png',
             'title' => 'tecido interno',
             'sort'=>4,
             'product_id'=>$productId
@@ -366,6 +369,10 @@ class TenantDatabaseSeeder extends Seeder
        
         ); 
          
-
+        $path = public_path('tenant/'. tenant('id') .'/images/catalog/cache/');
+        
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
     }
 }

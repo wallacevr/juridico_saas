@@ -62,6 +62,7 @@
                             <div class="col-span-12 sm:col-span-3">
                                 @include('layouts.snippets.fields', [
                                     'type' => 'text',
+                      
                                     'label' => 'Price',
                                     'placeholder' => 'R$ 90,00',
                                     'name' => 'price',
@@ -74,6 +75,7 @@
                             <div class="col-span-12 sm:col-span-3">
                                 @include('layouts.snippets.fields', [
                                     'type' => 'text',
+                                  
                                     'label' => 'Special price',
                                     'placeholder' => 'R$ 90,00',
                                     'name' => 'special_price',
@@ -86,6 +88,7 @@
                             <div class="col-span-12 sm:col-span-3">
                                 @include('layouts.snippets.fields', [
                                     'type' => 'text',
+  
                                     'label' => 'Cost price',
                                     'placeholder' => 'R$ 90,00',
                                     'name' => 'cost',
@@ -117,7 +120,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Qty',
-                                    'placeholder' => 'R$ 90,00',
+                                    'placeholder' => 'Qty',
                                     'name' => 'qty',
                                     'value' => '1',
                                     'require' => false,
@@ -128,7 +131,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Min Qty',
-                                    'placeholder' => 'R$ 90,00',
+                                    'placeholder' => 'Min Qty',
                                     'name' => 'min_qty',
                                     'value' => '1',
                                     'require' => false,
@@ -140,7 +143,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Max Qty',
-                                    'placeholder' => 'R$ 90,00',
+                                    'placeholder' => 'Max Qty',
                                     'name' => 'max_qty',
                                     'value' => '0',
                                     'require' => false,
@@ -298,9 +301,10 @@
                                                         <div>
                                                             @include('layouts.snippets.optionsfields', [
                                                                 'type' => 'text',
+                                                                'class'=>'real',
                                                                 'label' => 'Price',
                                                                 'placeholder' => 'R$90,00',
-                                                                'name' => 'price',
+                                                                'name' => 'optionprice',
                                                                 'value' => '',
                                                                 'require' => true,
                                                                 'wiremodel' => 'optionprice',
@@ -311,7 +315,7 @@
                                                             @include('layouts.snippets.optionsfields', [
                                                                     'type' => 'text',
                                                                     'label' => 'Qty',
-                                                                    'placeholder' => '200',
+                                                                    'placeholder' => 'Qty',
                                                                     'name' => 'qty',
                                                                     'value' => '',
                                                                     'require' => true,
@@ -365,7 +369,7 @@
                                                                 @php
                                                                  $x=0;
                                                                 @endphp
-                                                              
+                                                              @if($productoptions!=null)
                                                                 @foreach($productoptions as $option)
                                                                     <tr>
 
@@ -378,14 +382,15 @@
                                                                                 @include('layouts.snippets.optionsfields', [
                                                                                     'type' => 'text',
                                                                                     'label' => 'Price',
+                                                                                    'class' =>'real',
                                                                                     'placeholder' => 'R$90,00',
-                                                                                    'name' => 'price',
-                                                                                    'value' => '{{$option->price}}',
+                                                                                    'name' => 'price'.$option->id,
+                                                                                    'value' => '',
                                                                                     'require' => false,
                                                                                     'wiremodel' => 'optionprice',
                                                                                     'i'=> $option->id
                                                                                 ])
-
+                                                                       
                                                                         </td>
                                                                             <td class="w-1/4 px-2.5">
 
@@ -428,6 +433,7 @@
                                                                             $x=$x+1;
                                                                     @endphp
                                                                 @endforeach
+                                                            @endif
                                                             </table>
 
                                                         </div>
@@ -454,7 +460,7 @@
                         </div>
 
                         <div class="">
-                        <x-input.filepond wire:model="productimages" multiple></x-input>
+                            <x-input.filepond wire:model="productimages" multiple></x-input>
                        
                         </div>
                         <script>
@@ -621,5 +627,6 @@
     </div>
 @push('js')
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
 @endpush
 </div>
