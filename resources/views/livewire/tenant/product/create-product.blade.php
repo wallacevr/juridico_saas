@@ -60,7 +60,7 @@
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-12 sm:col-span-3">
-                                @include('layouts.snippets.fields', [
+                            @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'min' =>'0',
                                     'step' =>'0.01',
@@ -77,7 +77,7 @@
                             </div>
 
                             <div class="col-span-12 sm:col-span-3">
-                                @include('layouts.snippets.fields', [
+                            @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'min' =>'0',
                                     'step' =>'0.01',
@@ -94,7 +94,7 @@
                             </div>
 
                             <div class="col-span-12 sm:col-span-3">
-                                @include('layouts.snippets.fields', [
+                            @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'min' =>'0',
                                     'step' =>'0.01',
@@ -103,7 +103,7 @@
                                     'class'=>'form-control currency',
                                     'label' => 'Cost price',
                                     'placeholder' => 'R$ 90,00',
-                                    'name' => 'cost',
+                                    'name' => 'cost_price',
                                     'value' => '',
                                     'require' => false,
                                     'wiremodel' => 'cost_price'
@@ -152,11 +152,6 @@
                                             
                                             @include('layouts.snippets.optionsfields', [
                                                 'type' => 'number',
-                                                'min' =>'0',
-                                                'step' =>'0.01',
-                                                'datanumbertofixed' => '2',
-                                                'datanumberstepfactor'=> '100',
-                                                'class'=>'form-control currency',
                                                 'label' => 'Price',
                                                 'placeholder' => 'Price',
                                                 'name' => 'specialpricegrp',
@@ -479,7 +474,12 @@
                                                                         <td class="w-1/4 px-2.5">
                                                                                 
                                                                                 @include('layouts.snippets.optionsfields', [
-                                                                                    'type' => 'text',
+                                                                                    'type' => 'number',
+                                                                                    'min' =>'0',
+                                                                                    'step' =>'0.01',
+                                                                                    'datanumbertofixed' => '2',
+                                                                                    'datanumberstepfactor'=> '100',
+                                                                                    'class'=>'form-control currency',
                                                                                     'label' => 'Price',
                                                                                     'placeholder' => 'R$90,00',
                                                                                     'name' => 'price',
@@ -509,11 +509,10 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="{{(count($variationsselected)+2)}}" >
-                                                                                @php
-                                                                                    $optionid=$x;
-
+                                                                                @php 
+                                                                                    $this->optionid=$x;
                                                                                 @endphp
-                                                                                <x-input.filepondoptions wire:model="optionimages.{{ $x }}"></x-input>
+                                                                                <x-input.filepondoptions wire:model="optionimages.{{ $x }}" ></x-input>
                                                                         </td>
                                                                     </tr>
                                                                     
@@ -685,10 +684,5 @@
     </div>
 @push('js')
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-<script>
-  $(function() {
-    $('#price').maskMoney();
-  })
-</script>
 @endpush
 </div>

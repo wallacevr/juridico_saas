@@ -72,7 +72,7 @@ class CreateProduct extends Component
 
     public function render()
     {
-
+     
         $opcoes = $this->selected2;
 
           $combinar = array();
@@ -145,13 +145,15 @@ class CreateProduct extends Component
     }
 
     public function store(){
-     
+ 
       if($this->habilitavariations){
       
         $this->validate( [
             'name' => 'required',
             'sku' =>'required',
-            'price' =>'required',
+            'price' =>['required','numeric'],
+            'special_price' =>['required','numeric'],
+            'cost_price' =>['required','numeric'],
             'description' => 'required',
             'productimages' => 'required',
             'slug' => ['required','unique:products'],
@@ -162,7 +164,9 @@ class CreateProduct extends Component
      }else{
         $this->validate( [
             'name' => 'required',
-            'price' =>'required',
+            'price' =>['required','numeric'],
+            'special_price' =>['required','numeric'],
+            'cost_price' =>['required','numeric'],
             'sku' =>'required',
             'productimages' => 'required',
             'description' => 'required',
@@ -171,7 +175,7 @@ class CreateProduct extends Component
         ]);
      }
 
-    
+  
       try {
            if(empty($this->price)){
             $this->price=0;
@@ -187,9 +191,9 @@ class CreateProduct extends Component
             $product->description =  $this->description;
             $product->sku = $this->sku;
            
-            $product->price = number_format( str_replace(',','.',$this->price) ,2,'.',',');
-            $product->special_price = number_format(str_replace(',','.',$this->special_price),2,'.',',');
-            $product->cost = number_format(str_replace(',','.',$this->cost_price),2,'.',',');
+            $product->price = number_format( str_replace(',','.',$this->price) ,2,'.','');
+            $product->special_price = number_format(str_replace(',','.',$this->special_price),2,'.','');
+            $product->cost = number_format(str_replace(',','.',$this->cost_price),2,'.','');
             $product->weight=0;
             $product->width=0;
             $product->height=0;
@@ -277,7 +281,7 @@ class CreateProduct extends Component
                       if(empty($this->optionprice[$key])){
                         $this->optionprice[$key]=0;
                        }
-                      $productoption->price   = number_format(str_replace(",",'.',$this->optionprice[$key]),2,'.',',');
+                      $productoption->price   = number_format(str_replace(",",'.',$this->optionprice[$key]),2,'.','');
                       $productoption->qty_stock   = $this->optionqty[$key];
                     
 
@@ -317,13 +321,13 @@ class CreateProduct extends Component
                   'id_customer_group' => $this->grpcustomer[$key],
                   'id_product' => $product->id ,
                   'qty' =>str_replace(',','.', $this->minqtyspecialprice[$key]),
-                  'price' => number_format(str_replace(",",'.', $this->specialpricegrp[$key]),2,'.',','),
+                  'price' => number_format(str_replace(",",'.', $this->specialpricegrp[$key]),2,'.',''),
                 ]);
             }
         }
 
 
-        dd(1);
+       
 
                 return redirect()->route('tenant.products.index')->with("success", "Product created successfully!");
 

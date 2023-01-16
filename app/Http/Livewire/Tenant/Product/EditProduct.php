@@ -68,91 +68,111 @@ class EditProduct extends Component
     public $imagesoption=[];
     public $variationsupdate = false;
     public $initialvariarions=[];
+    public $showoptionsimage=[];
     protected $listeners = ['listaoptions' => 'listaoptions'];
 
     public function render()
     {
+      try {
+        //code...
+     
+       
+            $opcoes = $this->selected2;
 
-        $opcoes = $this->selected2;
+              $combinar = array();
+              foreach( $opcoes as $k => $v )
+              {
+                $combinar[] = $v;
+              }
 
-          $combinar = array();
-          foreach( $opcoes as $k => $v )
-          {
-            $combinar[] = $v;
-          }
+              $texto = $this->combinacao( '', $combinar, 0 );
+              $texto = preg_split( '/\n/', $texto, -1, PREG_SPLIT_NO_EMPTY );
 
-          $texto = $this->combinacao( '', $combinar, 0 );
-          $texto = preg_split( '/\n/', $texto, -1, PREG_SPLIT_NO_EMPTY );
+              $combinacoes = array();
+              foreach( $texto as $k => $v )
+              {
+                $combinacoes[] = preg_split( '/##/', $v, -1, PREG_SPLIT_NO_EMPTY );
+              }
+              $this->combinacoes=$combinacoes;
+          
+            array_push($this->options ,count($this->variationsselected));
 
-          $combinacoes = array();
-          foreach( $texto as $k => $v )
-          {
-            $combinacoes[] = preg_split( '/##/', $v, -1, PREG_SPLIT_NO_EMPTY );
-          }
-          $this->combinacoes=$combinacoes;
+
       
-        array_push($this->options ,count($this->variationsselected));
-
-
-  
-        return view('livewire.tenant.product.edit-product');
+            return view('livewire.tenant.product.edit-product');
+        } catch (\Throwable $th) {
+          //throw $th;
+          dd($th);
+        }
     }
 
 
     public function mount(Product $product){
-      $path = __DIR__."/../../../../../storage/tenant".tenant('id') .'/framework/cache';
+      try {
+        $path = __DIR__."/../../../../../storage/tenant".tenant('id') .'/framework/cache';
         
-      if (!is_dir($path)) {
-          mkdir($path, 0777, true);
-      }
-       
-        $this->product=$product;
-        $this->variations = Variation::all();
-        $this->productid=$product->id;
-        $this->name=$product->name;
-        $this->description=$product->description;
-        $this->sku=$product->sku;
-        $this->price=number_format($product->price,2,'.',',');
-        $this->special_price=number_format($product->special_price,2,'.',',');
-        $this->cost_price=number_format($product->cost,2,'.',',');
-        $this->manage_stock=$product->manage_stock;
-        $this->qty = $product->qty;
-        $this->min_qty = $product->min_qty;
-         $this->max_qty =$product->max_qty;
-         $this->meta_title =$product->meta_title;
-         $this->meta_description = $product->meta_description;
-         $this->slug =$product->slug;
-         $this->status = $product->status;
-         $this->collections = Collection::all();
-         $this->selectedcollections = $product->collections->pluck('id');
-         $this->brands = Brand::all();
-         $this->selectedbrands = $product->brands->pluck('id');
-         $this->selected = ProductVariation::where('product_id',$product->id)->pluck('variation_id');
-        $this->initialvariations= $this->selected;
-         $this->variationsselected = Variation::whereIn('id',$this->selected)->get();
-        $this->initialimages = $product->imagesfilepond();
-
-    
-         if(count($product->variations)>0){
-            $this->habilitavariations=true;
-            $this->selected = $product->variations()->pluck('variation_id')->toArray();
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
          
-            $this->productoptions = ProductOption::where('id_product',$product->id)->whereNotNull('price')->get();
+          $this->product=$product;
+          $this->variations = Variation::all();
+          $this->productid=$product->id;
+          $this->name=$product->name;
+          $this->description=$product->description;
+          $this->sku=$product->sku;
+     
 
-            foreach($this->productoptions as $key =>$option){
-                $this->optionqty[$option->id]=$option->qty_stock;
-                $this->optionprice[$option->id]=number_format($option->price,2,'.',',');
-                $this->optionimagessaveds[$option->id] = ProductOptionsImage::where('product_options_id',$option->id)->get();
-               $this->principaloptionimage[$option->id]= ProductOptionsImage::where('product_options_id',$option->id)->where('main',1)->pluck('id');
+
+          $this->price=$product->price;
+          $this->special_price=$product->special_price;
+          $this->cost_price=$product->cost;
+
+
+
+          $this->manage_stock=$product->manage_stock;
+          $this->qty = $product->qty;
+          $this->min_qty = $product->min_qty;
+           $this->max_qty =$product->max_qty;
+           $this->meta_title =$product->meta_title;
+           $this->meta_description = $product->meta_description;
+           $this->slug =$product->slug;
+           $this->status = $product->status;
+           $this->collections = Collection::all();
+           $this->selectedcollections = $product->collections->pluck('id');
+           $this->brands = Brand::all();
+           $this->selectedbrands = $product->brands->pluck('id');
+           $this->selected = ProductVariation::where('product_id',$product->id)->pluck('variation_id');
+          $this->initialvariations= $this->selected;
+           $this->variationsselected = Variation::whereIn('id',$this->selected)->get();
+          $this->initialimages = $product->imagesfilepond();
+
+      
+           if(count($product->variations)>0){
+              $this->habilitavariations=true;
+              $this->selected = $product->variations()->pluck('variation_id')->toArray();
+           
+              $this->productoptions = ProductOption::where('id_product',$product->id)->whereNotNull('price')->get();
+  
+              foreach($this->productoptions as $key =>$option){
+                  $this->optionqty[$option->id]=$option->qty_stock;
+                  
+                  $this->optionprice[$option->id]=$option->price;
+
+                  $this->showoptionsimage[$option->id]=false;
+                    $this->initialoptionimages[$option->id]=$option->imagesfilepond();
                
-                  $this->initialoptionimages[$option->id]=$option->imagesfilepond();
-                
-            }
-
-         }else{
-            $this->habilitavariations=false;
-         }
-       
+              }
+  
+           }else{
+              $this->habilitavariations=false;
+           }
+         
+  
+      } catch (\Throwable $th) {
+        //throw $th;
+        dd($th);
+      }
     }
     public function updatevariations(){
       $this->product->variations()->sync($this->selected);
@@ -211,7 +231,9 @@ class EditProduct extends Component
         $this->validate( [
             'name' => 'required',
             'sku' =>'required',
-            'price' =>'required',
+            'price' =>['required','numeric'],
+            'special_price' =>['required','numeric'],
+            'cost_price' =>['required','numeric'],
             'description' => 'required',
             'productimages' => 'required',
             'slug' => ['required','unique:products,slug,'.$this->productid],
@@ -221,7 +243,9 @@ class EditProduct extends Component
      }else{
         $this->validate( [
             'name' => 'required',
-            'price' =>'required',
+            'price' =>['required','numeric'],
+            'special_price' =>['required','numeric'],
+            'cost_price' =>['required','numeric'],
             'sku' =>'required',
             'description' => 'required',
             'productimages' => 'required',
@@ -241,9 +265,9 @@ class EditProduct extends Component
             $product->name = $this->name;
             $product->description =  $this->description;
             $product->sku = $this->sku;
-            $product->price = number_format(str_replace(',','.',$this->price),2,'.',',');
-            $product->special_price = number_format(str_replace(',','.',$this->special_price),2,'.',',');
-            $product->cost = number_format(str_replace(',','.',$this->cost_price),2,'.',',');
+            $product->price = $this->price;
+            $product->special_price = $this->special_price;
+            $product->cost = $this->cost_price;
             $product->manage_stock = $this->manage_stock;
             $product->qty = $this->qty;
             $product->min_qty = $this->min_qty;
@@ -257,12 +281,14 @@ class EditProduct extends Component
 
             $x=0;
             ProductImage::where('product_id', $product->id)->delete();
+        
             foreach ($this->productimages as $photo) {
 
                $photo->storeAs(tenant('id') .'/images/catalog/'. $product->id,$photo->getClientOriginalName() ,'catalogo');
                $product->images()->create(['image_url'=>$photo->getClientOriginalName(),'sort'=>$x,'title'=>Str::of($photo->getClientOriginalName())->basename('.'.$photo->getClientOriginalExtension())]);
                 $x=$x+1;
               }
+              
             $dados=[];
             if($this->newselectedcollections!=[]){
               foreach($this->newselectedcollections as $index=>$collection){
@@ -294,24 +320,29 @@ class EditProduct extends Component
                 $prodvariation->variation_id = $variation;
                 $prodvariation->save();
               }    
+            
               foreach($this->productoptions as $prodopt){
           
                   $opt = ProductOption::find($prodopt->id);
                   $opt->qty_stock = $this->optionqty[$prodopt->id];
-                  $opt->price = number_format($this->optionprice[$prodopt->id],2,'.',',');
+                
+                  $opt->price = $this->optionprice[$prodopt->id];
                   $opt->update();
 
                   $x=0;
-                  ProductOptionsImage::where('product_options_id', $opt->id)->delete();
-                 
-                  if(isset($this->optionimages[$opt->id])){
+                  if($showoptionsimage==true){
+                      ProductOptionsImage::where('product_options_id', $opt->id)->delete();
+                  
+                      if(isset($this->optionimages[$opt->id])){
+                        
                     
-                 
-                     $this->optionimages[$opt->id]->storeAs(tenant('id') .'/images/catalog/'. $product->id .'/'. $opt->id,$this->optionimages[$opt->id]->getClientOriginalName() ,'catalogo');
-                      $opt->images()->create(['product_options_id'=>$opt->id,'image_url'=>$this->optionimages[$opt->id]->getClientOriginalName(),'sort'=>$x,'title'=>Str::of($this->optionimages[$opt->id]->getClientOriginalName())->basename('.'.$this->optionimages[$opt->id]->getClientOriginalExtension())]);
-                        $x=$x+1;
-                     
+                        $this->optionimages[$opt->id]->storeAs(tenant('id') .'/images/catalog/'. $product->id .'/'. $opt->id,$this->optionimages[$opt->id]->getClientOriginalName() ,'catalogo');
+                          $opt->images()->create(['product_options_id'=>$opt->id,'image_url'=>$this->optionimages[$opt->id]->getClientOriginalName(),'sort'=>$x,'title'=>Str::of($this->optionimages[$opt->id]->getClientOriginalName())->basename('.'.$this->optionimages[$opt->id]->getClientOriginalExtension())]);
+                            $x=$x+1;
+                        
+                      }
                   }
+                  
                       
        
                 
@@ -423,6 +454,10 @@ public function deleteoption(ProductOption $productoption){
     //throw $th;
     
   }
+}
+
+public function showoptionsimages($option){
+   $this->showoptionsimage[$option]=true;
 }
     
 }

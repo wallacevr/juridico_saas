@@ -63,7 +63,7 @@ class Product extends Model
           
             $imgs=$imgs ."{source:'". productImagex($image->image_url,$this->id,null)  ."'},";
           }
-          
+         
         return $imgs;
     }
 /*

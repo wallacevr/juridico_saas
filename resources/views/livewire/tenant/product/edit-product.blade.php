@@ -61,8 +61,12 @@
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-12 sm:col-span-3">
                                 @include('layouts.snippets.fields', [
-                                    'type' => 'text',
-                      
+                                    'type' => 'number',
+                                    'min' =>'0',
+                                    'step' =>'0.01',
+                                    'datanumbertofixed' => '2',
+                                    'datanumberstepfactor'=> '100',
+                                    'class'=>'form-control currency',
                                     'label' => 'Price',
                                     'placeholder' => 'R$ 90,00',
                                     'name' => 'price',
@@ -74,8 +78,12 @@
 
                             <div class="col-span-12 sm:col-span-3">
                                 @include('layouts.snippets.fields', [
-                                    'type' => 'text',
-                                  
+                                    'type' => 'number',
+                                    'min' =>'0',
+                                    'step' =>'0.01',
+                                    'datanumbertofixed' => '2',
+                                    'datanumberstepfactor'=> '100',
+                                    'class'=>'form-control currency',
                                     'label' => 'Special price',
                                     'placeholder' => 'R$ 90,00',
                                     'name' => 'special_price',
@@ -87,8 +95,12 @@
 
                             <div class="col-span-12 sm:col-span-3">
                                 @include('layouts.snippets.fields', [
-                                    'type' => 'text',
-  
+                                    'type' => 'number',
+                                    'min' =>'0',
+                                    'step' =>'0.01',
+                                    'datanumbertofixed' => '2',
+                                    'datanumberstepfactor'=> '100',
+                                    'class'=>'form-control currency',
                                     'label' => 'Cost price',
                                     'placeholder' => 'R$ 90,00',
                                     'name' => 'cost',
@@ -131,7 +143,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Min Qty',
-                                    'placeholder' => 'Min Qty',
+                                    'placeholder' => 'Min',
                                     'name' => 'min_qty',
                                     'value' => '1',
                                     'require' => false,
@@ -143,7 +155,7 @@
                                 @include('layouts.snippets.fields', [
                                     'type' => 'number',
                                     'label' => 'Max Qty',
-                                    'placeholder' => 'Max Qty',
+                                    'placeholder' => 'R$ 90,00',
                                     'name' => 'max_qty',
                                     'value' => '0',
                                     'require' => false,
@@ -300,11 +312,15 @@
                                                     @endforeach
                                                         <div>
                                                             @include('layouts.snippets.optionsfields', [
-                                                                'type' => 'text',
-                                                                'class'=>'real',
+                                                                'type' => 'number',
+                                                                'min' =>'0',
+                                                                'step' =>'0.01',
+                                                                'datanumbertofixed' => '2',
+                                                                'datanumberstepfactor'=> '100',
+                                                                'class'=>'form-control currency',
                                                                 'label' => 'Price',
                                                                 'placeholder' => 'R$90,00',
-                                                                'name' => 'optionprice',
+                                                                'name' => 'price',
                                                                 'value' => '',
                                                                 'require' => true,
                                                                 'wiremodel' => 'optionprice',
@@ -315,7 +331,7 @@
                                                             @include('layouts.snippets.optionsfields', [
                                                                     'type' => 'text',
                                                                     'label' => 'Qty',
-                                                                    'placeholder' => 'Qty',
+                                                                    'placeholder' => '200',
                                                                     'name' => 'qty',
                                                                     'value' => '',
                                                                     'require' => true,
@@ -369,7 +385,7 @@
                                                                 @php
                                                                  $x=0;
                                                                 @endphp
-                                                              @if($productoptions!=null)
+                                                              
                                                                 @foreach($productoptions as $option)
                                                                     <tr>
 
@@ -382,15 +398,14 @@
                                                                                 @include('layouts.snippets.optionsfields', [
                                                                                     'type' => 'text',
                                                                                     'label' => 'Price',
-                                                                                    'class' =>'real',
                                                                                     'placeholder' => 'R$90,00',
-                                                                                    'name' => 'price'.$option->id,
-                                                                                    'value' => '',
+                                                                                    'name' => 'price',
+                                                                                    'value' => '{{$option->price}}',
                                                                                     'require' => false,
                                                                                     'wiremodel' => 'optionprice',
                                                                                     'i'=> $option->id
                                                                                 ])
-                                                                       
+
                                                                         </td>
                                                                             <td class="w-1/4 px-2.5">
 
@@ -420,10 +435,21 @@
                                                                     <tr>
                                                                         <td colspan="4">
                                                                         <div class="">
+                                                                                @if(!$this->showoptionsimage[$option->id])
+                                                                                    <a href="#" wire:click="showoptionsimages({{$option->id}})">
+                                                                                        
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                                                                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                                                                                </svg>
+                                                                                    
+                                                                                    </a>
+                                                                                @endif
                                                                                 @php 
                                                                                     $this->optionid=$option->id;
                                                                                 @endphp
-                                                                                <x-input.filepondoptions wire:model="optionimages.{{$option->id}}" ></x-input>
+                                                                                @if($this->showoptionsimage[$option->id])
+                                                                                    <x-input.filepondoptions wire:model="optionimages.{{$option->id}}" multiple></x-input>
+                                                                                @endif    
                                                                         </div>
                                                                         </td>
                                                                     </tr>
@@ -433,7 +459,6 @@
                                                                             $x=$x+1;
                                                                     @endphp
                                                                 @endforeach
-                                                            @endif
                                                             </table>
 
                                                         </div>
@@ -627,6 +652,5 @@
     </div>
 @push('js')
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-
 @endpush
 </div>
