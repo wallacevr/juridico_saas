@@ -221,12 +221,14 @@
                     </div>
                 </div>
                 <br>
+            @if(count($product->variations)>0)  
                 <div class="shadow sm:rounded-md sm:overflow-hidden">
+                    
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div>
-
+                      
                             <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                <input type="checkbox" name="options" id="options" wire:model="habilitavariations"> {{ __('This product has options such as size or color') }}
+                                <input type="checkbox" name="options" id="options" wire:model="habilitavariations" disabled> {{ __('This product has options such as size or color') }}
                             </h3>
 
                         </div>
@@ -364,6 +366,7 @@
 
         </div>
         <br>
+     
             <div class="shadow sm:rounded-md sm:overflow-hidden" wire:poll.150ms>
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                                 <div>
@@ -475,6 +478,7 @@
                     </div>
 
                 </div>
+                @endif
                 <br>
                 <div class="shadow sm:rounded-md sm:overflow-hidden" wire:ignore>
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">

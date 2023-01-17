@@ -152,8 +152,7 @@ class CreateProduct extends Component
             'name' => 'required',
             'sku' =>'required',
             'price' =>['required','numeric'],
-            'special_price' =>['required','numeric'],
-            'cost_price' =>['required','numeric'],
+          
             'description' => 'required',
             'productimages' => 'required',
             'slug' => ['required','unique:products'],
@@ -165,8 +164,7 @@ class CreateProduct extends Component
         $this->validate( [
             'name' => 'required',
             'price' =>['required','numeric'],
-            'special_price' =>['required','numeric'],
-            'cost_price' =>['required','numeric'],
+       
             'sku' =>'required',
             'productimages' => 'required',
             'description' => 'required',

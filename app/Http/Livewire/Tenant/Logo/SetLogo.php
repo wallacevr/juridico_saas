@@ -19,12 +19,13 @@ class SetLogo extends Component
     }
 
     public function mount(){
-        $path = __DIR__."/../../../../../../storage/tenant".tenant('id') .'/framework/cache';
+        $path = __DIR__."/../../../../../storage/tenant".tenant('id') .'/framework/cache';
         
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
+         
         }
-        
+      
         if(get_config('general/store/logo/mobile') !=null){
             $this->initiallogos['mobile']="{source:'".publicImage(get_config('general/store/logo/mobile'))  ."'},";
         }else{

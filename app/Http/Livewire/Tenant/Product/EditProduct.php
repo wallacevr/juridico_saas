@@ -62,7 +62,7 @@ class EditProduct extends Component
     public $attributes;
     public $collections;
     public $product;
-    public $productoptions;
+    public $productoptions=[];
     public $optionadd=[];
     public $optionid="";
     public $imagesoption=[];
@@ -232,8 +232,7 @@ class EditProduct extends Component
             'name' => 'required',
             'sku' =>'required',
             'price' =>['required','numeric'],
-            'special_price' =>['required','numeric'],
-            'cost_price' =>['required','numeric'],
+         
             'description' => 'required',
             'productimages' => 'required',
             'slug' => ['required','unique:products,slug,'.$this->productid],
@@ -244,8 +243,7 @@ class EditProduct extends Component
         $this->validate( [
             'name' => 'required',
             'price' =>['required','numeric'],
-            'special_price' =>['required','numeric'],
-            'cost_price' =>['required','numeric'],
+   
             'sku' =>'required',
             'description' => 'required',
             'productimages' => 'required',
@@ -266,8 +264,13 @@ class EditProduct extends Component
             $product->description =  $this->description;
             $product->sku = $this->sku;
             $product->price = $this->price;
-            $product->special_price = $this->special_price;
-            $product->cost = $this->cost_price;
+            if($this->special_price!=""){
+              $product->special_price = $this->special_price;
+            }
+            if($this->cost_price!=""){
+              $product->cost = $this->cost_price;
+            }
+         
             $product->manage_stock = $this->manage_stock;
             $product->qty = $this->qty;
             $product->min_qty = $this->min_qty;
@@ -280,15 +283,29 @@ class EditProduct extends Component
             $product->update();
 
             $x=0;
+            
             ProductImage::where('product_id', $product->id)->delete();
-        
-            foreach ($this->productimages as $photo) {
+            $antigo = umask(0);
 
-               $photo->storeAs(tenant('id') .'/images/catalog/'. $product->id,$photo->getClientOriginalName() ,'catalogo');
-               $product->images()->create(['image_url'=>$photo->getClientOriginalName(),'sort'=>$x,'title'=>Str::of($photo->getClientOriginalName())->basename('.'.$photo->getClientOriginalExtension())]);
-                $x=$x+1;
-              }
+            $path = public_path(tenant('id') .'/images/catalog/'. $product->id);
+        
+            cleardir(public_path(tenant('id') .'/images/catalog/'. $product->id));
+            
+            foreach ($this->productimages as $photo) {
+            
+            
               
+               
+                  $photo->storeAs(tenant('id') .'/images/catalog/'. $product->id,$photo->getClientOriginalName() ,'catalogo');
+                  $product->images()->create(['image_url'=>$photo->getClientOriginalName(),'sort'=>$x,'title'=>Str::of($photo->getClientOriginalName())->basename('.'.$photo->getClientOriginalExtension())]);
+             
+                
+            
+              
+                $x=$x+1;
+             
+              }
+              umask($antigo);
             $dados=[];
             if($this->newselectedcollections!=[]){
               foreach($this->newselectedcollections as $index=>$collection){
@@ -330,7 +347,7 @@ class EditProduct extends Component
                   $opt->update();
 
                   $x=0;
-                  if($showoptionsimage==true){
+                  if($this->showoptionsimage==true){
                       ProductOptionsImage::where('product_options_id', $opt->id)->delete();
                   
                       if(isset($this->optionimages[$opt->id])){
@@ -357,7 +374,7 @@ class EditProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-        dd($th);
+
       }
     }
     public function removerimagem($x,$position){
@@ -433,7 +450,7 @@ class EditProduct extends Component
           }
         } catch (\Throwable $th) {
           //throw $th;
-          dd($th);
+         
         }
     }
 public function deleteoption(ProductOption $productoption){

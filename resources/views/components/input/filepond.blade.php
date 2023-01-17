@@ -29,7 +29,8 @@
            
              ]
             @endif
-}   );" 
+},
+   );" 
     >
     <input type="file" x-ref="prodimage">     
 </div>

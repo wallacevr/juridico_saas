@@ -13,6 +13,7 @@ class TenantDatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $antigo = umask(0);
        $configs = [
             [
                 'path' => 'general/layout/thumb_width',
@@ -251,7 +252,7 @@ class TenantDatabaseSeeder extends Seeder
 
 
 
-        $collectionId=DB::table('collections')->insert(
+        $collectionId=DB::table('collections')->insertGetId(
             
             ['name' => 'Inverno',
             'description' => '<p>Os melhores produtos da Moda inverno</p>',
@@ -374,5 +375,7 @@ class TenantDatabaseSeeder extends Seeder
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
+        umask($antigo);
     }
+   
 }

@@ -174,11 +174,11 @@ if (!function_exists("imageCache")) {
         $imagedir=explode("/",$destination ,-1);
 
         $path = public_path('tenant/'. tenant('id') .'/images/catalog/cache/'.$resize);
-        
+        $antigo = umask(0);
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
-
+        umask($antigo);
 
         if(!file_exists(public_path(implode("/",$imagedir)))){
             mkdir(public_path(implode("/",$imagedir)), 0777, true);
@@ -750,3 +750,21 @@ if (!function_exists('getwhatsapp')) {
     }
 
 }
+
+function cleardir($dir) { 
+    $iterator     = new RecursiveDirectoryIterator($dir,FilesystemIterator::SKIP_DOTS);
+    $rec_iterator = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST);
+  
+    foreach($rec_iterator as $file)
+    { 
+        
+      if($file->isFile()){
+        
+        deleteImage($dir,$file);
+       
+      }
+    } 
+  
+   
+    return $dir; 
+  }
