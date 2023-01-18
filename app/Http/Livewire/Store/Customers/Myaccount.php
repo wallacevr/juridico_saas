@@ -58,7 +58,8 @@ class Myaccount extends Component
         ]);
     }
 
-    public function mount(){
+    public function mount($tabvertical=null){
+      
        $customer = Customer::find(Auth::guard('customers')->user()->id);
        
        $this->name = $customer->name;
@@ -79,7 +80,7 @@ class Myaccount extends Component
        $this->state = $this->addresses[0]->state;
        $this->country = $this->addresses[0]->country;
        $this->wishlistproducts = $customer->wishlist;
-      
+      $this->tabv=$tabvertical;
         
     }
     public function setaddress(){

@@ -27,6 +27,7 @@ Route::group([
 
             Route::prefix('dashboard')->group(function () {
                 Route::get('/', 'CustomerController@customerDashboard')->name('customer.dashboard');
+                Route::get('/{tabvertical}', 'CustomerController@customerDashboard')->name('customer.dashboard.tab');
                 Route::get('/addresses', 'CustomerController@customerAddresses')->name('customer.addresses');
             });
             Route::resource('orders', 'OrderController');

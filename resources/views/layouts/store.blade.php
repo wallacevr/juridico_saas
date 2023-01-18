@@ -160,7 +160,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="#" class="text-base text-footer"> Lista de Desejos </a>
+                                    <a href="{{route('store.customer.dashboard.tab',['tabvertical'=>'wishlist'])}}" class="text-base text-footer"> Lista de Desejos </a>
                                 </li>
                             </ul>
                         </div>

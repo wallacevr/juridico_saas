@@ -26,7 +26,7 @@ class CustomerController extends Controller
         DB::beginTransaction();
 
         $user = $this->create($request->all());
-
+      
         if (empty($user)) {
             DB::rollBack();
         }
@@ -34,6 +34,7 @@ class CustomerController extends Controller
         DB::commit();
 
         $auth = auth()->guard('customers');
+     
         $auth->login($user);
 
         return redirect(RouteServiceProvider::HOME);
@@ -71,7 +72,7 @@ class CustomerController extends Controller
                 return $customer;
        } catch (\Throwable $th) {
         //throw $th;
-      
+       
        }
     }
 
@@ -109,9 +110,9 @@ class CustomerController extends Controller
     {
     }
 
-    public function customerDashboard()
+    public function customerDashboard($tabvertical=null)
     {
-        return view('store.customers.dashboard');
+        return view('store.customers.dashboard',compact('tabvertical'));
     }
 
     public function customerAddresses()

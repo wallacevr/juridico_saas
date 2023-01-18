@@ -16,7 +16,7 @@
   <p>{{ __('Transactions') }}</p>
 </div>
 --}}
-@livewire('store.customers.myaccount')
+@livewire('store.customers.myaccount',['tabvertical'=>$tabvertical])
 @endsection
 
 

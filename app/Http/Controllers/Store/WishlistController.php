@@ -20,6 +20,7 @@ class WishlistController extends Controller
                 $wishlist->id_customer = Auth::guard('customers')->user()->id;
                 $wishlist->save();
             }
+            return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
         }
