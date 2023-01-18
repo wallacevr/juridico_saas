@@ -1,4 +1,4 @@
-@extends('layouts.tenant', ['title' => 'Tickets'])
+@extends('layouts.tenant', ['title' => __('Tickets')])
 
 @section('content')
 <header class="relative z-20 flex flex-none items-center justify-between border-b border-gray-200 py-4 px-6 bg-white">

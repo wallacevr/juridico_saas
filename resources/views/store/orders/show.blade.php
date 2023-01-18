@@ -21,17 +21,17 @@
 </div>
 <div class="grid grid-cols-1 gap-1 md:grid-cols-2 my-4">
 
-    <div class="font-bold">{{__('Shipping Price: R$'. number_format( $order->price_shipping,2,',','.'))}}</div>
+    <div class="font-bold">{{__('Shipping Price')}}: {{__('R$'. number_format( $order->price_shipping,2,',','.'))}}</div>
 
-    <div class="font-bold">{{__('Method Shipping:')}} {{$order->methodshipping()}}
+    <div class="font-bold">{{__('Method Shipping')}}: {{$order->methodshipping()}}
        
     </div>
 </div>
 <div class="grid grid-cols-1 gap-1 md:grid-cols-2 my-4">
 
-    <div>{{__('Customer:'. $order->customer->name)}}</div>
+    <div>{{__('Customer')}}: {{__($order->customer->name)}}</div>
 
-    <div>{{__('Taxvat:'. $order->customer->taxvat)}}</div>
+    <div>{{__('Taxvat')}}: {{__($order->customer->taxvat)}}</div>
 </div>
 
 <div class="overflow-x-auto relative my-4">
@@ -42,16 +42,16 @@
             </tr>
             <tr>
                 <th scope="col" class="py-3 px-6">
-                    Product name
+                    {{__('Product name')}}
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Variations
+                    {{__('Variations')}}
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Qty
+                    {{__('Qty')}}
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Price
+                   {{__('Price')}}
                 </th>
             </tr>
         </thead>
@@ -84,15 +84,15 @@
 </div>
 <div class="grid grid-cols-1 gap-1 md:grid-cols-4">
     
-    <div>{{__('Address:'. $order->addressdelivery->address)}}</div>
+    <div>{{__('Address')}}: {{__($order->addressdelivery->address)}}</div>
 
-    <div>{{__('Number:'. $order->addressdelivery->number)}}</div>
-    <div>{{__('Complement:'. $order->addressdelivery->complement)}}</div>
-    <div>{{__('Neighborhood:'. $order->addressdelivery->neighborhood)}}</div>
-    <div>{{__('Postalcode:'. $order->addressdelivery->postalcode)}}</div>
-    <div>{{__('City:'. $order->addressdelivery->city)}}</div>
-    <div>{{__('State:'. $order->addressdelivery->state)}}</div>
-    <div>{{__('Country:'. $order->addressdelivery->country)}}</div>
+    <div>{{__('Number')}}: {{__($order->addressdelivery->number)}}</div>
+    <div>{{__('Complement')}}: {{__($order->addressdelivery->complement)}}</div>
+    <div>{{__('Neighborhood')}}: {{__($order->addressdelivery->neighborhood)}}</div>
+    <div>{{__('Postalcode')}}: {{__($order->addressdelivery->postalcode)}}</div>
+    <div>{{__('City')}}: {{__($order->addressdelivery->city)}}</div>
+    <div>{{__('State')}}: {{__($order->addressdelivery->state)}}</div>
+    <div>{{__('Country')}}: {{__($order->addressdelivery->country)}}</div>
 </div>
 <div class="grid grid-cols-2 gap-2 my-4">
 
@@ -102,15 +102,15 @@
 </div>
 <div class="grid grid-cols-1 gap-1 md:grid-cols-4">
     
-    <div>{{__('Address:'. $order->addressinvoice->address)}}</div>
+    <div>{{__('Address')}}: {{__($order->addressinvoice->address)}}</div>
 
-    <div>{{__('Number:'. $order->addressinvoice->number)}}</div>
-    <div>{{__('Complement:'. $order->addressinvoice->complement)}}</div>
-    <div>{{__('Neighborhood:'. $order->addressinvoice->neighborhood)}}</div>
-    <div>{{__('Postalcode:'. $order->addressinvoice->postalcode)}}</div>
-    <div>{{__('City:'. $order->addressinvoice->city)}}</div>
-    <div>{{__('State:'. $order->addressinvoice->state)}}</div>
-    <div>{{__('Country:'. $order->addressinvoice->country)}}</div>
+    <div>{{__('Number')}}: {{__( $order->addressinvoice->number)}}</div>
+    <div>{{__('Complement')}}: {{__($order->addressinvoice->complement)}}</div>
+    <div>{{__('Neighborhood')}}: {{__($order->addressinvoice->neighborhood)}}</div>
+    <div>{{__('Postalcode')}}: {{__($order->addressinvoice->postalcode)}}</div>
+    <div>{{__('City')}}: {{__($order->addressinvoice->city)}}</div>
+    <div>{{__('State')}}: {{__($order->addressinvoice->state)}}</div>
+    <div>{{__('Country')}}: {{__($order->addressinvoice->country)}}</div>
 </div>
 
 

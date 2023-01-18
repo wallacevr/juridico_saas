@@ -220,19 +220,19 @@
                             <div class="swiper-wrapper">
                             @if(!$optionimages)  
                         
-                                    @foreach ($productshow->images as $image)
+                                   
                                         <div class="swiper-slide">
                                             <div class="swiper-zoom-container">
-                                                <img src="{{ productImage($productshow->id .'/'. $image->image_url,'thumb') }}" />
+                                                <img src="{{ productImage($productshow->id .'/'. $productshow->images[0]->image_url,'thumb') }}" />
                                             </div> 
                                         </div>
-                                    @endforeach
+                                    
                                 @else
                                     @foreach ($optionimages as $image)
 
                                         <div class="swiper-slide">
                                             <div class="swiper-zoom-container">
-                                                <img src="{{ productImage($productshow->id .'/'. $image->product_options_id .'/'.$image->image_url,'thumb') }}" />
+                                                <img src="{{ productImage($productshow->id .'/'. $optionimages[0]->product_options_id .'/'.$optionimages[0]->image_url,'thumb') }}" />
                                             </div> 
                                         </div>
                                     @endforeach

@@ -284,6 +284,7 @@ public function update(){
                
             
                 $cartclosed = Cart::find($this->cartid);
+                $cartclosed->id_customer = $this->customerid;
                 $cartclosed->id_address_delivery = $shippingaddress->id;
                 $cartclosed->id_address_invoice = $billingaddress->id;
                 $cartclosed->id_shipping =0;

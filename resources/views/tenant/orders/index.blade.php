@@ -1,11 +1,11 @@
-@extends('layouts.tenant', ['title' => 'Orders'])
+@extends('layouts.tenant', ['title' => __('Orders')])
 
 @section('content')
 
 <div class="">
 	<div class="max-w-7xl mx-auto">
 		 <a href="{{ route('tenant.orders.create') }}" class="px-5 py-2 text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 active:bg-indigo-700 transition ease-in-out duration-150">
-			{{ __('New order') }}
+			{{ __('New Order') }}
 		</a> 
 		<div class="block mt-8">
 			<div class="flex flex-col">

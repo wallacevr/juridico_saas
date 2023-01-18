@@ -355,7 +355,18 @@
     "Delivered":"Entregue",
     "Shipping Price":"Preço de Envio",
     "Method Shipping":"Metodo de Envio",
-    "Items":"Itens"
+    "Items":"Itens",
+    "Created At": "Criado em",
+    "New Order":"Novo Pedido",
+    "Tickets": "Cupons",
+    "New ticket": "Novo CUpom",
+    "Payments": "Pagamentos",
+    "Shipping": "Envio",
+    "Communication": "Comunicação",
+    "See All":"Ver Tudo",
+    "Order completed successfully!": "Pedido realizado com suesso!",
+    "Address Name": "Nome do Endereço"
+   
  
    
 }

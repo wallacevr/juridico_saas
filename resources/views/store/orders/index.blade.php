@@ -5,7 +5,7 @@
 <div class="">
 	<div class="max-w-7xl mx-auto my-6">
 		{{-- <a href="{{ route('tenant.order.create') }}" class="px-5 py-2 text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 active:bg-indigo-700 transition ease-in-out duration-150">
-			{{ __('New order') }}
+			{{ __('New Order') }}
 		</a> --}}
 		<h1 class="text-center font-bold">{{__('My orders')}}</h1>
 		<div class="block mt-8">
