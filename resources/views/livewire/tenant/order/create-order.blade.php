@@ -216,23 +216,24 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
                     
                     <div class=" flex-initial product-image ">
+
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
                             <div class="swiper-wrapper">
-                            @if(!$optionimages)  
-                        
-                                   
+                            @if(count($optionimages)==0)  
+                                             
+                                    @foreach ($productshow->images as $image)
                                         <div class="swiper-slide">
                                             <div class="swiper-zoom-container">
-                                                <img src="{{ productImage($productshow->id .'/'. $productshow->images[0]->image_url,'thumb') }}" />
+                                                <img src="{{ productImage($productshow->id .'/'. $image->image_url,'thumb') }}" />
                                             </div> 
                                         </div>
-                                    
+                                    @endforeach
                                 @else
                                     @foreach ($optionimages as $image)
 
                                         <div class="swiper-slide">
                                             <div class="swiper-zoom-container">
-                                                <img src="{{ productImage($productshow->id .'/'. $optionimages[0]->product_options_id .'/'.$optionimages[0]->image_url,'thumb') }}" />
+                                                <img src="{{ productImage($productshow->id .'/'. $image->product_options_id .'/'.$image->image_url,'thumb') }}" />
                                             </div> 
                                         </div>
                                     @endforeach
