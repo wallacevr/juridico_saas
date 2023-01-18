@@ -284,12 +284,17 @@ class EditProduct extends Component
 
             $x=0;
             
+           
+            foreach ($product->images as $image) {
+              # code...
+           
+              deleteImage($image->image_url,'catalog/'. $product->id);
+            }
             ProductImage::where('product_id', $product->id)->delete();
-            $antigo = umask(0);
-
-            $path = public_path(tenant('id') .'/images/catalog/'. $product->id);
-        
-            cleardir(public_path(tenant('id') .'/images/catalog/'. $product->id));
+     
+           
+          
+           // cleardir(public_path(tenant('id') .'/images/catalog/'. $product->id));
             
             foreach ($this->productimages as $photo) {
             
@@ -305,7 +310,7 @@ class EditProduct extends Component
                 $x=$x+1;
              
               }
-              umask($antigo);
+             
             $dados=[];
             if($this->newselectedcollections!=[]){
               foreach($this->newselectedcollections as $index=>$collection){
@@ -347,7 +352,13 @@ class EditProduct extends Component
                   $opt->update();
 
                   $x=0;
-                  if($this->showoptionsimage==true){
+
+                  if($this->showoptionsimage[$opt->id]==true){
+                    foreach ($opt->images as $image) {
+                      # code...
+                   
+                      deleteImage($image->image_url,'catalog/'. $product->id .'/'. $image->image_ur);
+                    }
                       ProductOptionsImage::where('product_options_id', $opt->id)->delete();
                   
                       if(isset($this->optionimages[$opt->id])){
@@ -374,7 +385,7 @@ class EditProduct extends Component
 
       } catch (\Throwable $th) {
         //throw $th;
-
+        dd($th);
       }
     }
     public function removerimagem($x,$position){
