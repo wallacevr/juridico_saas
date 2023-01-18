@@ -18,7 +18,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
         <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
         <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
   <!-- add before </body> -->
