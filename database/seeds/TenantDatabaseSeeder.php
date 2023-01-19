@@ -376,6 +376,56 @@ class TenantDatabaseSeeder extends Seeder
             mkdir($path, 0777, true);
         }
         umask($antigo);
+         Page::create(
+            
+            ['name' => 'Contato',
+            'title' => 'Contato',
+            'content'=>'<p><strong>D&uacute;vidas, ligue<span style="color:#000000">&nbsp;</span></strong><span style="color:#000000">(xx)xxxx-xxxx</span></p>
+            
+            <p>&nbsp;</p>
+            
+            <p><strong>Envie um e-mail</strong><a href="mailto:lojas.contatorubiataba@hotmail.com.br">l</a>&nbsp;contato@sualoja.com</p>
+            
+            <p>&nbsp;</p>
+            
+            <p><small><strong>Hor&aacute;rio de atendimento:&nbsp;</strong></small></p>
+            
+            <p><small><strong>&nbsp; &nbsp;</strong>Segunda a sexta-feira, das 9h &agrave;s 17h. </small></p>
+            
+            <p><small>&nbsp; &nbsp;S&aacute;bados, das 9h &agrave;s 12h.</small></p>
+            
+            <p><small>&nbsp; &nbsp;Fechado aos domingos.</small></p>
+            
+            <p>&nbsp;</p>
+            
+            <p>&nbsp;</p>',
+            'status'=>1,
+            'url' =>'contato',
+            'keywords' => 'contatos,atendimento,email,telefone'
+        ],
+        ['name' => 'Política de Entrega',
+        'title' => 'Política de Entrega',
+        'content'=>'Insira seu conteúdo',
+        'status'=>1,
+        'url' =>'politica-de-entrega',
+        'keywords' => 'politica de entrega,política,entrega'
+        ],
+        ['name' => 'Troca e Devolução',
+        'title' => 'Troca e Devolução',
+        'content'=>'Insira seu conteúdo',
+        'status'=>1,
+        'url' =>'troca-e-devolucao',
+        'keywords' => 'troca,delolução,política'
+        ],
+        ['name' => 'Privacidade e Segurança',
+        'title' => 'Privacidade e Segurança',
+        'content'=>'Insira seu conteúdo',
+        'status'=>1,
+        'url' =>'privacidade-e-seguranca',
+        'keywords' => 'privacidade,segurança'
+        ]
+        ); 
+
     }
    
 }
