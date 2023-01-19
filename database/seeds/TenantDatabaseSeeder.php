@@ -3,7 +3,7 @@
 use App\Models\Config;
 use App\Menu;
 use Illuminate\Database\Seeder;
-
+use App\Page;
 class TenantDatabaseSeeder extends Seeder
 {
     /**
@@ -380,29 +380,14 @@ class TenantDatabaseSeeder extends Seeder
             
             ['name' => 'Contato',
             'title' => 'Contato',
-            'content'=>'<p><strong>D&uacute;vidas, ligue<span style="color:#000000">&nbsp;</span></strong><span style="color:#000000">(xx)xxxx-xxxx</span></p>
-            
-            <p>&nbsp;</p>
-            
-            <p><strong>Envie um e-mail</strong><a href="mailto:lojas.contatorubiataba@hotmail.com.br">l</a>&nbsp;contato@sualoja.com</p>
-            
-            <p>&nbsp;</p>
-            
-            <p><small><strong>Hor&aacute;rio de atendimento:&nbsp;</strong></small></p>
-            
-            <p><small><strong>&nbsp; &nbsp;</strong>Segunda a sexta-feira, das 9h &agrave;s 17h. </small></p>
-            
-            <p><small>&nbsp; &nbsp;S&aacute;bados, das 9h &agrave;s 12h.</small></p>
-            
-            <p><small>&nbsp; &nbsp;Fechado aos domingos.</small></p>
-            
-            <p>&nbsp;</p>
-            
-            <p>&nbsp;</p>',
+            'content'=>'Insira seu conteúdo',
             'status'=>1,
             'url' =>'contato',
             'keywords' => 'contatos,atendimento,email,telefone'
-        ],
+        ]
+        ); 
+        Page::create(
+
         ['name' => 'Política de Entrega',
         'title' => 'Política de Entrega',
         'content'=>'Insira seu conteúdo',
@@ -410,13 +395,18 @@ class TenantDatabaseSeeder extends Seeder
         'url' =>'politica-de-entrega',
         'keywords' => 'politica de entrega,política,entrega'
         ],
+      
+        ); 
+        Page::create(
         ['name' => 'Troca e Devolução',
         'title' => 'Troca e Devolução',
         'content'=>'Insira seu conteúdo',
         'status'=>1,
         'url' =>'troca-e-devolucao',
         'keywords' => 'troca,delolução,política'
-        ],
+        ]
+        ); 
+        Page::create(
         ['name' => 'Privacidade e Segurança',
         'title' => 'Privacidade e Segurança',
         'content'=>'Insira seu conteúdo',
@@ -425,7 +415,24 @@ class TenantDatabaseSeeder extends Seeder
         'keywords' => 'privacidade,segurança'
         ]
         ); 
-
+        Page::create(
+            ['name' => 'Sobre nós',
+            'title' => 'Sobre Nós',
+            'content'=>'Insira seu conteúdo',
+            'status'=>1,
+            'url' =>'sobre-nos',
+            'keywords' => 'sobre,nos,about'
+            ]
+            ); 
+        Page::create(
+            ['name' => 'Loja',
+            'title' => 'Loja',
+            'content'=>'Insira seu conteúdo',
+            'status'=>1,
+            'url' =>'loja',
+            'keywords' => 'loja, store'
+            ]
+            ); 
     }
    
 }
