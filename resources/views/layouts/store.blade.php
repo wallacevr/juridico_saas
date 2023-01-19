@@ -120,11 +120,11 @@
                             <h3 class="text-base font-medium text-footer">A MARCA</h3>
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
-                                    <a href="#" class="text-base text-footer"> Sobre Nós </a>
+                                    <a href="{{route('store.page.show',['slug'=>'sobre-nos'])}}" class="text-base text-footer"> Sobre Nós </a>
                                 </li>
 
                                 <li>
-                                    <a href="#" class="text-base text-footer"> Loja </a>
+                                    <a href="{{route('store.page.show',['slug'=>'loja'])}}" class="text-base text-footer"> Loja </a>
                                 </li>
 
                                 <li>
@@ -134,15 +134,15 @@
                             <h3 class="text-base font-medium text-footer">POLÍTICAS</h3>
                             <ul role="list" class="mt-4 space-y-4">
                                 <li>
-                                    <a href="#" class="text-base text-footer"> Política de Entrega </a>
+                                    <a href="{{route('store.page.show',['slug'=>'politica-de-entrega'])}}" class="text-base text-footer"> Política de Entrega </a>
                                 </li>
 
                                 <li>
-                                    <a href="#" class="text-base text-footer"> Troca e Devolução </a>
+                                    <a href="{{route('store.page.show',['slug'=>'troca-e-devolucao'])}}" class="text-base text-footer"> Troca e Devolução </a>
                                 </li>
 
                                 <li>
-                                    <a href="#" class="text-base text-footer"> Privacidade e Segurança </a>
+                                    <a href="{{route('store.page.show',['slug'=>'privacidade-e-seguranca'])}}" class="text-base text-footer"> Privacidade e Segurança </a>
                                 </li>
                             </ul>
                         </div>
