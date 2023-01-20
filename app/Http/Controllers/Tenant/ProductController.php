@@ -34,7 +34,7 @@ class ProductController extends Controller
         }
 
         return view('tenant.products.index', [
-            'products' => $products->paginate(25),'q'=>$search
+            'products' => $products->paginate(10),'q'=>$search
         ]);
     }
 

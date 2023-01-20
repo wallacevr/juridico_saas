@@ -85,7 +85,7 @@
 
 
 
-            <div class="col-span-12 sm:col-span-3 mt-6 hidden">
+            <div class="col-span-12 sm:col-span-3 mt-6 ">
                 <label for="country" class="block text-sm font-medium text-gray-700">
                     {{ __('Country') }}
                 </label>
@@ -115,7 +115,7 @@
 
         </div>
                     
-        <div class="bg-white py-8 px-4 mt-8 shadow sm:rounded-lg lg:mx-60 sm:px-10">
+        <div class="bg-white py-8 px-4 mt-8 shadow sm:rounded-lg lg:mx-64 sm:px-10">
             <h3 class="text-xl leading-6 font-medium text-gray-900 mb-6">
                 {{ __('Your password') }}
             </h3>
@@ -145,7 +145,7 @@
             </div>
         </div>
 
-        <div class="bg-white py-8 px-4 mt-8 shadow sm:rounded-lg lg:mx-60 sm:px-10">
+        <div class="bg-white py-8 px-4 mt-8 shadow sm:rounded-lg lg:mx-64 sm:px-10">
             <h3 class="text-xl leading-6 font-medium text-gray-900 mb-6">
                 {{ __('Other information') }}
             </h3>
