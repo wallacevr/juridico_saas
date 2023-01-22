@@ -1,0 +1,42 @@
+div .bannerComofunciona {
+    background-size: inherit !important;
+    box-shadow: inset 0px 8px 8px -10px #000;
+    border-bottom: 6px solid #382464;
+  
+
+}
+
+.texto-verde{
+    color: #76c585;
+}
+.passos{
+   font-weight: 700;
+    color: #1573b0;
+}
+
+section#banner .bd-exampleComoFunciona img{
+	margin-top: 0%;
+	width: 100%;
+	height:80vh;
+	overflow: hidden;
+    
+}
+section#passo2 {
+    background-color: #f4f4f4;
+  }
+section#descontos .container img{
+	margin-top: 0%;
+	width: 50%;
+	height:50%;
+	overflow: hidden;
+    
+}
+@media (max-width: 425px) {
+	section#banner .bd-exampleComoFunciona img{
+        margin-top: 0%;
+        width: 100%;
+        height:57vh;
+        overflow: hidden;
+        
+    }
+}

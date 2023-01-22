@@ -1,0 +1,42 @@
+.bannerContato {
+    background-size: cover;
+    background-position: 100%;
+    background-repeat:no-repeat ;
+    box-shadow: inset 0px 8px 8px -10px #000;
+
+}
+.h2Contato {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+    font-size: 4rem;
+    color: #fff;
+}
+@media (max-width: 600px) {
+    div .h2Contato {
+        text-align: center;
+        font-size: 2.4rem;
+   }
+}
+div .pContato {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+@media (max-width: 600px) {
+    div .pContato {
+        margin: 2% 23%;
+        text-align: center;
+   }
+}
+
+.btnFormEnviar{
+    padding: 10px 70px;
+    font-size: 23px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+}
+
+.inputFormContato{
+    font-size: 22px;
+}

@@ -54,16 +54,5 @@ class Customer extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function group(): BelongsTo
-    {
-        return $this->belongsTo(CustomerGroup::class, 'group_id');
-    }
 
-    public function opencarts(){
-        return $this->hasMany(Cart::class,'id_customer')->where('open',1);
-    }
-
-    public function wishlist(){
-        return $this->belongsToMany(Product::class, 'wishlist', 'id_customer', 'id_product');
-    }
 }

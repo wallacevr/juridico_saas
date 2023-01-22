@@ -1,0 +1,733 @@
+html{
+    overflow-x: hidden;
+}
+
+div .bannerHome {
+    background-size: cover;
+    box-shadow: inset 0px 8px 8px -10px #000;
+    border-bottom: 6px solid #382464;
+}
+div .h2Home, div .h4Home {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2.3rem;
+    font-weight: 900;
+    color: #fff;
+}
+@media (max-width: 600px) {
+    div .h2Home, div .h4Home {
+        text-align: center;
+   }
+}
+div .pHome {
+    color: #fff;
+    width: 50%;
+}
+@media (max-width: 600px) {
+    div .pHome {
+        margin: 2% 23%;
+        text-align: center;
+   }
+}
+div .ulHome {
+    list-style-type: none;
+    padding: 0;
+}
+div .ulHome li {
+    color: #fff;
+}
+@media (max-width: 600px) {
+    div .ulHome {
+        text-align: center;
+   }
+}
+
+
+
+/*praticidade*/
+.bg-gray {
+    background-color: #fafafa;
+}
+.linkPraticidade {
+    position: relative;
+    display: flex;
+    width: 235px !important;
+    height: 231px;
+    color: #000;
+    background-color: #fff;
+    border: 0 solid #000;
+    border-radius: 16px !important;
+    transition: all 0.5s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1);
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1);
+    transition: all 200ms ease-in;
+    transform: scale(1);
+}
+.linkPraticidade:hover {
+    background-color: #12b1d8;
+    border-radius: 14px;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.1);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.1);
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.1);
+    transition: all 200ms ease-in;
+    transform: scale(1.1);
+}
+@media (max-width: 600px) {
+    .linkPraticidade {
+        margin: 2% 23%;
+   }
+}
+.linkPraticidade .carde {
+    padding: 3%;
+}
+.linkPraticidade .carde h5 {
+    color: #12b1d8;
+    font-size: 1.3rem;
+    font-weight: bold;
+    width: 100%;
+}
+.linkPraticidade .carde p {
+    position: relative;
+    text-align: bottom;
+    color: #000;
+    font-size: 0.9rem;
+}
+.linkPraticidade .carde:hover h5, .linkPraticidade .carde:hover p {
+    color: #fff;
+}
+/*praticidade*/
+
+/*VIDEO*/
+.video {
+    width: 100%;
+    height: 650px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: inset 0 0 0 10000px rgba(65, 36, 100, 0.6);
+}
+.video:hover {
+    box-shadow: inset 0 0 0 10000px rgba(255, 255, 255, 0);
+}
+@media (max-width: 600px) {
+    .video {
+        height: 300px;
+   }
+}
+.botao-play {
+    padding-top: 20%;
+    padding-left: 45%;
+}
+
+/*VIDEO*/
+
+/*SOBRE NOS*/
+.bg-gray {
+    width: 100%;
+    background-color: #fafafa;
+}
+.ulQuemSomos{
+    padding: 0;
+}
+@media (max-width: 1024px) {
+    .bg-gray .font-purple {
+        font-size: 2.3rem;
+        font-weight: 800;
+   }
+    .bg-gray .font-purple-white {
+        font-size: 1.8rem;
+   }
+}
+.bg-gray .absolut {
+    display: flex;
+    width: 100%;
+    position: relative;
+    z-index: 4;
+    margin-top: 20px;
+}
+.precoinicial {
+    width: 5px !important;
+    height: 5px !important;
+}
+.bg-gray .absolut img {
+    width: 400px;
+    box-shadow: 0 0 1em #c2c2c2;
+    border-bottom-right-radius: 70px;
+    border-top-left-radius: 75px;
+}
+@media (max-width: 2560px) {
+    .bg-gray .absolut {
+        padding-left: 21%;
+   }
+}
+@media (max-width: 1998px) {
+    .bg-gray .absolut {
+        padding-left: 17%;
+   }
+}
+@media (max-width: 1600px) {
+    .bg-gray .absolut {
+        padding-left: 15%;
+   }
+}
+@media (max-width: 1498px) {
+    .bg-gray .absolut {
+        padding-left: 15%;
+   }
+    .bg-gray .absolut img {
+        width: 387px;
+   }
+    .bg-gray .absolut .font-purple {
+        font-size: 2.3rem;
+        font-weight: 800;
+   }
+}
+@media (max-width: 1445px) {
+    .bg-gray .absolut {
+        padding-left: 13%;
+   }
+    .bg-gray .absolut img {
+        width: 384px;
+   }
+    .bg-gray .absolut .font-purple {
+        font-size: 2.3rem;
+        font-weight: 800;
+   }
+}
+@media (max-width: 1403px) {
+    .bg-gray .absolut {
+        padding-left: 11%;
+   }
+    .bg-gray .absolut img {
+        width: 380px;
+   }
+    .bg-gray .absolut .font-purple {
+        font-size: 2.3rem;
+        font-weight: 800;
+   }
+}
+@media (max-width: 1314px) {
+    .bg-gray .absolut {
+        padding-left: 10%;
+   }
+}
+@media (max-width: 1232px) {
+    .bg-gray .absolut {
+        padding-left: 9%;
+   }
+}
+@media (max-width: 1203px) {
+    .bg-gray .absolut {
+        padding-left: 7%;
+   }
+}
+@media (max-width: 1135px) {
+    .bg-gray .absolut {
+        padding-left: 5%;
+   }
+}
+@media (max-width: 1024px) {
+    .bg-gray .absolut {
+        margin-top: 22px;
+        padding-left: 4%;
+   }
+    .bg-gray .absolut img {
+        width: 380px;
+   }
+}
+@media (max-width: 964px) {
+    .bg-gray .absolut {
+        padding-left: 1%;
+   }
+    .bg-gray .absolut img {
+        width: 378px;
+   }
+}
+@media (max-width: 930px) {
+    .bg-gray .absolut {
+        padding-left: 0%;
+   }
+    .bg-gray .absolut img {
+        width: 367px;
+   }
+}
+@media (max-width: 849px) {
+    .bg-gray .absolut {
+        padding-left: 0%;
+   }
+    .bg-gray .absolut img {
+        width: 330px !important;
+   }
+}
+@media (max-width: 769px) {
+    .bg-gray .absolut {
+        padding-left: 0 !important;
+   }
+    .bg-gray .absolut img {
+        width: 328px !important;
+   }
+}
+.bg-gray .borda_texto {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #fff;
+    color: #12b1d8;
+}
+.bg-gray .font-purple {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2.7rem;
+    font-weight: 900;
+    color: #382464;
+}
+.bg-gray .roxo {
+    background-color: #382464;
+    border-radius: 12px;
+    font-weight: bold;
+}
+.bg-gray .roxo:hover {
+    background-color: #fff;
+    color: #382464;
+}
+.bg-gray .cadastro {
+    background-color: #12b1d8;
+    width: 55vw;
+    position: relative;
+    float: left;
+    margin-left: -16%;
+}
+@media (max-width: 1232px) {
+    .bg-gray .cadastro {
+        margin-left: -18%;
+   }
+}
+@media (max-width: 1024px) {
+    .bg-gray .cadastro {
+        margin-left: -16%;
+        padding-top: 0.9rem;
+   }
+    .bg-gray .cadastro .font-purple {
+        font-size: 2.2rem;
+        font-weight: 800;
+   }
+}
+@media (max-width: 959px) {
+    .bg-gray .cadastro {
+        margin-left: -18%;
+   }
+}
+@media (max-width: 768px) {
+    .bg-gray .cadastro {
+        width: 55vw;
+        text-align: center;
+   }
+}
+@media (max-width: 600px) {
+    .bg-gray .cadastro {
+        width: 113vw;
+        text-align: center;
+   }
+}
+.bg-gray .cadastro-clique {
+    background-color: #0093b8;
+    width: 55vw;
+    height: 40px;
+    padding-top: 4px;
+    z-index: 2;
+}
+@media (max-width: 769px) {
+    .bg-gray .cadastro-clique {
+        width: 120vw;
+        text-align: center;
+   }
+}
+.bg-gray .cadastro-clique button {
+    width: 42%;
+    margin-left: 12%;
+    padding: 0 10%;
+    color: #fff;
+    font-weight: bold;
+    background-color: #0093b8;
+    border: 1px solid #fff;
+    z-index: 2;
+}
+.bg-gray .cadastro-clique button:hover {
+    background-color: #fff;
+    color: #0093b8;
+}
+@media (max-width: 1440px) {
+    .bg-gray .cadastro-clique button {
+        width: 55%;
+        margin-left: 14%;
+   }
+}
+@media (max-width: 1024px) {
+    .bg-gray .cadastro-clique button {
+        width: 63%;
+        margin-left: 17%;
+   }
+}
+@media (max-width: 600px) {
+    .bg-gray .cadastro-clique button {
+        width: 80%;
+        margin-left: 4%;
+   }
+}
+.bg-gray .font-purple-white {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    padding-left: 7%;
+}
+@media (max-width: 1394px) {
+    .bg-gray .font-purple-white {
+        font-size: 1.6rem;
+   }
+}
+@media (max-width: 975px) {
+    .bg-gray .font-purple-white {
+        font-size: 1.6rem;
+   }
+}
+@media (max-width: 937px) {
+    .bg-gray .font-purple-white {
+        font-size: 1.4rem;
+        padding-left: 0;
+        margin-left: 0;
+   }
+}
+.bg-gray p {
+    color: #000;
+}
+.bg-gray ul {
+    list-style-type: none;
+}
+.bg-gray ul li a {
+    color: #000;
+}
+@media (max-width: 600px) {
+    .bg-gray {
+        text-align: center;
+   }
+}
+/*SOBRE NOS*/
+
+/*PAGAMENTOS*/
+.fundo {
+    background-color: #f2f2f2;
+}
+.pPagamentos {
+    width: 100%;
+    padding: 0 15%;
+    color: #000;
+    font: 1.4rem;
+}
+.font-purple {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+}
+.roxo {
+    background-color: #382464;
+    border-radius: 12px;
+    font-weight: bold;
+}
+.roxo:hover {
+    background-color: #fff;
+    color: #382464;
+}
+.card {
+    height: 370px;
+    border-radius: 16px;
+    background-color: #e8e8e8;
+}
+.card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.card img {
+    border-radius: 16px 16px 0 0;
+}
+@media (max-width: 600px) {
+    .card {
+        margin: 0 16%;
+   }
+}
+.card .btn-secondary {
+    border-radius: 6px;
+    background-color: #382464;
+    padding: 0 12%;
+    font-weight: bold;
+}
+.card .btn-secondary:hover {
+    background-color: #e8e8e8;
+    color: #382464;
+}
+.card h5 {
+    color: #382464;
+    font-size: 1.3rem;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+.card .a {
+    width: 70px;
+    margin: 0 70px;
+    border-bottom: 6px solid #382464;
+    border-bottom-width: medium;
+}
+.card p {
+    position: relative;
+    color: #000;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.card-title-Planos{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800 !important;
+    font-size: 1.15rem !important;
+}
+/*PAGAMENTOS*/
+
+/*FACILIDADES*/
+.botao_adquira {
+    font-size: 1.4rem;
+    padding: 4px 14%;
+    font-weight: 900;
+    color: #382464;
+}
+.botao_adquira:hover {
+    background-color: #382464;
+}
+.borda-direita {
+    border-right: 4px solid #382464;
+}
+@media (max-width: 1200px) {
+    .borda-direita {
+        border: none;
+   }
+}
+@media (max-width: 600px) {
+    .borda-direita {
+        border: none;
+   }
+}
+.font-purple-facilidade {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #382464;
+}
+.paragrafo-purple-bold {
+    color: #382464;
+    font-weight: bold;
+}
+/*FACILIDADES*/
+
+/*COMENTARIOS*/
+.fundo-comentarios {
+    background-size: cover;
+}
+.h2Comentarios {
+    color: #fff;
+    font-size: 2.6rem;
+    font-weight: 900;
+    font-family: "Montserrat", sans-serif;
+}
+.carde-comentarios {
+    padding: 5%;
+    width: 306px;
+    height: 280px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1);
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1);
+    transition: all 200ms ease-in;
+    transform: scale(1);
+}
+@media (max-width: 600px) {
+    .carde-comentarios {
+        margin: 0 16%;
+   }
+}
+.carde-comentarios h5 {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+.carde-comentarios p {
+    position: relative;
+    color: #fff;
+    font-size: 0.9rem;
+    text-align: center;
+}
+.carde-comentarios:hover {
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.1);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.1);
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.1);
+    transition: all 200ms ease-in;
+    transform: scale(1.1);
+}
+.carde-comentarios:hover h5, .carde-comentarios:hover p {
+    color: #fff;
+}
+
+/*COMENTARIOS*/
+
+/*VIDEO*/
+.qs-banner video {
+    width: 100%;
+  }
+  
+  .banner-img {
+    display: none;
+  }
+  
+  @media (max-width: 950px) {
+    .qs-banner video {
+      display: none;
+    }
+    .banner-img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  
+.qs-banner-title{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+.qs-banner-title-sub{
+    color: #fff;
+    font-size: 3em;
+    text-transform: uppercase;
+    line-height: 1;
+    font-family: 'arial', sans-serif;
+    text-shadow: 1px 1px rgba(0,0,0,.5);
+    display: block;
+    margin-top: 1em;
+}
+.banner-title{
+    color: #fff;
+    line-height: .8;
+    font-size: 4.2em;
+    font-family: 'arial', sans-serif;
+    text-shadow: 1px 1px rgba(0,0,0,.5);
+}
+.banner-titlept1{
+    display: inline-block;
+    margin-right: .2em;
+    margin-bottom: .2em;
+}
+.banner-titlept2{
+    display: inline-block;
+    margin-right: .3em;
+}
+.banner-titlept3{
+    display: inline-block;
+    font-size: 2.8em;
+    margin-left: -.15em;
+}
+.banner-titlept4{
+    display: inline-block;
+    margin-left: 2.8em;
+}
+.carousel-item{
+    -webkit-animation: opacityitem 2s ease-in-out;
+            animation: opacityitem 2s ease-in-out;
+}
+@-webkit-keyframes opacityitem{
+    0%, 40%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes opacityitem{
+    0%, 40%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@media (max-width: 991px){
+    .banner-title{
+        font-size: 3em;
+    }
+    .qs-banner-title-sub{
+        font-size: 2em;
+    }
+}
+@media (max-width: 950px){
+    .qs-banner-title{
+        display: block;
+    }
+}
+@media (max-width: 767px){
+    .banner-title{
+        font-size: 2.5em;
+    }
+    .qs-banner-title-sub{
+        font-size: 1.5em;
+    }
+}
+@media (max-width: 575px){
+    .banner-title{
+        font-size: 1.5em;
+    }
+    .qs-banner-title-sub{
+        font-size: 1em;
+    }
+}
+  /*VIDEO*/
+
+ /* Minha Conta */
+ 
+.btnMinhaConta{
+    background-color: #382464;
+    padding: 8px 20px;
+    border: 2px solid #382464;
+    border-radius: 61px;
+    color: #fff;
+    transition: ease-in-out 0.3s;
+    text-decoration: none;
+}
+.btnMinhaConta:hover{
+    background-color: transparent;
+    color: #382464;
+    border: 2px solid #382464;
+    transition: ease-in-out 0.3s;
+    text-decoration: none;
+}
+
+.formSelectKlinics{
+    border: 2px solid #382464;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background: transparent;
+}

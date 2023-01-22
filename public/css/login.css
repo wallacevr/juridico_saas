@@ -1,0 +1,128 @@
+.h3Login {
+    font-family: "Montserrat", sans-serif;
+    color:  #12b1d8;
+    font-weight: 900;
+    font-size: 2.9rem;
+    margin-left: 11px;
+}
+.inputLogin {
+    padding: 10px 12px 10px 12px;
+    border: 1px solid grey;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    margin-top: 2px;
+    width: 123%;
+    height: 40px;
+    margin-left: -50px;
+    box-sizing: border-box;
+    color: #2c3e50;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+.divMD{
+    margin-top: -2px
+}
+.inputLogin:focus{
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #12b1d8;
+    outline-width: 0;
+}
+.buttonLogin:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0;
+}
+.btn-blue {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    background-color: transparent;
+    height: 40px;
+    color:  #12b1d8;
+    border: 2px solid  #12b1d8;
+    border-radius: 8px;
+    padding: 0px 10% !important;
+    margin-left: -30px;
+}
+.btn-blue:hover {
+    color: #fff;
+    background-color:  #12b1d8;
+}
+.bg-blue {
+    color: #fff;
+    background-color: #1a237e;
+}
+.labelRemember{
+    margin-left: -10px;
+    margin-top: 5px;
+    font-size: 17px;
+}
+.logo-login{
+    width: 150px;
+    height: 100px;
+}
+@media screen and (max-width: 991px) {
+    .border-line {
+        border-right: none;
+   }
+    .card2Login {
+        border-top: 1px solid #eee !important;
+        margin: 0px 15px;
+   }
+    .card2Login h3 {
+        font-size: 2.2rem;
+   }
+}
+
+
+/*RESETAR SENHA*/
+.card-resetSenha-body{
+    padding: 20px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 0px 0px 20px 20px;
+}
+
+.card-resetSenha-header{
+    background:  #12b1d8;
+    border-radius: 20px 20px 0px 0px;
+    padding: 10px 0;
+}
+
+.h3ResetSenha{
+    color: #fff;
+    font-size: 27px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    margin-top: 0;
+    margin-bottom: 0px;
+}
+
+.divCinzaResetSenha{
+    background: rgb(242, 242, 242);
+}
+
+.form-control-reset{
+    border: 1px solid grey;
+}
+
+.btnResetSenha{
+    padding: 6px 20px;
+    background: transparent;
+    border: 2px solid  #12b1d8;
+    border-radius: 10px;
+    color:  #12b1d8;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    transition: ease-in-out 0.4s;
+}
+
+.btnResetSenha:hover{
+    background-color:  #12b1d8;
+    border: 2px solid  #12b1d8;
+    transition: ease-in-out 0.2s;
+    color: #fff;
+}

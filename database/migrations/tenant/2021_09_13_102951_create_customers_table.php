@@ -33,9 +33,7 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->rememberToken();
 
-            $table->foreignId('group_id')->nullable();
-            $table->foreign('group_id')->references('id')->on('customers_group')->onUpdate('cascade')->onDelete('cascade');
-
+         
             $table->timestamps();
         });
     }

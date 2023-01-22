@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Max Commerce'),
+    'name' => env('APP_NAME', 'IziSystem'),
 
     /*
     |--------------------------------------------------------------------------

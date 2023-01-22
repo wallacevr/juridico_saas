@@ -1,0 +1,884 @@
+@media screen and (max-width: 1025){
+    .textoautomotiva{
+        font-size: 0.5rem !important;
+      }
+}
+@media screen and (max-width: 968px){
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important; 
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+}
+@media screen and (max-width: 768px){
+    html{
+        overflow-x: hidden !important;
+    }
+
+    .container-responsivo{
+        padding: 0px 3px !important;
+    }
+
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+
+    body{
+        width: 768px !important;
+    }
+    /*Login*/
+    .inputLogin{
+        width: 320px !important;
+    }
+    .buttonLogin{
+        position: relative !important;
+        left: -11px !important;
+    }
+    .btn-link{
+        position: relative !important;
+        left: -11px !important;
+    }
+    .divResponsivaLogin{
+        position: relative !important;
+        left: -76px !important;
+    }
+    .linkRecuperarSenha{
+        position: relative !important;
+        left: -2px !important;
+    }
+    /*Login*/
+    
+    /*Facilidades*/
+    .linkPraticidade{
+        position: relative !important;
+        left: -9px !important;
+    }
+    .cardResponsivo{
+        position: relative !important;
+        left: 0px !important;
+    }
+    .font-purple-facilidade{
+        font-size: 36px !important;
+    }
+    /*Facilidades*/
+
+    /*Cometarios*/
+    .h2Comentarios{
+        font-size: 35px !important;
+    }
+    .carde-comentarios{
+        margin-left: 0 !important;
+        position: relative !important;
+        left: 15px !important;
+    }
+    /*Cometarios*/
+
+    /*Quem Somos*/
+    .cardQuemSomos{
+        margin: 0 !important;
+        width: 331px !important;
+    }
+    .remedios{
+        font-size: 40px !important;
+    }
+    /*Quem Somos*/
+
+    /*Planos*/
+    .imgResponsiva{
+        width: 290px !important;
+    }
+    /*Planos*/
+}
+
+@media screen and (max-width: 511px){
+    html{
+        overflow-x: hidden !important;
+    }
+
+    .container-responsivo{
+        padding: 0px 3px !important;
+    }
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+
+}
+
+@media screen and (max-width: 460px){
+    html{
+        overflow-x: hidden !important;
+    }
+
+    .container-responsivo{
+        padding: 0px 3px !important;
+    }
+
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+}
+
+
+/*RESPONSIVO 425 GRANDE-iPhone X*/
+@media screen and (max-width: 425px){
+    html{
+        overflow-x: hidden !important;
+    }
+
+    .container-responsivo{
+        padding: 0px 3px !important;
+    }
+
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+
+    body{
+        width: 425px !important;
+    }
+    /*Login*/
+    .inputLogin{
+        width: 250px !important;
+        left: -50px !important;
+    }
+    .buttonLogin{
+        position: relative !important;
+        left: -35px !important;
+    }
+    .btn-link{
+        position: relative !important;
+        left: -35px !important;
+    }
+    .rowlogin{
+        padding-left: 0px !important;
+    }
+    .divResponsivaLogin{
+        position: relative !important;
+        left: -56px !important;
+    }
+    .linkRecuperarSenha{
+        position: relative !important;
+        left: -35px !important;
+    }
+    /*Login*/
+    
+    /*Facilidades*/
+    .linkPraticidade{
+        position: relative !important;
+        left: -9px !important;
+    }
+    .cardResponsivo{
+        position: relative !important;
+        left: 0px !important;
+    }
+    .font-purple-facilidade{
+        font-size: 36px !important;
+    }
+    /*Facilidades*/
+
+    /*Cometarios*/
+    .h2Comentarios{
+        font-size: 35px !important;
+    }
+    .carde-comentarios{
+        margin-left: 0 !important;
+        position: relative !important;
+        left: 15px !important;
+    }
+    /*Cometarios*/
+
+    /*Quem Somos*/
+    .cardQuemSomos{
+        margin: 0 !important;
+        width: 331px !important;
+    }
+    .remedios{
+        font-size: 40px !important;
+    }
+    /*Quem Somos*/
+
+    /*Planos*/
+    .imgResponsiva{
+        width: 290px !important;
+    }
+    /*Planos*/
+    /*Minha Conta */
+    .tbhistoricos{
+        font-size: 8px;
+    }
+    /*Minha Conta */
+}
+
+/*RESPONSIVO 411 GRANDE*/
+@media screen and (max-width: 411px){
+    html{
+        overflow-x: hidden !important;
+    }
+
+    .container-responsivo{
+        padding: 0px 3px !important;
+    }
+
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+
+    body{
+        width: 411px !important;
+    }
+    /*Login*/
+    .inputLogin{
+        width: 320px !important;
+    }
+    .buttonLogin{
+        position: relative !important;
+        left: -11px !important;
+    }
+    .btn-link{
+        position: relative !important;
+        left: -21px !important;
+    }
+    .divResponsivaLogin{
+        position: relative !important;
+        left: -76px !important;
+    }
+    .linkRecuperarSenha{
+        position: relative !important;
+        left: -2px !important;
+    }
+    /*Login*/
+    
+    /*Facilidades*/
+    .linkPraticidade{
+        position: relative !important;
+        left: -21px !important;
+    }
+    .cardResponsivo{
+        position: relative !important;
+        left: 0px !important;
+    }
+    .font-purple-facilidade{
+        font-size: 36px !important;
+    }
+    /*Facilidades*/
+
+    /*Cometarios*/
+    .h2Comentarios{
+        font-size: 35px !important;
+    }
+    .carde-comentarios{
+        margin-left: 0 !important;
+        position: relative !important;
+        left: 15px !important;
+    }
+    /*Cometarios*/
+
+    /*Quem Somos*/
+    .cardQuemSomos{
+        margin: 0 !important;
+        width: 331px !important;
+    }
+    .remedios{
+        font-size: 40px !important;
+    }
+    /*Quem Somos*/
+
+    /*Planos*/
+    .imgResponsiva{
+        width: 290px !important;
+    }
+    /*Planos*/
+        /*Minha Conta */
+        .tbhistoricos{
+            font-size: 8px;
+        }
+        /*Minha Conta */
+}
+
+/*RESPONSIVO 400 MEDIOS-GRANDE*/
+@media screen and (max-width: 400px){
+    .meusplanos{
+        font-size: 12px;
+    }
+    html{
+        overflow-x: hidden !important;
+    }
+
+    .container-responsivo{
+        padding: 0px 3px !important;
+    }
+
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+
+    body{
+        width: 400px !important;
+    }
+    /*Login*/
+    .inputLogin{
+        width: 320px !important;
+    }
+    .buttonLogin{
+        position: relative !important;
+        left: -11px !important;
+    }
+    .btn-link{
+        position: relative !important;
+        left: -11px !important;
+    }
+    .divResponsivaLogin{
+        position: relative !important;
+        left: -76px !important;
+    }
+    .linkRecuperarSenha{
+        position: relative !important;
+        left: -2px !important;
+    }
+    /*Login*/
+    
+    /*Facilidades*/
+    .linkPraticidade{
+        position: relative !important;
+        left: -21px !important;
+    }
+    .cardResponsivo{
+        position: relative !important;
+        left: 0px !important;
+    }
+    .font-purple-facilidade{
+        font-size: 36px !important;
+    }
+    /*Facilidades*/
+
+    /*Cometarios*/
+    .h2Comentarios{
+        font-size: 35px !important;
+    }
+    .carde-comentarios{
+        margin-left: 0 !important;
+        position: relative !important;
+        left: 15px !important;
+    }
+    /*Cometarios*/
+
+    /*Quem Somos*/
+    .cardQuemSomos{
+        margin: 0 !important;
+        width: 331px !important;
+    }
+    .remedios{
+        font-size: 40px !important;
+    }
+    /*Quem Somos*/
+
+    /*Planos*/
+    .imgResponsiva{
+        width: 290px !important;
+    }
+    /*Planos*/
+}
+
+/*RESPONSIVO 375 MEDIOS*/
+@media screen and (max-width: 375px){
+    .meusplanos{
+        font-size: 12px;
+    }
+    html{
+        overflow-x: hidden !important;
+    }
+
+    .container-responsivo{
+        padding: 0px 3px !important;
+    }
+
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+
+    body{
+        width: 375px !important;
+    }
+    /*Login*/
+    .inputLogin{
+        width:200px !important;
+    }
+    .buttonLogin{
+        position: relative !important;
+        left: -25px !important;
+    }
+    .btn-link{
+        position: relative !important;
+        left: -25px !important;
+    }
+    .divResponsivaLogin{
+        position: relative !important;
+        left: -76px !important;
+    }
+    .linkRecuperarSenha{
+        position: relative !important;
+        left: -45px !important;
+    }
+    /*Login*/
+    
+    /*Facilidades*/
+    .linkPraticidade{
+        position: relative !important;
+        left: -21px !important;
+    }
+    .cardResponsivo{
+        position: relative !important;
+        left: 0px !important;
+    }
+    .font-purple-facilidade{
+        font-size: 36px !important;
+    }
+    /*Facilidades*/
+
+    /*Cometarios*/
+    .h2Comentarios{
+        font-size: 35px !important;
+    }
+    .carde-comentarios{
+        margin-left: 0 !important;
+        position: relative !important;
+        left: 15px !important;
+    }
+    /*Cometarios*/
+
+    /*Quem Somos*/
+    .cardQuemSomos{
+        margin: 0 !important;
+        width: 331px !important;
+    }
+    .remedios{
+        font-size: 40px !important;
+    }
+    /*Quem Somos*/
+
+    /*Planos*/
+    .imgResponsiva{
+        width: 290px !important;
+    }
+    /*Planos*/
+        /*Minha Conta */
+        .tbhistoricos{
+            font-size: 7px;
+        
+        }
+        .table>:not(caption)>*>* {
+            padding: 0.3rem 0.3rem;
+        }
+        /*Minha Conta */
+}
+@media screen and (max-width: 376px){
+    .meusplanos{
+        font-size: 12px;
+    }
+    section#consultaspresenciais  img.imgvantagens{
+         margin: 12px 0;
+        width: 60px ;
+        height: auto ;
+            
+    }
+    section#descontosvantagens img.imgvantagens{
+        margin: 12px 0;
+        width: 60px ;
+        height: auto ;
+        
+    }
+    section#vantagens .card {
+
+        height:160px;
+
+      }
+    section#vantagens .card-title {
+       /* margin-top: 10px;*/
+       font-size: 0.8em;
+    }
+    .div-inner {
+        position: relative;
+        background: #f4f4f4;
+        width: 100vw;
+        height: 100vh;
+        
+      }
+      
+    footer img {
+        width: 60%;
+    }
+    section#descontosvantagens .ajustevantagens{
+        margin-top: -40%;
+    }
+      
+    section#consultaspresenciais .fundocinza{
+        background-image: url('../img/Partes_VANTAGENS/Img-Fundo.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+        /*Minha Conta */
+        .tbhistoricos{
+        font-size: 7px;
+    
+    }
+    .table>:not(caption)>*>* {
+        padding: 0.3rem 0.3rem;
+    }
+    /*Minha Conta */
+}
+/*RESPONSIVO 360 MOBILE PEQUENOS-MEDIOS*/
+@media screen and (max-width: 360px){
+    .meusplanos{
+        font-size: 12px;
+    }
+    .imgpreco{
+        width: 10px !important;
+        height: 3px !important;
+    }
+    html{
+        overflow-x: hidden !important;
+    }
+
+    .container-responsivo{
+        padding: 0px 3px !important;
+    }
+
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+
+    body{
+        width: 360px !important;
+    }
+    /*Login*/
+    .inputLogin{
+        width: 300px !important;
+    }
+    .buttonLogin{
+        position: relative !important;
+        left: -11px !important;
+    }
+    .btn-link{
+        position: relative !important;
+        left: -21px !important;
+    }
+    .divResponsivaLogin{
+        position: relative !important;
+        left: -76px !important;
+    }
+    /*Login*/
+    
+    /*Facilidades*/
+    .linkPraticidade{
+        position: relative !important;
+        left: -33px !important;
+    }
+    .cardResponsivo{
+        position: relative !important;
+        left: 0px !important;
+    }
+    .font-purple-facilidade{
+        font-size: 36px !important;
+    }
+    /*Facilidades*/
+
+    /*Cometarios*/
+    .h2Comentarios{
+        font-size: 35px !important;
+    }
+    .carde-comentarios{
+        margin-left: 0 !important;
+        position: relative !important;
+        left: 5px !important;
+    }
+    /*Cometarios*/
+
+    /*Quem Somos*/
+    .cardQuemSomos{
+        margin: 0 !important;
+        width: 311px !important;
+    }
+    .remedios{
+        font-size: 40px !important;
+    }
+    /*Quem Somos*/
+
+    /*Planos*/
+    .imgResponsiva{
+        width: 290px !important;
+    }
+    /*Planos*/
+           /*Minha Conta */
+           .tbhistoricos{
+            font-size: 7px;
+        
+        }
+        .table>:not(caption)>*>* {
+            padding: 0.3rem 0.3rem;
+        }
+        /*Minha Conta */
+}
+
+/*RESPONSIVO 320 MOBILE PEQUENOS*/
+@media screen and (max-width: 320px){
+    .meusplanos{
+        font-size: 11px;
+    }
+    .imgpreco{
+        width: 10px !important;
+        height: 3px !important;
+    }
+    html{
+        overflow-x: hidden !important;
+    }
+
+    .container-responsivo{
+        padding: 0px 3px !important;
+    }
+
+    /*MenuHeader*/
+    .show > .btnUsuarioLogado{
+        height: 41px !important;
+        padding: 6px 20px !important;
+        margin-left: -70px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .btnUsuarioLogadoSpan{
+        height: 41px !important;
+        position: relative !important;
+        left: 120px !important;
+    }
+    .show > .dropdownUsuario{
+        position: relative !important;
+        left: -47px !important;
+        top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    /*MenuHeader*/
+
+    body{
+        width: 320px !important;
+    }
+    /*Login*/
+    .inputLogin{
+        width: 180px !important;
+    }
+    .buttonLogin{
+        position: relative !important;
+        left: -17px !important;
+    }
+    .btn-link{
+        position: relative !important;
+        left: -21px !important;
+    }
+    .divResponsivaLogin{
+        position: relative !important;
+        left: -76px !important;
+    }
+    /*Login*/
+    .labelRemember{
+        font-size: 11px;
+    }
+    /*Facilidades*/
+    .linkPraticidade{
+        position: relative !important;
+        left: -37px !important;
+    }
+    .cardResponsivo{
+        position: relative !important;
+        left: 0px !important;
+    }
+    .font-purple-facilidade{
+        font-size: 36px !important;
+    }
+    /*Facilidades*/
+
+    /*Cometarios*/
+    .h2Comentarios{
+        font-size: 35px !important;
+    }
+    .carde-comentarios{
+        margin-left: 0 !important;
+        position: relative !important;
+        left: -8px !important;
+    }
+    /*Cometarios*/
+
+    /*Quem Somos*/
+    .cardQuemSomos{
+        margin: 0 !important;
+        width: 274px !important;
+    }
+    .remedios{
+        font-size: 40px !important;
+    }
+    /*Quem Somos*/
+
+    /*Planos*/
+    .imgResponsiva{
+        width: 290px !important;
+    }
+    /*Planos*/
+           /*Minha Conta */
+           .tbhistoricos{
+            font-size: 7px;
+        
+        }
+        .table>:not(caption)>*>* {
+            padding: 0.3rem 0.3rem;
+        }
+        /*Minha Conta */
+}

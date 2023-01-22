@@ -3,7 +3,7 @@
 
 <div class="mt-1 rounded-md ">
 
-    <input id="{{$name}}" type="{{$type}}" name="{{$name}}" value="{{ old($name,  $value)}}" class="form-input block w-full sm:text-sm sm:leading-5 border real @isset($class) {{$class}}   @endisset " @if(($require??true)) required @endif placeholder="{{__($placeholder)}}"
+    <input id="{{$name}}" type="{{$type}}" name="{{$name}}" value="{{ old($name,  $value)}}" class="form-control block w-100 sm:text-sm sm:leading-5 border real @isset($class) {{$class}}   @endisset " @if(($require??true)) required @endif placeholder="{{__($placeholder)}}"
     
     
     @isset($min)

@@ -1,0 +1,117 @@
+
+.textoverde{
+    color: #00973a;
+  }
+.redecredenciada2{
+  
+ font-size: 15px;
+}
+.redecredenciada{
+    width: 100%;
+    color: #76c585;
+    padding: 0;
+    border: 2px solid #76c585;
+}
+.redecredenciada a{
+  color: #76c585;
+}
+
+.redecredenciada p span{
+  text-decoration: underline;
+}
+
+.contatoassistencia{
+
+  color: #FFFF;
+  background-color: #76c585;
+
+}
+.imgmedicamentos{
+  height: 100% !important;
+  width: 100%  !important;
+}
+ .tituloazul{
+    color: #1370af;
+    font-size: 1.6em;
+    font-weight: 700;
+  }
+
+  .descvantagens{
+    font-family: "Century Gothic Regular";
+    font-size: 1em;
+
+}
+
+section#descontosvantagens img.imgvantagens{
+	margin-top: 0%;
+	width: 200px;
+
+	overflow: hidden;
+    
+}
+section#consultaspresenciais .fundocinza{
+  background-image: url('../img/Partes_VANTAGENS/Img-Fundo.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.texto-azul{
+  color: #1573b0;
+  font-size: 1em;
+}
+.sintomas1{
+  background-color: #a9e8ef;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  max-width: 250px !important; 
+}
+.sintomas2{
+  background-color: #c7e4b5;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  max-width: 250px !important; 
+}
+section#consultaspresenciais {
+  background-color: #FFFF;
+}
+.branca {
+  background-color: #FFFF !important;
+}
+.div {
+  position: relative;
+  overflow: hidden;
+  padding: 50px 0;
+  background: #FFFF;
+}
+
+.div-inner {
+  position: relative;
+  background: #f4f4f4;
+  height: 370px;
+}
+
+.div-inner:before,
+.div-inner:after {
+  box-shadow: 0 0 0 80px #f4f4f4;
+  border-radius: 100%;
+  position: absolute;
+  height: 150px;  /* You can change height to increase or decrease concave radius */ 
+  content: '';
+  right: -20%;
+  left: -20%;
+  top: 100%;
+}
+
+.div-inner:after {
+  bottom: 100%;
+  top: auto;
+}
+section#consultaspresenciais  img.imgvantagens{
+	margin-top: 0%;
+	width: 160px ;
+	height: 150px ;
+
+    
+}

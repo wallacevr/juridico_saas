@@ -66,7 +66,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
     public function impersonationUrl($user_id): string
     {
-        $token = tenancy()->impersonate($this, $user_id, $this->route('store.home'), 'web')->token;
+        $token = tenancy()->impersonate($this, $user_id, $this->route('adminlogin'), 'web')->token;
        
         return $this->route('tenant.impersonate', ['token' => $token]);
     }

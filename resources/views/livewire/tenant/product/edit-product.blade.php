@@ -1,5 +1,7 @@
 <div>
-
+@push('head')
+<link rel="stylesheet" href="{{ URL::to('/') . '/css/image-preview-input.css' }}">
+@endpush
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
         <!-- LEFT FORM -->
         <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-8">
@@ -451,8 +453,39 @@
                                                                                     $this->optionid=$option->id;
                                                                                 @endphp
                                                                                 @if($this->showoptionsimage[$option->id])
-                                                                                    <x-input.filepondoptions wire:model="optionimages.{{$option->id}}" multiple></x-input>
-                                                                                @endif    
+                                                                                    <x-input.filepondoptions wire:model="optionimages.{{$option->id}}" ></x-input>
+
+                                                                                @endif   
+                                                                                <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                                                                                        <div>
+                                                                                            <h3 class="text-base font-medium text-gray-900">
+                                                                                                {{ __('Brand image') }}
+                                                                                            </h3>
+                                                                                        </div>
+                                                                                        <div class="mt-1 border-2 border-gray-300 border-dashed rounded-md px-6 pt-5 pb-6 flex justify-center">
+                                                                                            <div class="file-upload">
+                                                                                                <button class="file-upload-btn" type="button" onclick="document.getElementById('image_url').click()">{{ __('Add image') }}</button>
+
+                                                                                                <div id="image-upload-wrap">
+                                                                                                    <input id="image_url" name="image_url" type='file' accept="image/*" />
+                                                                                                    <div class="drag-text">
+                                                                                                        <h3>{{ __('Drag and drop a file or select add Image') }}</h3>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div id="file-upload-content">
+                                                                                                    <img id="file-upload-image" src="#" alt="your image" />
+                                                                                                    <div class="image-title-wrap">
+                                                                                                        <button type="button" id="remove-image">{{ __('Remove') }} <span id="image-title">{{ __('Uploaded image') }}</span></button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        @error('image_url')
+                                                                                        <p class="mt-2 text-sm text-red-500">
+                                                                                            {{ $message }}
+                                                                                        </p>
+                                                                                        @enderror
+                                                                                    </div>
                                                                         </div>
                                                                         </td>
                                                                     </tr>
@@ -656,5 +689,7 @@
     </div>
 @push('js')
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+<script src="{{ URL::to('/') . '/js/image-preview-input.js' }}"></script>
 @endpush
 </div>

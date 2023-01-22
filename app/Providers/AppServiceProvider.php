@@ -4,8 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
-use App\Product;
-use App\ProductImage;
+
 use File;
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,24 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Cashier::ignoreMigrations();
-        Product::deleting(function ($product) {
-        
-            foreach($product->images as $images)
-            {
-
-                deleteImage( $images->image_url, 'catalog/'. $product->id);
-              
-                
-            }
-                     
-            return true;
-       });
        
-       ProductImage::deleting(function ($image) {
-    
-            deleteImage( $images->image_url, 'catalog/'. $image->product_id);
-                     
-        return true;
-   });
+       
+     
     }
 }

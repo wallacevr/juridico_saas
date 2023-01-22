@@ -10,4 +10,5 @@ Route::post('/register/step-1', 'RegisterTenantController@step1')->name('central
 
 Route::get('/login', 'LoginTenantController@show')->name('central.tenants.login');
 Route::post('/login/submit', 'LoginTenantController@submit')->name('central.tenants.login.submit');
+Route::redirect('/admin', '/admin/login/')->middleware('guest:admin')->name('adminlogin');
 
