@@ -25,12 +25,12 @@ class CreateParceirosTable extends Migration
             $table->string('ufrg')->nullable();
             $table->string('genero',1)->nullable();
             $table->date('dtnascimento')->nullable();
-            $table->integer('situcaoie')->nullable();
+            $table->integer('situacaoie')->nullable();
             $table->integer('ie')->nullable();
             $table->integer('im')->nullable();
             $table->boolean('ativo');
             $table->unsignedBigInteger('id_listapreco');
-            $table->foreign('id_listapreco')->references('id')->on('listaprecos')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_listapreco')->references('id')->on('listaprecos')->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
