@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Features\UserImpersonation;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-
+use Parceiros\CreateParceiro;
 Route::group([
     'middleware' => ['tenant', PreventAccessFromCentralDomains::class], // See the middleware group in Http Kernel
     'as' => 'tenant.',
@@ -31,6 +31,10 @@ Route::group([
         Route::middleware(['auth', CheckSubscription::class])->group(function () {
             Route::get('/dashboard', 'ApplicationSettingsController@show')->name('admin.dashboad');
 
+            
+       
+
+            Route::resource('parceiros', 'ParceiroController');
             // Collection routes
             Route::get('collections/all', 'CollectionController@getAll')->name('collections.all');
             Route::resource('collections', 'CollectionController');

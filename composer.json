@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "asantibanez/livewire-charts": "^2.4",
         "coderello/laravel-nova-lang": "^1.7",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
@@ -21,8 +22,10 @@
         "laravel/nova": "~3.0",
         "laravel/telescope": "^3.5",
         "laravel/tinker": "^2.0",
+        "laravellegends/pt-br-validator": "^9.1",
         "livewire/livewire": "^2.0",
         "mediconesystems/livewire-datatables": "0.9.1",
+        "onokumus/metismenu": "dev-master",
         "predis/predis": "^2.0",
         "spatie/laravel-medialibrary": "9.0.0",
         "spatie/laravel-sluggable": "^2.6",
@@ -65,14 +68,6 @@
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
-        },
-        {
-            "type": "vcs",
-            "url": "https://gitlab.com/maxcommerce/modulos/payment/pagseguro.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://gitlab.com/maxcommerce/modulos/shippiment/melhor-envio.git"
         }
     ],
     "autoload-dev": {

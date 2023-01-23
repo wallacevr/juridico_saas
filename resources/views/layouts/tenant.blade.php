@@ -17,7 +17,7 @@
 	
 	<link href="{{ asset('plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
 	<link href="{{ asset('plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
-	<link href="{{ asset(']plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
 	<!-- loader-->
 	<link href="{{ asset('css/pace.min.css') }}" rel="stylesheet" />
 	<script src="{{ asset('js/pace.min.js') }}"></script>
@@ -41,7 +41,19 @@
 
 
 
-	    <!--start header -->
+	    <!--sidebar wrapper -->
+<div class="sidebar-wrapper d-none d-sm-block" data-simplebar="true">
+    <div class="sidebar-header ">
+        <div>
+            <img src="{{ asset('img/LOGO.png') }}" class="logo-icon" alt="logo icon">
+        </div>
+        <div>
+            <h4 class="logo-text"></h4>
+        </div>
+        {{-- <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+        </div> --}}
+    </div>
+    <!--start header -->
 		<header>
 			<div class="topbar d-flex align-items-center">
 
@@ -58,7 +70,7 @@
                         </div>
 					<div class="user-box dropdown ">
 						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							
+							{{--<img src="{{ asset('img/Mandala Azul-Laranja.png') }}" class="user-img" alt="user avatar"> --}}
 							<div class="user-info ps-3">
 								<p class="user-name mb-0">{{Auth::user()->name}}</p>
 								<p class="designattion mb-0">Administrador</p>
@@ -99,7 +111,7 @@
 							<li  class=" user-dropdown-menu"><a class="dropdown-item" href="#"><i class="bx bx-user genomatextcolor"></i><span class="genomatextcolor">Clientes</span></a>
 							</li>
 					
-							<li  class=" user-dropdown-menu"><a class="mx-2" href="/administrativo/cupons"><img src="{{asset('img/icons/parceiro.png')}}" class="mx-2" alt="" style="width:20px"><span class="genomatextcolor">Influencers</span></a>
+							<li  class=" user-dropdown-menu"><a class="mx-2" href="#"><img src="{{asset('img/icons/parceiro.png')}}" class="mx-2" alt="" style="width:20px"><span class="genomatextcolor">Influencers</span></a>
 							</li>
 							<li  class=" user-dropdown-menu"><a class="mx-3" href="#"><img src="{{asset('img/icons/cupom.png')}}" alt="" style="width:20px"><span class="genomatextcolor">Cupons</span></a>
 							</li>
@@ -112,104 +124,111 @@
 			</div>
 		</header>
 		<!--end header -->
-
-
-	    <!--sidebar wrapper -->
-        <div class="sidebar-wrapper d-none d-sm-block" data-simplebar="true">
-            <div class="sidebar-header ">
-                <div>
-                    <img src="{{ asset('img/LOGO.png') }}" class="logo-icon" alt="logo icon">
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+        <li>
+            <a href="#">
+                <div class="parent-icon"><i class='bx bx-home-circle'></i>
                 </div>
-                <div>
-                    <h4 class="logo-text"></h4>
+                <div class="menu-title">Dashboard</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="parent-icon"><img src="{{asset('img/icons/parceiro.png')}}" alt="" style="width:30px">
                 </div>
-               
-            </div>
-            <!--navigation-->
-            <ul class="metismenu" id="menu">
-                <li>
-                    <a href="#">
-                        <div class="parent-icon"><i class='bx bx-home-circle'></i>
-                        </div>
-                        <div class="menu-title">Dashboard</div>
-                    </a>
-                </li>
+                <div class="menu-title">Parceiros</div>
+            </a>
+        </li>
+
+        <li >
+            <a href="2">
+                <div class="parent-icon"><i class='bx bx-box'></i>
+                </div>
+                <div class="menu-title">Planos</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="parent-icon"><i class='bx bx-user'></i>
+                </div>
+                <div class="menu-title">Clientes</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="parent-icon"><i class='bx bx-buildings'></i>
+                </div>
+                <div class="menu-title">Empresariais</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="parent-icon"><i class='bx bxs-group'></i>
+                </div>
+                <div class="menu-title">Grupo de Parceiros</div>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <div class="parent-icon"><img src="{{asset('img/icons/vendedor.png')}}" alt="" style="width:30px">
+                </div>
+                <div class="menu-title">Vendedores</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="parent-icon"><img src="{{asset('img/icons/cupom.png')}}" alt="" style="width:30px">
+                </div>
+                <div class="menu-title">Cupons</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="parent-icon"><i class='bx bx-wallet'></i>
+                </div>
+                <div class="menu-title">Assinaturas</div>
+            </a>
+        </li>
+        {{--
+        <li>
+            <a href="#">
+                <div class="parent-icon"><i class='bx bx-bar-chart-alt-2'></i>
+                </div>
+                <div class="menu-title">Relatórios</div>
+            </a>
+        </li>
+
+        --}}
 
 
-                <li >
-                    <a href="#">
-                        <div class="parent-icon"><i class='bx bx-box'></i>
-                        </div>
-                        <div class="menu-title">Planos</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="parent-icon"><i class='bx bx-user'></i>
-                        </div>
-                        <div class="menu-title">Clientes</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="parent-icon"><i class='bx bx-buildings'></i>
-                        </div>
-                        <div class="menu-title">Empresariais</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="parent-icon"><i class='bx bxs-group'></i>
-                        </div>
-                        <div class="menu-title">Grupo de Parceiros</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="parent-icon"><img src="{{asset('img/icons/parceiro.png')}}" alt="" style="width:30px">
-                        </div>
-                        <div class="menu-title">Parceiros</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#}">
-                        <div class="parent-icon"><img src="{{asset('img/icons/vendedor.png')}}" alt="" style="width:30px">
-                        </div>
-                        <div class="menu-title">Vendedores</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="parent-icon"><img src="{{asset('img/icons/cupom.png')}}" alt="" style="width:30px">
-                        </div>
-                        <div class="menu-title">Cupons</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="parent-icon"><i class='bx bx-wallet'></i>
-                        </div>
-                        <div class="menu-title">Assinaturas</div>
-                    </a>
-                </li>
+        <li class="menu-label">Configurações</li>
+        <li>
+            <a href="# ">
+                <div class="parent-icon"><i class='bx bx-user'></i>
+                </div>
+                <div class="menu-title">Usuários</div>
+            </a>
+        </li>
 
+        {{--
+        <li>
 
+            <a href="#">
+                <div class="parent-icon"><i class='bx bx-group'></i>
+                </div>
+                <div class="menu-title">Grupos</div>
+            </a>
 
-                <li class="menu-label">Configurações</li>
-                <li>
-                    <a href="# ">
-                        <div class="parent-icon"><i class='bx bx-user'></i>
-                        </div>
-                        <div class="menu-title">Usuários</div>
-                    </a>
-                </li>
+        </li>
+        --}}
+    </ul>
+    <!--end navigation-->
+</div>
+<!--end sidebar wrapper -->
 
-
-            </ul>
-            <!--end navigation-->
-        </div>
-        <!--end sidebar wrapper -->
-
+	
 
 
 	<div class="page-wrapper">
@@ -247,7 +266,7 @@
 <script src="{{asset('js/jquery-mask-custom.min.js')}}" ></script>
 	@yield("script")
 	@livewireScripts
-	@livewireChartsScripts
+	
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>

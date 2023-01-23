@@ -132,6 +132,8 @@
     border-radius: var(--border-radius-1);
 }
 
+
+
 .navbar .top .perfil{
     display: flex;
     gap: 2rem;

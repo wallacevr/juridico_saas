@@ -1,4 +1,4 @@
-<label for="{{$name}}" class="@if(empty($classLabel))block text-sm font-medium leading-5 text-gray-700 @else {{$classLabel}} @endif">{{__($label)}}@if(($require??true) && !empty($label))<span  class="red">*</span>@endif
+<label for="{{$name}}" class="@if(empty($classLabel))block form-control border-0 bg-transparent @else {{$classLabel}} @endif">{{__($label)}}@if(($require??true) && !empty($label))<span  class="red">*</span>@endif
 </label>
 
 <div class="mt-1 rounded-md ">
