@@ -51,7 +51,7 @@ class CreateParceiro extends Component
             $parceiro= new Parceiro;
             $parceiro->tppessoa = $this->tppessoa;
             $parceiro->tpparceiro = $this->tpparceiro;
-            $parceiro->id_listapreco = $this->listaprecos;
+            $parceiro->id_listapreco = 1;
             $parceiro->ativo = $this->ativo;
             $parceiro->cpfcnpj =$this->cpfcnpj;
             $parceiro->nome = $this->nome;

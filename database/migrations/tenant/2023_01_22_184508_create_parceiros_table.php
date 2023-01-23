@@ -26,8 +26,8 @@ class CreateParceirosTable extends Migration
             $table->string('genero',1)->nullable();
             $table->date('dtnascimento')->nullable();
             $table->integer('situacaoie')->nullable();
-            $table->integer('ie')->nullable();
-            $table->integer('im')->nullable();
+            $table->string('ie')->nullable();
+            $table->string('im')->nullable();
             $table->boolean('ativo');
             $table->unsignedBigInteger('id_listapreco');
             $table->foreign('id_listapreco')->references('id')->on('listaprecos')->onUpdate('cascade')->onDelete('cascade')->nullable();
