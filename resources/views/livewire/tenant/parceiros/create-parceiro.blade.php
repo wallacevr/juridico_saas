@@ -110,34 +110,50 @@
                    
             @endif
 
-   
+   {{$tab}}
     <ul class="nav nav-pills my-1" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active bg-transparent" id="pills-enderecos-tab" data-toggle="pill" href="#pills-enderecos" role="tab" aria-controls="pills-enderecos" aria-selected="false">Endereços</a>
+            @if($tab=="enderecos")
+                <a class="nav-link active bg-transparent" id="pills-enderecos-tab" data-toggle="pill" href="#pills-enderecos" role="tab" aria-controls="pills-enderecos" aria-selected="false" wire:click="settab('enderecos')">Endereços</a>
+            @else
+                <a class="nav-link bg-transparent" id="pills-enderecos-tab" data-toggle="pill" href="#pills-enderecos" role="tab" aria-controls="pills-enderecos" aria-selected="false" wire:click="settab('enderecos')">Endereços</a>
+            @endif
         </li>
         <li class="nav-item">
-            <a class="nav-link " id="pills-fiscal-tab" data-toggle="pill" href="#pills-fiscal" role="tab" aria-controls="pills-fiscal" aria-selected="true">Fiscal</a>
+            @if($tab=="fiscal")
+                  <a class="nav-link active bg-transparent" id="pills-fiscal-tab" data-toggle="pill" href="#pills-fiscal" role="tab" aria-controls="pills-fiscal" aria-selected="true" wire:click="settab('fiscal')">Fiscal</a>
+            @else
+            <a class="nav-link bg-transparent" id="pills-fiscal-tab" data-toggle="pill" href="#pills-fiscal" role="tab" aria-controls="pills-fiscal" aria-selected="true" wire:click="settab('fiscal')">Fiscal</a>
+            @endif
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" id="pills-contatos-tab" data-toggle="pill" href="#pills-contatos" role="tab" aria-controls="pills-contatos" aria-selected="false">Contatos</a>
+             @if($tab=="contatos")
+                <a class="nav-link active bg-transparent" id="pills-contatos-tab" data-toggle="pill" href="#pills-contatos" role="tab" aria-controls="pills-contatos" aria-selected="false" wire:click="settab('contatos')">Contatos</a>
+            @else
+            <a class="nav-link bg-transparent" id="pills-contatos-tab" data-toggle="pill" href="#pills-contatos" role="tab" aria-controls="pills-contatos" aria-selected="false" wire:click="settab('contatos')">Contatos</a>
+            @endif
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-limites-tab" data-toggle="pill" href="#pills-limtes" role="tab" aria-controls="pills-limites" aria-selected="false">Limites</a>
+            <a class="nav-link" id="pills-limites-tab" data-toggle="pill" href="#pills-limtes" role="tab" aria-controls="pills-limites" aria-selected="false" wire:click="settab('limites')">Limites</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-bancarios-tab" data-toggle="pill" href="#pills-bancarios" role="tab" aria-controls="pills-bancarios" aria-selected="false">Dados Bancários</a>
+            <a class="nav-link" id="pills-bancarios-tab" data-toggle="pill" href="#pills-bancarios" role="tab" aria-controls="pills-bancarios" aria-selected="false" wire:click="settab('bancarios')">Dados Bancários</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-documentos-tab" data-toggle="pill" href="#pills-documentos" role="tab" aria-controls="pills-documentos" aria-selected="false">Documentos</a>
+            <a class="nav-link" id="pills-documentos-tab" data-toggle="pill" href="#pills-documentos" role="tab" aria-controls="pills-documentos" aria-selected="false" wire:click="settab('documentos')">Documentos</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-historico-tab" data-toggle="pill" href="#pills-historico" role="tab" aria-controls="pills-historico" aria-selected="false">Histórico</a>
+            <a class="nav-link" id="pills-historico-tab" data-toggle="pill" href="#pills-historico" role="tab" aria-controls="pills-historico" aria-selected="false" wire:click="settab('historico')">Histórico</a>
         </li>
     </ul>
     <div class="tab-content pb-2" id="pills-tabContent">
+     @if($tab=='enderecos')   
         <div class="tab-pane fade show active pb-2" id="pills-enderecos" role="tabpanel" aria-labelledby="pills-enderecos-tab">
-            <div class="row px-2">
+    @else
+        <div class="tab-pane fade  pb-2" id="pills-enderecos" role="tabpanel" aria-labelledby="pills-enderecos-tab">
+    @endif
+        <div class="row px-2">
                 <div class="col-12 col-lg-2">
                     
                      @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Nome', 'placeholder'=>'Nome', 'name'=>'nomeendereco', 'value'=> '' ,'wiremodel'=>'nameaddress'])
@@ -201,10 +217,119 @@
             <hr>
             @endforeach
         </div>
-        <div class="tab-pane fade" id="pills-fiscal" role="tabpanel" aria-labelledby="pills-fiscal-tab">Fiscal
-        <a  wire:click="ff" class="text-primary">Teste </a>
+      @if($tab=="fiscal")
+        <div class="tab-pane fade show active py-2" id="pills-fiscal" role="tabpanel" aria-labelledby="pills-fiscal-tab">
+      @else
+      
+      <div class="tab-pane fade py-2" id="pills-fiscal" role="tabpanel" aria-labelledby="pills-fiscal-tab">
+      @endif
+                <div class="row px-2 ">
+                    <div class="col-12 col-lg-7">
+                        @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Email do Destinatário da NFe', 'placeholder'=>'Email do Destinatário da NFe', 'name'=>'emailnfe', 'value'=> '','wiremodel'=>'emailnfe' ])
+                    </div>
+                </div>
+                <div class="row px-2">
+                    <div class="col-12 col-lg-3">
+                       
+                           <div class="mt-1 rounded-md ">
+                                <label for="issretido" class="form-control border-0 bg-transparent">
+                                    
+                                    <input type="checkbox" name="issretido" value="1"  wire:model="issretido" >
+                                    {{__('ISS Retido na Fonte')}}
+                                </label>
+                                
+                            </div>
+
+                            @error('issretido')
+                            <p class="mt-2 text-sm text-danger">
+                                {{ $message }}
+                            </p>
+                            @enderror
+
+                    </div>                    
+
+                        <div class="col-12 col-lg-3">
+                       
+                                <div class="mt-1 rounded-md ">
+                                    <label for="consumidorfinal" class="form-control border-0 bg-transparent">
+                                        
+                                        <input type="checkbox" name="consumidorfinal" value="1"  wire:model="consumidorfinal" >
+                                        {{__('Consumidor Final')}}
+                                    </label>
+                                            
+                                </div>
+
+                                @error('consumidorfinal')
+                                <p class="mt-2 text-sm text-danger">
+                                    {{ $message }}
+                                </p>
+                                @enderror
+
+                        </div>     
+
+                        <div class="col-12 col-lg-3">
+                       
+                                <div class="mt-1 rounded-md ">
+                                    <label for="issretido" class="form-control border-0 bg-transparent">
+                                        
+                                        <input type="checkbox" name="produtorrural" value="1"  wire:model="produtorrural" >
+                                        {{__('Produtor Rural')}}
+                                    </label>
+                                            
+                                </div>
+
+                                @error('produtorrural')
+                                <p class="mt-2 text-sm text-danger">
+                                    {{ $message }}
+                                </p>
+                                @enderror
+
+                        </div>                        
+
+                </div>
         </div>
-        <div class="tab-pane fade" id="pills-contatos" role="tabpanel" aria-labelledby="pills-contatos-tab">Contatos</div>
+        @if($tab=="contatos")
+            <div class="tab-pane fade show active" id="pills-contatos" role="tabpanel" aria-labelledby="pills-contatos-tab">
+        @else
+             <div class="tab-pane fade" id="pills-contatos" role="tabpanel" aria-labelledby="pills-contatos-tab">
+        @endif
+                <div class="row px-3 py-3">
+
+                       
+                            
+                            <div class="col-12 col-lg-3">
+                                    @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Celular', 'placeholder'=>'Celular', 'name'=>'celular', 'value'=> '','wiremodel'=>'celular' ])
+                                    <button wire:click="addcontato('Celular')">+</button>
+                            </div>
+                
+                              
+                        
+                            
+                                <div class="col-12 col-lg-3">
+                                      @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Telefone', 'placeholder'=>'Telefone', 'name'=>'telefone', 'value'=> '','wiremodel'=>'telefone' ])
+                                      <button wire:click="addcontato('Telefone')">+</button>
+                                </div>
+                                        
+                                <div class="col-12 col-lg-3">
+                                      @include('layouts.snippets.fields', ['type'=>'email', 'label'=>'Email', 'placeholder'=>'Email', 'name'=>'contato', 'value'=> '','wiremodel'=>'email' ])
+                                      <button wire:click="addcontato('Email')">+</button>
+                                </div>
+                  
+                                <div class="col-12 col-lg-3">
+                                      @include('layouts.snippets.fields', ['type'=>'url', 'label'=>'Site', 'placeholder'=>'Site', 'name'=>'contato', 'value'=> '','wiremodel'=>'site' ])
+                                      <button wire:click="addcontato('Siter')">+</button>
+                                </div>
+                                <div class="row">
+                                    
+                                    @foreach($contatos as $key=>$contato)
+                                        <div class="col-12">
+                                            {{$tpcontatos[$key]}}:{{$contato}}
+                                        </div>
+                                    @endforeach
+                                    
+                                </div>
+                </div>
+            </div>
         <div class="tab-pane fade" id="pills-limites" role="tabpanel" aria-labelledby="pills-limites-tab">Limites</div>
         <div class="tab-pane fade" id="pills-documentos" role="tabpanel" aria-labelledby="pills-documentos-tab">Contatos</div>
         <div class="tab-pane fade" id="pills-historico" role="tabpanel" aria-labelledby="pills-historico-tab">Contatos</div>

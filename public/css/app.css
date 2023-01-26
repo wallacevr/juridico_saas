@@ -2537,3 +2537,6 @@ select {
 .logo_painel{
   height: 40px !important;
 }
+.w-2{
+   width:2px !important;
+}

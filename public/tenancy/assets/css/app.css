@@ -2525,3 +2525,6 @@ body.bg-theme1 {
 .select2-results__option--selectable{
 	background-color: #404142 !important;
 }
+.w-2{
+	width:2px !important;
+ }

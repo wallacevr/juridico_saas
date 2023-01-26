@@ -9,4 +9,13 @@ class Parceiro extends Model
     //
     use SoftDeletes;
 
+    public function enderecos()
+    {
+        return $this->hasMany(Endereco::class);
+    }
+
+    public function contatos()
+    {
+        return $this->hasMany(Contato::class);
+    }
 }

@@ -28,6 +28,11 @@ class CreateParceirosTable extends Migration
             $table->integer('situacaoie')->nullable();
             $table->string('ie')->nullable();
             $table->string('im')->nullable();
+            $table->string('emailnfe')->nullable();
+            $table->string('obs')->nullable();
+            $table->boolean('issretido');
+            $table->boolean('consumidorfinal');
+            $table->boolean('produtorrural');
             $table->boolean('ativo');
             $table->unsignedBigInteger('id_listapreco');
             $table->foreign('id_listapreco')->references('id')->on('listaprecos')->onUpdate('cascade')->onDelete('cascade')->nullable();

@@ -40,6 +40,18 @@ class CreateParceiro extends Component
     public $number;
     public $complemento=[];
     public $complement;
+    public $emailnfe;
+    public $issretido;
+    public $consumidorfinal;
+    public $produtorrural;
+    public $tab;
+    public $contatos=[];
+    public $tpcontatos=[];
+    public $email;
+    public $telefone;
+    public $celular;
+    public $site;
+    public $icontato;        
     public function render()
     {
     
@@ -87,13 +99,95 @@ class CreateParceiro extends Component
             $parceiro->situacaoie = $this->situacaoie;
             $parceiro->ie = $this->ie;
             $parceiro->im = $this->im;
+            $parceiro->emailnfe = $this->emailnfe;
+            $parceiro->issretido = $this->issretido;
+            $parceiro->consumidorfinal = $this->consumidorfinal;
+         
+            if($this->produtorrural!=null){
+                $parceiro->produtorrural = $this->produtorrural;
+            }else{
+                $parceiro->produtorrural = 0;
+            }
+                
+           
             $parceiro->save();
+            foreach($this->cep as $key=>$value){
+                $parceiro->enderecos()->create([
+                    'nomeendereco' => $this->nomeendereco[$key],
+                    'cep' => $this->cep[$key],
+                    'logradouro' => $this->logradouro[$key],
+                    'bairro' => $this->bairro[$key],
+                     'cidade' => $this->cidade[$key],
+                    'uf' => $this->uf[$key],
+                    'numero' => $this->numero[$key],
+                   'complemento' => $this->complemento[$key]
+                ]);
+            }
+            foreach($this->contatos as $key=>$value){
+                $parceiro->contatos()->create([
+                    'tipo' => $this->tpcontatos[$key],
+                    'valor' => $this->contatos[$key],
+                   
+                ]);
+            }
         } catch (\Throwable $th) {
             //throw $th;
             dd($th);
         }
     }
-
+    public function addcontato($tpcontato){
+        switch ($tpcontato) {
+            case "Celular":
+                $this->validate([
+                    'celular' => ['required','celular_com_ddd']
+                ]);
+                break;
+            case "Telefone":
+                $this->validate([
+                    'telefone' => ['required','telefone_com_ddd']
+                ]);
+                break;
+            case "Email":
+                $this->validate([
+                    'email' => ['required','email']
+                ]);
+                break;
+            case "Site":
+                $this->validate([
+                    'site' => ['required','url']
+                ]);
+                break;
+        }
+        try {
+            
+            switch ($tpcontato) {
+                case "Celular":
+                    $this->tpcontatos[count($this->contatos)] ="Celular";
+                    $this->contatos[count($this->contatos)]=$this->celular;
+                    $this->celular="";
+                    break;
+                case "Telefone":
+                    $this->tpcontatos[count($this->contatos)] ="Telefone";
+                    $this->contatos[count($this->contatos)]=$this->telefone;
+                    $this->telefone="";
+                    break;
+                case "Email":
+                    $this->tpcontatos[count($this->contatos)] ="Email";
+                    $this->contatos[count($this->contatos)]=$this->email;
+                    $this->email="";
+                    break;
+                case "Site":
+                    $this->tpcontatos[count($this->contatos)]="Site";
+                    $this->contatos[count($this->contatos)]=$this->site;
+                    $this->site="";
+                    break;
+            }
+           
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
+    }
     public function addaddress(){
         try {
             $this->nomeendereco[count($this->nomeendereco)]=$this->nameaddress;
@@ -105,6 +199,14 @@ class CreateParceiro extends Component
            $this->numero[count($this->numero)]=$this->number;
            $this->complemento[count($this->complemento)]=$this->complement;
          
+           $this->nomeendereco[0]="";
+           $this->cep[0]="";
+           $this->logradouro[0]="";
+           $this->bairro[0]="";
+           $this->cidade[0]="";
+           $this->uf[0]="";
+           $this->numero[0]="";
+           $this->complemento[0]="";
            
         } catch (\Throwable $th) {
                 //throw $th;
@@ -158,5 +260,9 @@ class CreateParceiro extends Component
         } catch (\Throwable $th) {
             //throw $th;
         }
-}
+    }
+
+    public function settab($tab){
+        $this->tab = $tab;
+    }
 }
