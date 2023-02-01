@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use App\Parceiro;
 use App\Listaprecos;
+use App\Banco;
 class CreateParceiro extends Component
 {
     public $tppessoa=1;
@@ -51,15 +52,30 @@ class CreateParceiro extends Component
     public $telefone;
     public $celular;
     public $site;
-    public $icontato;        
+    public $icontato; 
+    public $limitecliente;
+    public $limitefornecedor;       
+    public $bancos= [];
+    public $bancoid;
+    public $conta;
+    public $digconta;
+    public $agencia;
+    public $digagencia;
+    public $bancosid=[];
+    public $nomebancos=[];
+    public $contas=[];
+    public $digcontas=[];
+    public $agencias=[];
+    public $digagencias=[];
     public function render()
     {
-    
+       
         return view('livewire.tenant.parceiros.create-parceiro');
     }
     public function mount(){
         $this->listasprecos = Listaprecos::all();
         $this->iaddress=0;
+        $this->bancos =  Banco::all();
     }
     public function store(){
       
@@ -71,7 +87,9 @@ class CreateParceiro extends Component
                 'rg'=>['string','max:255'],
                 'emissorrg'=>['string','max:255'],
                 'ufrg'=>['string','max:2'],
-                'dtnascimento'=>['required']
+                'dtnascimento'=>['required'],
+                'limitecliente'=>['numeric'],
+                'limitefornecedor'=>['numeric'],
             ]);
         }else{
             $this->validate([
@@ -100,16 +118,25 @@ class CreateParceiro extends Component
             $parceiro->ie = $this->ie;
             $parceiro->im = $this->im;
             $parceiro->emailnfe = $this->emailnfe;
-            $parceiro->issretido = $this->issretido;
-            $parceiro->consumidorfinal = $this->consumidorfinal;
-         
+          
+          
+            $parceiro->limitecliente = $this->limitecliente;
+            $parceiro->limitefornecedor = $this->limitefornecedor;
             if($this->produtorrural!=null){
                 $parceiro->produtorrural = $this->produtorrural;
             }else{
                 $parceiro->produtorrural = 0;
             }
-                
-           
+            if($this->consumidorfinal!=null){
+                $parceiro->consumidorfinal = $this->consumidorfinal;
+            }else{
+                $parceiro->consumidorfinal = 0;
+            }    
+            if($this->issretido!=null){
+                $parceiro->issretido = $this->issretido;
+            }else{
+                $parceiro->issretido = 0;
+            } 
             $parceiro->save();
             foreach($this->cep as $key=>$value){
                 $parceiro->enderecos()->create([
@@ -130,12 +157,23 @@ class CreateParceiro extends Component
                    
                 ]);
             }
+            foreach($this->bancosid as $key=>$value){
+                $parceiro->dadosbancarios()->create([
+                    'banco_id' => $this->bancosid[$key],
+                    'conta' => $this->contas[$key],
+                    'digconta' => $this->digcontas[$key],
+                    'agencia' => $this->agencias[$key],
+                    'digagencia' => $this->digagencias[$key],
+                   
+                ]);
+            }
         } catch (\Throwable $th) {
             //throw $th;
             dd($th);
         }
     }
     public function addcontato($tpcontato){
+       
         switch ($tpcontato) {
             case "Celular":
                 $this->validate([
@@ -158,6 +196,7 @@ class CreateParceiro extends Component
                 ]);
                 break;
         }
+       
         try {
             
             switch ($tpcontato) {
@@ -182,6 +221,31 @@ class CreateParceiro extends Component
                     $this->site="";
                     break;
             }
+           
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
+    }
+    public function addbancarios(){
+        $this->validate([
+            'bancoid'=>['required'],
+            'conta'=>['required'],
+            'agencia'=>['required']
+        ]);
+        try {
+
+            $this->bancosid[count($this->bancosid)] = $this->bancoid;
+            $banco= Banco::find($this->bancoid);
+            $this->nomebancos[count($this->nomebancos)] = $banco->nome;
+            $this->contas[count($this->contas)] = $this->conta;
+            $this->digcontas[count($this->digcontas)] = $this->digconta;
+            $this->agencias[count($this->agencias)] = $this->agencia;
+            $this->digagencias[count($this->digagencias)] = $this->digagencia;
+            $this->conta ="";
+            $this->digconta="";
+            $this->agencia="";
+            $this->digagencia="";
            
         } catch (\Throwable $th) {
             //throw $th;

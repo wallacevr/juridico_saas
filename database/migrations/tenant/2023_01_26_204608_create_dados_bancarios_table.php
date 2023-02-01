@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContatosTable extends Migration
+class CreateDadosBancariosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateContatosTable extends Migration
      */
     public function up()
     {
-        Schema::create('contatos', function (Blueprint $table) {
+        Schema::create('dados_bancarios', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
-            $table->string('valor');
-
+            $table->string('conta');
+            $table->string('digconta');
+            $table->string('agencia');
+            $table->string('digagencia');
             $table->unsignedBigInteger('parceiro_id');
             $table->foreign('parceiro_id')->references('id')->on('parceiros')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('banco_id');
+            $table->foreign('banco_id')->references('id')->on('bancos')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +35,6 @@ class CreateContatosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contatos');
+        Schema::dropIfExists('dados_bancarios');
     }
 }

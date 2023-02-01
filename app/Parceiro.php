@@ -18,4 +18,8 @@ class Parceiro extends Model
     {
         return $this->hasMany(Contato::class);
     }
+    public function dadosbancarios()
+    {
+        return $this->hasMany(DadosBancarios::class);
+    }
 }

@@ -135,14 +135,20 @@
             @endif
         </li>
         <li class="nav-item">
+            @if($tab=="limites")
+                <a class="nav-link active bg-transparent" id="pills-limites-tab" data-toggle="pill" href="#pills-limtes" role="tab" aria-controls="pills-limites" aria-selected="false" wire:click="settab('limites')">Limites</a>
+            @else
             <a class="nav-link" id="pills-limites-tab" data-toggle="pill" href="#pills-limtes" role="tab" aria-controls="pills-limites" aria-selected="false" wire:click="settab('limites')">Limites</a>
+            @endif
         </li>
         <li class="nav-item">
+        @if($tab=="bancarios")
+        <a class="nav-link active bg-transparent" id="pills-bancarios-tab" data-toggle="pill" href="#pills-bancarios" role="tab" aria-controls="pills-bancarios" aria-selected="false" wire:click="settab('bancarios')">Dados Bancários</a>
+        @else
             <a class="nav-link" id="pills-bancarios-tab" data-toggle="pill" href="#pills-bancarios" role="tab" aria-controls="pills-bancarios" aria-selected="false" wire:click="settab('bancarios')">Dados Bancários</a>
+        @endif
         </li>
-        <li class="nav-item">
-            <a class="nav-link" id="pills-documentos-tab" data-toggle="pill" href="#pills-documentos" role="tab" aria-controls="pills-documentos" aria-selected="false" wire:click="settab('documentos')">Documentos</a>
-        </li>
+
         <li class="nav-item">
             <a class="nav-link" id="pills-historico-tab" data-toggle="pill" href="#pills-historico" role="tab" aria-controls="pills-historico" aria-selected="false" wire:click="settab('historico')">Histórico</a>
         </li>
@@ -153,7 +159,7 @@
     @else
         <div class="tab-pane fade  pb-2" id="pills-enderecos" role="tabpanel" aria-labelledby="pills-enderecos-tab">
     @endif
-        <div class="row px-2">
+            <div class="row px-2">
                 <div class="col-12 col-lg-2">
                     
                      @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Nome', 'placeholder'=>'Nome', 'name'=>'nomeendereco', 'value'=> '' ,'wiremodel'=>'nameaddress'])
@@ -317,21 +323,89 @@
                   
                                 <div class="col-12 col-lg-3">
                                       @include('layouts.snippets.fields', ['type'=>'url', 'label'=>'Site', 'placeholder'=>'Site', 'name'=>'contato', 'value'=> '','wiremodel'=>'site' ])
-                                      <button wire:click="addcontato('Siter')">+</button>
+                                      <button wire:click="addcontato('Site')">+</button>
                                 </div>
                                 <div class="row">
                                     
                                     @foreach($contatos as $key=>$contato)
                                         <div class="col-12">
-                                            {{$tpcontatos[$key]}}:{{$contato}}
+                                            @if($tpcontatos[$key]=='Site')
+                                                {{$tpcontatos[$key]}}: <a href="{{$contato}}">{{$contato}}</a> 
+                                            @else
+                                                 {{$tpcontatos[$key]}}:{{$contato}}
+                                            @endif
                                         </div>
+                                        <hr>
                                     @endforeach
                                     
                                 </div>
                 </div>
             </div>
-        <div class="tab-pane fade" id="pills-limites" role="tabpanel" aria-labelledby="pills-limites-tab">Limites</div>
-        <div class="tab-pane fade" id="pills-documentos" role="tabpanel" aria-labelledby="pills-documentos-tab">Contatos</div>
+        @if($tab=='limites')
+             <div class="tab-pane fade show active" id="pills-limites" role="tabpanel" aria-labelledby="pills-limites-tab">
+        @else
+            <div class="tab-pane fade" id="pills-limites" role="tabpanel" aria-labelledby="pills-limites-tab">
+        @endif
+                    <div class="row px-2 py-3">
+                            <div class="col-12 col-lg-3">
+                                
+                                @include('layouts.snippets.fields', ['type'=>'number', 'label'=>'Limite Cliente', 'placeholder'=>'Limite Cliente', 'name'=>'limitecliente', 'value'=> '' ,'wiremodel'=>'limitecliente','require'=>false])
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                @include('layouts.snippets.fields', ['type'=>'number', 'label'=>'Limite Fornecedor', 'placeholder'=>'Limite Fornecedor', 'name'=>'limitefornecedor', 'value'=> '' ,'wiremodel'=>'limitefornecedor','require'=>false])
+                            </div>
+               
+                        </div>
+
+
+            </div>
+        @if($tab=="bancarios")
+            <div class="tab-pane fade show active" id="pills-bancarios" role="tabpanel" aria-labelledby="pills-bancarios-tab">
+        @else
+            <div class="tab-pane fade" id="pills-bancarios" role="tabpanel" aria-labelledby="pills-bancarios-tab">
+        @endif
+                    <div class="row px-3 py-3">
+                        <div class="col-3">
+                            <label for="banco"  class="form-control border-0 bg-transparent">Banco</label>
+                            <select name="situacaoie" class="form-select" wire:model="bancoid" >
+                                <option value="null">Selecione um banco</option>
+                                @foreach($bancos as $banco)
+                                        <option value="{{$banco->id}}">{{$banco->codbanco}} -  {{$banco->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-12 col-lg-2">
+                                
+                            @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Conta', 'placeholder'=>'Conta', 'name'=>'conta', 'value'=> '' ,'wiremodel'=>'conta','require'=>false])
+                        </div>
+                        <div class="col-12 col-lg-1">
+                                
+                            @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Dig', 'placeholder'=>'Dig', 'name'=>'digconta', 'value'=> '' ,'wiremodel'=>'digconta','require'=>false])
+                        </div>
+                        <div class="col-12 col-lg-2">
+                                
+                            @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Agencia', 'placeholder'=>'Agencia', 'name'=>'agencia', 'value'=> '' ,'wiremodel'=>'agencia','require'=>false])
+                        </div>
+                        <div class="col-12 col-lg-1">
+                                
+                            @include('layouts.snippets.fields', ['type'=>'text', 'label'=>'Dig', 'placeholder'=>'Dig', 'name'=>'digagencia', 'value'=> '' ,'wiremodel'=>'digagencia','require'=>false])
+                        </div>
+                        <div class="col-12 col-lg-1 py-4">
+                                
+                           <button class="btn btn-primary mt-3" wire:click="addbancarios">Adicionar</button>
+                        </div>
+                    </div>
+                    @foreach($bancosid as $key=>$value)
+                        <div class="row px-3 py-1">
+                                <div class="col-3">Banco: {{$nomebancos[$key]}}</div>
+                                <div class="col-2">Conta: {{$contas[$key]}}</div>
+                                <div class="col-1">Dig: {{$contas[$key]}}</div>
+                                <div class="col-2">Agencia: {{$agencias[$key]}}</div>
+                                <div class="col-1">Dig: {{$digagencias[$key]}}</div>
+                        </div>
+                        <hr>
+                    @endforeach
+            </div>
         <div class="tab-pane fade" id="pills-historico" role="tabpanel" aria-labelledby="pills-historico-tab">Contatos</div>
     </div>
     <div class="row px-2 pb-2">

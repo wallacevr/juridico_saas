@@ -35,6 +35,8 @@ class CreateParceirosTable extends Migration
             $table->boolean('produtorrural');
             $table->boolean('ativo');
             $table->unsignedBigInteger('id_listapreco');
+            $table->decimal('limitecliente')->nullable();
+            $table->decimal('limitefornecedor')->nullable();
             $table->foreign('id_listapreco')->references('id')->on('listaprecos')->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->timestamps();
             $table->softDeletes();
