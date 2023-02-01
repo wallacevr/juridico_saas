@@ -1,0 +1,64 @@
+footer {
+	background-color: #000607;
+	bottom: 0;
+	position: relative;
+	width: 100%;
+}
+
+footer p {
+	color: #fff;
+}
+
+footer img {
+	width: 20%;
+}
+
+
+ @keyframes pulse {
+	 0% {
+		 transform: scale(0.95);
+		 box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+	}
+	 70% {
+		 transform: scale(1);
+		 box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+	}
+	 100% {
+		 transform: scale(0.95);
+		 box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+	}
+}
+ footer #whatsapp {
+	 position: fixed;
+	 right: 16px;
+	 bottom: 16px;
+	 z-index: 100;
+}
+ footer #whatsapp a {
+	 transition: font-size 0.3s padding-right 0.3s;
+	 background-color: #4caf50;
+	 color: #fff;
+	 border-radius: 50%;
+	 text-decoration: none;
+	 padding: 16px;
+	 animation: pulse 2s infinite;
+}
+ footer #whatsapp a:hover {
+	 border-radius: 8px 50px 50px 8px;
+}
+ footer #whatsapp a:hover #whatsapp-text {
+	 font-size: 0.9em;
+	 padding-right: 16px;
+}
+ footer #whatsapp a #whatsapp-text {
+	 transition: all 0.5s;
+	 font-size: 0;
+	 line-height: 1.2;
+}
+ footer #whatsapp a #whatsapp-text .title {
+	 font-size: 1.1em;
+	 font-weight: bold;
+}
+ footer #whatsapp a img {
+	 width: 50px;
+}

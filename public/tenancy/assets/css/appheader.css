@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+header {
+	position: fixed !important;
+	top: 0  !important;
+	left: 0  !important;
+	right: 0  !important;
+	z-index: 10;
+	background-color: #fff  !important;
+	padding: 10px 0  !important;
+}
+header nav.navbar-light button:focus {
+	outline-color: #000;
+}
+header nav.navbar-light a#home img {
+	transition: all 0.3s;
+	width: 90px;
+}
+header nav.navbar-light a#home img:active {
+	transform: scale(0.7);
+}
+header nav.navbar-light ul.navbar-nav li.nav-item:not(#language) {
+	margin-right: 15px;
+}
+header nav.navbar-light ul.navbar-nav li.nav-item#language ul.navbar-nav li.nav-item {
+	margin-right: 0px;
+}
+header nav.navbar-light ul.navbar-nav li.nav-item a, header nav.navbar-light ul.navbar-nav li.nav-item label {
+	font-family: 'Montserrat', sans-serif !important;
+	color: #000;
+	font-size: 0.9em  !important;
+	transition: all 0.3s;
+	font-weight: 500 !important;
+	cursor: pointer;
+}
+
+ header nav.navbar-light ul.navbar-nav li.nav-item a.portal {
+	font-family: 'Montserrat', sans-serif !important;
+	color: #00973a !important;
+	font-size: 0.9em !important;
+	border: 1px solid #00973a !important;
+	border-radius: 16px !important;
+	padding: 1px 12px !important;
+	transition: all 0.3s !important;
+	font-weight: 500 !important;
+	cursor: pointer;
+}
+
+header nav.navbar-light ul.navbar-nav li.nav-item a.portal:hover {
+	font-family: 'Montserrat', sans-serif !important;
+	color: #fff;
+	background-color: #00973a !important;
+	font-size: 0.9em !important;
+	border: 1px solid #00973a !important;
+	border-radius: 16px !important;
+	padding: 1px 12px;
+	transition: all 0.3s;
+	font-weight: 500 !important;
+	cursor: pointer;
+}
+header nav.navbar-light ul.navbar-nav li.nav-item a:hover, header nav.navbar-light ul.navbar-nav li.nav-item label:hover {
+	font-weight: 500;
+	color: #1370af;
+}
+header.fixed {
+	background-color: #fff;
+	padding: 8px 0;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px;
+}
+header.fixed nav.navbar-light a#home img {
+	width: 80px;
+}
+header.fixed nav.navbar-light ul.navbar-nav li.nav-item a {
+	color: #000;
+}
+
+header.fixed nav.navbar-light ul.navbar-nav li.nav-item a:hover {
+	color: #1370af;
+}
+
+
+.btnLogin{
+    background-color:#fff ;
+    color: #00973a !important;
+    border-color: #fff !important;
+    border: 1px solid #00973a !important;
+    border-radius: 45px;
+}
+
+.btnLogin:hover{
+    background-color: #00973a;
+    color: #fff !important;
+    border-color: #fff !important;
+    border: 2px solid #00973a;
+    border-radius: 45px;
+}
+
+.btnUsuarioLogado{
+    background-color: #00973a;
+    color: #fff;
+    border: 2px solid #00973a;
+    border-radius: 20px 20px 0px 0px;
+}
+.btnUsuarioLogadoSpan{
+    background: #00973a;
+    color: #fff;
+    border: 2px solid #00973a;
+    border-radius: 0px 20px 20px 0px;
+}
+.btnUsuarioLogadoSpan:hover, .btnUsuarioLogadoSpan:focus, .btnUsuarioLogado:hover, .btnUsuarioLogado:focus{
+    background-color: #00973a !important;
+    border: 2px solid #00973a !important;
+    box-shadow: none !important;
+    color: #fff !important;
+}
+.btnMeusPlanos{
+    padding: 10px 34px !important;
+}
+header nav.navbar-light ul.navbar-nav li.nav-item a.portal:hover, header nav.navbar-light ul.navbar-nav li.nav-item label.portal:hover {
+    color: #00973a;
+    background-color: #fff;
+}
+@media (max-width: 600px) {
+    header nav.navbar-light ul.navbar-nav li.nav-item a.portal, header nav.navbar-light ul.navbar-nav li.nav-item label.portal {
+        border: none;
+        margin: 0px;
+   }
+}
+header nav.navbar-light ul.navbar-nav li.nav-item a.login, header nav.navbar-light ul.navbar-nav li.nav-item label.login {
+    color: #00973a;
+    font-weight: bold;
+    border-left: solid #00973a;
+    padding: 4px;
+    margin: 3px;
+}
+@media (max-width: 600px) {
+    header nav.navbar-light ul.navbar-nav li.nav-item a.login, header nav.navbar-light ul.navbar-nav li.nav-item label.login {
+        border-left: solid #fff;
+        border: none;
+        margin: 0px;
+   }
+}
+header.fixed {
+    background-color: #fff;
+    padding: 1px 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px;
+}
+header.fixed nav.navbar-light a#home img {
+    width: 100px;
+}
+header.fixed nav.navbar-light ul.navbar-nav li.nav-item a {
+    color: #000;
+}
+header.fixed nav.navbar-light ul.navbar-nav li.nav-item a.portal {
+    border-radius: 20px;
+    color: #fff;
+    background-color: #00973a;
+    padding: 6px px;
+}
+header.fixed nav.navbar-light ul.navbar-nav li.nav-item a.portal:hover {
+    color: #00973a;
+    background-color: #fff;
+}

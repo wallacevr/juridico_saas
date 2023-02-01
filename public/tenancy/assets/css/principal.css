@@ -1,0 +1,718 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Franklin&display=swap');
+
+/* quem somos */
+
+section#quemsomos {
+  background-size: 31%;
+  background-color: #f4f4f4;
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  padding: 0;
+}
+
+section#quemsomos h3{
+  color: #1370af;
+  font-size: 2.4em;
+  font-weight: 800;
+}
+
+section#quemsomos h3 span{
+  color: #00973a;
+}
+
+section#quemsomos h4{
+  color: #1370af;
+  font-size: 1.6em;
+  font-weight: 700;
+}
+
+section#quemsomos h4 span{
+  color: #00973a;
+}
+
+@media only screen and (max-width: 768px) {
+  section#quemsomos {
+    background-size: 0%;
+    background-color: #f4f4f4;
+    background-position: 0;
+    
+  }
+
+  section#quemsomos h3{
+    font-size: 1.8em;
+  }
+
+  section#quemsomos h4{
+    
+    font-size: 1.2em;
+
+  }
+  
+}
+
+/* Button */
+
+section#quemsomos button.myBtn {
+  color: #fff;
+  width: 80%;
+  background-color: #00973a;
+  padding: 4px 60px;
+  border: 1px solid #00973a;
+  border-radius: 20px;
+}
+
+
+section#quemsomos button.myBtn:hover {
+  color: #00973a;
+  background-color: #fff;
+  font-weight: 600;
+  padding: 4px 60px;
+  border: 1px solid #00973a;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+/* vantagens */
+section#vantagens h4 {
+ color: #1370af;
+ font-weight: 700;
+}
+
+section#vantagens h4 span{
+  color: #00973a;
+ }
+
+section#vantagens .card {
+  flex-direction: row;
+  align-items: center;
+  height: 140px;
+  border: 0;
+}
+
+section#vantagens .card .card-body {
+  padding: .9em;
+}
+
+section#vantagens .card-title {
+  font-size: .9em;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+section#vantagens .card-text {
+  font-size: 0.8em;
+
+}
+section#vantagens .card img {
+  width: 30%;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: calc(0.25rem - 1px);
+}
+
+section#vantagens .card-form {
+  border: 1px solid #cecaca;
+  border-radius: 10px;
+  padding: 8px;
+ }
+
+ section#vantagens .card-form  form input{
+  border: 1px solid #888;
+  border-radius: 10px;
+  padding: 6px;
+ }
+
+section#vantagens .card-form h6 {
+  font-weight: 700;
+ color: #1370af;
+}
+
+section#vantagens .card-form p {
+ font-size: 14px;
+ margin-bottom: 0;
+}
+
+section#vantagens .card-form .form-check-label {
+  font-size: 14px;
+ }
+
+ section#vantagens .card-form .botao-enviar {
+  color: #fff;
+  background-color: #00973a;
+  border-radius: 18px;
+  width: 80%;
+  text-align: center;
+ }
+
+ section#vantagens .card-form .botao-enviar:hover {
+  color: #00973a;
+  background-color: #fff;
+  border-radius: 18px;
+  width: 80%;
+  text-align: center;
+ }
+
+@media only screen and (max-width: 1200px) {
+  section#vantagens .card img {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  
+  section#vantagens .card-body {
+    padding: 0.5em 1.2em;
+  }
+  section#vantagens .card-body .card-text {
+    margin: 0;
+  }
+  section#vantagens .card img {
+    width: 25%;
+  }
+}
+
+
+
+/* pagamentos */
+
+section#pagamentos .card {
+  height: 425px;
+  border-radius: 16px;
+  background-color: #fff;
+  transform: scale(1);
+  position: relative;
+  z-index: 1 ;
+}
+
+
+section#pagamentos .card:hover {
+  background-image: linear-gradient(to right, #1370af , #55d4e0) !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transform: scale(1.1);
+  -webkit-transition:  1s ease-out;
+  -moz-transition:  1s ease-out;
+  -o-transition:  1s ease-out;
+  transition: 1s ease-out;
+  position: relative;
+  z-index: 2 ;
+}
+
+@media (max-width: 600px) {
+  section#pagamentos .card {
+      margin: 0 16%;
+ }
+}
+
+@media (max-width: 600px) {
+  section#pagamentos .card {
+      margin: 0 auto;
+ }
+}
+section#pagamentos .card .btn-secondary {
+  border-radius: 14px;
+  background-color: #00973a;
+  padding: 0 12%;
+  font-weight: bold;
+  color: #fff;
+}
+section#pagamentos .card .btn-secondary:hover {
+  background-color: #fff;
+  color: #00973a;
+  
+}
+section#pagamentos .card h5 {
+  color: #1370af;
+  font-size: 1.3rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+
+section#pagamentos .card h5 span {
+  color: #00973a;
+}
+section#pagamentos .card .a {
+  width: 70px;
+  margin: 0 70px;
+  border-bottom: 6px solid #00973a;
+  border-bottom-width: medium;
+}
+section#pagamentos .card p {
+  color: #000;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+section#pagamentos .card p span{
+  color: #00973a;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+section#pagamentos .card .text-obs {
+  font-size: 12px ;
+}
+
+
+section#pagamentos .card .text-obs span{
+  font-weight: 600;
+  color: #00973a;
+}
+
+
+/* hover card */
+
+section#pagamentos .card:hover .card-title{
+  color: #fff;
+
+}
+
+section#pagamentos .card:hover h5 span{
+  color: #fff;
+
+}
+
+section#pagamentos .card:hover .card-text{
+  color: #fff;
+
+}
+
+section#pagamentos .card:hover .text-obs {
+  color: #fff;
+}
+
+
+section#pagamentos .card-title-Planos{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800 !important;
+}
+
+/* facilidades */
+section#facilidades {
+  background-color: #f4f4f4;
+}
+section#facilidades h3{
+  color: #1370af;
+  font-size: 3.1em;
+  font-weight: 700;
+}
+
+section#facilidades p{
+ font-weight: 500;
+}
+
+section#facilidades p span{
+  color: #00973a;
+}
+
+section#facilidades img.socials {
+  transform: scale(1);
+}
+
+section#facilidades img.socials:hover {
+  transform: scale(0.9);
+}
+
+@media (max-width: 769px) {
+  section#facilidades img.ilustracao {
+    width: 100%;
+
+}
+
+section#facilidades h3{
+ 
+  font-size: 2em;
+
+}
+
+}
+
+/* form */
+
+section#form {
+  background-image: linear-gradient(to right, #1370af , #55d4e0);
+}
+
+section#form input,textarea{
+    padding:1% 2%;
+    border-style: none !important;
+    border: 1px solid #fff !important;
+    border-radius: 14px;
+    color: #fff;
+    background-color: transparent;
+}
+
+section#form input::placeholder,textarea::placeholder {
+  color: #fff;
+}
+
+section#form button{
+  justify-content: center;
+  width: 40%;
+  border-radius: 14px;
+  border: 1px solid #fff;
+  padding: 2px 20px;
+  color: #1370af;
+  font-weight: 600;
+  background-color: #fff;
+}
+section#form button:hover{
+  border-radius: 14px;
+  border: 1px solid #fff;
+  padding: 2px 20px;
+  color: #fff;
+  background-color: #1370af;
+}
+
+
+/* MODAL */
+.modal {
+  display: none; /* Hidden by default */
+  /* position: fixed; Stay in place */
+  z-index: 999; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow:auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+
+/* Modal Content */
+.modal-content {
+    margin: 0 auto;
+    border: 0px solid #888;
+    width: 35%;
+    background-color: transparent;
+  }
+  
+  .fundo-modal {
+    background-image: url(../img/Banner04Box.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 100% center;
+    margin: 100px 10px;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .fundo-modal form {
+   width: 80%;
+   padding: 8% 0;
+   margin-left: 8%;
+  }
+
+  
+/* The Close Button */
+.close {
+  position: absolute;
+  color: #00973a;
+  float: right !important;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 0px;
+  margin-right: -10px;
+  right:0;
+  background-color: #fff;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  border-radius: 20px;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+  @media (max-width: 1944px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 100% center;
+      margin: 100px 10px;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .fundo-modal form {
+     width: 80%;
+     padding: 10% 0;
+     margin-left: 10%;
+    }
+  
+  }
+
+  @media (max-width: 1444px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 100% center;
+      margin: 100px 10px;
+      padding: 0;
+      width: 104%;
+      height: 100%;
+    }
+    
+    .fundo-modal form {
+     width: 80%;
+     padding: 10% 0;
+     margin-left: 8%;
+    }
+  
+  }
+
+  @media (max-width: 1394px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 100% center;
+      margin: 100px 10px;
+      padding: 0;
+      width: 104%;
+      height: 100%;
+    }
+    
+    .fundo-modal form {
+     width: 80%;
+     padding: 10% 0;
+     margin-left: 6%;
+    }
+  
+  }
+
+  @media (max-width: 1379px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 60% 80%;
+      margin: 100px 10px;
+      padding: 0;
+      width: 104%;
+      height: 100%;
+    }
+    
+    .fundo-modal form {
+     width: 80%;
+     padding: 10% 0;
+     margin-left: 9%;
+    }
+  
+  }
+
+  @media (max-width: 1294px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 110% 30%;
+      margin: 40px -40px;
+      padding: 0;
+      width: 115%;
+      height: 80%;
+    }
+    
+    .fundo-modal form {
+     width: 80%;
+     padding: 10% 0;
+     margin-left: 8%;
+    }
+  
+  }
+
+  @media (max-width: 1227px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 110% 30%;
+      margin: 40px -50px;
+      padding: 0;
+      width: 120%;
+      height: 80%;
+    }
+    
+    .fundo-modal form {
+     width: 80%;
+     padding: 10% 0;
+     margin-left: 8%;
+    }
+  
+  }
+
+  @media (max-width: 1200px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 110% 30%;
+      margin: 40px -50px;
+      padding: 0;
+      width: 510px;
+      height: auto;
+    }
+    
+    .fundo-modal form {
+     width: 80%;
+     padding: 10% 0;
+     margin-left: 7%;
+    }
+
+    .close {
+    
+      margin-right: -50px;
+     
+    }
+  
+  }
+
+  @media (max-width: 1011px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 80% 30%;
+      margin: 40px -110px;
+      padding: 0;
+      width: 390px;
+      height: auto;
+    }
+    
+    .fundo-modal form {
+     width: 82%;
+     padding: 10% 0;
+     margin-left: 7%;
+    }
+
+    .close {
+    
+      margin-right: -90px;
+     
+    }
+  
+  }
+
+  @media (max-width: 769px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 40px -90px;
+      padding: 0;
+      width: 470px;
+      height: auto;
+    }
+    
+    .fundo-modal form {
+     width: 82%;
+     padding: 10% 0;
+     margin-left: 7%;
+    }
+
+    .close {
+    
+      margin-right: -120px;
+     
+    }
+  
+  }
+
+  
+  @media (max-width: 426px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 40% 40%;
+      margin: 40px -120px;
+      padding: 0;
+      width: 90vw;
+      height: auto;
+    }
+    
+    .fundo-modal form {
+     width: 82%;
+     padding: 10% 0;
+     margin-left: 7%;
+    }
+
+    .close {
+    
+      margin-right: -120px;
+     
+    }
+  
+  }
+
+  @media (max-width: 376px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 40% 100%;
+      margin: 40px -120px;
+      padding: 0;
+      padding-bottom: 10px;
+      width: 380px;
+      height: 100%;
+    }
+    
+    .fundo-modal form {
+     width: 82%;
+     padding: 10% 0;
+     margin-left: 7%;
+    }
+
+    .close {
+    
+      margin-right: -120px;
+     
+    }
+  
+  }
+
+  @media (max-width: 330px) {
+    .fundo-modal {
+      background-image: url(../img/Banner04Box.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 20% 100%;
+      margin: 40px -110px;
+      padding: 0;
+      padding-bottom: 20px;
+      width: 322px;
+      height: 100%;
+    }
+    
+    .fundo-modal form {
+     width: 82%;
+     padding: 10% 0;
+     margin-left: 8%;
+    }
+
+    .close {
+    
+      margin-right: -100px;
+     
+    }
+  
+  }
+
+
+

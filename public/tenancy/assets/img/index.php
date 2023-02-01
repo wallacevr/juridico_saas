@@ -2,7 +2,7 @@
 <html lang="pt-br">
 	<head>
 		<meta charset="utf-8">
-		<title>Início | Senha Top/title>
+		<title>Início | Bac</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      
@@ -10,10 +10,10 @@
       <meta property="og:image:width" content="500" />
       <meta property="og:image:height" content="630" />
      
-      <meta property="og:url"content="https://www.senhatop.com.br/" />
-      <meta property="og:site_name"content="senhatop.com.br" />
+      <meta property="og:url"content="https://www.bacsaude.com.br/" />
+      <meta property="og:site_name"content="bacsaude.com.br" />
 
-      <meta property="og:title" content="Soluções em Gestão de Atendimento" />
+      <meta property="og:title" content="Soluções em Telemedicina" />
 		<meta name="theme-color" content="#fff"/>
 		<meta name="description" content="">
 		<meta name="keywords" content="">

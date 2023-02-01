@@ -29,10 +29,28 @@ Route::group([
         Route::redirect('/', '/admin/login/')->middleware('guest:admin')->name('admin.login');
 
         Route::middleware(['auth', CheckSubscription::class])->group(function () {
-            Route::get('/dashboard', 'ApplicationSettingsController@show')->name('admin.dashboad');
-
+            Route::get('/dashboard', 'HomeController@dashboard')->name('admin.dashboad');
+            Route::get('/settings', 'ApplicationSettingsController@show')->name('admin.settings');
             
        
+            Route::prefix('cliente')->group(function(){
+                Route::get('/', '\App\Http\Controllers\Tenant\Cliente\ClienteController@index')->name('clientes.index');
+                Route::get('/cadastro', '\App\Http\Controllers\Tenant\Cliente\ClienteController@create')->name('cliente.create');
+                Route::post('/salvar', '\App\Http\Controllers\Tenant\Cliente\ClienteController@store')->name('cliente.store');
+                Route::get('/alterar/{cliente}', '\App\Http\Controllers\Tenant\Cliente\ClienteController@edit')->name('cliente.edit');
+                Route::put('/alterar/{cliente}', '\App\Http\Controllers\Tenant\Cliente\Cliente\ClienteController@update')->name('cliente.update');
+                Route::delete('/deletar/{cliente}', '\App\Http\Controllers\Tenant\Cliente\Controller@destroy')->name('cliente.destroy');
+                Route::get('/ver/{cliente}', '\App\Http\Controllers\Tenant\Cliente\ClienteController@show')->name('cliente.show');
+
+            });
+
+
+
+
+
+
+
+
 
             Route::resource('parceiros', 'ParceiroController');
             // Collection routes
