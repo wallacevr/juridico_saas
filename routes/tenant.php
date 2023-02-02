@@ -38,13 +38,22 @@ Route::group([
                 Route::get('/cadastro', '\App\Http\Controllers\Tenant\Cliente\ClienteController@create')->name('cliente.create');
                 Route::post('/salvar', '\App\Http\Controllers\Tenant\Cliente\ClienteController@store')->name('cliente.store');
                 Route::get('/alterar/{cliente}', '\App\Http\Controllers\Tenant\Cliente\ClienteController@edit')->name('cliente.edit');
-                Route::put('/alterar/{cliente}', '\App\Http\Controllers\Tenant\Cliente\Cliente\ClienteController@update')->name('cliente.update');
-                Route::delete('/deletar/{cliente}', '\App\Http\Controllers\Tenant\Cliente\Controller@destroy')->name('cliente.destroy');
+                Route::put('/alterar/{cliente}', '\App\Http\Controllers\Tenant\Cliente\ClienteController@update')->name('cliente.update');
+                Route::delete('/deletar/{cliente}', '\App\Http\Controllers\Tenant\Cliente\ClienteController@destroy')->name('cliente.destroy');
                 Route::get('/ver/{cliente}', '\App\Http\Controllers\Tenant\Cliente\ClienteController@show')->name('cliente.show');
 
             });
 
-
+            Route::prefix('envolvidos')->group(function(){
+                Route::get('/', '\App\Http\Controllers\Tenant\Envolvido\EnvolvidoController@index')->name('envolvidos.index');
+              /*  Route::get('/cadastro', '\App\Http\Controllers\Cliente\ClienteController@create')->name('cliente.create');*/
+                 Route::post('/salvar', '\App\Http\Controllers\Tenant\Envolvido\EnvolvidoController@store')->name('envolvido.store');
+                 Route::delete('/deletar/{envolvido}', '\App\Http\Controllers\Tenant\Envolvido\EnvolvidoController@destroy')->name('envolvido.destroy');
+                /*Route::get('/alterar/{cliente}', 'Cliente\ClienteController@edit')->name('cliente.edit');
+                Route::put('/alterar/{cliente}', 'Cliente\ClienteController@update')->name('cliente.update');
+           
+                Route::get('/ver/{cliente}', 'Cliente\ClienteController@show')->name('cliente.show');*/
+            });
 
 
 

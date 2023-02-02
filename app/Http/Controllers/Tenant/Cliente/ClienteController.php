@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ClienteRequest;
 use Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Exception;
 class ClienteController extends Controller
 {
     //
@@ -19,13 +23,13 @@ class ClienteController extends Controller
     }
 
     public function store(ClienteRequest $request){
-
+      
         try {
             //code...
             $cliente= new Cliente;
             $cliente->nome = $request->nome;
             $cliente->nomefantasia = $request->nomefantasia;
-            $cliente->empresa_id = Auth::user()->empresa_id;
+    
             $cliente->cpf = $request['cpf'];
             $cliente->cnpj = $request['cnpj'];
             $cliente->email = $request['email'];
@@ -62,8 +66,13 @@ class ClienteController extends Controller
             
            
             $cliente->save();
+           
             return redirect()->route('tenant.clientes.index')->withSuccess('Cliente cadastrado com sucesso!');
-
+        }catch(ValidationException $Error)
+        {
+            dd($Error);
+           
+         
         } catch (\Throwable $Error) {
             //throw $th;
            
@@ -122,7 +131,7 @@ class ClienteController extends Controller
            
             $cliente->nome = $request->nome;
             $cliente->nomefantasia = $request->nomefantasia;
-            $cliente->empresa_id = Auth::user()->empresa_id;
+        
             $cliente->cpf = $request['cpf'];
             $cliente->cnpj = $request['cnpj'];
             $cliente->email = $request['email'];

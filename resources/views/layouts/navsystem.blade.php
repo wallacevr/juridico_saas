@@ -36,7 +36,7 @@
         </li>
         <li
         >
-            <a href="#">
+            <a href="{{route('tenant.envolvidos.index')}}">
                 <div class="parent-icon"><i class='bx bx-group'></i>
                 </div>
                 <div class="menu-title">Envolvidos</div>
