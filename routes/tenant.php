@@ -54,7 +54,21 @@ Route::group([
            
                 Route::get('/ver/{cliente}', 'Cliente\ClienteController@show')->name('cliente.show');*/
             });
-
+            Route::prefix('processo')->group(function(){
+                Route::get('/', '\App\Http\Controllers\Tenant\Processos\ProcessoController@index')->name('processos.index');
+                Route::get('/novo', '\App\Http\Controllers\Tenant\Processos\ProcessoController@create')->name('processo.create');
+                Route::post('/salvar', '\App\Http\Controllers\Tenant\Processos\ProcessoController@store')->name('processo.store');
+                Route::get('/visualizar/{id}', '\App\Http\Controllers\Tenant\Processos\ProcessoController@show')->name('processo.show');
+                Route::get('/alterar/{id}', '\App\Http\Controllers\Tenant\Processos\ProcessoController@edit')->name('processo.edit');
+                Route::post('/alterar/{processo}', '\App\Http\Controllers\Tenant\Processos\ProcessoController@update')->name('processo.update');
+                Route::delete('/deletar/{processo}', '\App\Http\Controllers\Tenant\Processos\ProcessoController@destroy')->name('processo.destroy');
+        
+                Route::post('/addhistorico/{processo}', '\App\Http\Controllers\Tenant\Processos\ProcessoController@addhistorico')->name('processo.addhistorico');
+                Route::get('/novorecurso/{principal}', '\App\Http\Controllers\Tenant\Processos\ProcessoController@createrecurso')->name('recurso.create');
+                Route::post('/salvarrecurso', '\App\Http\Controllers\Tenant\Processos\ProcessoController@storerecurso')->name('recurso.store');
+                Route::get('/novodesdobramento/{principal}', '\App\Http\Controllers\App\Http\Controllers\Tenant\Processos\ProcessoController@createdesdobramento')->name('desdobramento.create');
+                Route::post('/salvardesdobramento', '\App\Http\Controllers\Tenant\Processos\ProcessoController@storedesdobramento')->name('desdobramento.store');
+            }); 
 
 
 

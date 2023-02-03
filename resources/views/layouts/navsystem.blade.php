@@ -52,7 +52,7 @@
         </li>
         <li
         >
-            <a href="#">
+            <a href="{{route('tenant.processos.index')}}">
                 <div class="parent-icon"><i class='bx bx-folder-open'></i>
                 </div>
                 <div class="menu-title">Processos e Casos</div>
