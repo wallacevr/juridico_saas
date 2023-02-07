@@ -12,6 +12,7 @@ class Atividades extends Component
     public $descricao;
     public $show;
     public $historico_id;
+    public $description;
     public function mount($id){
        
         $this->processo = Processo::where('id','=',$id)

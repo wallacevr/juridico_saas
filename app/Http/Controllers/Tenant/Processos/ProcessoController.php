@@ -125,6 +125,7 @@ class ProcessoController extends Controller
         }
     }
     public function edit($id){
+  
         $clientes = Cliente::orderBy('nome')->get();
         $envolvidos = Envolvido::orderBy('nome')->get();
         $instancias = Instancia::orderBy('descricao')->get();
@@ -133,9 +134,11 @@ class ProcessoController extends Controller
         $acoes = Acao::orderBy('descricao')->get();
         $qualificacoes = Qualificacoes::orderBy('descricao')->get();
         $users = User::orderBy('name')->get();
-        $processo = Processo::where('id','=',$id)
        
+        $processo = Processo::where('id','=',$id)
+      
         ->with('clientes','instancia','vara','foro','acao','historico','recursos','desdobramentos')->get();
+       
       
         return view('tenant.processos.edit',compact('processo','clientes','instancias','varas','foros','acoes','users','qualificacoes','envolvidos'));
     }
@@ -145,7 +148,6 @@ class ProcessoController extends Controller
         $historico=new Historicos;
         $historico['data'] = $request['data'];
         $historico['descricao'] = $request['descricao'];
-        $historico['empresa_id'] = Auth::user()->empresa_id;
         $historico['processo_id'] = $processo;
         $historico->save();
         $processo = Processo::where('id','=',$processo)
@@ -321,7 +323,7 @@ class ProcessoController extends Controller
 
         try {
             //code...
-           
+          
             $processo= Processo::find($processo);
             $processo->titulo = $request['titulo'];
             $processo->instancia_id = $request['instancia_id'];
@@ -349,7 +351,7 @@ class ProcessoController extends Controller
                 $processocliente->save();
 
             }
-            $deleted = \DB::table('envolvido_processo')->where('processo_id', '=', $processo->id)->delete();
+            $deleted = \DB::table('envolvidos_processos')->where('processo_id', '=', $processo->id)->delete();
             foreach($request['envolvido_id'] as $envolvido_id){
                     $processoenvolvido = new ProcessoEnvolvido;
                     $processoenvolvido ->processo_id= $processo->id;
@@ -358,7 +360,7 @@ class ProcessoController extends Controller
                 $processoenvolvido->save();
 
             }
-            $deleted = \DB::table('processo_user')->where('processo_id', '=', $processo->id)->delete();
+            $deleted = \DB::table('user_processo')->where('processo_id', '=', $processo->id)->delete();
             foreach($request['responsavel_id'] as $responsavel_id){
                 $processoresponsavel = new ProcessoUser;
                 $processoresponsavel ->processo_id= $processo->id;

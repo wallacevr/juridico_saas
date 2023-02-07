@@ -9,8 +9,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 @foreach($processo as $processo)
-		<form action="{{route('processo.update',['processo'=>$processo->id])}}" method="post">
+		<form action="{{route('tenant.processo.update',['processo'=>$processo->id])}}" method="post">
 
 		@csrf
 		@if($errors->any())
@@ -66,6 +67,7 @@
 							</select>
 						</div>
 				</div>
+				
 				<div class="row">
 						<div class="col-4">
 								<label for="envolvido_id" class="form-label">Envolvidos</label>
@@ -73,6 +75,7 @@
 				
 							<select class="js-example-basic-multiple form-select" name="envolvido_id[]" multiple="multiple">
 								@foreach($envolvidos as $envolvido)
+							
 										<option value="{{$envolvido->id}}" 
 										@if( $processo->envolvidos->pluck('id')->contains($envolvido->id))
 											selected
@@ -83,6 +86,7 @@
 									@endforeach
 							</select>
 						</div>
+						
 						<div class="col-2">
 								<label for="qualienvolvidos" class="form-label">Qualificação</label>
 					
@@ -100,6 +104,7 @@
 							</select>
 						</div>
 				</div>
+				
 				<div class="row">
 						<div class="col-6">
 								<label for="titulo" class="form-label">Título</label>
@@ -107,6 +112,7 @@
 						</div>
 				</div>
 				<div class="row">
+				
 						<div class="col-2">
 								<label for="instancia" class="form-label">Instância</label>
 							<select class="form-select" name="instancia_id" >
@@ -129,6 +135,7 @@
 						<input type="text" class="form-control" name="nprocesso" placeholder="Nº do Processo" value="{{$processo->numero}}"></input>
 						</div>
 				</div>
+				
 				<div class="row">
 						<div class="col-2">
 								<label for="juizo" class="form-label">Juízo</label>
@@ -153,6 +160,7 @@
 								@endforeach
 							</select>
 						</div>
+					
 						<div class="col-2">
 								<label for="foro_id" class="form-label">Foro</label>
 							<select class="form-select" name="foro_id" >
@@ -171,6 +179,7 @@
 							</select>
 						</div>
 				</div>
+				
 				<div class="row">
 						<div class="col-6">
 								<label for="acao_id" class="form-label">Ação</label>
@@ -241,6 +250,7 @@
 									@endphp</textarea>
 						</div>
 				</div>
+			
 				<div class="row">
 						<div class="col-6">
 								<label for="responsavel_id" class="form-label">Responsáveis</label>
@@ -266,6 +276,7 @@
 				</div>	
 			</form>
 	@endforeach
+	
 @endsection
 
 @section('script')

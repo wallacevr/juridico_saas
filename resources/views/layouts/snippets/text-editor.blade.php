@@ -17,7 +17,7 @@
 @enderror
 
 
-@push('js')
+@push('script')
 <script src="//cdn.ckeditor.com/4.17.2/full/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('{{$name}}', {

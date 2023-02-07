@@ -47,7 +47,7 @@ class Processo extends Model
     public function envolvidos()
     {
        
-            return $this->belongsToMany('App\Models\Envolvidos\Envolvido')->withPivot(['qualificacao_id']);
+            return $this->belongsToMany('App\Models\Envolvidos\Envolvido','envolvidos_processos','processo_id',"envolvido_id")->withPivot(['qualificacao_id']);
       
 
     
@@ -55,7 +55,7 @@ class Processo extends Model
     public function responsaveis()
     {
        
-            return $this->belongsToMany('App\User');
+            return $this->belongsToMany('App\User','user_processo','processo_id',"user_id");
       
 
     
