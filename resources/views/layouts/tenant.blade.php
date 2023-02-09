@@ -19,6 +19,7 @@
 	<!-- loader-->
 	<link href="{{ asset('assets/css/pace.min.css') }}" rel="stylesheet" />
 	<script src="{{ asset('assets/js/pace.min.js') }}"></script>
+	<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js}"></script>
 	<!-- Bootstrap CSS -->
 	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -27,6 +28,8 @@
 	<link rel="stylesheet" href="{{asset('fontawesome/css/all.css')}}"  />
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+
 
 	@yield("bootstrap")
 	@livewireStyles
